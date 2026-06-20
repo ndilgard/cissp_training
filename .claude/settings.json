@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/nate/Claude_Code/Projects/CISSP-Exam/.claude/hooks/lint-on-edit.sh",
+            "statusMessage": "Linting JS/JSX..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/nate/Claude_Code/Projects/CISSP-Exam/.claude/hooks/verify-build.sh",
+            "statusMessage": "Verifying build..."
+          }
+        ]
+      }
+    ]
+  }
+}
