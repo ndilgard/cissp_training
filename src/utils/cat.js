@@ -109,3 +109,14 @@ export function getDomainBreakdown(answered) {
   });
   return byDomain;
 }
+
+// Difficulty performance breakdown
+export function getDifficultyBreakdown(answered) {
+  const byDiff = {};
+  answered.forEach(({ difficulty, correct }) => {
+    if (!byDiff[difficulty]) byDiff[difficulty] = { correct: 0, total: 0 };
+    byDiff[difficulty].total++;
+    if (correct) byDiff[difficulty].correct++;
+  });
+  return byDiff;
+}

@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Flag } from 'lucide-react';
 import Question from './Question.jsx';
 import Timer from './Timer.jsx';
 import Results from './Results.jsx';
@@ -12,6 +13,7 @@ import {
   shouldTerminate,
   calculateScaledScore,
   getDomainBreakdown,
+  getDifficultyBreakdown,
 } from '../utils/cat.js';
 import { getSeenIds, markSeen, updateWrongAnswers, getWrongWeights } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
@@ -69,6 +71,7 @@ export default function ExamMode({ onHome }) {
       correct: answered.filter(a => a.correct).length,
       total: answered.length,
       domainBreakdown: getDomainBreakdown(answered),
+      difficultyBreakdown: getDifficultyBreakdown(answered),
     });
 
     setPhase('results');
@@ -170,6 +173,7 @@ export default function ExamMode({ onHome }) {
         isPractice={false}
         onRestart={handleRestart}
         onHome={onHome}
+        questionHistory={questionHistory}
       />
     );
   }
@@ -185,7 +189,7 @@ export default function ExamMode({ onHome }) {
         <Timer totalSeconds={EXAM_SECONDS} onExpire={handleExpire} />
         <div className="exam-header__progress">
           Q {questionNumber}
-          {flagCount > 0 && <span className="flag-count">🚩 {flagCount}</span>}
+          {flagCount > 0 && <span className="flag-count"><Flag size={13} strokeWidth={2} /> {flagCount}</span>}
         </div>
       </header>
 

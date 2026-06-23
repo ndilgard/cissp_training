@@ -1,9 +1,10 @@
+import { Target, BookOpen, BarChart2, Upload, AlertTriangle } from 'lucide-react';
 import { DOMAINS } from '../data/questions.js';
 import { getSessions } from '../utils/sessions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
 import { getWrongIds } from '../utils/history.js';
 
-export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }) {
+export default function HomeScreen({ onExam, onPractice, onDashboard, onImport, onWrongReview }) {
   const sessions   = getSessions();
   const customQs   = getCustomQuestions();
   const wrongCount = getWrongIds().size;
@@ -12,14 +13,29 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
   return (
     <div className="home">
       <div className="home__hero">
-        <div className="home__badge">ISC²</div>
-        <h1>CISSP Exam Simulator</h1>
-        <p>Certified Information Systems Security Professional</p>
+        <div className="home__wordmark">CISSPrep</div>
+        <h1>Stop guessing.<br />Start passing.</h1>
+        <p>1,000 adaptive practice questions across all 8 CISSP domains — built for how the real exam tests you.</p>
       </div>
+
+      {wrongCount > 0 && onWrongReview && (
+        <div className="home__weak-cta">
+          <div className="weak-cta__body">
+            <AlertTriangle size={22} strokeWidth={1.75} className="weak-cta__icon" />
+            <div>
+              <strong>{wrongCount} question{wrongCount !== 1 ? 's' : ''} need review</strong>
+              <p>You have wrong answers from previous sessions. Tackle your weak spots now.</p>
+            </div>
+          </div>
+          <button className="btn btn--danger" onClick={onWrongReview}>
+            Review Weak Spots →
+          </button>
+        </div>
+      )}
 
       <div className="home__modes">
         <div className="mode-card mode-card--exam" onClick={onExam}>
-          <div className="mode-card__icon">🎯</div>
+          <div className="mode-card__icon"><Target size={26} strokeWidth={1.75} /></div>
           <h2>Exam Mode</h2>
           <p>Full CAT simulation · 100–150 adaptive questions · 3-hour timer · Pass/Fail verdict</p>
           <ul className="mode-card__features">
@@ -30,8 +46,8 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
           </ul>
           {lastExam && (
             <div className="mode-card__last">
-              Last: <span className={lastExam.score >= 700 ? 'text-pass' : 'text-fail'}>
-                {lastExam.score} {lastExam.score >= 700 ? '✓' : '✗'}
+              Last score: <span className={lastExam.score >= 700 ? 'text-pass' : 'text-fail'}>
+                {lastExam.score} {lastExam.score >= 700 ? '— Pass' : '— Not yet'}
               </span>
             </div>
           )}
@@ -39,7 +55,7 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
         </div>
 
         <div className="mode-card mode-card--practice" onClick={onPractice}>
-          <div className="mode-card__icon">📚</div>
+          <div className="mode-card__icon"><BookOpen size={26} strokeWidth={1.75} /></div>
           <h2>Practice Mode</h2>
           <p>Study at your own pace · filter by domain and difficulty · see explanations</p>
           <ul className="mode-card__features">
@@ -48,25 +64,20 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
             <li>Filter by domain and difficulty</li>
             <li>Review your mistakes at the end</li>
           </ul>
-          {wrongCount > 0 && (
-            <div className="mode-card__last">
-              <span className="badge-wrong">{wrongCount} questions need review</span>
-            </div>
-          )}
           <button className="btn btn--secondary">Start Practice →</button>
         </div>
       </div>
 
       <div className="home__tools">
         <button className="tool-btn" onClick={onDashboard}>
-          <span className="tool-btn__icon">📊</span>
+          <span className="tool-btn__icon"><BarChart2 size={20} strokeWidth={1.75} /></span>
           <span>
             <strong>Dashboard</strong>
             <small>{sessions.length} session{sessions.length !== 1 ? 's' : ''} recorded</small>
           </span>
         </button>
         <button className="tool-btn" onClick={onImport}>
-          <span className="tool-btn__icon">📥</span>
+          <span className="tool-btn__icon"><Upload size={20} strokeWidth={1.75} /></span>
           <span>
             <strong>Import Questions</strong>
             <small>{customQs.length > 0 ? `${customQs.length} custom loaded` : 'Add your own question bank'}</small>
@@ -75,7 +86,7 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
       </div>
 
       <div className="home__domains">
-        <h3>8 CISSP Domains Covered</h3>
+        <h3>All 8 CISSP Domains</h3>
         <div className="domain-chips">
           {Object.entries(DOMAINS).map(([num, name]) => (
             <span key={num} className="domain-chip">
@@ -86,8 +97,7 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport }
       </div>
 
       <div className="home__disclaimer">
-        <strong>Note:</strong> This simulator uses AI-generated practice questions for study purposes.
-        It is not affiliated with ISC² and does not contain official exam content.
+        1,000 CISSP-aligned practice questions · Not affiliated with ISC² · For study purposes only
       </div>
     </div>
   );

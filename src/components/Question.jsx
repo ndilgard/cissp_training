@@ -1,3 +1,4 @@
+import { Flag } from 'lucide-react';
 import { DOMAINS } from '../data/questions.js';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
@@ -45,7 +46,8 @@ export default function Question({
             onClick={onFlag}
             title={isFlagged ? 'Remove flag' : 'Flag for review'}
           >
-            {isFlagged ? '🚩 Flagged' : '⚑ Flag'}
+            <Flag size={14} strokeWidth={2} />
+            {isFlagged ? 'Flagged' : 'Flag'}
           </button>
         )}
       </div>

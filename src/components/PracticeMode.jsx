@@ -5,7 +5,7 @@ import questions, { DOMAINS } from '../data/questions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
 import { getSeenIds, markSeen, updateWrongAnswers, resetHistory, getSeenCount, getWrongIds } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
-import { getDomainBreakdown } from '../utils/cat.js';
+import { getDomainBreakdown, getDifficultyBreakdown } from '../utils/cat.js';
 
 const DIFF_OPTIONS = [
   { value: 0, label: 'All Levels' },
@@ -129,6 +129,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
         correct: newAnswered.filter(a => a.correct).length,
         total: newAnswered.length,
         domainBreakdown: getDomainBreakdown(newAnswered),
+        difficultyBreakdown: getDifficultyBreakdown(newAnswered),
       });
       setPhase('results');
       return;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Flag } from 'lucide-react';
 import Question from './Question.jsx';
 import { DOMAINS } from '../data/questions.js';
 
@@ -20,7 +21,7 @@ export default function ExamReview({ questionHistory, onUpdateAnswer, onToggleFl
             ← Back to Review
           </button>
           <div className="exam-header__title">
-            Reviewing Question {viewing + 1}{entry.flagged ? ' 🚩' : ''}
+            Reviewing Question {viewing + 1}{entry.flagged ? <Flag size={14} strokeWidth={2} style={{ marginLeft: 6, verticalAlign: 'middle' }} /> : ''}
           </div>
           <div className="exam-header__progress">
             {flaggedCount} flagged remaining
@@ -73,7 +74,7 @@ export default function ExamReview({ questionHistory, onUpdateAnswer, onToggleFl
               title={`Q${i + 1} · ${DOMAINS[entry.question.domain]}${entry.flagged ? ' · Flagged' : ''}${!hasAnswer ? ' · Unanswered' : ` · Answered: ${OPTION_LABELS[entry.selectedAnswer]}`}`}
             >
               <span className="review-cell__num">{i + 1}</span>
-              {entry.flagged && <span className="review-cell__flag">🚩</span>}
+              {entry.flagged && <span className="review-cell__flag"><Flag size={11} strokeWidth={2} /></span>}
               {!hasAnswer && <span className="review-cell__dot review-cell__dot--empty" />}
               {hasAnswer && !entry.flagged && <span className="review-cell__dot review-cell__dot--filled" />}
             </div>

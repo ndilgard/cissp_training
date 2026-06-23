@@ -5,14 +5,23 @@ import PracticeMode from './components/PracticeMode.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import QuestionImport from './components/QuestionImport.jsx';
 import WrongAnswerReview from './components/WrongAnswerReview.jsx';
+import questions from './data/questions.js';
+import { getCustomQuestions } from './utils/customQuestions.js';
+import { getWrongIds } from './utils/history.js';
 
 function App() {
   const [screen, setScreen] = useState('home');
   const [wrongQuestions, setWrongQuestions] = useState([]);
 
-  function startWrongReview(questions) {
-    setWrongQuestions(questions);
+  function startWrongReview(qs) {
+    setWrongQuestions(qs);
     setScreen('wrong-review');
+  }
+
+  function handleHomeWrongReview() {
+    const all = [...questions, ...getCustomQuestions()];
+    const wrongIds = getWrongIds();
+    startWrongReview(all.filter(q => wrongIds.has(q.id)));
   }
 
   return (
@@ -23,6 +32,7 @@ function App() {
           onPractice={() => setScreen('practice')}
           onDashboard={() => setScreen('dashboard')}
           onImport={() => setScreen('import')}
+          onWrongReview={handleHomeWrongReview}
         />
       )}
       {screen === 'exam' && (
