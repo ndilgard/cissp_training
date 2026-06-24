@@ -5,6 +5,7 @@ import PracticeMode from './components/PracticeMode.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import QuestionImport from './components/QuestionImport.jsx';
 import WrongAnswerReview from './components/WrongAnswerReview.jsx';
+import FlashcardMode from './components/FlashcardMode.jsx';
 import questions from './data/questions.js';
 import { getCustomQuestions } from './utils/customQuestions.js';
 import { getWrongIds } from './utils/history.js';
@@ -33,6 +34,7 @@ function App() {
           onDashboard={() => setScreen('dashboard')}
           onImport={() => setScreen('import')}
           onWrongReview={handleHomeWrongReview}
+          onFlashcards={() => setScreen('flashcards')}
         />
       )}
       {screen === 'exam' && (
@@ -55,6 +57,9 @@ function App() {
           wrongQuestions={wrongQuestions}
           onDone={() => setScreen('home')}
         />
+      )}
+      {screen === 'flashcards' && (
+        <FlashcardMode onHome={() => setScreen('home')} />
       )}
     </div>
   );

@@ -1283,3 +1283,192 @@ body { min-height: 100vh; }
   .review-grid { gap: 3px; }
   .review-cell { font-size: 10px; }
 }
+
+/* ── Flashcard Setup & Summary ── */
+.fc-setup__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.fc-setup__header h2 { flex: 1; font-size: 22px; color: var(--heading); margin: 0; }
+
+.fc-deck-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.fc-deck-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  transition: border-color 0.15s, background 0.15s;
+}
+.fc-deck-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-light); }
+.fc-deck-btn--active { border-color: var(--accent); background: var(--accent-light); }
+.fc-deck-btn strong { display: block; font-size: 14px; color: var(--heading); }
+.fc-deck-btn small  { font-size: 12px; color: var(--text-muted); }
+.fc-deck-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.fc-summary { text-align: center; }
+.fc-summary h2 { font-size: 22px; color: var(--heading); margin-bottom: 16px; }
+.fc-summary__score { font-size: 72px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 12px; }
+.fc-summary__detail { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
+.fc-summary__knew   { color: var(--pass); font-weight: 600; font-size: 15px; }
+.fc-summary__missed { color: var(--fail); font-weight: 600; font-size: 15px; }
+.fc-summary__actions { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Flashcard Study Layout ── */
+.fc-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.fc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.fc-header__title    { flex: 1; font-size: 15px; font-weight: 700; color: var(--heading); text-align: center; }
+.fc-header__progress { font-size: 13px; color: var(--text-muted); min-width: 50px; text-align: right; }
+
+.fc-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 20px 40px;
+  gap: 20px;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.fc-domain-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── Flip card ── */
+.fc-scene {
+  width: 100%;
+  perspective: 1200px;
+  cursor: pointer;
+}
+.fc-card {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+}
+.fc-card--flipped { transform: rotateY(180deg); cursor: default; }
+
+.fc-card__face {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  min-height: 260px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.fc-card__back { transform: rotateY(180deg); }
+
+.fc-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+}
+.fc-card__text {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.45;
+  white-space: pre-line;
+}
+.fc-card__text--back {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  text-align: left;
+}
+.fc-card__hint { font-size: 13px; color: var(--text-muted); }
+
+/* ── Rating buttons ── */
+.fc-rating {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+.fc-btn-miss {
+  flex: 1;
+  background: rgba(244,67,54,0.12);
+  color: #e57373;
+  border: 1px solid rgba(244,67,54,0.35);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px;
+}
+.fc-btn-miss:hover { background: rgba(244,67,54,0.22); }
+.fc-btn-know {
+  flex: 1;
+  background: rgba(76,175,80,0.12);
+  color: #81c784;
+  border: 1px solid rgba(76,175,80,0.35);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px;
+}
+.fc-btn-know:hover { background: rgba(76,175,80,0.22); }
+
+/* ── Progress bar ── */
+.fc-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--surface2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.fc-progress-bar__fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* ── Flashcard mobile ── */
+@media (max-width: 640px) {
+  .fc-deck-selector { grid-template-columns: 1fr; }
+  .fc-main { padding: 20px 12px 32px; }
+  .fc-card__text { font-size: 18px; }
+  .fc-card__text--back { font-size: 15px; }
+  .fc-card__face { padding: 24px 20px; min-height: 220px; }
+  .fc-card { min-height: 220px; }
+  .fc-rating { flex-direction: column; }
+  .fc-summary__score { font-size: 56px; }
+}

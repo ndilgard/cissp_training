@@ -1,14 +1,17 @@
-import { Target, BookOpen, BarChart2, Upload, AlertTriangle } from 'lucide-react';
+import { Target, BookOpen, BarChart2, Upload, AlertTriangle, Layers } from 'lucide-react';
 import { DOMAINS } from '../data/questions.js';
 import { getSessions } from '../utils/sessions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
 import { getWrongIds } from '../utils/history.js';
+import { getFlashcardsDue } from '../utils/flashcardProgress.js';
+import flashcards from '../data/flashcards.js';
 
-export default function HomeScreen({ onExam, onPractice, onDashboard, onImport, onWrongReview }) {
-  const sessions   = getSessions();
-  const customQs   = getCustomQuestions();
-  const wrongCount = getWrongIds().size;
-  const lastExam   = [...sessions].reverse().find(s => s.mode === 'exam');
+export default function HomeScreen({ onExam, onPractice, onDashboard, onImport, onWrongReview, onFlashcards }) {
+  const sessions        = getSessions();
+  const customQs        = getCustomQuestions();
+  const wrongCount      = getWrongIds().size;
+  const lastExam        = [...sessions].reverse().find(s => s.mode === 'exam');
+  const flashcardsDue   = getFlashcardsDue().size;
 
   return (
     <div className="home">
@@ -81,6 +84,13 @@ export default function HomeScreen({ onExam, onPractice, onDashboard, onImport, 
           <span>
             <strong>Import Questions</strong>
             <small>{customQs.length > 0 ? `${customQs.length} custom loaded` : 'Add your own question bank'}</small>
+          </span>
+        </button>
+        <button className="tool-btn" onClick={onFlashcards}>
+          <span className="tool-btn__icon"><Layers size={20} strokeWidth={1.75} /></span>
+          <span>
+            <strong>Flashcards</strong>
+            <small>{flashcardsDue > 0 ? `${flashcardsDue} cards due` : `${flashcards.length} terms to study`}</small>
           </span>
         </button>
       </div>
