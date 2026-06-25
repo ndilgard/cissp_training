@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DOMAINS } from '../data/questions.js';
+import { DOMAINS, SECTION_SUBDOMAIN } from '../data/questions.js';
 import { getDomainBreakdown, getDifficultyBreakdown } from '../utils/cat.js';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
@@ -18,7 +18,12 @@ function ReviewAccordion({ questionHistory }) {
           <div key={i} className={`era-item ${correct ? 'era-item--correct' : 'era-item--wrong'}`}>
             <button className="era-item__toggle" onClick={() => setOpen(open === i ? null : i)}>
               <span className="era-item__num">Q{i + 1}</span>
-              <span className="era-item__domain">{DOMAINS[q.domain]}</span>
+              <span className="era-item__domain">
+                <span className="era-item__domain-num">
+                  {SECTION_SUBDOMAIN[q.section] || q.domain}
+                </span>
+                {q.section || DOMAINS[q.domain]}
+              </span>
               <span className={`era-item__verdict era-item__verdict--${correct ? 'pass' : 'fail'}`}>
                 {correct ? '✓' : '✗'}
               </span>
@@ -26,6 +31,14 @@ function ReviewAccordion({ questionHistory }) {
             </button>
             {open === i && (
               <div className="era-item__body">
+                <div className="era-item__ref">
+                  {(() => {
+                    const sub = SECTION_SUBDOMAIN[q.section];
+                    return sub
+                      ? `Domain ${sub}: ${DOMAINS[q.domain]} › ${q.section}`
+                      : `Domain ${q.domain}: ${DOMAINS[q.domain]}${q.section ? ` › ${q.section}` : ''}`;
+                  })()}
+                </div>
                 <p className="era-item__qtext">{q.question}</p>
                 <ol className="era-item__options">
                   {q.options.map((opt, j) => {
