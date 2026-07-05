@@ -207,7 +207,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
           <input
             type="range"
             min={5}
-            max={Math.min(50, effectiveAvailable || 50)}
+            max={Math.min(150, effectiveAvailable || 150)}
             value={Math.min(questionCount, effectiveAvailable || questionCount)}
             onChange={e => setCount(Number(e.target.value))}
           />

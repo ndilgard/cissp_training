@@ -35,6 +35,15 @@ export function selectNextQuestion(questions, state, seenIds = new Set(), wrongW
   const available = questions.filter(q => !state.usedIds.has(q.id));
   if (available.length === 0) return null;
 
+  // Questions answered incorrectly in a past session must resurface until
+  // answered correctly enough to clear their weight (see history.js) — this
+  // takes priority over domain/difficulty balancing, not just a scoring boost.
+  const unresolvedWrong = available.filter(q => (wrongWeights[q.id] || 0) > 0);
+  if (unresolvedWrong.length > 0) {
+    const topN = Math.min(3, unresolvedWrong.length);
+    return unresolvedWrong[Math.floor(Math.random() * topN)];
+  }
+
   // Prefer questions not yet seen across sessions; fall back to seen if pool exhausted
   const unseen = available.filter(q => !seenIds.has(q.id));
   const pool = unseen.length > 0 ? unseen : available;
@@ -55,9 +64,7 @@ export function selectNextQuestion(questions, state, seenIds = new Set(), wrongW
     const expectedFraction = DOMAIN_WEIGHTS[q.domain] || 0.125;
     const actualFraction = total > 0 ? (domainCounts[q.domain] || 0) / total : 0;
     const domainScore = Math.max(0, expectedFraction - actualFraction) * 5;
-    // Boost questions answered incorrectly in previous sessions
-    const wrongBonus = Math.min((wrongWeights[q.id] || 0) * 0.4, 1.2);
-    return { q, score: diffScore + domainScore + wrongBonus };
+    return { q, score: diffScore + domainScore };
   });
 
   scored.sort((a, b) => b.score - a.score);
