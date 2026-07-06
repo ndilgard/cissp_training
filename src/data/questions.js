@@ -259,7 +259,7 @@ export const SECTION_SUBDOMAIN = {
   'Code Review & Analysis':                       '6.2',
   'Code Review Techniques':                       '6.2',
   'Fuzzing and Mutation Testing':                 '6.2',
-  'Software Composition Analysis':                '6.2',
+  'Software Composition Analysis Testing':        '6.2',
   'Automated Scanning Tools':                     '6.2',
   'Control Testing':                              '6.2',
   'Compliance Testing':                           '6.2',
@@ -7625,7 +7625,7 @@ export const questions = [
     explanation: "Interactive Application Security Testing (IAST) uses instrumentation agents deployed inside the running application to monitor code execution, data flows, and API calls during testing. It combines aspects of both SAST (code-level visibility) and DAST (runtime analysis) with lower false positive rates than either alone. SAST is static and does not run the application. DAST probes from outside without internal visibility. Fuzz testing sends malformed inputs.",
   },
   {
-    id: "d6_056", domain: 6, difficulty: 2, section: "Software Composition Analysis",
+    id: "d6_056", domain: 6, difficulty: 2, section: "Software Composition Analysis Testing",
     question: "A DevSecOps team integrates a tool into their CI/CD pipeline that scans application dependencies and third-party libraries against known vulnerability databases to identify components with published CVEs. This tool is BEST described as:",
     options: [
       "Static Application Security Testing (SAST)",
@@ -8249,7 +8249,7 @@ export const questions = [
     explanation: "MTTD directly measures the SOC's detection effectiveness by quantifying how long it takes to identify security incidents from their occurrence. A lower MTTD indicates better detection capabilities. Total log events processed is a volume metric, not an effectiveness metric. Firewall rule count measures configuration complexity. Patch deployment is a vulnerability management metric, not a SOC detection metric.",
   },
   {
-    id: "d6_108", domain: 6, difficulty: 2, section: "Software Composition Analysis",
+    id: "d6_108", domain: 6, difficulty: 2, section: "Software Composition Analysis Testing",
     question: "A development team discovers that a widely used open-source library in their application has a known critical vulnerability (Log4Shell equivalent). The library is deeply embedded across 37 microservices. What is the FIRST step the security team should take?",
     options: [
       "Immediately shut down all thirty-seven affected microservices across production to prevent any possible further exploitation",
