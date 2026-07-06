@@ -3,6 +3,21 @@
 
 import { DOMAIN_WEIGHTS } from '../data/questions.js';
 
+// Shuffle a question's options and remap the answer index so correct answer
+// is no longer predictable by position (corrects LLM length-bias artifact).
+export function shuffleOptions(q) {
+  const indices = [0, 1, 2, 3];
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return {
+    ...q,
+    options: indices.map(i => q.options[i]),
+    answer: indices.indexOf(q.answer),
+  };
+}
+
 const MIN_QUESTIONS = 100;
 const MAX_QUESTIONS = 150;
 const PASSING_SCALED_SCORE = 700;

@@ -9,13 +9,14 @@ import FlashcardMode from './components/FlashcardMode.jsx';
 import questions from './data/questions.js';
 import { getCustomQuestions } from './utils/customQuestions.js';
 import { getWrongIds } from './utils/history.js';
+import { shuffleOptions } from './utils/cat.js';
 
 function App() {
   const [screen, setScreen] = useState('home');
   const [wrongQuestions, setWrongQuestions] = useState([]);
 
   function startWrongReview(qs) {
-    setWrongQuestions(qs);
+    setWrongQuestions(qs.map(shuffleOptions));
     setScreen('wrong-review');
   }
 

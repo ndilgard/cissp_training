@@ -14,6 +14,7 @@ import {
   calculateScaledScore,
   getDomainBreakdown,
   getDifficultyBreakdown,
+  shuffleOptions,
 } from '../utils/cat.js';
 import { getSeenIds, markSeen, updateWrongAnswers, getWrongWeights } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
@@ -32,7 +33,7 @@ export default function ExamMode({ onHome }) {
   const [catState, setCatState]         = useState(() => initialState());
   const [questionHistory, setQHistory]  = useState(() => {
     const firstQ = selectNextQuestion(allQuestions, initialState(), getSeenIds(), getWrongWeights());
-    return [{ question: firstQ, selectedAnswer: null, flagged: false }];
+    return [{ question: shuffleOptions(firstQ), selectedAnswer: null, flagged: false }];
   });
   const [selected, setSelected]         = useState(null);
   const [phase, setPhase]               = useState('exam'); // 'exam' | 'review' | 'results'
@@ -116,7 +117,7 @@ export default function ExamMode({ onHome }) {
       return;
     }
 
-    setQHistory([...updatedHistory, { question: next, selectedAnswer: null, flagged: false }]);
+    setQHistory([...updatedHistory, { question: shuffleOptions(next), selectedAnswer: null, flagged: false }]);
   }
 
   function handleToggleFlag() {
@@ -148,7 +149,7 @@ export default function ExamMode({ onHome }) {
     const freshWeights = getWrongWeights();
     const firstQ = selectNextQuestion(allQuestions, fresh, freshSeen, freshWeights);
     setCatState(fresh);
-    setQHistory([{ question: firstQ, selectedAnswer: null, flagged: false }]);
+    setQHistory([{ question: shuffleOptions(firstQ), selectedAnswer: null, flagged: false }]);
     setSelected(null);
     setPhase('exam');
     setTimedOut(false);

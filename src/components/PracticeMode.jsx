@@ -5,7 +5,7 @@ import questions, { DOMAINS } from '../data/questions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
 import { getSeenIds, markSeen, updateWrongAnswers, resetHistory, getSeenCount, getWrongIds } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
-import { getDomainBreakdown, getDifficultyBreakdown } from '../utils/cat.js';
+import { getDomainBreakdown, getDifficultyBreakdown, shuffleOptions } from '../utils/cat.js';
 
 const DIFF_OPTIONS = [
   { value: 0, label: 'All Levels' },
@@ -89,7 +89,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     const wrongQ   = shuffle(filtered.filter(q => wrongIds.has(q.id)));
     const unseenQ  = shuffle(filtered.filter(q => !seenIds.has(q.id) && !wrongIds.has(q.id)));
     const seenQ    = shuffle(filtered.filter(q => seenIds.has(q.id) && !wrongIds.has(q.id)));
-    const ordered  = [...wrongQ, ...unseenQ, ...seenQ].slice(0, questionCount);
+    const ordered  = [...wrongQ, ...unseenQ, ...seenQ].slice(0, questionCount).map(shuffleOptions);
 
     if (ordered.length === 0) return;
     setPool(ordered);
