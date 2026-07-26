@@ -4,6 +4,7 @@ import {
   getDomainBreakdown,
   getDifficultyBreakdown,
   getSubsectionWrongCounts,
+  PASSING_SCALED_SCORE,
 } from '../utils/cat.js';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
@@ -92,7 +93,7 @@ export default function Results({
 }) {
   const [showReview, setShowReview] = useState(false);
 
-  const passed = !isPractice && scaledScore >= 700;
+  const passed = !isPractice && scaledScore >= PASSING_SCALED_SCORE;
   const breakdown = getDomainBreakdown(answered);
   const diffBreakdown = getDifficultyBreakdown(answered);
   const missedTopics = getSubsectionWrongCounts(answered);
@@ -120,8 +121,8 @@ export default function Results({
               {passed ? '✓ PASS' : '✗ DID NOT PASS'}
             </div>
             <div className="results__detail">
-              Scaled score · passing = 700 · {totalCorrect}/{answered.length}{' '}
-              correct ({pct}%)
+              Scaled score · passing = {PASSING_SCALED_SCORE} · {totalCorrect}/
+              {answered.length} correct ({pct}%)
             </div>
           </>
         )}

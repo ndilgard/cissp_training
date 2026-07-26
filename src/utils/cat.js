@@ -20,7 +20,7 @@ export function shuffleOptions(q) {
 
 const MIN_QUESTIONS = 100;
 const MAX_QUESTIONS = 150;
-const PASSING_SCALED_SCORE = 700;
+export const PASSING_SCALED_SCORE = 700;
 
 // Item Response Theory-inspired ability estimation (simplified)
 // theta: estimated ability on scale -3 to +3 (starts at 0 = medium)
@@ -115,7 +115,6 @@ export function shouldTerminate(state) {
   if (n >= MAX_QUESTIONS) return true;
 
   // Terminate early if ability estimate is very stable (consistently above or below pass threshold)
-  const passTheta = 0.3; // roughly corresponds to 700/1000
   const recent = state.answered.slice(-15);
   const recentCorrect = recent.filter((a) => a.correct).length;
 

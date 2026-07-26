@@ -109,7 +109,7 @@ function ReadinessCard({ sessions }) {
         </div>
       </div>
       <div className="readiness-card__right">
-        {Object.entries(DOMAINS).map(([num, name]) => {
+        {Object.entries(DOMAINS).map(([num]) => {
           const d = domainTotals[num];
           const p =
             d && d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;

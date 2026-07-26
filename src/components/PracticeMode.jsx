@@ -71,10 +71,12 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   // (side effects) never run from inside a state-updater function — those must
   // stay pure, and React 18 Strict Mode double-invokes them in dev to catch
   // exactly this kind of impurity.
+  // timeElapsed is reset to 0 by the callers (startPractice/handleNext) in the
+  // same batch as the phase/index/showResult change that triggers this effect,
+  // so the effect itself only needs to run the countdown, not seed the reset.
   useEffect(() => {
     if (phase !== 'quiz' || timeLimit === 0 || showResult) return;
     let elapsed = 0;
-    setTimeElapsed(0);
     timerRef.current = setInterval(() => {
       elapsed += 1;
       if (elapsed >= timeLimit) {
@@ -188,6 +190,10 @@ export default function PracticeMode({ onHome, onWrongReview }) {
       unseenCount: filtered.filter((q) => !seenIds.has(q.id)).length,
       wrongCount: filtered.filter((q) => wrongIds.has(q.id)).length,
     };
+    // seenCount isn't read directly above, but getSeenIds()/getWrongIds() read
+    // from localStorage, not React state — seenCount is the recompute trigger
+    // for when handleResetHistory() clears that history.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDomain, selectedDiff, seenCount]);
 
   if (phase === 'setup') {
