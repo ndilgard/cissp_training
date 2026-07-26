@@ -1127,7 +1127,7 @@ export const questions = [
       "Source code compilers may corrupt or truncate hard-coded credential strings during optimization passes",
     ],
     answer: 1,
-    explanation: "Hard-coded credentials in source code are exposed to anyone who can read the code — including all developers, version control system users, and anyone who can decompile the binary. Credentials should be stored in secrets managers (HashiCorp Vault, AWS Secrets Manager) and injected at runtime.",
+    explanation: "Hard-coded credentials in source code are exposed to anyone who can read the code — including all developers, version control system users, and anyone who can decompile the binary. Credentials should be stored in a secrets management vault and injected at runtime.",
   },
   {
     id: "d8_004", domain: 8, difficulty: 3, section: "SQL Injection",
@@ -1736,10 +1736,10 @@ export const questions = [
   },
   {
     id: "d5_013", domain: 5, difficulty: 2, section: "Directory Services (LDAP/AD)",
-    question: "Which LDAP attribute is the standard unique identifier for a user object in Active Directory?",
+    question: "Which LDAP attribute is the standard unique identifier for a user object in a directory service?",
     options: ["cn (Common Name)", "sAMAccountName", "objectGUID", "userPrincipalName"],
     answer: 2,
-    explanation: "The objectGUID is a globally unique, immutable identifier assigned at object creation in Active Directory. sAMAccountName and userPrincipalName can be changed; objectGUID cannot. For stable identity references across renames or moves, objectGUID is the authoritative identifier.",
+    explanation: "The objectGUID is a globally unique, immutable identifier assigned at object creation in the directory service. sAMAccountName and userPrincipalName can be changed; objectGUID cannot. For stable identity references across renames or moves, objectGUID is the authoritative identifier.",
   },
   {
     id: "d5_014", domain: 5, difficulty: 3, section: "Pass-the-Hash Attack",
@@ -1760,7 +1760,7 @@ export const questions = [
       "It stores and manages user resources such as files, applications, and shared drives",
       "It authenticates users and issues assertions (tokens/claims) to service providers",
       "It enforces authorization policies and access decisions on behalf of service providers",
-      "It synchronizes user account attributes across multiple Active Directory forests",
+      "It synchronizes user account attributes across multiple directory service forests",
     ],
     answer: 1,
     explanation: "An Identity Provider (IdP) performs authentication and issues security assertions (SAML assertions, JWT tokens, OIDC ID tokens) that service providers trust. The service provider delegates authentication to the IdP; the IdP vouches for the user's identity without the SP needing to handle credentials.",
@@ -2058,7 +2058,7 @@ export const questions = [
   },
   {
     id: "d8_017", domain: 8, difficulty: 3, section: "Server-Side Request Forgery (SSRF)",
-    question: "An application makes server-side HTTP requests to URLs provided by users. An attacker supplies a URL pointing to http://169.254.169.254/latest/meta-data/ (AWS instance metadata). What attack is this?",
+    question: "An application makes server-side HTTP requests to URLs provided by users. An attacker supplies a URL pointing to http://169.254.169.254/latest/meta-data/ (a cloud instance metadata endpoint). What attack is this?",
     options: [
       "Cross-site request forgery (CSRF) attack",
       "Server-side request forgery (SSRF)",
@@ -2066,7 +2066,7 @@ export const questions = [
       "XML external entity (XXE) injection attack",
     ],
     answer: 1,
-    explanation: "Server-Side Request Forgery (SSRF) tricks the server into making requests to internal resources on the attacker's behalf. The AWS instance metadata endpoint (169.254.169.254) can expose IAM credentials when accessed from an EC2 instance. Mitigations include IMDSv2 (requiring session tokens for metadata access) and blocking cloud metadata IPs at the WAF.",
+    explanation: "Server-Side Request Forgery (SSRF) tricks the server into making requests to internal resources on the attacker's behalf. The cloud instance metadata endpoint (169.254.169.254) can expose IAM credentials when accessed from a cloud compute instance. Mitigations include requiring authenticated session tokens for metadata access and blocking cloud metadata IPs at the WAF.",
   },
   {
     id: "d8_018", domain: 8, difficulty: 1, section: "Security by Obscurity",
@@ -3800,7 +3800,7 @@ export const questions = [
       "Uses software emulation rather than hardware-assisted virtualization",
     ],
     answer: 1,
-    explanation: "A Type 1 (bare-metal) hypervisor runs directly on the physical hardware — it IS the operating system layer. Examples include VMware ESXi, Microsoft Hyper-V, and Xen. A Type 2 (hosted) hypervisor runs on top of a conventional OS, like VMware Workstation or VirtualBox running on Windows. Type 1 hypervisors are generally more secure and performant because they have a smaller attack surface and no host OS layer.",
+    explanation: "A Type 1 (bare-metal) hypervisor runs directly on the physical hardware — it IS the operating system layer. A Type 2 (hosted) hypervisor runs on top of a conventional OS. Type 1 hypervisors are generally more secure and performant because they have a smaller attack surface and no host OS layer.",
   },
   {
     id: "d3_075", domain: 3, difficulty: 3, section: "Virtualization Security",
@@ -3917,10 +3917,10 @@ export const questions = [
       "The need for strong multi-factor authentication enforced consistently across every remote operator console and HMI",
       "Availability requirements that may make patching or rebooting systems unacceptable, and cyber actions can cause physical harm",
       "The strict regulatory requirement to encrypt all historian, process, and telemetry data at rest continuously",
-      "Full integration with Active Directory for centralized enterprise identity management across all plant systems",
+      "Full integration with the enterprise directory service for centralized identity management across all plant systems",
     ],
     answer: 1,
-    explanation: "SCADA/ICS environments prioritize availability (often 99.999%+) and have physical safety implications — a misconfiguration or cyberattack can damage equipment, injure workers, or cause environmental disasters. Patching may require coordinated shutdowns of critical processes. Traditional IT security priorities (confidentiality, frequent updates, standard enterprise tools) often conflict with OT availability and safety requirements. MFA, encryption, and AD integration are important but not the unique challenge.",
+    explanation: "SCADA/ICS environments prioritize availability (often 99.999%+) and have physical safety implications — a misconfiguration or cyberattack can damage equipment, injure workers, or cause environmental disasters. Patching may require coordinated shutdowns of critical processes. Traditional IT security priorities (confidentiality, frequent updates, standard enterprise tools) often conflict with OT availability and safety requirements. MFA, encryption, and directory service integration are important but not the unique challenge.",
   },
   {
     id: "d3_085", domain: 3, difficulty: 2, section: "Physical Security",
@@ -4642,7 +4642,7 @@ export const questions = [
       "EIGRP (Enhanced Interior Gateway Routing Protocol)",
     ],
     answer: 2,
-    explanation: "OSPF (Open Shortest Path First) is a link-state Interior Gateway Protocol (IGP) that uses Dijkstra's shortest-path algorithm. It is designed for use within a single autonomous system. BGP is an Exterior Gateway Protocol used between autonomous systems (e.g., between ISPs). RIP is a distance-vector protocol using hop count as its metric, limited to 15 hops. EIGRP is Cisco's proprietary advanced distance-vector protocol.",
+    explanation: "OSPF (Open Shortest Path First) is a link-state Interior Gateway Protocol (IGP) that uses Dijkstra's shortest-path algorithm. It is designed for use within a single autonomous system. BGP is an Exterior Gateway Protocol used between autonomous systems (e.g., between ISPs). RIP is a distance-vector protocol using hop count as its metric, limited to 15 hops. EIGRP is a vendor-proprietary advanced distance-vector protocol.",
   },
   {
     id: "d4_036", domain: 4, difficulty: 3, section: "Routing Protocols",
@@ -5218,7 +5218,7 @@ export const questions = [
       "Anycast routing to distribute attack traffic across multiple locations",
     ],
     answer: 1,
-    explanation: "Traffic scrubbing (or DDoS mitigation services like Cloudflare, Akamai) uses BGP rerouting to divert all traffic destined for the victim through a scrubbing center. The scrubbing center filters malicious traffic while forwarding legitimate traffic to the victim. BGP blackholing drops all traffic including legitimate (a drastic measure). Rate limiting helps but is insufficient against large volumetric attacks. Anycast distributes attack traffic but doesn't filter it.",
+    explanation: "Traffic scrubbing (using commercial DDoS mitigation/scrubbing services) uses BGP rerouting to divert all traffic destined for the victim through a scrubbing center. The scrubbing center filters malicious traffic while forwarding legitimate traffic to the victim. BGP blackholing drops all traffic including legitimate (a drastic measure). Rate limiting helps but is insufficient against large volumetric attacks. Anycast distributes attack traffic but doesn't filter it.",
   },
   {
     id: "d4_084", domain: 4, difficulty: 2, section: "Man-in-the-Middle Attacks",
@@ -5410,7 +5410,7 @@ export const questions = [
       "NAC solutions that automatically quarantine non-compliant servers from the production network",
     ],
     answer: 1,
-    explanation: "Micro-segmentation uses software-defined networking or hypervisor-based firewalling (e.g., VMware NSX, Cisco ACI) to apply granular east-west traffic policies at the workload level. Each workload can be isolated with its own access controls, limiting lateral movement after a breach. Physical firewalls between every server pair are cost-prohibitive. VLANs provide coarse segmentation but don't scale to per-workload granularity and don't control intra-VLAN traffic. NAC focuses on endpoint compliance, not server-to-server traffic control.",
+    explanation: "Micro-segmentation uses software-defined networking or hypervisor-based firewalling (e.g., an SDN overlay solution) to apply granular east-west traffic policies at the workload level. Each workload can be isolated with its own access controls, limiting lateral movement after a breach. Physical firewalls between every server pair are cost-prohibitive. VLANs provide coarse segmentation but don't scale to per-workload granularity and don't control intra-VLAN traffic. NAC focuses on endpoint compliance, not server-to-server traffic control.",
   },
   {
     id: "d4_100", domain: 4, difficulty: 2, section: "Wireless Standards",
@@ -5662,7 +5662,7 @@ export const questions = [
       "Increase the upstream link's bandwidth capacity from 10 Gbps up to 100 Gbps",
     ],
     answer: 2,
-    explanation: "A 500 Gbps attack overwhelms any local appliance or the 10 Gbps ISP link before traffic even reaches the organization. A cloud-based DDoS scrubbing service (Cloudflare, Akamai, AWS Shield) reroutes traffic via BGP advertisement to distributed scrubbing centers with terabit-level capacity, filters attack traffic, and sends only legitimate traffic to the origin. BGP blackholing stops all traffic including legitimate (nuclear option). Local appliances can't handle 500 Gbps. A 100 Gbps link would still be overwhelmed.",
+    explanation: "A 500 Gbps attack overwhelms any local appliance or the 10 Gbps ISP link before traffic even reaches the organization. A cloud-based DDoS scrubbing service reroutes traffic via BGP advertisement to distributed scrubbing centers with terabit-level capacity, filters attack traffic, and sends only legitimate traffic to the origin. BGP blackholing stops all traffic including legitimate (nuclear option). Local appliances can't handle 500 Gbps. A 100 Gbps link would still be overwhelmed.",
   },
   {
     id: "d4_121", domain: 4, difficulty: 1, section: "OSI Model",
@@ -6148,7 +6148,7 @@ export const questions = [
   },
   {
     id: "d5_048", domain: 5, difficulty: 3, section: "Kerberos",
-    question: "Kerberoasting is a post-exploitation technique that targets which component of Active Directory?",
+    question: "Kerberoasting is a post-exploitation technique that targets which component of a Kerberos-based directory service?",
     options: [
       "The krbtgt account's password hash, which is used to forge fully privileged Ticket Granting Tickets for any account in the domain",
       "Service Principal Names (SPNs) associated with service accounts to request and offline-crack Service Tickets",
@@ -6177,10 +6177,10 @@ export const questions = [
       "RADIUS encrypts the entire packet payload end to end during transmission, whereas TACACS+ only encrypts the password field, leaving the remainder of every packet exposed in cleartext",
       "TACACS+ encrypts the entire packet body, uses TCP, and separates authentication, authorization, and accounting into distinct services, making it preferable for device management",
       "RADIUS uses TCP for guaranteed delivery while TACACS+ uses UDP, making RADIUS the more reliable choice for authentication traffic over unreliable WAN links",
-      "TACACS+ is a Cisco proprietary protocol that has been fully deprecated and replaced by RADIUS in virtually all modern network device management deployments",
+      "TACACS+ is a vendor-proprietary protocol that has been fully deprecated and replaced by RADIUS in virtually all modern network device management deployments",
     ],
     answer: 1,
-    explanation: "TACACS+ (Cisco proprietary) uses TCP (port 49) and encrypts the entire packet body, separates AAA functions, and allows per-command authorization — features that make it well-suited for network device management. RADIUS uses UDP, encrypts only the password, and combines authentication and authorization. The statement about RADIUS encrypting the full packet is incorrect — that is a TACACS+ feature. RADIUS does not use TCP by default. TACACS+ remains widely used in Cisco environments.",
+    explanation: "TACACS+ (a vendor-proprietary protocol) uses TCP (port 49) and encrypts the entire packet body, separates AAA functions, and allows per-command authorization — features that make it well-suited for network device management. RADIUS uses UDP, encrypts only the password, and combines authentication and authorization. The statement about RADIUS encrypting the full packet is incorrect — that is a TACACS+ feature. RADIUS does not use TCP by default. TACACS+ remains widely used in enterprise network device management.",
   },
   {
     id: "d5_051", domain: 5, difficulty: 2, section: "RADIUS and TACACS+",
@@ -6204,11 +6204,11 @@ export const questions = [
       "Universal Principal Name (UPN)",
     ],
     answer: 1,
-    explanation: "In LDAP, every entry is uniquely identified by its Distinguished Name (DN), which is a series of attribute-value pairs that describe the path from the root to the specific entry (e.g., CN=John Smith,OU=Employees,DC=company,DC=com). DNS is a separate naming system for IP address resolution. SIDs are Windows security identifiers. UPNs (user@domain format) are a user-friendly login name format used in Active Directory, but the underlying LDAP identifier is the DN.",
+    explanation: "In LDAP, every entry is uniquely identified by its Distinguished Name (DN), which is a series of attribute-value pairs that describe the path from the root to the specific entry (e.g., CN=John Smith,OU=Employees,DC=company,DC=com). DNS is a separate naming system for IP address resolution. SIDs are Windows security identifiers. UPNs (user@domain format) are a user-friendly login name format used in some directory services, but the underlying LDAP identifier is the DN.",
   },
   {
     id: "d5_053", domain: 5, difficulty: 2, section: "LDAP and Directory Services",
-    question: "A security architect recommends that all LDAP queries to Active Directory use LDAPS or LDAP with StartTLS. What specific attack is this configuration intended to prevent?",
+    question: "A security architect recommends that all LDAP queries to the corporate directory service use LDAPS or LDAP with StartTLS. What specific attack is this configuration intended to prevent?",
     options: [
       "LDAP injection attacks launched from vulnerable web applications directly against the directory service backend",
       "Eavesdropping on LDAP queries and responses that may contain sensitive user attribute data and credentials",
@@ -6388,7 +6388,7 @@ export const questions = [
   },
   {
     id: "d5_068", domain: 5, difficulty: 2, section: "Account Management",
-    question: "A security audit discovers dozens of user accounts in Active Directory that belong to employees who left the organization over the past year. What are these accounts called, and what is the PRIMARY risk they pose?",
+    question: "A security audit discovers dozens of user accounts in the directory service that belong to employees who left the organization over the past year. What are these accounts called, and what is the PRIMARY risk they pose?",
     options: [
       "Service accounts — they may continue running automated tasks with outdated, overly broad permissions that were never reviewed after the original project ended",
       "Orphaned accounts — they provide a persistent backdoor that former employees or attackers can use to gain unauthorized access",
@@ -6400,7 +6400,7 @@ export const questions = [
   },
   {
     id: "d5_069", domain: 5, difficulty: 2, section: "Account Management",
-    question: "An application uses a service account with Domain Admin privileges to query Active Directory for user information. What principle does this violate, and what is the recommended remediation?",
+    question: "An application uses a service account with Domain Admin privileges to query the directory service for user information. What principle does this violate, and what is the recommended remediation?",
     options: [
       "Segregation of duties — the service account's function should be split across two separate accounts",
       "Least privilege — the service account should be granted only the specific read permissions required to query the necessary AD attributes",
@@ -6408,7 +6408,7 @@ export const questions = [
       "Authentication best practices — service accounts of this kind should instead use certificate-based authentication rather than a password, regardless of what permissions they hold",
     ],
     answer: 1,
-    explanation: "Granting Domain Admin privileges to a service account that only needs to read AD attributes is a severe violation of least privilege. Domain Admin is one of the most powerful roles in an Active Directory environment. The account should be granted only the minimum permissions needed — specifically, read access to the required AD object attributes. This limits the blast radius if the service account's credentials are compromised. SoD relates to dividing conflicting duties between people, not service account scoping.",
+    explanation: "Granting Domain Admin privileges to a service account that only needs to read directory attributes is a severe violation of least privilege. Domain Admin is one of the most powerful roles in a directory service environment. The account should be granted only the minimum permissions needed — specifically, read access to the required directory object attributes. This limits the blast radius if the service account's credentials are compromised. SoD relates to dividing conflicting duties between people, not service account scoping.",
   },
   {
     id: "d5_070", domain: 5, difficulty: 3, section: "Privileged Access Management",
@@ -6520,15 +6520,15 @@ export const questions = [
   },
   {
     id: "d5_079", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
-    question: "Which Microsoft security feature was specifically designed to mitigate pass-the-hash attacks by preventing NTLM credentials from being stored in LSASS memory in a way that can be extracted?",
+    question: "Which security feature was specifically designed to mitigate pass-the-hash attacks by preventing NTLM credentials from being stored in LSASS memory in a way that can be extracted?",
     options: [
-      "Windows Defender Antivirus, which scans for known malware signatures in real time",
+      "The built-in antivirus, which scans for known malware signatures in real time",
       "Protected Users security group and Credential Guard (Virtualization-Based Security)",
-      "BitLocker Drive Encryption, which protects data at rest on the local disk volume",
-      "Windows Firewall with Advanced Security, which filters inbound and outbound network traffic",
+      "Full-disk encryption, which protects data at rest on the local disk volume",
+      "The host-based firewall with advanced security filtering, which filters inbound and outbound network traffic",
     ],
     answer: 1,
-    explanation: "Microsoft's Protected Users security group prevents members' credentials from being cached in a format extractable for PtH (they cannot authenticate via NTLM, only Kerberos). Windows Defender Credential Guard uses Virtualization-Based Security (VBS) to isolate LSASS in a protected virtual environment, preventing attackers with admin privileges from extracting credential material. BitLocker protects data at rest on disk. Windows Defender AV detects malware. Windows Firewall controls network traffic.",
+    explanation: "The Protected Users security group prevents members' credentials from being cached in a format extractable for PtH (they cannot authenticate via NTLM, only Kerberos). Credential Guard uses Virtualization-Based Security (VBS) to isolate LSASS in a protected virtual environment, preventing attackers with admin privileges from extracting credential material. Full-disk encryption protects data at rest on disk. The built-in antivirus detects malware. The host-based firewall controls network traffic.",
   },
   {
     id: "d5_080", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
@@ -6592,7 +6592,7 @@ export const questions = [
   },
   {
     id: "d5_085", domain: 5, difficulty: 2, section: "Directory Services Security",
-    question: "An attacker uses the DCSync technique against an Active Directory environment. What does this attack accomplish?",
+    question: "An attacker uses the DCSync technique against a directory service environment. What does this attack accomplish?",
     options: [
       "It floods the domain controller with a high volume of authentication requests to cause a denial of service across the domain",
       "It simulates a domain controller replication request to extract password hashes for all accounts from the domain controller",
@@ -6600,43 +6600,43 @@ export const questions = [
       "It stands up a rogue domain controller on the network to intercept ongoing authentication traffic",
     ],
     answer: 1,
-    explanation: "DCSync exploits the Active Directory replication mechanism. By using tools like Mimikatz with Domain Replication permissions, an attacker can request replication data from a domain controller as if they were another DC. This allows extraction of NTLM hashes and Kerberos keys for any account in the domain, including the krbtgt account (enabling golden ticket attacks). It does not require being on the DC itself. DCSync is a credential dumping technique, not a DoS attack or GPO modification.",
+    explanation: "DCSync exploits the directory service's replication mechanism. By using tools like Mimikatz with Domain Replication permissions, an attacker can request replication data from a domain controller as if they were another DC. This allows extraction of NTLM hashes and Kerberos keys for any account in the domain, including the krbtgt account (enabling golden ticket attacks). It does not require being on the DC itself. DCSync is a credential dumping technique, not a DoS attack or GPO modification.",
   },
   {
     id: "d5_086", domain: 5, difficulty: 2, section: "Cloud IAM",
-    question: "In AWS, what is the recommended way for an EC2 instance to access an S3 bucket without hardcoding credentials in the application code?",
+    question: "In a public cloud environment, what is the recommended way for a compute instance to access a cloud storage bucket without hardcoding credentials in the application code?",
     options: [
-      "Store the AWS access key and secret key as environment variables directly on the EC2 instance",
-      "Embed the credentials within the application's configuration file and encrypt that file using AWS KMS before deployment",
-      "Assign an IAM role to the EC2 instance, which provides temporary credentials via the instance metadata service",
-      "Create a dedicated IAM user for the application and store its credentials in AWS Secrets Manager",
+      "Store the cloud provider's access key and secret key as environment variables directly on the compute instance",
+      "Embed the credentials within the application's configuration file and encrypt that file using the cloud provider's key management service before deployment",
+      "Assign an IAM role to the compute instance, which provides temporary credentials via the instance metadata service",
+      "Create a dedicated IAM user for the application and store its credentials in a secrets management vault",
     ],
     answer: 2,
-    explanation: "Assigning an IAM role to an EC2 instance is the AWS best practice for granting AWS service access to applications running on EC2. The instance automatically receives temporary, short-lived credentials through the Instance Metadata Service (IMDS), which are automatically rotated. This eliminates the need to manage long-term static credentials. Environment variables can be extracted if the instance is compromised. Hardcoding credentials anywhere (config files, code) is a critical security anti-pattern. While Secrets Manager is useful, an instance profile is more appropriate for AWS service access.",
+    explanation: "Assigning an IAM role to a compute instance is the cloud best practice for granting service access to applications running on that instance. The instance automatically receives temporary, short-lived credentials through the instance metadata service, which are automatically rotated. This eliminates the need to manage long-term static credentials. Environment variables can be extracted if the instance is compromised. Hardcoding credentials anywhere (config files, code) is a critical security anti-pattern. While a secrets management vault is useful, an IAM role assigned to the instance is more appropriate for cloud service access.",
   },
   {
     id: "d5_087", domain: 5, difficulty: 3, section: "Cloud IAM",
-    question: "A cloud security audit reveals that an application is using a service account with the 'Owner' role at the project level in Google Cloud Platform. What is the security concern, and what is the recommended remediation?",
+    question: "A cloud security audit reveals that an application is using a service account with the 'Owner' role at the project level in a public cloud environment. What is the security concern, and what is the recommended remediation?",
     options: [
-      "The Owner role is designed and reserved exclusively for human administrators, and Google Cloud technically prevents it from ever being bound to a service account principal under any circumstance",
-      "The Owner role grants full control over all GCP services and resources; the service account should be granted the minimum IAM roles needed for its specific functions following least privilege",
-      "Service accounts holding the Owner role are excluded from Cloud Audit Logs, so their actions cannot be tracked or investigated after the fact",
+      "The Owner role is designed and reserved exclusively for human administrators, and the cloud platform technically prevents it from ever being bound to a service account principal under any circumstance",
+      "The Owner role grants full control over all cloud services and resources in the project; the service account should be granted the minimum IAM roles needed for its specific functions following least privilege",
+      "Service accounts holding the Owner role are excluded from cloud audit logs, so their actions cannot be tracked or investigated after the fact",
       "The Owner role automatically expires and is silently revoked after 30 days whenever it is assigned to a service account rather than a human user",
     ],
     answer: 1,
-    explanation: "The GCP Owner role grants full administrative control over all resources in the project, which violates least privilege when assigned to a service account that needs only specific permissions. If the service account is compromised, an attacker gains complete project control. The remediation is to identify exactly what APIs and resources the service account needs and grant only those predefined or custom roles. GCP service accounts can hold the Owner role, are audited by Cloud Audit Logs, and roles do not auto-expire.",
+    explanation: "The Owner role grants full administrative control over all resources in the project, which violates least privilege when assigned to a service account that needs only specific permissions. If the service account is compromised, an attacker gains complete project control. The remediation is to identify exactly what APIs and resources the service account needs and grant only those predefined or custom roles. Service accounts can hold the Owner role, are audited by cloud audit logs, and roles do not auto-expire.",
   },
   {
     id: "d5_088", domain: 5, difficulty: 2, section: "Cloud IAM",
-    question: "Which cloud IAM concept allows an entity in one AWS account to temporarily assume a role in another AWS account to perform specific actions?",
+    question: "Which cloud IAM concept allows an entity in one cloud account to temporarily assume a role in another cloud account to perform specific actions?",
     options: [
       "IAM federation configured using SAML 2.0 assertions",
-      "Cross-account IAM role assumption using AWS STS",
+      "Cross-account IAM role assumption using the cloud provider's temporary token service",
       "IAM user replication performed across multiple accounts",
       "VPC peering configured to allow cross-account access",
     ],
     answer: 1,
-    explanation: "AWS Security Token Service (STS) allows cross-account role assumption. Account A creates an IAM role with a trust policy that allows Account B's entities to assume it. An entity in Account B calls STS AssumeRole with that role ARN and receives temporary credentials with the permissions defined in the role. This enables cross-account access without sharing long-term credentials. SAML federation is for external identity providers, not cross-account AWS access. IAM users are account-specific. VPC peering is for network connectivity, not IAM.",
+    explanation: "The cloud provider's security token service allows cross-account role assumption. Account A creates an IAM role with a trust policy that allows Account B's entities to assume it. An entity in Account B calls the token service to assume that role and receives temporary credentials with the permissions defined in the role. This enables cross-account access without sharing long-term credentials. SAML federation is for external identity providers, not cross-account cloud access. IAM users are account-specific. VPC peering is for network connectivity, not IAM.",
   },
   {
     id: "d5_089", domain: 5, difficulty: 2, section: "Passwordless Authentication",
@@ -6712,7 +6712,7 @@ export const questions = [
   },
   {
     id: "d5_095", domain: 5, difficulty: 2, section: "Kerberos",
-    question: "In Active Directory, what is the function of the Key Distribution Center (KDC)?",
+    question: "In a Kerberos-based directory service, what is the function of the Key Distribution Center (KDC)?",
     options: [
       "It stores and manages the public key certificates issued to all domain users and computer accounts for PKI-based authentication, functioning as the domain's central certificate repository",
       "It serves as the trusted third party that issues and validates Kerberos tickets, comprising both the Authentication Service (AS) and Ticket-Granting Service (TGS)",
@@ -6720,19 +6720,19 @@ export const questions = [
       "It manages the IPsec security association key exchanges used to encrypt domain network traffic",
     ],
     answer: 1,
-    explanation: "The KDC is the central trusted authority in Kerberos. It consists of two services: the Authentication Service (AS), which authenticates the user and issues the TGT, and the Ticket-Granting Service (TGS), which issues Service Tickets when presented with a valid TGT. The KDC runs on every Active Directory domain controller. It does not manage PKI certificates (that is the role of Active Directory Certificate Services). Replication is handled by the AD replication engine. IPsec keys are managed separately.",
+    explanation: "The KDC is the central trusted authority in Kerberos. It consists of two services: the Authentication Service (AS), which authenticates the user and issues the TGT, and the Ticket-Granting Service (TGS), which issues Service Tickets when presented with a valid TGT. The KDC runs on every domain controller. It does not manage PKI certificates (that is handled by a separate certificate services role). Replication is handled by the directory service's replication engine. IPsec keys are managed separately.",
   },
   {
     id: "d5_096", domain: 5, difficulty: 3, section: "Identity Federation",
-    question: "An organization uses an on-premises Active Directory and wants employees to authenticate to Microsoft 365 using their AD credentials. Which technology enables this without synchronizing password hashes to the cloud?",
+    question: "An organization uses an on-premises directory service and wants employees to authenticate to a cloud productivity suite using their on-premises credentials. Which technology enables this without synchronizing password hashes to the cloud?",
     options: [
-      "Azure AD Password Hash Synchronization replicating hashes to the cloud",
-      "Active Directory Federation Services (AD FS) with federation to Azure AD",
-      "An LDAP connector bridging on-premises AD directly to Azure AD",
-      "Azure AD B2C configured with custom external identity providers",
+      "Password hash synchronization replicating hashes to the cloud identity provider",
+      "On-premises federation services federating identity to the cloud identity provider",
+      "An LDAP connector bridging the on-premises directory directly to the cloud identity provider",
+      "The cloud identity provider's customer-identity (B2C) offering configured with custom external identity providers",
     ],
     answer: 1,
-    explanation: "Active Directory Federation Services (AD FS) enables federated identity between on-premises AD and Azure AD without synchronizing password hashes to the cloud. When users authenticate to Microsoft 365, they are redirected to AD FS, which authenticates them against on-premises AD and issues a SAML or WS-Federation token. This keeps password validation on-premises. Password Hash Synchronization does send password hashes to the cloud. There is no native LDAP connector between AD and Azure AD. Azure AD B2C is for customer identity scenarios.",
+    explanation: "On-premises federation services enable federated identity between the on-premises directory and the cloud identity provider without synchronizing password hashes to the cloud. When users authenticate to the cloud productivity suite, they are redirected to the on-premises federation service, which authenticates them against the on-premises directory and issues a SAML or WS-Federation token. This keeps password validation on-premises. Password hash synchronization does send password hashes to the cloud. There is no native LDAP connector between the on-premises directory and the cloud identity provider. The B2C offering is for customer identity scenarios.",
   },
   {
     id: "d5_097", domain: 5, difficulty: 1, section: "Access Control Models",
@@ -6880,15 +6880,15 @@ export const questions = [
   },
   {
     id: "d5_109", domain: 5, difficulty: 3, section: "Cloud IAM",
-    question: "An attacker exploits the AWS Instance Metadata Service (IMDS) by making a Server-Side Request Forgery (SSRF) call from a vulnerable web application running on EC2. What does the attacker gain?",
+    question: "An attacker exploits a cloud instance metadata service by making a Server-Side Request Forgery (SSRF) call from a vulnerable web application running on a cloud compute instance. What does the attacker gain?",
     options: [
-      "Direct lateral network access to other EC2 instances and services residing within the same VPC",
-      "The instance's IAM role temporary credentials, potentially allowing AWS API calls with the role's permissions",
-      "The instance's root volume encryption key, which is used to decrypt data stored on its attached EBS storage volume",
-      "Full administrator access to the organization's AWS Management Console login",
+      "Direct lateral network access to other compute instances and services residing within the same virtual network",
+      "The instance's IAM role temporary credentials, potentially allowing cloud API calls with the role's permissions",
+      "The instance's root volume encryption key, which is used to decrypt data stored on its attached block storage volume",
+      "Full administrator access to the organization's cloud management console login",
     ],
     answer: 1,
-    explanation: "The IMDS at 169.254.169.254 provides EC2 instances with metadata including their assigned IAM role's temporary credentials. An SSRF vulnerability allows an attacker to make requests from the server, including to the IMDS endpoint, to retrieve these credentials. With the temporary credentials, the attacker can make AWS API calls with all permissions of the assigned IAM role. This is a well-known attack vector (exploited in Capital One breach). Mitigations include IMDSv2 (requiring PUT before GET) and restricting SSRF vulnerabilities. It does not grant VPC network access, encryption keys, or direct console access.",
+    explanation: "The instance metadata service at 169.254.169.254 provides cloud compute instances with metadata including their assigned IAM role's temporary credentials. An SSRF vulnerability allows an attacker to make requests from the server, including to the metadata endpoint, to retrieve these credentials. With the temporary credentials, the attacker can make cloud API calls with all permissions of the assigned IAM role. This is a well-known attack vector (exploited in the Capital One breach). Mitigations include requiring session-token-based metadata requests and restricting SSRF vulnerabilities. It does not grant virtual network access, encryption keys, or direct console access.",
   },
   {
     id: "d5_110", domain: 5, difficulty: 2, section: "Identification and Authentication Concepts",
@@ -6904,7 +6904,7 @@ export const questions = [
   },
   {
     id: "d5_111", domain: 5, difficulty: 3, section: "Kerberos",
-    question: "An Active Directory environment has been configured to require all accounts to use AES-256 for Kerberos encryption and has disabled RC4 (NTLM) Kerberos encryption. How does this specifically mitigate the Kerberoasting attack?",
+    question: "A Kerberos-based directory service environment has been configured to require all accounts to use AES-256 for Kerberos encryption and has disabled RC4 (NTLM) Kerberos encryption. How does this specifically mitigate the Kerberoasting attack?",
     options: [
       "AES-256 encryption prevents any service ticket requests from being issued for accounts with registered SPNs at all, effectively disabling the underlying Kerberos ticket-granting mechanism for those accounts",
       "AES-256 encrypted service tickets are computationally infeasible to crack offline compared to RC4 encrypted tickets, which are weak against modern cracking tools",
@@ -6964,7 +6964,7 @@ export const questions = [
   },
   {
     id: "d5_116", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
-    question: "An organization has implemented a tiered administrative model in Active Directory with separate administrative accounts for Tier 0 (domain controllers), Tier 1 (servers), and Tier 2 (workstations). How does this specifically mitigate pass-the-hash attacks?",
+    question: "An organization has implemented a tiered administrative model in its directory service with separate administrative accounts for Tier 0 (domain controllers), Tier 1 (servers), and Tier 2 (workstations). How does this specifically mitigate pass-the-hash attacks?",
     options: [
       "It requires that every administrative account, regardless of tier, authenticate exclusively using smart cards and PINs",
       "It prevents hash extraction from LSASS memory entirely by isolating credential material within dedicated hardware-backed virtualization, making the underlying hash itself impossible to ever recover",
@@ -7051,12 +7051,12 @@ export const questions = [
     question: "When a new employee joins an organization, which of the following is the FIRST step in the identity provisioning process?",
     options: [
       "Assigning the new employee to the appropriate roles within the organization's IAM system based on their job title",
-      "Creating the new employee's user account directly within the Active Directory domain",
+      "Creating the new employee's user account directly within the directory service domain",
       "Establishing the employee's identity in the authoritative source of record (typically the HR system)",
       "Issuing the new employee a physical access badge along with their assigned equipment",
     ],
     answer: 2,
-    explanation: "The provisioning lifecycle begins with the establishment of the employee's identity in the authoritative system of record — typically the HR or HCM system (e.g., Workday, SAP SuccessFactors). This record triggers all downstream provisioning. Without a validated identity record in the authoritative source, account creation and role assignment are premature. The HR record is the anchor for all identity lifecycle management. Account creation, role assignment, and equipment issuance all follow from the authoritative identity record.",
+    explanation: "The provisioning lifecycle begins with the establishment of the employee's identity in the authoritative system of record — typically the HR or HCM system. This record triggers all downstream provisioning. Without a validated identity record in the authoritative source, account creation and role assignment are premature. The HR record is the anchor for all identity lifecycle management. Account creation, role assignment, and equipment issuance all follow from the authoritative identity record.",
   },
   {
     id: "d5_124", domain: 5, difficulty: 3, section: "Federation and Trust",
@@ -7799,7 +7799,7 @@ export const questions = [
       "Scanning phase — enumerating open ports and services",
       "Exploitation phase — executing the initial payload",
       "Post-exploitation phase — credential harvesting for lateral movement",
-      "Reconnaissance phase — gathering employee information from Active Directory",
+      "Reconnaissance phase — gathering employee information from the directory service",
     ],
     answer: 2,
     explanation: "Mimikatz is a post-exploitation tool used to extract credentials (including plaintext passwords, NTLM hashes, and Kerberos tickets) from Windows memory (LSASS). Its use after achieving initial access represents post-exploitation credential harvesting, which is typically used to enable lateral movement and privilege escalation within the environment. Scanning precedes exploitation. The initial exploitation achieves the first foothold.",
@@ -7958,7 +7958,7 @@ export const questions = [
       "Quietly include the excluded cloud systems within the testing scope anyway without ever informing the client of the change",
     ],
     answer: 1,
-    explanation: "Under the cloud shared responsibility model, the cloud provider secures the underlying infrastructure but the customer is responsible for their configurations, access management, data, and applications. Customer-controlled cloud resources (S3 bucket policies, IAM configurations, application security) represent significant attack surface and should be assessed. Excluding them leaves meaningful risk unexamined. Most cloud providers (AWS, Azure, GCP) also have penetration testing policies that permit customer testing of their own resources.",
+    explanation: "Under the cloud shared responsibility model, the cloud provider secures the underlying infrastructure but the customer is responsible for their configurations, access management, data, and applications. Customer-controlled cloud resources (storage bucket policies, IAM configurations, application security) represent significant attack surface and should be assessed. Excluding them leaves meaningful risk unexamined. Most major cloud providers also have penetration testing policies that permit customer testing of their own resources.",
   },
   {
     id: "d6_084", domain: 6, difficulty: 2, section: "Audit Trails and Evidence Collection",
@@ -8370,7 +8370,7 @@ export const questions = [
   },
   {
     id: "d6_118", domain: 6, difficulty: 3, section: "Penetration Testing Phases",
-    question: "A penetration tester achieves initial access to a Windows domain environment. The tester runs BloodHound to analyze Active Directory relationships and identifies a path to domain admin through three intermediate accounts with excessive permissions. This analysis is performed during which phase and serves what purpose?",
+    question: "A penetration tester achieves initial access to a Windows domain environment. The tester runs BloodHound to analyze directory service relationships and identifies a path to domain admin through three intermediate accounts with excessive permissions. This analysis is performed during which phase and serves what purpose?",
     options: [
       "Exploitation phase — directly weaponizing and firing the initially identified vulnerabilities against the target hosts to gain an initial foothold",
       "Post-exploitation phase — mapping attack paths and identifying privilege escalation routes within the compromised environment",
@@ -8378,7 +8378,7 @@ export const questions = [
       "Scanning phase — actively enumerating domain controllers and discoverable user account names",
     ],
     answer: 1,
-    explanation: "BloodHound is a post-exploitation tool used after gaining initial access to analyze Active Directory relationships, permissions, and attack paths toward domain admin. This activity occurs during the post-exploitation phase after initial compromise. Running BloodHound requires domain authentication (achieved during exploitation) and its purpose is identifying attack paths for privilege escalation and lateral movement — classic post-exploitation objectives. AD enumeration before compromise would occur during scanning/reconnaissance.",
+    explanation: "BloodHound is a post-exploitation tool used after gaining initial access to analyze directory service relationships, permissions, and attack paths toward domain admin. This activity occurs during the post-exploitation phase after initial compromise. Running BloodHound requires domain authentication (achieved during exploitation) and its purpose is identifying attack paths for privilege escalation and lateral movement — classic post-exploitation objectives. Directory enumeration before compromise would occur during scanning/reconnaissance.",
   },
   {
     id: "d6_119", domain: 6, difficulty: 2, section: "Audit Techniques",
@@ -9460,7 +9460,7 @@ export const questions = [
       "Only cloud infrastructure, since on-premises systems are already monitored by existing legacy tools",
     ],
     answer: 2,
-    explanation: "A comprehensive SIEM log collection strategy should follow defense-in-depth: authentication systems (Active Directory, LDAP — detect account compromise), privileged access systems (PAM, domain controllers — detect insider threats and lateral movement), critical business servers (databases, file servers, application servers), perimeter devices (firewalls, IDS/IPS — detect external attacks), and endpoint security (EDR, AV — detect malware and endpoint compromise). Focusing only on any single layer creates visibility blind spots. Modern attacks traverse multiple layers; detecting them requires correlated visibility across all layers.",
+    explanation: "A comprehensive SIEM log collection strategy should follow defense-in-depth: authentication systems (directory services, LDAP — detect account compromise), privileged access systems (PAM, domain controllers — detect insider threats and lateral movement), critical business servers (databases, file servers, application servers), perimeter devices (firewalls, IDS/IPS — detect external attacks), and endpoint security (EDR, AV — detect malware and endpoint compromise). Focusing only on any single layer creates visibility blind spots. Modern attacks traverse multiple layers; detecting them requires correlated visibility across all layers.",
   },
   {
     id: "d7_108", domain: 7, difficulty: 1, section: "Incident Classification",
@@ -9604,7 +9604,7 @@ export const questions = [
       "Penetration testing methodologies specifically used to evaluate security configurations",
     ],
     answer: 1,
-    explanation: "CIS (Center for Internet Security) Benchmarks are consensus-developed, vendor-agnostic security configuration guidelines for specific technologies (Windows, Linux, AWS, Azure, Docker, etc.). They provide two implementation levels: Level 1 (essential security with minimal operational impact) and Level 2 (more comprehensive hardening for high-security environments). They are widely used as configuration baselines and are referenced in many compliance frameworks. They are not performance tools, NIST vulnerability signatures, or penetration testing methodologies.",
+    explanation: "CIS (Center for Internet Security) Benchmarks are consensus-developed, vendor-agnostic security configuration guidelines for specific technologies (operating systems, cloud platforms, container runtimes, etc.). They provide two implementation levels: Level 1 (essential security with minimal operational impact) and Level 2 (more comprehensive hardening for high-security environments). They are widely used as configuration baselines and are referenced in many compliance frameworks. They are not performance tools, NIST vulnerability signatures, or penetration testing methodologies.",
   },
   {
     id: "d7_120", domain: 7, difficulty: 3, section: "Evidence Handling",
@@ -9700,7 +9700,7 @@ export const questions = [
       "Multipartite virus",
     ],
     answer: 2,
-    explanation: "A stealth virus intercepts requests to the operating system to read infected files or sectors and returns clean, uninfected data, effectively hiding its presence from antivirus scanners that read through normal OS channels. A polymorphic virus changes its code with each infection to evade signature detection. A macro virus infects document macros (e.g., Microsoft Word macros). A multipartite virus infects both boot sectors and executable files.",
+    explanation: "A stealth virus intercepts requests to the operating system to read infected files or sectors and returns clean, uninfected data, effectively hiding its presence from antivirus scanners that read through normal OS channels. A polymorphic virus changes its code with each infection to evade signature detection. A macro virus infects document macros (e.g., word processor document macros). A multipartite virus infects both boot sectors and executable files.",
   },
   {
     id: "d7_128", domain: 7, difficulty: 3, section: "Digital Forensics",
@@ -9802,7 +9802,7 @@ export const questions = [
   },
   {
     id: "d8_024", domain: 8, difficulty: 3, section: "DevSecOps",
-    question: "During a CI/CD pipeline security review, a team discovers that their deployment scripts contain plaintext AWS access keys committed to the source code repository. Which combination of controls best addresses this issue?",
+    question: "During a CI/CD pipeline security review, a team discovers that their deployment scripts contain plaintext cloud provider access keys committed to the source code repository. Which combination of controls best addresses this issue?",
     options: [
       "Encrypt the repository and restrict access to senior developers only",
       "Use a secrets management vault and pre-commit hooks that scan for credential patterns",
@@ -9810,7 +9810,7 @@ export const questions = [
       "Rotate the credentials immediately and store them in environment variables in the CI system",
     ],
     answer: 1,
-    explanation: "The best solution combines a secrets management vault (e.g., HashiCorp Vault, AWS Secrets Manager) for runtime credential injection with pre-commit hooks (e.g., git-secrets, trufflehog) that prevent secrets from ever being committed. A .gitignore-excluded config file is better than inline but still stores secrets insecurely on disk. Environment variables in the CI system are better but alone don't prevent future mistakes; pre-commit hooks provide the preventive control.",
+    explanation: "The best solution combines a secrets management vault for runtime credential injection with pre-commit hooks (e.g., git-secrets, trufflehog) that prevent secrets from ever being committed. A .gitignore-excluded config file is better than inline but still stores secrets insecurely on disk. Environment variables in the CI system are better but alone don't prevent future mistakes; pre-commit hooks provide the preventive control.",
   },
   {
     id: "d8_025", domain: 8, difficulty: 1, section: "Secure Coding Principles",
@@ -9994,7 +9994,7 @@ export const questions = [
   },
   {
     id: "d8_040", domain: 8, difficulty: 2, section: "Server-Side Request Forgery",
-    question: "An attacker submits a URL of `http://169.254.169.254/latest/meta-data/iam/security-credentials/` to a web application feature that fetches remote URLs. The application retrieves and displays AWS IAM credentials. What vulnerability is this?",
+    question: "An attacker submits a URL of `http://169.254.169.254/latest/meta-data/iam/security-credentials/` to a web application feature that fetches remote URLs. The application retrieves and displays cloud IAM credentials. What vulnerability is this?",
     options: [
       "Remote File Inclusion (RFI)",
       "Server-Side Request Forgery (SSRF)",
@@ -10002,7 +10002,7 @@ export const questions = [
       "Insecure Direct Object Reference (IDOR)",
     ],
     answer: 1,
-    explanation: "SSRF causes the server to make HTTP requests to attacker-controlled destinations, including internal services. The AWS metadata endpoint (169.254.169.254) is a link-local address only accessible from EC2 instances. By abusing a URL-fetching feature, the attacker uses the server as a proxy to access internal metadata services. RFI includes remote code files. XXE is XML-based. IDOR accesses objects by manipulating IDs.",
+    explanation: "SSRF causes the server to make HTTP requests to attacker-controlled destinations, including internal services. The cloud metadata endpoint (169.254.169.254) is a link-local address only accessible from cloud compute instances. By abusing a URL-fetching feature, the attacker uses the server as a proxy to access internal metadata services. RFI includes remote code files. XXE is XML-based. IDOR accesses objects by manipulating IDs.",
   },
   {
     id: "d8_041", domain: 8, difficulty: 3, section: "Server-Side Request Forgery",
@@ -10302,7 +10302,7 @@ export const questions = [
       "Restricting developers from using any open-source libraries without prior security team approval",
     ],
     answer: 1,
-    explanation: "SCA tools maintain an inventory (SBOM) of all dependencies and their versions, continuously monitor vulnerability databases (NVD, GitHub Advisory, etc.), and alert when a known CVE affects a component in use. This enables rapid response. Manual review of 47+ libraries is impractical. A penetration test assesses exploitability but doesn't systematically track all dependencies. Blanket prohibition on open source is operationally infeasible and doesn't address existing dependencies.",
+    explanation: "SCA tools maintain an inventory (SBOM) of all dependencies and their versions, continuously monitor vulnerability databases (e.g., the National Vulnerability Database and vendor security advisories), and alert when a known CVE affects a component in use. This enables rapid response. Manual review of 47+ libraries is impractical. A penetration test assesses exploitability but doesn't systematically track all dependencies. Blanket prohibition on open source is operationally infeasible and doesn't address existing dependencies.",
   },
   {
     id: "d8_066", domain: 8, difficulty: 2, section: "Threat Modeling",
@@ -10598,11 +10598,11 @@ export const questions = [
     options: [
       "Storing credentials in an application.properties configuration file with read access restricted only to the application's runtime user",
       "Hardcoding credentials directly into the compiled application binary at build time",
-      "Using IAM roles/instance profiles so the application obtains temporary credentials automatically without storing long-term credentials",
+      "Using IAM roles assigned to the compute resource so the application obtains temporary credentials automatically without storing long-term credentials",
       "Storing credentials in environment variables that are injected at container startup time and persist in process memory and container inspection output",
     ],
     answer: 2,
-    explanation: "Using IAM roles/instance profiles (or workload identity in Kubernetes) is the most secure approach because no credentials need to be stored anywhere — the cloud platform automatically injects short-lived, automatically rotated credentials. This eliminates credential theft from configuration files, binaries, or environment variables. Environment variables are better than files or hardcoding but still represent static long-term credentials that can be leaked via process inspection or debug dumps.",
+    explanation: "Using IAM roles assigned to the compute resource (or workload identity in Kubernetes) is the most secure approach because no credentials need to be stored anywhere — the cloud platform automatically injects short-lived, automatically rotated credentials. This eliminates credential theft from configuration files, binaries, or environment variables. Environment variables are better than files or hardcoding but still represent static long-term credentials that can be leaked via process inspection or debug dumps.",
   },
   {
     id: "d8_091", domain: 8, difficulty: 2, section: "OWASP Top 10",
@@ -10822,15 +10822,15 @@ export const questions = [
   },
   {
     id: "d8_109", domain: 8, difficulty: 3, section: "DevSecOps",
-    question: "A security architect wants to implement Policy as Code to enforce that all new cloud infrastructure deployments comply with security baselines (e.g., no public S3 buckets, encrypted EBS volumes). Which approach achieves this in a DevSecOps pipeline?",
+    question: "A security architect wants to implement Policy as Code to enforce that all new cloud infrastructure deployments comply with security baselines (e.g., no public storage buckets, encrypted block storage volumes). Which approach achieves this in a DevSecOps pipeline?",
     options: [
       "Run quarterly compliance audits using a cloud security posture management (CSPM) tool to detect configuration drift well after resources have already been deployed to production",
-      "Implement OPA (Open Policy Agent) or AWS Config rules that evaluate infrastructure templates (Terraform, CloudFormation) against security policies at deploy time, blocking non-compliant deployments",
+      "Implement OPA (Open Policy Agent) or the cloud provider's native policy engine to evaluate infrastructure-as-code templates against security policies at deploy time, blocking non-compliant deployments",
       "Require manual security team sign-off and review for every single cloud infrastructure deployment request",
       "Use cloud provider security groups exclusively to enforce all compliance requirements at the network level",
     ],
     answer: 1,
-    explanation: "Policy as Code embeds security and compliance rules as code evaluated automatically in the deployment pipeline. Tools like OPA/Conftest, Checkov, or cloud-native services (AWS Config Rules, Azure Policy) evaluate IaC templates before deployment, failing pipelines that violate policies (no public S3, encryption required, etc.). This is preventive, scalable, and consistent — unlike quarterly audits (detective, delayed) or manual reviews (slow, unscalable). Security groups are network controls, not compliance enforcement for misconfigurations.",
+    explanation: "Policy as Code embeds security and compliance rules as code evaluated automatically in the deployment pipeline. Tools like OPA/Conftest, Checkov, or the cloud provider's native policy engine evaluate IaC templates before deployment, failing pipelines that violate policies (no public storage buckets, encryption required, etc.). This is preventive, scalable, and consistent — unlike quarterly audits (detective, delayed) or manual reviews (slow, unscalable). Security groups are network controls, not compliance enforcement for misconfigurations.",
   },
   {
     id: "d8_110", domain: 8, difficulty: 3, section: "Secure Coding Principles",
