@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import flashcards from '../data/flashcards.js';
-import { DOMAINS } from '../data/questions.js';
+import { DOMAINS, DOMAIN_WEIGHTS } from '../data/questions.js';
 import {
   getFlashcardWeights,
   updateFlashcardWeight,
@@ -20,18 +20,59 @@ function shuffle(arr) {
   return a;
 }
 
-function buildTermsDeck(domain, count, weights) {
-  const filtered =
-    domain > 0 ? flashcards.filter((c) => c.domain === domain) : flashcards;
-  const due = filtered
+// Orders one domain's (or the whole bank's) cards by spaced-repetition
+// priority: due-for-review first (worst first), then unseen, then mastered.
+function orderByPriority(cards, weights, count) {
+  const due = cards
     .filter((c) => (weights[c.id] || 0) > 0)
     .sort((a, b) => (weights[b.id] || 0) - (weights[a.id] || 0));
-  const unseen = shuffle(filtered.filter((c) => !(c.id in weights)));
+  const unseen = shuffle(cards.filter((c) => !(c.id in weights)));
   const mastered = shuffle(
-    filtered.filter((c) => c.id in weights && weights[c.id] === 0),
+    cards.filter((c) => c.id in weights && weights[c.id] === 0),
   );
   const ordered = [...due, ...unseen, ...mastered];
   return count === 0 ? ordered : ordered.slice(0, count);
+}
+
+function buildTermsDeck(domain, count, weights) {
+  if (domain > 0) {
+    return orderByPriority(
+      flashcards.filter((c) => c.domain === domain),
+      weights,
+      count,
+    );
+  }
+  if (count === 0) {
+    return orderByPriority(flashcards, weights, 0);
+  }
+
+  // "All Domains" with a capped count: allocate proportionally to real CISSP
+  // domain weights (same idea as the question bank's CAT engine) instead of
+  // pulling a flat/random mix that could over- or under-represent a domain
+  // purely by chance.
+  const domainNums = Object.keys(DOMAIN_WEIGHTS).map(Number);
+  const totalWeight = domainNums.reduce((sum, d) => sum + DOMAIN_WEIGHTS[d], 0);
+  const allocation = {};
+  domainNums.forEach((d) => {
+    allocation[d] = Math.floor((DOMAIN_WEIGHTS[d] / totalWeight) * count);
+  });
+  let remainder = count - Object.values(allocation).reduce((s, n) => s + n, 0);
+  const byWeightDesc = [...domainNums].sort(
+    (a, b) => DOMAIN_WEIGHTS[b] - DOMAIN_WEIGHTS[a],
+  );
+  for (let i = 0; remainder > 0; i++) {
+    allocation[byWeightDesc[i % byWeightDesc.length]] += 1;
+    remainder--;
+  }
+
+  const deck = domainNums.flatMap((d) =>
+    orderByPriority(
+      flashcards.filter((c) => c.domain === d),
+      weights,
+      allocation[d],
+    ),
+  );
+  return shuffle(deck);
 }
 
 function buildQuestionsDeck(count) {
