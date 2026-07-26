@@ -61,27 +61,32 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const timerRef = useRef(null);
 
-  // Per-question countdown
-  useEffect(() => {
-    if (phase !== 'quiz' || timeLimit === 0 || showResult) return;
-    setTimeElapsed(0);
-    timerRef.current = setInterval(() => {
-      setTimeElapsed((prev) => {
-        if (prev + 1 >= timeLimit) {
-          clearInterval(timerRef.current);
-          handleTimerExpire();
-          return timeLimit;
-        }
-        return prev + 1;
-      });
-    }, 1000);
-    return () => clearInterval(timerRef.current);
-  }, [phase, index, showResult, timeLimit]);
-
   function handleTimerExpire() {
     setSelected(null);
     setShowResult(true); // auto-show result; selected=null means wrong
   }
+
+  // Per-question countdown. Uses a plain closure variable for the tick count
+  // instead of a functional setState updater, so clearInterval/handleTimerExpire
+  // (side effects) never run from inside a state-updater function — those must
+  // stay pure, and React 18 Strict Mode double-invokes them in dev to catch
+  // exactly this kind of impurity.
+  useEffect(() => {
+    if (phase !== 'quiz' || timeLimit === 0 || showResult) return;
+    let elapsed = 0;
+    setTimeElapsed(0);
+    timerRef.current = setInterval(() => {
+      elapsed += 1;
+      if (elapsed >= timeLimit) {
+        clearInterval(timerRef.current);
+        setTimeElapsed(timeLimit);
+        handleTimerExpire();
+      } else {
+        setTimeElapsed(elapsed);
+      }
+    }, 1000);
+    return () => clearInterval(timerRef.current);
+  }, [phase, index, showResult, timeLimit]);
 
   function startPractice() {
     const allQ = buildAllQuestions();
