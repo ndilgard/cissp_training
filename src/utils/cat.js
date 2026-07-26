@@ -13,7 +13,7 @@ export function shuffleOptions(q) {
   }
   return {
     ...q,
-    options: indices.map(i => q.options[i]),
+    options: indices.map((i) => q.options[i]),
     answer: indices.indexOf(q.answer),
   };
 }
@@ -27,7 +27,7 @@ const PASSING_SCALED_SCORE = 700;
 export function initialState() {
   return {
     theta: 0,
-    answered: [],       // { questionId, domain, difficulty, correct }
+    answered: [], // { questionId, domain, difficulty, correct }
     usedIds: new Set(),
     sessionComplete: false,
     scaledScore: 0,
@@ -38,7 +38,12 @@ export function initialState() {
 export function updateTheta(theta, correct, difficulty) {
   const difficultyOffset = (difficulty - 2) * 0.8; // map 1/2/3 → -0.8/0/0.8
   const delta = correct ? 0.3 : -0.3;
-  const adjusted = theta + delta + (correct ? difficultyOffset * 0.2 : -difficultyOffset * 0.1);
+  // Correct: harder questions reward more (difficultyOffset scales up with delta).
+  // Incorrect: easier questions should PENALIZE MORE (missing an easy question is the
+  // stronger signal you're overestimated) — same-signed scaling as the correct branch,
+  // not inverted.
+  const adjusted =
+    theta + delta + (correct ? difficultyOffset * 0.2 : difficultyOffset * 0.1);
   return Math.max(-3, Math.min(3, adjusted));
 }
 
@@ -46,21 +51,28 @@ export function updateTheta(theta, correct, difficulty) {
 // unseen preferred, previously-wrong questions get a boost.
 // seenIds: cross-session history from localStorage (optional)
 // wrongWeights: { questionId: wrongCount } from spaced repetition
-export function selectNextQuestion(questions, state, seenIds = new Set(), wrongWeights = {}) {
-  const available = questions.filter(q => !state.usedIds.has(q.id));
+export function selectNextQuestion(
+  questions,
+  state,
+  seenIds = new Set(),
+  wrongWeights = {},
+) {
+  const available = questions.filter((q) => !state.usedIds.has(q.id));
   if (available.length === 0) return null;
 
   // Questions answered incorrectly in a past session must resurface until
   // answered correctly enough to clear their weight (see history.js) — this
   // takes priority over domain/difficulty balancing, not just a scoring boost.
-  const unresolvedWrong = available.filter(q => (wrongWeights[q.id] || 0) > 0);
+  const unresolvedWrong = available.filter(
+    (q) => (wrongWeights[q.id] || 0) > 0,
+  );
   if (unresolvedWrong.length > 0) {
     const topN = Math.min(3, unresolvedWrong.length);
     return unresolvedWrong[Math.floor(Math.random() * topN)];
   }
 
   // Prefer questions not yet seen across sessions; fall back to seen if pool exhausted
-  const unseen = available.filter(q => !seenIds.has(q.id));
+  const unseen = available.filter((q) => !seenIds.has(q.id));
   const pool = unseen.length > 0 ? unseen : available;
 
   // Target difficulty based on theta
@@ -68,16 +80,17 @@ export function selectNextQuestion(questions, state, seenIds = new Set(), wrongW
 
   // Domain balance: track how many questions per domain vs expected weight
   const domainCounts = {};
-  state.answered.forEach(a => {
+  state.answered.forEach((a) => {
     domainCounts[a.domain] = (domainCounts[a.domain] || 0) + 1;
   });
   const total = state.answered.length;
 
   // Score each candidate question
-  const scored = pool.map(q => {
+  const scored = pool.map((q) => {
     const diffScore = 1 - Math.abs(q.difficulty - targetDiff) / 2;
     const expectedFraction = DOMAIN_WEIGHTS[q.domain] || 0.125;
-    const actualFraction = total > 0 ? (domainCounts[q.domain] || 0) / total : 0;
+    const actualFraction =
+      total > 0 ? (domainCounts[q.domain] || 0) / total : 0;
     const domainScore = Math.max(0, expectedFraction - actualFraction) * 5;
     return { q, score: diffScore + domainScore };
   });
@@ -104,10 +117,10 @@ export function shouldTerminate(state) {
   // Terminate early if ability estimate is very stable (consistently above or below pass threshold)
   const passTheta = 0.3; // roughly corresponds to 700/1000
   const recent = state.answered.slice(-15);
-  const recentCorrect = recent.filter(a => a.correct).length;
+  const recentCorrect = recent.filter((a) => a.correct).length;
 
   if (n >= 100) {
-    if (state.theta > 1.2 && recentCorrect >= 11) return true;  // clearly passing
+    if (state.theta > 1.2 && recentCorrect >= 11) return true; // clearly passing
     if (state.theta < -1.2 && recentCorrect <= 4) return true; // clearly failing
   }
   return false;
@@ -130,6 +143,20 @@ export function getDomainBreakdown(answered) {
     if (correct) byDomain[domain].correct++;
   });
   return byDomain;
+}
+
+// Missed-topics breakdown: count of wrong answers per subsection (question.section),
+// sorted worst-first. Sections with zero wrong answers are omitted.
+export function getSubsectionWrongCounts(answered) {
+  const bySection = {};
+  answered.forEach(({ section, domain, correct }) => {
+    if (!section || correct) return;
+    if (!bySection[section]) bySection[section] = { domain, wrong: 0 };
+    bySection[section].wrong++;
+  });
+  return Object.entries(bySection)
+    .map(([section, d]) => ({ section, domain: d.domain, wrong: d.wrong }))
+    .sort((a, b) => b.wrong - a.wrong);
 }
 
 // Difficulty performance breakdown
