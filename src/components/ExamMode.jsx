@@ -16,7 +16,12 @@ import {
   getDifficultyBreakdown,
   shuffleOptions,
 } from '../utils/cat.js';
-import { getSeenIds, markSeen, updateWrongAnswers, getWrongWeights } from '../utils/history.js';
+import {
+  getSeenIds,
+  markSeen,
+  updateWrongAnswers,
+  getWrongWeights,
+} from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
 
 const EXAM_SECONDS = 3 * 60 * 60;
@@ -27,18 +32,29 @@ function buildQuestionPool() {
 
 export default function ExamMode({ onHome }) {
   const allQuestions = buildQuestionPool();
-  const [seenIds]     = useState(() => getSeenIds());
+  const [seenIds] = useState(() => getSeenIds());
   const [wrongWeights] = useState(() => getWrongWeights());
 
-  const [catState, setCatState]         = useState(() => initialState());
-  const [questionHistory, setQHistory]  = useState(() => {
-    const firstQ = selectNextQuestion(allQuestions, initialState(), getSeenIds(), getWrongWeights());
-    return [{ question: shuffleOptions(firstQ), selectedAnswer: null, flagged: false }];
+  const [catState, setCatState] = useState(() => initialState());
+  const [questionHistory, setQHistory] = useState(() => {
+    const firstQ = selectNextQuestion(
+      allQuestions,
+      initialState(),
+      getSeenIds(),
+      getWrongWeights(),
+    );
+    return [
+      {
+        question: shuffleOptions(firstQ),
+        selectedAnswer: null,
+        flagged: false,
+      },
+    ];
   });
-  const [selected, setSelected]         = useState(null);
-  const [phase, setPhase]               = useState('exam'); // 'exam' | 'review' | 'results'
-  const [scaledScore, setScaledScore]   = useState(0);
-  const [timedOut, setTimedOut]         = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [phase, setPhase] = useState('exam'); // 'exam' | 'review' | 'results'
+  const [scaledScore, setScaledScore] = useState(0);
+  const [timedOut, setTimedOut] = useState(false);
   const [finalAnswered, setFinalAnswered] = useState([]);
 
   const currentIdx = catState.answered.length; // index of question being answered
@@ -51,14 +67,15 @@ export default function ExamMode({ onHome }) {
 
   function submitExam(history, state) {
     // Build answered array from history (unanswered = wrong)
-    const answered = history.map(entry => ({
+    const answered = history.map((entry) => ({
       questionId: entry.question.id,
       domain: entry.question.domain,
       difficulty: entry.question.difficulty,
+      section: entry.question.section,
       correct: entry.selectedAnswer === entry.question.answer,
     }));
 
-    markSeen(answered.map(a => a.questionId));
+    markSeen(answered.map((a) => a.questionId));
     updateWrongAnswers(answered);
 
     const score = calculateScaledScore(state);
@@ -68,8 +85,10 @@ export default function ExamMode({ onHome }) {
     saveSession({
       mode: 'exam',
       score,
-      pct: Math.round(answered.filter(a => a.correct).length / answered.length * 100),
-      correct: answered.filter(a => a.correct).length,
+      pct: Math.round(
+        (answered.filter((a) => a.correct).length / answered.length) * 100,
+      ),
+      correct: answered.filter((a) => a.correct).length,
       total: answered.length,
       domainBreakdown: getDomainBreakdown(answered),
       difficultyBreakdown: getDifficultyBreakdown(answered),
@@ -83,11 +102,15 @@ export default function ExamMode({ onHome }) {
 
     // Save answer to history
     const updatedHistory = questionHistory.map((e, i) =>
-      i === currentIdx ? { ...e, selectedAnswer: selected } : e
+      i === currentIdx ? { ...e, selectedAnswer: selected } : e,
     );
 
     const correct = selected === currentEntry.question.answer;
-    const newTheta = updateTheta(catState.theta, correct, currentEntry.question.difficulty);
+    const newTheta = updateTheta(
+      catState.theta,
+      correct,
+      currentEntry.question.difficulty,
+    );
     const newAnswered = [
       ...catState.answered,
       {
@@ -99,7 +122,12 @@ export default function ExamMode({ onHome }) {
     ];
     const newUsed = new Set(catState.usedIds);
     newUsed.add(currentEntry.question.id);
-    const newState = { ...catState, theta: newTheta, answered: newAnswered, usedIds: newUsed };
+    const newState = {
+      ...catState,
+      theta: newTheta,
+      answered: newAnswered,
+      usedIds: newUsed,
+    };
 
     setCatState(newState);
     setSelected(null);
@@ -110,46 +138,74 @@ export default function ExamMode({ onHome }) {
       return;
     }
 
-    const next = selectNextQuestion(allQuestions, newState, seenIds, wrongWeights);
+    const next = selectNextQuestion(
+      allQuestions,
+      newState,
+      seenIds,
+      wrongWeights,
+    );
     if (!next) {
       setQHistory(updatedHistory);
       setPhase('review');
       return;
     }
 
-    setQHistory([...updatedHistory, { question: shuffleOptions(next), selectedAnswer: null, flagged: false }]);
+    setQHistory([
+      ...updatedHistory,
+      { question: shuffleOptions(next), selectedAnswer: null, flagged: false },
+    ]);
   }
 
   function handleToggleFlag() {
-    setQHistory(prev => prev.map((e, i) =>
-      i === currentIdx ? { ...e, flagged: !e.flagged } : e
-    ));
+    setQHistory((prev) =>
+      prev.map((e, i) =>
+        i === currentIdx ? { ...e, flagged: !e.flagged } : e,
+      ),
+    );
   }
 
   function handleFinishEarly() {
     // Save current selection if any
-    const updatedHistory = selected !== null
-      ? questionHistory.map((e, i) => i === currentIdx ? { ...e, selectedAnswer: selected } : e)
-      : questionHistory;
+    const updatedHistory =
+      selected !== null
+        ? questionHistory.map((e, i) =>
+            i === currentIdx ? { ...e, selectedAnswer: selected } : e,
+          )
+        : questionHistory;
     setQHistory(updatedHistory);
     setPhase('review');
   }
 
   // Review screen callbacks
   function handleUpdateAnswer(idx, ans) {
-    setQHistory(prev => prev.map((e, i) => i === idx ? { ...e, selectedAnswer: ans } : e));
+    setQHistory((prev) =>
+      prev.map((e, i) => (i === idx ? { ...e, selectedAnswer: ans } : e)),
+    );
   }
   function handleToggleFlagReview(idx) {
-    setQHistory(prev => prev.map((e, i) => i === idx ? { ...e, flagged: !e.flagged } : e));
+    setQHistory((prev) =>
+      prev.map((e, i) => (i === idx ? { ...e, flagged: !e.flagged } : e)),
+    );
   }
 
   function handleRestart() {
     const fresh = initialState();
     const freshSeen = getSeenIds();
     const freshWeights = getWrongWeights();
-    const firstQ = selectNextQuestion(allQuestions, fresh, freshSeen, freshWeights);
+    const firstQ = selectNextQuestion(
+      allQuestions,
+      fresh,
+      freshSeen,
+      freshWeights,
+    );
     setCatState(fresh);
-    setQHistory([{ question: shuffleOptions(firstQ), selectedAnswer: null, flagged: false }]);
+    setQHistory([
+      {
+        question: shuffleOptions(firstQ),
+        selectedAnswer: null,
+        flagged: false,
+      },
+    ]);
     setSelected(null);
     setPhase('exam');
     setTimedOut(false);
@@ -181,7 +237,7 @@ export default function ExamMode({ onHome }) {
 
   const questionNumber = currentIdx + 1;
   const canFinishEarly = catState.answered.length >= 100;
-  const flagCount = questionHistory.filter(e => e.flagged).length;
+  const flagCount = questionHistory.filter((e) => e.flagged).length;
 
   return (
     <div className="exam-layout">
@@ -190,7 +246,11 @@ export default function ExamMode({ onHome }) {
         <Timer totalSeconds={EXAM_SECONDS} onExpire={handleExpire} />
         <div className="exam-header__progress">
           Q {questionNumber}
-          {flagCount > 0 && <span className="flag-count"><Flag size={13} strokeWidth={2} /> {flagCount}</span>}
+          {flagCount > 0 && (
+            <span className="flag-count">
+              <Flag size={13} strokeWidth={2} /> {flagCount}
+            </span>
+          )}
         </div>
       </header>
 

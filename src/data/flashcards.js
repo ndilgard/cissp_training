@@ -198,7 +198,7 @@ export const flashcards = [
     id: 'fc_033',
     domain: 2,
     front: 'Data Owner',
-    back: 'The individual (usually a business manager) responsible for classifying data and approving access controls. Accountable for the data\'s protection and appropriate use.',
+    back: "The individual (usually a business manager) responsible for classifying data and approving access controls. Accountable for the data's protection and appropriate use.",
   },
   {
     id: 'fc_034',
@@ -240,13 +240,13 @@ export const flashcards = [
     id: 'fc_040',
     domain: 2,
     front: 'Scoping',
-    back: 'Identifying which portions of a security standard are applicable to an organization\'s environment. Excludes irrelevant requirements (e.g., excluding wireless controls if no wireless exists).',
+    back: "Identifying which portions of a security standard are applicable to an organization's environment. Excludes irrelevant requirements (e.g., excluding wireless controls if no wireless exists).",
   },
   {
     id: 'fc_041',
     domain: 2,
     front: 'Tailoring',
-    back: 'Modifying a baseline set of security controls to align with an organization\'s specific mission, environment, and risk tolerance. Performed after scoping.',
+    back: "Modifying a baseline set of security controls to align with an organization's specific mission, environment, and risk tolerance. Performed after scoping.",
   },
   {
     id: 'fc_042',
@@ -264,7 +264,7 @@ export const flashcards = [
     id: 'fc_044',
     domain: 2,
     front: 'Copyright',
-    back: 'Automatic legal protection for original creative works (books, software, music). Lasts the author\'s lifetime + 70 years in the US. No registration required for protection.',
+    back: "Automatic legal protection for original creative works (books, software, music). Lasts the author's lifetime + 70 years in the US. No registration required for protection.",
   },
   {
     id: 'fc_045',
@@ -422,7 +422,7 @@ export const flashcards = [
     id: 'fc_070',
     domain: 3,
     front: 'Hypervisor Types',
-    back: 'Type 1 (bare-metal): runs directly on hardware (VMware ESXi, Hyper-V, Xen) — more secure. Type 2 (hosted): runs on top of an OS (VirtualBox, VMware Workstation) — less secure.',
+    back: 'Type 1 (bare-metal): runs directly on hardware — more secure. Type 2 (hosted): runs on top of an OS — less secure.',
   },
   {
     id: 'fc_071',
@@ -592,7 +592,7 @@ export const flashcards = [
     id: 'fc_098',
     domain: 4,
     front: 'WPA3',
-    back: 'Wi-Fi Protected Access 3 — current Wi-Fi security standard. Uses SAE (Simultaneous Authentication of Equals) replacing WPA2\'s PSK, providing forward secrecy and protection against offline dictionary attacks.',
+    back: "Wi-Fi Protected Access 3 — current Wi-Fi security standard. Uses SAE (Simultaneous Authentication of Equals) replacing WPA2's PSK, providing forward secrecy and protection against offline dictionary attacks.",
   },
   {
     id: 'fc_099',
@@ -636,13 +636,13 @@ export const flashcards = [
     id: 'fc_105',
     domain: 5,
     front: 'LDAP',
-    back: 'Lightweight Directory Access Protocol — a protocol for accessing and maintaining distributed directory information (e.g., Active Directory). Uses port 389 (plaintext) or 636 (LDAPS). Basis for many SSO and directory services.',
+    back: 'Lightweight Directory Access Protocol — a protocol for accessing and maintaining distributed directory information (e.g., a corporate directory service). Uses port 389 (plaintext) or 636 (LDAPS). Basis for many SSO and directory services.',
   },
   {
     id: 'fc_106',
     domain: 5,
     front: 'Kerberos TGT',
-    back: 'Ticket-Granting Ticket — issued by the KDC\'s Authentication Server (AS) after successful login. The user presents the TGT to the Ticket-Granting Server (TGS) to obtain service tickets without re-entering credentials.',
+    back: "Ticket-Granting Ticket — issued by the KDC's Authentication Server (AS) after successful login. The user presents the TGT to the Ticket-Granting Server (TGS) to obtain service tickets without re-entering credentials.",
   },
   {
     id: 'fc_107',
@@ -660,13 +660,13 @@ export const flashcards = [
     id: 'fc_109',
     domain: 5,
     front: 'TACACS+',
-    back: 'Terminal Access Controller Access-Control System Plus — Cisco proprietary AAA protocol that encrypts the entire payload (vs RADIUS\'s password-only). Uses TCP port 49; separates authentication, authorization, and accounting.',
+    back: "Terminal Access Controller Access-Control System Plus — a vendor-proprietary AAA protocol that encrypts the entire payload (vs RADIUS's password-only). Uses TCP port 49; separates authentication, authorization, and accounting.",
   },
   {
     id: 'fc_110',
     domain: 5,
     front: 'OAuth 2.0',
-    back: 'An authorization framework (not authentication) allowing third-party apps to obtain limited access to a user\'s resources without exposing credentials. Uses access tokens; commonly used with OIDC for identity.',
+    back: "An authorization framework (not authentication) allowing third-party apps to obtain limited access to a user's resources without exposing credentials. Uses access tokens; commonly used with OIDC for identity.",
   },
   {
     id: 'fc_111',
@@ -678,7 +678,7 @@ export const flashcards = [
     id: 'fc_112',
     domain: 5,
     front: 'OpenID Connect',
-    back: 'An identity layer on top of OAuth 2.0 that allows clients to verify user identity and obtain basic profile information via an ID Token (JWT). Used for consumer-facing SSO (Google, Microsoft sign-in).',
+    back: 'An identity layer on top of OAuth 2.0 that allows clients to verify user identity and obtain basic profile information via an ID Token (JWT). Used for consumer-facing SSO (e.g., third-party sign-in providers).',
   },
   {
     id: 'fc_113',
@@ -848,13 +848,13 @@ export const flashcards = [
     id: 'fc_140',
     domain: 6,
     front: 'Blue Team',
-    back: 'The defensive security team responsible for protecting an organization\'s assets, monitoring for threats, and responding to attacks. Operates in a security operations center (SOC).',
+    back: "The defensive security team responsible for protecting an organization's assets, monitoring for threats, and responding to attacks. Operates in a security operations center (SOC).",
   },
   {
     id: 'fc_141',
     domain: 6,
     front: 'Red Team',
-    back: 'An adversarial team that simulates real-world attackers to test the effectiveness of an organization\'s defenses using advanced tactics, techniques, and procedures (TTPs).',
+    back: "An adversarial team that simulates real-world attackers to test the effectiveness of an organization's defenses using advanced tactics, techniques, and procedures (TTPs).",
   },
   {
     id: 'fc_142',
@@ -884,7 +884,7 @@ export const flashcards = [
     id: 'fc_146',
     domain: 6,
     front: 'Threat Intelligence Feeds',
-    back: 'Curated streams of data about current threats, IOCs (Indicators of Compromise), TTPs, and vulnerabilities from sources like ISACs, commercial vendors (CrowdStrike, Recorded Future), and government (CISA).',
+    back: 'Curated streams of data about current threats, IOCs (Indicators of Compromise), TTPs, and vulnerabilities from sources like ISACs, commercial threat intel vendors, and government (CISA).',
   },
   {
     id: 'fc_147',
@@ -908,7 +908,7 @@ export const flashcards = [
     id: 'fc_150',
     domain: 6,
     front: 'Synthetic Transactions',
-    back: 'Simulated, scripted transactions run against production systems to verify availability and performance from a user\'s perspective. Part of continuous monitoring and availability testing.',
+    back: "Simulated, scripted transactions run against production systems to verify availability and performance from a user's perspective. Part of continuous monitoring and availability testing.",
   },
 
   // ── Domain 7: Security Operations (fc_151–fc_175) ─────────────────────────
@@ -1140,7 +1140,7 @@ export const flashcards = [
     id: 'fc_188',
     domain: 8,
     front: 'CSRF',
-    back: 'Cross-Site Request Forgery — tricks an authenticated user\'s browser into sending unauthorized requests to a trusted site. Prevention: CSRF tokens (synchronizer token pattern), SameSite cookie attribute, re-authentication.',
+    back: "Cross-Site Request Forgery — tricks an authenticated user's browser into sending unauthorized requests to a trusted site. Prevention: CSRF tokens (synchronizer token pattern), SameSite cookie attribute, re-authentication.",
   },
   {
     id: 'fc_189',

@@ -3,9 +3,20 @@ import Question from './Question.jsx';
 import Results from './Results.jsx';
 import questions, { DOMAINS } from '../data/questions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
-import { getSeenIds, markSeen, updateWrongAnswers, resetHistory, getSeenCount, getWrongIds } from '../utils/history.js';
+import {
+  getSeenIds,
+  markSeen,
+  updateWrongAnswers,
+  resetHistory,
+  getSeenCount,
+  getWrongIds,
+} from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
-import { getDomainBreakdown, getDifficultyBreakdown, shuffleOptions } from '../utils/cat.js';
+import {
+  getDomainBreakdown,
+  getDifficultyBreakdown,
+  shuffleOptions,
+} from '../utils/cat.js';
 
 const DIFF_OPTIONS = [
   { value: 0, label: 'All Levels' },
@@ -15,10 +26,10 @@ const DIFF_OPTIONS = [
 ];
 
 const TIME_OPTIONS = [
-  { value: 0,   label: 'No timer' },
-  { value: 90,  label: '90 seconds' },
-  { value: 60,  label: '60 seconds' },
-  { value: 45,  label: '45 seconds' },
+  { value: 0, label: 'No timer' },
+  { value: 90, label: '90 seconds' },
+  { value: 60, label: '60 seconds' },
+  { value: 45, label: '45 seconds' },
 ];
 
 function shuffle(arr) {
@@ -35,19 +46,19 @@ function buildAllQuestions() {
 }
 
 export default function PracticeMode({ onHome, onWrongReview }) {
-  const [phase, setPhase]               = useState('setup');
-  const [selectedDomain, setDomain]     = useState(0);
-  const [selectedDiff, setDiff]         = useState(0);
-  const [questionCount, setCount]       = useState(20);
-  const [timeLimit, setTimeLimit]       = useState(0);
-  const [wrongOnly, setWrongOnly]       = useState(false);
-  const [pool, setPool]                 = useState([]);
-  const [index, setIndex]               = useState(0);
-  const [selected, setSelected]         = useState(null);
-  const [showResult, setShowResult]     = useState(false);
-  const [answered, setAnswered]         = useState([]);
-  const [seenCount, setSeenCount]       = useState(() => getSeenCount());
-  const [timeElapsed, setTimeElapsed]   = useState(0);
+  const [phase, setPhase] = useState('setup');
+  const [selectedDomain, setDomain] = useState(0);
+  const [selectedDiff, setDiff] = useState(0);
+  const [questionCount, setCount] = useState(20);
+  const [timeLimit, setTimeLimit] = useState(0);
+  const [wrongOnly, setWrongOnly] = useState(false);
+  const [pool, setPool] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [answered, setAnswered] = useState([]);
+  const [seenCount, setSeenCount] = useState(() => getSeenCount());
+  const [timeElapsed, setTimeElapsed] = useState(0);
   const timerRef = useRef(null);
 
   // Per-question countdown
@@ -55,7 +66,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     if (phase !== 'quiz' || timeLimit === 0 || showResult) return;
     setTimeElapsed(0);
     timerRef.current = setInterval(() => {
-      setTimeElapsed(prev => {
+      setTimeElapsed((prev) => {
         if (prev + 1 >= timeLimit) {
           clearInterval(timerRef.current);
           handleTimerExpire();
@@ -75,21 +86,29 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   function startPractice() {
     const allQ = buildAllQuestions();
     let filtered = allQ;
-    if (selectedDomain > 0) filtered = filtered.filter(q => q.domain === selectedDomain);
-    if (selectedDiff > 0)   filtered = filtered.filter(q => q.difficulty === selectedDiff);
+    if (selectedDomain > 0)
+      filtered = filtered.filter((q) => q.domain === selectedDomain);
+    if (selectedDiff > 0)
+      filtered = filtered.filter((q) => q.difficulty === selectedDiff);
 
     if (wrongOnly) {
       const wrongIds = getWrongIds();
-      filtered = filtered.filter(q => wrongIds.has(q.id));
+      filtered = filtered.filter((q) => wrongIds.has(q.id));
     }
 
     // Spaced repetition ordering: wrong first (sorted by count), then unseen, then seen-correct
     const seenIds = getSeenIds();
     const wrongIds = getWrongIds();
-    const wrongQ   = shuffle(filtered.filter(q => wrongIds.has(q.id)));
-    const unseenQ  = shuffle(filtered.filter(q => !seenIds.has(q.id) && !wrongIds.has(q.id)));
-    const seenQ    = shuffle(filtered.filter(q => seenIds.has(q.id) && !wrongIds.has(q.id)));
-    const ordered  = [...wrongQ, ...unseenQ, ...seenQ].slice(0, questionCount).map(shuffleOptions);
+    const wrongQ = shuffle(filtered.filter((q) => wrongIds.has(q.id)));
+    const unseenQ = shuffle(
+      filtered.filter((q) => !seenIds.has(q.id) && !wrongIds.has(q.id)),
+    );
+    const seenQ = shuffle(
+      filtered.filter((q) => seenIds.has(q.id) && !wrongIds.has(q.id)),
+    );
+    const ordered = [...wrongQ, ...unseenQ, ...seenQ]
+      .slice(0, questionCount)
+      .map(shuffleOptions);
 
     if (ordered.length === 0) return;
     setPool(ordered);
@@ -114,6 +133,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
       questionId: currentQ.id,
       domain: currentQ.domain,
       difficulty: currentQ.difficulty,
+      section: currentQ.section,
       correct,
     };
     markSeen([currentQ.id]);
@@ -125,8 +145,11 @@ export default function PracticeMode({ onHome, onWrongReview }) {
       saveSession({
         mode: 'practice',
         score: null,
-        pct: Math.round(newAnswered.filter(a => a.correct).length / newAnswered.length * 100),
-        correct: newAnswered.filter(a => a.correct).length,
+        pct: Math.round(
+          (newAnswered.filter((a) => a.correct).length / newAnswered.length) *
+            100,
+        ),
+        correct: newAnswered.filter((a) => a.correct).length,
         total: newAnswered.length,
         domainBreakdown: getDomainBreakdown(newAnswered),
         difficultyBreakdown: getDifficultyBreakdown(newAnswered),
@@ -149,14 +172,16 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   const { availableCount, unseenCount, wrongCount } = useMemo(() => {
     const allQ = buildAllQuestions();
     let filtered = allQ;
-    if (selectedDomain > 0) filtered = filtered.filter(q => q.domain === selectedDomain);
-    if (selectedDiff > 0)   filtered = filtered.filter(q => q.difficulty === selectedDiff);
-    const seenIds  = getSeenIds();
+    if (selectedDomain > 0)
+      filtered = filtered.filter((q) => q.domain === selectedDomain);
+    if (selectedDiff > 0)
+      filtered = filtered.filter((q) => q.difficulty === selectedDiff);
+    const seenIds = getSeenIds();
     const wrongIds = getWrongIds();
     return {
       availableCount: filtered.length,
-      unseenCount: filtered.filter(q => !seenIds.has(q.id)).length,
-      wrongCount:  filtered.filter(q => wrongIds.has(q.id)).length,
+      unseenCount: filtered.filter((q) => !seenIds.has(q.id)).length,
+      wrongCount: filtered.filter((q) => wrongIds.has(q.id)).length,
     };
   }, [selectedDomain, selectedDiff, seenCount]);
 
@@ -165,40 +190,65 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     return (
       <div className="setup-card">
         <h2>Practice Mode</h2>
-        <p className="setup-card__sub">Explanations after each answer. Wrong answers are prioritized automatically.</p>
+        <p className="setup-card__sub">
+          Explanations after each answer. Wrong answers are prioritized
+          automatically.
+        </p>
 
         <div className="form-group">
           <label>Domain</label>
-          <select value={selectedDomain} onChange={e => setDomain(Number(e.target.value))}>
+          <select
+            value={selectedDomain}
+            onChange={(e) => setDomain(Number(e.target.value))}
+          >
             <option value={0}>All Domains</option>
             {Object.entries(DOMAINS).map(([num, name]) => (
-              <option key={num} value={Number(num)}>Domain {num} – {name}</option>
+              <option key={num} value={Number(num)}>
+                Domain {num} – {name}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
           <label>Difficulty</label>
-          <select value={selectedDiff} onChange={e => setDiff(Number(e.target.value))}>
-            {DIFF_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+          <select
+            value={selectedDiff}
+            onChange={(e) => setDiff(Number(e.target.value))}
+          >
+            {DIFF_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
           <label>Per-Question Timer</label>
-          <select value={timeLimit} onChange={e => setTimeLimit(Number(e.target.value))}>
-            {TIME_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+          <select
+            value={timeLimit}
+            onChange={(e) => setTimeLimit(Number(e.target.value))}
+          >
+            {TIME_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
             ))}
           </select>
         </div>
 
         {wrongCount > 0 && (
           <label className="toggle-row">
-            <input type="checkbox" checked={wrongOnly} onChange={e => setWrongOnly(e.target.checked)} />
-            <span>Review wrong answers only <span className="badge-wrong">{wrongCount} questions</span></span>
+            <input
+              type="checkbox"
+              checked={wrongOnly}
+              onChange={(e) => setWrongOnly(e.target.checked)}
+            />
+            <span>
+              Review wrong answers only{' '}
+              <span className="badge-wrong">{wrongCount} questions</span>
+            </span>
           </label>
         )}
 
@@ -209,15 +259,25 @@ export default function PracticeMode({ onHome, onWrongReview }) {
             min={5}
             max={Math.min(150, effectiveAvailable || 150)}
             value={Math.min(questionCount, effectiveAvailable || questionCount)}
-            onChange={e => setCount(Number(e.target.value))}
+            onChange={(e) => setCount(Number(e.target.value))}
           />
-          <span className="form-group__value">{Math.min(questionCount, effectiveAvailable || questionCount)}</span>
+          <span className="form-group__value">
+            {Math.min(questionCount, effectiveAvailable || questionCount)}
+          </span>
         </div>
 
         <div className="setup-card__stats">
-          <span className="stat"><span className="stat__num">{availableCount}</span> match filters</span>
-          <span className="stat stat--fresh"><span className="stat__num">{unseenCount}</span> not yet seen</span>
-          {wrongCount > 0 && <span className="stat stat--wrong"><span className="stat__num">{wrongCount}</span> need review</span>}
+          <span className="stat">
+            <span className="stat__num">{availableCount}</span> match filters
+          </span>
+          <span className="stat stat--fresh">
+            <span className="stat__num">{unseenCount}</span> not yet seen
+          </span>
+          {wrongCount > 0 && (
+            <span className="stat stat--wrong">
+              <span className="stat__num">{wrongCount}</span> need review
+            </span>
+          )}
           {seenCount > 0 && (
             <button className="btn-link" onClick={handleResetHistory}>
               Reset history ({seenCount} seen)
@@ -232,24 +292,38 @@ export default function PracticeMode({ onHome, onWrongReview }) {
         >
           Start Practice →
         </button>
-        <button className="btn btn--ghost btn--full" onClick={onHome}>← Back</button>
+        <button className="btn btn--ghost btn--full" onClick={onHome}>
+          ← Back
+        </button>
       </div>
     );
   }
 
   if (phase === 'results') {
-    const wrongAnswers = answered.filter(a => !a.correct);
+    const wrongAnswers = answered.filter((a) => !a.correct);
     return (
       <Results
         answered={answered}
         scaledScore={null}
         isPractice={true}
-        onRestart={() => { setSeenCount(getSeenCount()); setPhase('setup'); }}
+        onRestart={() => {
+          setSeenCount(getSeenCount());
+          setPhase('setup');
+        }}
         onHome={onHome}
-        onWrongReview={wrongAnswers.length > 0 ? () => onWrongReview(wrongAnswers.map(a => {
-          const q = pool.find(p => p.id === a.questionId);
-          return q;
-        }).filter(Boolean)) : null}
+        onWrongReview={
+          wrongAnswers.length > 0
+            ? () =>
+                onWrongReview(
+                  wrongAnswers
+                    .map((a) => {
+                      const q = pool.find((p) => p.id === a.questionId);
+                      return q;
+                    })
+                    .filter(Boolean),
+                )
+            : null
+        }
       />
     );
   }

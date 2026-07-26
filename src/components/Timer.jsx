@@ -7,7 +7,7 @@ export default function Timer({ totalSeconds, onExpire, paused = false }) {
   useEffect(() => {
     if (paused) return;
     intervalRef.current = setInterval(() => {
-      setRemaining(prev => {
+      setRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(intervalRef.current);
           onExpire();
@@ -25,10 +25,12 @@ export default function Timer({ totalSeconds, onExpire, paused = false }) {
   const display = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
   const pct = remaining / totalSeconds;
   const urgent = pct < 0.15;
-  const warning = pct < 0.30;
+  const warning = pct < 0.3;
 
   return (
-    <div className={`timer ${urgent ? 'timer--urgent' : warning ? 'timer--warning' : ''}`}>
+    <div
+      className={`timer ${urgent ? 'timer--urgent' : warning ? 'timer--warning' : ''}`}
+    >
       <span className="timer__icon">⏱</span>
       <span className="timer__display">{display}</span>
     </div>

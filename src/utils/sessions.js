@@ -2,8 +2,11 @@ const KEY = 'cissp_sessions';
 const MAX_SESSIONS = 50;
 
 export function getSessions() {
-  try { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
-  catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem(KEY) || '[]');
+  } catch {
+    return [];
+  }
 }
 
 // session: { mode, score, pct, correct, total, domainBreakdown }

@@ -11,14 +11,18 @@ export default function WrongAnswerReview({ wrongQuestions, onDone }) {
       <div className="setup-card" style={{ textAlign: 'center' }}>
         <div style={{ fontSize: 48 }}>🎉</div>
         <h2>No wrong answers to review!</h2>
-        <button className="btn btn--primary btn--full" onClick={onDone}>Back</button>
+        <button className="btn btn--primary btn--full" onClick={onDone}>
+          Back
+        </button>
       </div>
     );
   }
 
   const currentQ = wrongQuestions[index];
 
-  function handleSubmit() { setShowResult(true); }
+  function handleSubmit() {
+    setShowResult(true);
+  }
 
   function handleNext() {
     if (index + 1 >= wrongQuestions.length) {
@@ -33,7 +37,9 @@ export default function WrongAnswerReview({ wrongQuestions, onDone }) {
   return (
     <div className="exam-layout">
       <header className="exam-header">
-        <button className="btn btn--ghost" onClick={onDone}>← Exit Review</button>
+        <button className="btn btn--ghost" onClick={onDone}>
+          ← Exit Review
+        </button>
         <div className="exam-header__title">Wrong Answer Review</div>
         <div className="exam-header__progress">
           {index + 1} / {wrongQuestions.length}
@@ -51,7 +57,9 @@ export default function WrongAnswerReview({ wrongQuestions, onDone }) {
           practiceMode={true}
           nextLabel={
             showResult
-              ? (index + 1 < wrongQuestions.length ? 'Next →' : 'Finish Review')
+              ? index + 1 < wrongQuestions.length
+                ? 'Next →'
+                : 'Finish Review'
               : 'Submit Answer'
           }
         />

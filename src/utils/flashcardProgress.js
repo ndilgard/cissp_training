@@ -1,8 +1,11 @@
 const KEY = 'cissp_flashcard_progress';
 
 function load() {
-  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
-  catch { return {}; }
+  try {
+    return JSON.parse(localStorage.getItem(KEY)) || {};
+  } catch {
+    return {};
+  }
 }
 
 function save(weights) {
@@ -26,7 +29,7 @@ export function updateFlashcardWeight(id, knew) {
 
 export function getFlashcardsDue() {
   const weights = load();
-  return new Set(Object.keys(weights).filter(id => weights[id] > 0));
+  return new Set(Object.keys(weights).filter((id) => weights[id] > 0));
 }
 
 export function resetFlashcardProgress() {

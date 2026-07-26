@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { DOMAINS, SECTION_SUBDOMAIN } from '../data/questions.js';
-import { getDomainBreakdown, getDifficultyBreakdown } from '../utils/cat.js';
+import {
+  getDomainBreakdown,
+  getDifficultyBreakdown,
+  getSubsectionWrongCounts,
+} from '../utils/cat.js';
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 const DIFF_LABELS = { 1: 'Foundation', 2: 'Intermediate', 3: 'Advanced' };
@@ -15,8 +19,14 @@ function ReviewAccordion({ questionHistory }) {
         const userAns = entry.selectedAnswer;
         const correct = userAns === q.answer;
         return (
-          <div key={i} className={`era-item ${correct ? 'era-item--correct' : 'era-item--wrong'}`}>
-            <button className="era-item__toggle" onClick={() => setOpen(open === i ? null : i)}>
+          <div
+            key={i}
+            className={`era-item ${correct ? 'era-item--correct' : 'era-item--wrong'}`}
+          >
+            <button
+              className="era-item__toggle"
+              onClick={() => setOpen(open === i ? null : i)}
+            >
               <span className="era-item__num">Q{i + 1}</span>
               <span className="era-item__domain">
                 <span className="era-item__domain-num">
@@ -24,10 +34,14 @@ function ReviewAccordion({ questionHistory }) {
                 </span>
                 {q.section || DOMAINS[q.domain]}
               </span>
-              <span className={`era-item__verdict era-item__verdict--${correct ? 'pass' : 'fail'}`}>
+              <span
+                className={`era-item__verdict era-item__verdict--${correct ? 'pass' : 'fail'}`}
+              >
                 {correct ? '✓' : '✗'}
               </span>
-              <span className="era-item__chevron">{open === i ? '▲' : '▼'}</span>
+              <span className="era-item__chevron">
+                {open === i ? '▲' : '▼'}
+              </span>
             </button>
             {open === i && (
               <div className="era-item__body">
@@ -47,7 +61,9 @@ function ReviewAccordion({ questionHistory }) {
                     else if (j === userAns) cls += ' era-option--wrong';
                     return (
                       <li key={j} className={cls}>
-                        <span className="era-option__label">{OPTION_LABELS[j]}.</span>
+                        <span className="era-option__label">
+                          {OPTION_LABELS[j]}.
+                        </span>
                         <span>{opt}</span>
                       </li>
                     );
@@ -79,25 +95,33 @@ export default function Results({
   const passed = !isPractice && scaledScore >= 700;
   const breakdown = getDomainBreakdown(answered);
   const diffBreakdown = getDifficultyBreakdown(answered);
-  const totalCorrect = answered.filter(a => a.correct).length;
+  const missedTopics = getSubsectionWrongCounts(answered);
+  const totalCorrect = answered.filter((a) => a.correct).length;
   const pct = Math.round((totalCorrect / answered.length) * 100);
-  const wrongCount = answered.filter(a => !a.correct).length;
+  const wrongCount = answered.filter((a) => !a.correct).length;
 
   return (
     <div className="results">
-      <div className={`results__verdict ${isPractice ? 'results__verdict--practice' : passed ? 'results__verdict--pass' : 'results__verdict--fail'}`}>
+      <div
+        className={`results__verdict ${isPractice ? 'results__verdict--practice' : passed ? 'results__verdict--pass' : 'results__verdict--fail'}`}
+      >
         {isPractice ? (
           <>
             <div className="results__grade">{pct}%</div>
             <div className="results__label">Practice Score</div>
-            <div className="results__detail">{totalCorrect} / {answered.length} correct</div>
+            <div className="results__detail">
+              {totalCorrect} / {answered.length} correct
+            </div>
           </>
         ) : (
           <>
             <div className="results__grade">{scaledScore}</div>
-            <div className="results__label">{passed ? '✓ PASS' : '✗ DID NOT PASS'}</div>
+            <div className="results__label">
+              {passed ? '✓ PASS' : '✗ DID NOT PASS'}
+            </div>
             <div className="results__detail">
-              Scaled score · passing = 700 · {totalCorrect}/{answered.length} correct ({pct}%)
+              Scaled score · passing = 700 · {totalCorrect}/{answered.length}{' '}
+              correct ({pct}%)
             </div>
           </>
         )}
@@ -108,20 +132,32 @@ export default function Results({
         <div className="domain-grid">
           {Object.entries(DOMAINS).map(([domainNum, name]) => {
             const d = breakdown[domainNum] || { correct: 0, total: 0 };
-            const domainPct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
-            const barColor = domainPct === null ? '#555'
-              : domainPct >= 70 ? '#4caf50'
-              : domainPct >= 50 ? '#ff9800'
-              : '#f44336';
+            const domainPct =
+              d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
+            const barColor =
+              domainPct === null
+                ? '#555'
+                : domainPct >= 70
+                  ? '#4caf50'
+                  : domainPct >= 50
+                    ? '#ff9800'
+                    : '#f44336';
             return (
               <div key={domainNum} className="domain-row">
                 <div className="domain-row__name">{name}</div>
                 <div className="domain-row__bar-wrap">
-                  <div className="domain-row__bar"
-                    style={{ width: domainPct !== null ? `${domainPct}%` : '0%', background: barColor }} />
+                  <div
+                    className="domain-row__bar"
+                    style={{
+                      width: domainPct !== null ? `${domainPct}%` : '0%',
+                      background: barColor,
+                    }}
+                  />
                 </div>
                 <div className="domain-row__score">
-                  {d.total > 0 ? `${d.correct}/${d.total} (${domainPct}%)` : 'Not tested'}
+                  {d.total > 0
+                    ? `${d.correct}/${d.total} (${domainPct}%)`
+                    : 'Not tested'}
                 </div>
               </div>
             );
@@ -132,9 +168,10 @@ export default function Results({
       <div className="results__breakdown">
         <h3>Performance by Difficulty</h3>
         <div className="diff-stats">
-          {[1, 2, 3].map(level => {
+          {[1, 2, 3].map((level) => {
             const d = diffBreakdown[level] || { correct: 0, total: 0 };
-            const levelPct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
+            const levelPct =
+              d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
             return (
               <div key={level} className={`diff-stat diff-stat--${level}`}>
                 <div className="diff-stat__label">{DIFF_LABELS[level]}</div>
@@ -150,16 +187,34 @@ export default function Results({
         </div>
       </div>
 
+      {missedTopics.length > 0 && (
+        <div className="results__breakdown">
+          <h3>Missed Topics</h3>
+          <ul className="missed-topics-list">
+            {missedTopics.map(({ section, domain, wrong }) => (
+              <li key={section} className="missed-topics-list__item">
+                <span className="missed-topics-list__code">
+                  {SECTION_SUBDOMAIN[section] || domain}
+                </span>
+                <span className="missed-topics-list__name">{section}</span>
+                <span className="missed-topics-list__count">{wrong} wrong</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {wrongCount > 0 && !isPractice && !passed && (
         <div className="results__advice">
           <h4>Weak Domains</h4>
           <ul>
             {Object.entries(breakdown)
               .filter(([, d]) => d.total > 0 && d.correct / d.total < 0.6)
-              .sort(([, a], [, b]) => (a.correct / a.total) - (b.correct / b.total))
+              .sort(([, a], [, b]) => a.correct / a.total - b.correct / b.total)
               .map(([dom, d]) => (
                 <li key={dom}>
-                  <strong>{DOMAINS[dom]}</strong> — {Math.round((d.correct / d.total) * 100)}% correct
+                  <strong>{DOMAINS[dom]}</strong> —{' '}
+                  {Math.round((d.correct / d.total) * 100)}% correct
                 </li>
               ))}
           </ul>
@@ -170,7 +225,7 @@ export default function Results({
         <div className="results__breakdown">
           <button
             className="btn btn--secondary results__review-toggle"
-            onClick={() => setShowReview(v => !v)}
+            onClick={() => setShowReview((v) => !v)}
           >
             {showReview
               ? `Hide Question Review ▲`
