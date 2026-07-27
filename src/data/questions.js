@@ -378,7 +378,7 @@ export const questions = [
   // ─── DOMAIN 1: Security and Risk Management ───
   {
     id: "d1_001", domain: 1, difficulty: 1, section: "Security Policies & Governance",
-    question: "Which of the following BEST describes the purpose of a security policy?",
+    question: "A newly appointed CISO is building out the organization's governance documentation and needs to draft a security policy. Which of the following BEST describes the purpose of that document?",
     options: [
       "To provide detailed technical implementation instructions and configuration settings for specific security controls",
       "To define management's intent and direction for information security",
@@ -409,7 +409,7 @@ export const questions = [
   },
   {
     id: "d1_004", domain: 1, difficulty: 1, section: "Personnel Security Controls",
-    question: "The concept that no single person should have enough access to commit fraud or error and conceal it is known as:",
+    question: "A finance department splits invoice approval and payment issuance between two different employees so that no single person can both create and approve a fraudulent payment without detection. This control is an example of:",
     options: [
       "Least privilege — granting only the minimum access needed to do a job",
       "Separation of duties — splitting tasks so no one person controls it",
@@ -457,7 +457,7 @@ export const questions = [
   },
   {
     id: "d1_008", domain: 1, difficulty: 1, section: "Security Foundations (CIA Triad)",
-    question: "The CIA Triad represents which three core information security principles?",
+    question: "A CISO training new hires wants them to remember the three foundational principles that every security control ultimately exists to support. Which three principles make up the CIA Triad?",
     options: [
       "Control, Integrity, Assurance",
       "Confidentiality, Integrity, Availability",
@@ -555,7 +555,7 @@ export const questions = [
   },
   {
     id: "d2_004", domain: 2, difficulty: 1, section: "Data Ownership & Roles",
-    question: "Who is PRIMARILY responsible for determining the classification level of data within an organization?",
+    question: "A newly hired data governance analyst wants to know who should make the final call on how sensitive a given dataset is. Who is PRIMARILY responsible for determining the classification level of data within an organization?",
     options: ["The data custodian", "The data owner", "The security administrator", "The end user"],
     answer: 1,
     explanation: "The data owner (typically a business manager or executive) is responsible for determining the classification and sensitivity of data. The data custodian implements the controls the owner mandates.",
@@ -595,7 +595,7 @@ export const questions = [
   // ─── DOMAIN 3: Security Architecture and Engineering ───
   {
     id: "d3_001", domain: 3, difficulty: 1, section: "Security Design Principles",
-    question: "Which security design principle states that every access to a resource should be checked against an access control mechanism?",
+    question: "A system architect designs an application so that every single request to access a resource — even a repeated request from the same session — is checked against the access control mechanism, with no cached bypass path. Which security design principle does this reflect?",
     options: ["Open design", "Complete mediation", "Fail-safe defaults", "Economy of mechanism"],
     answer: 1,
     explanation: "Complete mediation requires that every access attempt to every resource be validated through the access control mechanism — access should never be assumed based on a previous check or cached permission.",
@@ -640,7 +640,7 @@ export const questions = [
   },
   {
     id: "d3_006", domain: 3, difficulty: 1, section: "Security Models (Bell-LaPadula)",
-    question: "The Bell-LaPadula model was designed primarily to enforce which property?",
+    question: "A government system architect applies the Bell-LaPadula model specifically to prevent users from reading data above their clearance level and writing data down to a lower classification. Which property is this model primarily designed to enforce?",
     options: [
       "Integrity — preventing unauthorized modification of data by unapproved subjects",
       "Confidentiality — preventing unauthorized disclosure",
@@ -709,7 +709,7 @@ export const questions = [
   // ─── DOMAIN 4: Communication and Network Security ───
   {
     id: "d4_001", domain: 4, difficulty: 1, section: "Network Protocols (IPSec)",
-    question: "At which OSI layer does IPSec primarily operate?",
+    question: "A network engineer configuring IPSec to encrypt traffic between two branch office routers needs to know which OSI layer the protocol operates at, since that determines whether it protects individual applications or the entire IP packet. At which OSI layer does IPSec primarily operate?",
     options: ["Layer 2 — Data Link", "Layer 3 — Network", "Layer 4 — Transport", "Layer 7 — Application"],
     answer: 1,
     explanation: "IPSec operates at Layer 3 (Network layer) and provides authentication and encryption for IP packets. It can protect all traffic regardless of the application, unlike TLS which operates at the Transport/Session layer.",
@@ -747,7 +747,7 @@ export const questions = [
   },
   {
     id: "d4_005", domain: 4, difficulty: 1, section: "Network Devices & OSI Model",
-    question: "Which network device operates at OSI Layer 2 and forwards frames based on MAC addresses?",
+    question: "A network technician is troubleshooting a device that forwards frames based on MAC address tables rather than IP routing tables. Which network device operates at OSI Layer 2 and forwards frames based on MAC addresses?",
     options: ["Router", "Switch", "Firewall", "Load balancer"],
     answer: 1,
     explanation: "A network switch operates at OSI Layer 2 (Data Link) and makes forwarding decisions based on destination MAC addresses using a MAC address table. Routers operate at Layer 3 and use IP addresses.",
@@ -811,7 +811,7 @@ export const questions = [
   // ─── DOMAIN 5: Identity and Access Management ───
   {
     id: "d5_001", domain: 5, difficulty: 1, section: "Access Control Models",
-    question: "Which access control model assigns permissions based on an individual's job function or role within an organization?",
+    question: "A company grants employees access to systems based on their job title — all HR staff get the same permissions, all finance staff get another set. Which access control model assigns permissions this way?",
     options: [
       "Mandatory Access Control (MAC)",
       "Discretionary Access Control (DAC)",
@@ -890,7 +890,7 @@ export const questions = [
   },
   {
     id: "d5_008", domain: 5, difficulty: 1, section: "Identity Provisioning",
-    question: "What does the term 'provisioning' refer to in identity management?",
+    question: "An IT team creates a new employee's user account, assigns their initial group memberships, and grants access to the applications their role requires. Which identity management term describes this process?",
     options: [
       "Authenticating a user's credentials to confirm they are who they claim to be",
       "Creating, modifying, and managing user accounts and their access rights",
@@ -904,7 +904,7 @@ export const questions = [
   // ─── DOMAIN 6: Security Assessment and Testing ───
   {
     id: "d6_001", domain: 6, difficulty: 1, section: "Vulnerability Assessment vs Pen Test",
-    question: "What is the PRIMARY difference between a vulnerability assessment and a penetration test?",
+    question: "A security team runs an automated scan to identify known weaknesses in their infrastructure, then hires a separate firm to actively attempt to exploit those weaknesses and gain unauthorized access. What is the PRIMARY difference between the two engagements performed here — a vulnerability assessment and a penetration test?",
     options: [
       "Vulnerability assessments depend entirely on automated scanners, while penetration tests are always performed manually",
       "A vulnerability assessment identifies weaknesses; a penetration test actively exploits them",
@@ -990,7 +990,7 @@ export const questions = [
   // ─── DOMAIN 7: Security Operations ───
   {
     id: "d7_001", domain: 7, difficulty: 1, section: "Incident Response Phases",
-    question: "Which phase of incident response involves containing the damage and preventing further harm?",
+    question: "A SOC team confirms an active ransomware infection and immediately isolates the affected servers from the network to stop it from spreading further. Which phase of incident response does this action represent?",
     options: ["Preparation", "Identification", "Containment", "Eradication"],
     answer: 2,
     explanation: "The Containment phase focuses on limiting the damage from an ongoing incident — isolating affected systems, blocking malicious traffic, and preventing the attack from spreading. This follows Identification (detecting the incident) and precedes Eradication (removing the threat).",
@@ -1069,7 +1069,7 @@ export const questions = [
   },
   {
     id: "d7_008", domain: 7, difficulty: 1, section: "IDS/IPS Detection Methods",
-    question: "Which type of IDS/IPS detection method identifies attacks by matching traffic against known attack signatures?",
+    question: "An IDS flags a network connection as malicious because its traffic pattern exactly matches a known exploit string in the system's detection database. Which type of IDS/IPS detection method identifies attacks this way?",
     options: [
       "Anomaly-based detection",
       "Signature-based detection",
@@ -1095,7 +1095,7 @@ export const questions = [
   // ─── DOMAIN 8: Software Development Security ───
   {
     id: "d8_001", domain: 8, difficulty: 1, section: "OWASP & XSS Vulnerabilities",
-    question: "Which OWASP Top 10 vulnerability involves executing malicious scripts in a victim's browser through a trusted website?",
+    question: "A trusted e-commerce site fails to sanitize a comment field, allowing an attacker to inject a script that runs in every visitor's browser and steals their session cookies. Which OWASP Top 10 vulnerability does this describe?",
     options: [
       "SQL Injection",
       "Cross-Site Scripting (XSS)",
@@ -1279,7 +1279,7 @@ export const questions = [
   // ─── DOMAIN 1 – Additional questions ───
   {
     id: "d1_014", domain: 1, difficulty: 1, section: "Due Diligence & Due Care",
-    question: "Which of the following BEST describes 'due diligence' in the context of information security?",
+    question: "Before selecting a new cloud vendor, a security team researches the provider's compliance certifications, past breach history, and control maturity prior to signing a contract. This research process BEST illustrates which concept?",
     options: [
       "Implementing reactive security controls only after a breach or incident has already occurred",
       "Researching and understanding risks before making security decisions",
@@ -1334,7 +1334,7 @@ export const questions = [
   },
   {
     id: "d1_019", domain: 1, difficulty: 1, section: "Personnel Security Controls",
-    question: "Job rotation is PRIMARILY implemented as a security control to:",
+    question: "An organization requires employees in sensitive financial roles to periodically swap job duties with a colleague for a set period each year. This control is PRIMARILY implemented to:",
     options: [
       "Give employees variety in their daily tasks and help prevent long-term job burnout",
       "Detect fraud by having different people review each other's work",
@@ -1389,7 +1389,7 @@ export const questions = [
   },
   {
     id: "d1_024", domain: 1, difficulty: 1, section: "Business Impact Analysis",
-    question: "What is the PRIMARY purpose of a Business Impact Analysis (BIA)?",
+    question: "A business continuity team kicks off a project to determine which business functions would cause the most damage if disrupted, and how long each could be down before serious harm occurs. What is the PRIMARY purpose of the analysis they are performing?",
     options: [
       "To identify every conceivable threat and vulnerability facing the organization's assets — a broader risk assessment task than a BIA",
       "To determine which business functions are critical and quantify the impact of their disruption — the BIA's goal",
@@ -1422,7 +1422,7 @@ export const questions = [
   },
   {
     id: "d2_009", domain: 2, difficulty: 1, section: "Data Ownership & Roles",
-    question: "Which role is responsible for the day-to-day protection and maintenance of data assets, as directed by the data owner?",
+    question: "A database administrator applies encryption, access controls, and backup schedules to a dataset based on instructions from the business unit that owns it. Which role is this administrator fulfilling?",
     options: ["Data owner", "Data custodian", "Data subject", "Privacy officer"],
     answer: 1,
     explanation: "The data custodian (often IT) is responsible for the technical storage, backup, and protection of data per the data owner's instructions. The data owner defines what protection is needed; the custodian implements it.",
@@ -1486,7 +1486,7 @@ export const questions = [
   // ─── DOMAIN 3 – Additional questions ───
   {
     id: "d3_013", domain: 3, difficulty: 1, section: "Security Design Principles",
-    question: "Which security design principle advocates for multiple, overlapping layers of protection so that failure of one control does not compromise the entire system?",
+    question: "A network architect requires that a compromise of any single control — a firewall rule, an antivirus signature, or one unpatched vulnerability — should never immediately expose the entire system. Which security design principle does this reflect?",
     options: ["Least privilege", "Defense in depth", "Fail-safe defaults", "Open design"],
     answer: 1,
     explanation: "Defense in depth (layered security) uses multiple independent controls so an attacker must overcome each layer. If one control fails or is bypassed, others still provide protection. This is also called a 'castle' approach — moat, walls, keep, and guards all independently protect.",
@@ -1605,7 +1605,7 @@ export const questions = [
   },
   {
     id: "d4_013", domain: 4, difficulty: 1, section: "OSI Model & Transport Layer",
-    question: "Which OSI layer is responsible for end-to-end error detection and flow control, and where TCP and UDP operate?",
+    question: "A protocol analyst is identifying which OSI layer handles end-to-end error detection and flow control between hosts, and where TCP and UDP specifically operate. Which layer is this?",
     options: ["Layer 2 — Data Link", "Layer 3 — Network", "Layer 4 — Transport", "Layer 5 — Session"],
     answer: 2,
     explanation: "Layer 4 (Transport) provides end-to-end communication services including error recovery, flow control, and segmentation. TCP provides reliable, connection-oriented service; UDP provides connectionless, best-effort delivery. Both are Layer 4 protocols.",
@@ -1684,7 +1684,7 @@ export const questions = [
   },
   {
     id: "d4_020", domain: 4, difficulty: 1, section: "Firewall Types",
-    question: "What is the difference between a stateful and a stateless firewall?",
+    question: "A network engineer comparing two firewall types for a new deployment needs to understand the key operational difference between them before choosing one. What is the difference between a stateful and a stateless firewall?",
     options: [
       "A stateful firewall is faster because it skips deep packet inspection and relies only on port and protocol matching",
       "A stateful firewall tracks connection state and allows return traffic automatically; stateless evaluates each packet independently",
@@ -1712,7 +1712,7 @@ export const questions = [
   },
   {
     id: "d5_011", domain: 5, difficulty: 1, section: "Identification vs Authentication",
-    question: "What is the difference between identification and authentication?",
+    question: "A user types their username into a login screen, then enters a password to prove that the username actually belongs to them. What is the difference between the identification and authentication steps in this process?",
     options: [
       "Identification verifies who you are; authentication claims your identity",
       "Identification claims an identity; authentication proves the claim",
@@ -1793,7 +1793,7 @@ export const questions = [
   // ─── DOMAIN 6 – Additional questions ───
   {
     id: "d6_009", domain: 6, difficulty: 1, section: "Penetration Testing Methods",
-    question: "Which type of software testing evaluates the application without any knowledge of the source code, simulating an end-user perspective?",
+    question: "A QA team is given only the application's URL and login page, with no access to source code or internal documentation, and is asked to test it exactly as a real end user would. Which type of software testing does this describe?",
     options: ["White-box testing", "Gray-box testing", "Black-box testing", "Regression testing"],
     answer: 2,
     explanation: "Black-box testing treats the application as an opaque system — the tester has no access to source code, design documents, or architecture. It simulates an external attacker's perspective. White-box provides full code access; gray-box provides partial information.",
@@ -1869,7 +1869,7 @@ export const questions = [
   // ─── DOMAIN 7 – Additional questions ───
   {
     id: "d7_011", domain: 7, difficulty: 1, section: "Incident Response Phases",
-    question: "Which of the following BEST describes the 'eradication' phase of incident response?",
+    question: "After containing a malware outbreak, the incident response team removes the malicious files, patches the exploited vulnerability, and confirms the threat is fully eliminated from every affected system. Which of the following BEST describes this 'eradication' phase of incident response?",
     options: [
       "Confirming and identifying that a security incident has actually occurred within the environment",
       "Isolating affected systems from the network to prevent further spread of the threat",
@@ -1936,7 +1936,7 @@ export const questions = [
   },
   {
     id: "d7_017", domain: 7, difficulty: 1, section: "Physical Security Controls",
-    question: "Which type of access control uses physical characteristics of a location to guide security zones (e.g., fences, natural barriers)?",
+    question: "A facilities security team designs a campus so that fences, lighting, and natural terrain guide visitors toward monitored entry points before they ever reach a building. Which type of access control does this represent?",
     options: [
       "Technical controls implemented through system configuration",
       "Administrative controls defined through organizational policy",
@@ -1986,7 +1986,7 @@ export const questions = [
   },
   {
     id: "d8_011", domain: 8, difficulty: 1, section: "Input Validation",
-    question: "What is the purpose of input validation in secure software development?",
+    question: "An application checks that a submitted age field contains only numeric characters within a reasonable range before processing it further, rejecting anything else outright. What is the purpose of this input validation in secure software development?",
     options: [
       "To improve application performance by filtering out unnecessarily large input payloads",
       "To ensure that data conforms to expected type, format, and range before processing",
@@ -2070,7 +2070,7 @@ export const questions = [
   },
   {
     id: "d8_018", domain: 8, difficulty: 1, section: "Security by Obscurity",
-    question: "What is 'security by obscurity' and why is it considered a weak security practice?",
+    question: "A vendor refuses to disclose how its authentication algorithm works, believing that keeping the implementation secret is what makes the product secure. What is this practice called, and why is it considered weak?",
     options: [
       "Encrypting compiled source code to prevent reverse engineering, which most experts consider a genuinely strong deterrent against attackers",
       "Relying on keeping implementation details secret as the primary security mechanism, which fails when details are discovered",
@@ -2146,7 +2146,7 @@ export const questions = [
   // ─── NEW: D2 ───
   {
     id: "d2_015", domain: 2, difficulty: 1, section: "Data Classification",
-    question: "Which data classification label is most commonly used in commercial organizations to designate information that is not intended for public release but poses minimal harm if disclosed?",
+    question: "A private company is designing its data classification scheme and wants a label for information that shouldn't be publicly released but poses minimal harm if it were. Which label is most commonly used for this purpose in commercial organizations?",
     options: [
       "Confidential / Restricted",
       "Internal Use Only",
@@ -2158,7 +2158,7 @@ export const questions = [
   },
   {
     id: "d2_016", domain: 2, difficulty: 1, section: "Data Classification",
-    question: "In U.S. government classification, which level applies to information whose unauthorized disclosure could cause 'serious damage' to national security?",
+    question: "A government analyst is labeling a document whose unauthorized disclosure could cause 'serious damage' to national security — one level below the most sensitive tier. Which classification level applies?",
     options: [
       "Confidential",
       "Secret",
@@ -2194,7 +2194,7 @@ export const questions = [
   },
   {
     id: "d2_019", domain: 2, difficulty: 1, section: "Data Ownership Roles",
-    question: "Who bears ultimate responsibility for classifying data and ensuring adequate protections are in place?",
+    question: "After an internal audit finds a dataset was mislabeled for years, leadership asks who was ultimately accountable for correctly classifying that data and ensuring adequate protections were applied. Who bears this responsibility?",
     options: [
       "Data custodian",
       "Data owner",
@@ -2290,7 +2290,7 @@ export const questions = [
   },
   {
     id: "d2_027", domain: 2, difficulty: 1, section: "Data Remanence and Secure Erasure",
-    question: "What is data remanence?",
+    question: "After wiping a decommissioned hard drive, a forensic examiner is still able to recover fragments of the original data using specialized tools. This residual data is an example of what concept?",
     options: [
       "The process of permanently destroying storage media through shredding or incineration",
       "Residual data that remains on storage media after deletion or formatting",
@@ -2350,7 +2350,7 @@ export const questions = [
   },
   {
     id: "d2_032", domain: 2, difficulty: 1, section: "Media Sanitization",
-    question: "Which of the following is the LEAST secure method for disposing of paper documents containing sensitive information?",
+    question: "An office is clearing out old client files containing sensitive information and needs to choose a disposal method for the paper documents. Which of the following would be the LEAST secure choice?",
     options: [
       "Cross-cut shredding into confetti-sized particles",
       "Incineration at a controlled off-site facility",
@@ -2842,7 +2842,7 @@ export const questions = [
   },
   {
     id: "d2_073", domain: 2, difficulty: 1, section: "Data Classification",
-    question: "Which of the following data elements is NOT typically classified as PII under U.S. privacy frameworks?",
+    question: "A privacy team building a data inventory needs to determine which collected data elements qualify as personally identifiable information (PII) under U.S. privacy frameworks. Which of the following is NOT typically classified as PII?",
     options: [
       "Social Security Number",
       "First and last name combined with address",
@@ -3180,7 +3180,7 @@ export const questions = [
   // ─── NEW: D3 ───
   {
     id: "d3_023", domain: 3, difficulty: 1, section: "Security Design Principles",
-    question: "Which security design principle states that a subject should be granted only the minimum access rights necessary to perform its assigned tasks?",
+    question: "A system administrator provisions a new employee's account with access only to the specific applications and files required for their job role, and nothing more. Which security design principle does this reflect?",
     options: [
       "Defense in depth",
       "Least privilege",
@@ -3240,7 +3240,7 @@ export const questions = [
   },
   {
     id: "d3_028", domain: 3, difficulty: 1, section: "Security Design Principles",
-    question: "The principle of 'defense in depth' is best described as:",
+    question: "After a firewall alone fails to stop an intrusion, a CISO restructures the environment so a compromise of that one layer is still backed by IDS, endpoint protection, and network segmentation. The principle being applied here — 'defense in depth' — is best described as:",
     options: [
       "Relying on the single strongest available encryption algorithm for all data",
       "Implementing multiple independent layers of security controls",
@@ -3372,7 +3372,7 @@ export const questions = [
   },
   {
     id: "d3_039", domain: 3, difficulty: 1, section: "Trusted Computing Base",
-    question: "The Trusted Computing Base (TCB) of an operating system is best defined as:",
+    question: "A security architect is documenting exactly which hardware, firmware, and software components are responsible for enforcing the system's security policy, so they can be evaluated as a distinct trust boundary. What is this set of components called?",
     options: [
       "All software applications, utilities, and third-party tools installed anywhere on the system, regardless of function",
       "The hardware, firmware, and software components responsible for enforcing the security policy",
@@ -3456,7 +3456,7 @@ export const questions = [
   },
   {
     id: "d3_046", domain: 3, difficulty: 1, section: "Symmetric Encryption",
-    question: "Which symmetric encryption algorithm uses a 128-bit, 192-bit, or 256-bit key and is the current US federal standard?",
+    question: "An organization selecting a symmetric encryption algorithm for federal compliance needs one that supports 128-bit, 192-bit, or 256-bit keys and is the current US federal standard. Which algorithm should they choose?",
     options: [
       "DES",
       "3DES",
@@ -3564,7 +3564,7 @@ export const questions = [
   },
   {
     id: "d3_055", domain: 3, difficulty: 1, section: "Cryptographic Hash Functions",
-    question: "SHA-256 produces a hash output of what size?",
+    question: "A developer implementing file-integrity verification needs to know how large the resulting digest will be when using SHA-256, so they can size the database column that stores it. What size hash output does SHA-256 produce?",
     options: [
       "128 bits",
       "160 bits",
@@ -4478,7 +4478,7 @@ export const questions = [
   // ─── NEW: D4 ───
   {
     id: "d4_022", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "Which OSI layer is responsible for end-to-end communication, error recovery, and flow control between hosts?",
+    question: "During a network troubleshooting session, an engineer needs to isolate whether a communication failure is happening at the layer responsible for host-to-host error recovery and flow control, rather than routing or physical transmission. Which OSI layer is responsible for this?",
     options: [
       "Network layer (Layer 3)",
       "Data Link layer (Layer 2)",
@@ -4490,7 +4490,7 @@ export const questions = [
   },
   {
     id: "d4_023", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "What is the correct name for the Protocol Data Unit (PDU) at the Data Link layer of the OSI model?",
+    question: "A packet analyst capturing traffic at the Data Link layer needs to correctly label the unit of data being inspected. What is the correct name for the Protocol Data Unit (PDU) at the Data Link layer of the OSI model?",
     options: [
       "Packet",
       "Segment",
@@ -4514,7 +4514,7 @@ export const questions = [
   },
   {
     id: "d4_025", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "Which OSI layer provides services such as data encryption, compression, and format translation?",
+    question: "A developer needs to know which OSI layer is responsible for translating data formats, compressing data, and applying encryption before handing it to the application. Which OSI layer provides these services?",
     options: [
       "Application layer (Layer 7 of the OSI model)",
       "Session layer (Layer 5)",
@@ -4526,7 +4526,7 @@ export const questions = [
   },
   {
     id: "d4_026", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "HTTPS uses SSL/TLS to encrypt web traffic. At which OSI layer does SSL/TLS primarily operate?",
+    question: "A network architect explaining HTTPS to a junior engineer notes that SSL/TLS is what actually encrypts the web traffic. At which OSI layer does SSL/TLS primarily operate?",
     options: [
       "Network layer (Layer 3 of the OSI model)",
       "Transport layer (Layer 4 of the OSI model)",
@@ -4538,7 +4538,7 @@ export const questions = [
   },
   {
     id: "d4_027", domain: 4, difficulty: 1, section: "TCP/IP Model",
-    question: "The TCP/IP model combines multiple OSI layers. Which two OSI layers are merged into the TCP/IP Network Access layer?",
+    question: "A network engineer comparing the OSI and TCP/IP models needs to identify which two OSI layers are merged into the TCP/IP model's single Network Access layer. Which two layers are these?",
     options: [
       "Application and Presentation layers",
       "Session and Transport layers",
@@ -4586,7 +4586,7 @@ export const questions = [
   },
   {
     id: "d4_031", domain: 4, difficulty: 1, section: "IPv4 Addressing",
-    question: "Which IPv4 address class uses the range 192.0.0.0 to 223.255.255.255 and is most commonly assigned to end-user devices and small networks?",
+    question: "A network administrator assigning IP address ranges to a small branch office needs one from the address class most commonly used for end-user devices and small networks, spanning 192.0.0.0 to 223.255.255.255. Which IPv4 address class is this?",
     options: [
       "Class A",
       "Class B",
@@ -4754,7 +4754,7 @@ export const questions = [
   },
   {
     id: "d4_045", domain: 4, difficulty: 1, section: "Network Address Translation",
-    question: "Which type of NAT creates a one-to-one permanent mapping between a private IP address and a public IP address, commonly used for servers that must be reachable from the internet?",
+    question: "A network administrator needs to configure a permanent, one-to-one mapping between an internal web server's private IP address and a public IP address so it's consistently reachable from the internet. Which type of NAT should be used?",
     options: [
       "Dynamic NAT",
       "PAT (Port Address Translation / NAT overload)",
@@ -4766,7 +4766,7 @@ export const questions = [
   },
   {
     id: "d4_046", domain: 4, difficulty: 1, section: "Firewall Types",
-    question: "A traditional packet-filtering firewall makes access control decisions based solely on which information?",
+    question: "A network engineer reviewing an older firewall's configuration finds it makes allow/deny decisions using only source/destination IP, port, and protocol, with no awareness of whether a packet belongs to an existing connection. What information does this traditional packet-filtering firewall base its decisions on?",
     options: [
       "Source/destination IP addresses, ports, and protocol; without tracking connection state",
       "Source/destination IP addresses combined with full application-layer content inspection",
@@ -4778,7 +4778,7 @@ export const questions = [
   },
   {
     id: "d4_047", domain: 4, difficulty: 1, section: "Firewall Types",
-    question: "Which type of firewall maintains a state table to track active connections and can block unsolicited incoming packets that are not part of an established session?",
+    question: "A security engineer needs a firewall that tracks the state of each active connection so it can automatically allow return traffic while blocking unsolicited inbound packets that don't belong to an established session. Which type of firewall provides this?",
     options: [
       "Packet-filtering firewall",
       "Stateful inspection firewall",
@@ -4850,7 +4850,7 @@ export const questions = [
   },
   {
     id: "d4_053", domain: 4, difficulty: 1, section: "Honeypots",
-    question: "What is the primary security purpose of deploying a honeypot on a network?",
+    question: "A security team deploys a decoy system designed to look like a legitimate production server, specifically to attract and study attacker behavior while keeping them away from real assets. What is the primary security purpose of this honeypot?",
     options: [
       "To provide a redundant server that absorbs DDoS traffic and protects production systems",
       "To detect and study attacker techniques while diverting them from real assets",
@@ -4886,7 +4886,7 @@ export const questions = [
   },
   {
     id: "d4_056", domain: 4, difficulty: 1, section: "Network Segmentation",
-    question: "Which technology allows a single physical switch to be logically divided into multiple isolated broadcast domains, improving both security and network performance?",
+    question: "A network administrator wants to logically divide a single physical switch into multiple isolated broadcast domains to improve both security and performance, without adding additional physical hardware. Which technology accomplishes this?",
     options: [
       "STP (Spanning Tree Protocol)",
       "VLAN (Virtual Local Area Network)",
@@ -4982,7 +4982,7 @@ export const questions = [
   },
   {
     id: "d4_064", domain: 4, difficulty: 1, section: "Wireless Security",
-    question: "Which wireless security protocol is considered completely broken and should never be used due to vulnerabilities in its RC4 implementation and static key usage?",
+    question: "A security assessment flags a wireless network still using a legacy encryption protocol that relies on RC4 with static keys and has long been considered completely broken. Which wireless security protocol is this?",
     options: [
       "WPA (Wi-Fi Protected Access) using TKIP",
       "WEP (Wired Equivalent Privacy)",
@@ -5090,7 +5090,7 @@ export const questions = [
   },
   {
     id: "d4_073", domain: 4, difficulty: 1, section: "Email Security",
-    question: "Which email security protocol provides end-to-end encryption and digital signing of email content, ensuring only the intended recipient can read the message?",
+    question: "An organization wants sensitive email content to be end-to-end encrypted and digitally signed, so only the intended recipient can read it and the sender's identity can be verified. Which email security protocol provides this?",
     options: [
       "SPF",
       "TLS (STARTTLS)",
@@ -5102,7 +5102,7 @@ export const questions = [
   },
   {
     id: "d4_074", domain: 4, difficulty: 1, section: "TLS and SSL",
-    question: "Which TLS version is currently considered the minimum acceptable standard, and which versions should be disabled?",
+    question: "A security team hardening a web server's TLS configuration needs to know which version is currently considered the acceptable minimum, and which older versions should be disabled entirely. Which TLS version is currently considered the minimum acceptable standard, and which versions should be disabled?",
     options: [
       "TLS 1.0 is the minimum acceptable version; only SSL 2.0 and 3.0 should be disabled",
       "TLS 1.2 is the minimum; TLS 1.0, TLS 1.1, SSL 2.0, and SSL 3.0 should be disabled",
@@ -5258,7 +5258,7 @@ export const questions = [
   },
   {
     id: "d4_087", domain: 4, difficulty: 1, section: "Secure Protocols",
-    question: "Which management protocol should replace Telnet for remote device administration, and what security properties does it add?",
+    question: "A network administrator is replacing an insecure legacy protocol used for remote device administration, since it transmits credentials and commands in plaintext. Which management protocol should replace Telnet for remote device administration, and what security properties does it add?",
     options: [
       "SNMP v3 — provides encryption and strong authentication for device management",
       "SSH (Secure Shell) — provides encrypted, authenticated remote terminal access",
@@ -5354,7 +5354,7 @@ export const questions = [
   },
   {
     id: "d4_095", domain: 4, difficulty: 1, section: "IPv4 Addressing",
-    question: "Which IPv4 address range is designated for use within private networks and should never be routed on the public internet?",
+    question: "A network engineer designing an internal addressing scheme needs to select IP ranges reserved for private networks that will never be routed on the public internet. Which IPv4 address range is designated for this purpose?",
     options: [
       "10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 (RFC 1918 private ranges)",
       "127.0.0.0/8, reserved entirely for local loopback testing addresses",
@@ -5534,7 +5534,7 @@ export const questions = [
   },
   {
     id: "d4_110", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "HTTP, FTP, and SMTP are examples of protocols that operate at which OSI layer?",
+    question: "A protocol analyst categorizing captured traffic notes that HTTP, FTP, and SMTP are all involved. At which OSI layer do these protocols operate?",
     options: [
       "Transport layer (Layer 4)",
       "Session layer (Layer 5)",
@@ -5642,7 +5642,7 @@ export const questions = [
   },
   {
     id: "d4_119", domain: 4, difficulty: 1, section: "Secure Protocols",
-    question: "Which TCP port is used by HTTPS, and which protocol encrypts the HTTP traffic?",
+    question: "A firewall administrator configuring rules for encrypted web traffic needs to know which TCP port HTTPS uses and which protocol actually performs the encryption. Which TCP port is used by HTTPS, and which protocol encrypts the HTTP traffic?",
     options: [
       "Port 443, encrypted by TLS (Transport Layer Security)",
       "Port 80, encrypted using the deprecated SSL 3.0 protocol",
@@ -5666,7 +5666,7 @@ export const questions = [
   },
   {
     id: "d4_121", domain: 4, difficulty: 1, section: "OSI Model",
-    question: "Switches operate primarily at which OSI layer, and routers operate at which OSI layer?",
+    question: "A network engineer explaining the difference between two core networking devices notes that one forwards based on MAC addresses while the other forwards based on IP addresses. Switches operate primarily at which OSI layer, and routers operate at which OSI layer?",
     options: [
       "Switches at Layer 1, routers at Layer 2",
       "Switches at Layer 2, routers at Layer 3",
@@ -5788,7 +5788,7 @@ export const questions = [
   // ─── NEW: D5 ───
   {
     id: "d5_018", domain: 5, difficulty: 1, section: "Identification and Authentication Concepts",
-    question: "Which of the following BEST describes the difference between identification and authentication?",
+    question: "A help desk technician explains to a new employee that typing a username only claims an identity, while a separate step is needed to actually prove that claim is genuine. Which of the following BEST describes the difference between identification and authentication?",
     options: [
       "Identification verifies who you are, while authentication is the act of claiming that identity to a system",
       "Identification is the process of claiming an identity, while authentication is the process of verifying that claim",
@@ -5824,7 +5824,7 @@ export const questions = [
   },
   {
     id: "d5_021", domain: 5, difficulty: 1, section: "Authentication Factors",
-    question: "Which of the following is an example of a 'somewhere you are' authentication factor?",
+    question: "A company configures its VPN so that login attempts are only accepted when the connecting device is on the corporate office's network range, regardless of the user's credentials. Which authentication factor type does this represent?",
     options: [
       "A one-time password generated by an app and sent via SMS to the user's registered phone",
       "A fingerprint scan captured and matched against a stored biometric template",
@@ -5908,7 +5908,7 @@ export const questions = [
   },
   {
     id: "d5_028", domain: 5, difficulty: 1, section: "Password Attacks",
-    question: "Credential stuffing attacks are most successful when users engage in which poor security practice?",
+    question: "An attacker takes a list of usernames and passwords leaked from one breached website and successfully logs into thousands of accounts on a completely unrelated website. This attack succeeds primarily because users engage in which poor security practice?",
     options: [
       "Choosing passwords shorter than eight characters in length",
       "Reusing the same password across multiple websites",
@@ -5944,7 +5944,7 @@ export const questions = [
   },
   {
     id: "d5_031", domain: 5, difficulty: 1, section: "Biometric Authentication",
-    question: "Which of the following biometric authentication methods has the LOWEST Crossover Error Rate (CER) and is therefore considered the most accurate?",
+    question: "A security team selecting a biometric authentication method for a high-security facility wants the option with the lowest Crossover Error Rate (CER), meaning it best balances false acceptances against false rejections. Which of the following biometric methods has the LOWEST CER and is therefore considered the most accurate?",
     options: [
       "Hand geometry",
       "Signature dynamics",
@@ -6016,7 +6016,7 @@ export const questions = [
   },
   {
     id: "d5_037", domain: 5, difficulty: 1, section: "Single Sign-On",
-    question: "What is the PRIMARY security benefit of implementing Single Sign-On (SSO) across an enterprise?",
+    question: "An enterprise rolls out Single Sign-On so employees log in once each morning and can then access dozens of internal applications without re-entering credentials. What is the PRIMARY security benefit of this SSO implementation?",
     options: [
       "Users only need to remember one strong password, which reduces the tendency to use weak passwords across multiple systems",
       "SSO eliminates the need for multi-factor authentication since a single strong login is already considered sufficient protection",
@@ -6196,7 +6196,7 @@ export const questions = [
   },
   {
     id: "d5_052", domain: 5, difficulty: 1, section: "LDAP and Directory Services",
-    question: "What is the hierarchical naming structure used to identify entries in an LDAP directory called?",
+    question: "A directory administrator troubleshooting an LDAP query needs to reference an entry using its full hierarchical path within the directory tree. What is this hierarchical naming structure called?",
     options: [
       "Domain Name System (DNS)",
       "Distinguished Name (DN)",
@@ -6244,7 +6244,7 @@ export const questions = [
   },
   {
     id: "d5_056", domain: 5, difficulty: 1, section: "Identity Provisioning",
-    question: "What is the MOST critical security action that must occur when an employee is terminated from an organization?",
+    question: "An employee is terminated on a Friday afternoon, and IT is notified an hour later. What is the MOST critical security action that must occur as a result?",
     options: [
       "Retrieving all company-issued equipment, such as laptops and badges, from the former employee",
       "Immediately disabling or removing the former employee's accounts across all systems",
@@ -6280,7 +6280,7 @@ export const questions = [
   },
   {
     id: "d5_059", domain: 5, difficulty: 1, section: "Access Control Models",
-    question: "In which access control model does the data owner determine who can access their data and has the discretion to grant or revoke access rights?",
+    question: "A file server allows each document's creator to personally decide which coworkers can view or edit it, without needing approval from a central security team. Which access control model does this represent?",
     options: [
       "Mandatory Access Control (MAC)",
       "Role-Based Access Control (RBAC)",
@@ -6328,7 +6328,7 @@ export const questions = [
   },
   {
     id: "d5_063", domain: 5, difficulty: 1, section: "Need-to-Know and Least Privilege",
-    question: "The principle of least privilege requires that users and systems be granted which level of access?",
+    question: "A system administrator provisions a new hire's account with access only to the specific files and applications required for their exact job duties, nothing more. What level of access does the principle of least privilege require?",
     options: [
       "The maximum access level for their job role to ensure they can always complete their work",
       "Only the minimum permissions necessary to perform their specific job functions",
@@ -6376,7 +6376,7 @@ export const questions = [
   },
   {
     id: "d5_067", domain: 5, difficulty: 1, section: "Account Management",
-    question: "Which type of account poses the GREATEST security risk if compromised due to its elevated permissions?",
+    question: "A threat actor compromises a single account during a phishing campaign and immediately gains the ability to reconfigure firewalls, create new user accounts, and access every server in the environment. Which type of account poses the GREATEST security risk if compromised, due to its elevated permissions?",
     options: [
       "A standard end-user account",
       "An automated service account",
@@ -6676,7 +6676,7 @@ export const questions = [
   },
   {
     id: "d5_092", domain: 5, difficulty: 1, section: "Authentication Factors",
-    question: "Which of the following authentication implementations uses ALL three primary authentication factor types?",
+    question: "A security architect designing a high-security access control system wants a login process that requires proof from all three distinct authentication factor categories, not just two. Which of the following authentication implementations satisfies this requirement?",
     options: [
       "Password, PIN, and security question combo",
       "Password + smart card + fingerprint scan",
@@ -6820,7 +6820,7 @@ export const questions = [
   },
   {
     id: "d5_104", domain: 5, difficulty: 1, section: "Access Control Models",
-    question: "The Biba integrity model addresses which security concern that Bell-LaPadula does NOT?",
+    question: "A system architect notes that Bell-LaPadula effectively protects confidentiality but does nothing to stop a low-trust process from corrupting high-trust data. Which security concern does the Biba integrity model address that Bell-LaPadula does NOT?",
     options: [
       "Confidentiality of classified information through strict read-access classification level enforcement",
       "Integrity of data by preventing unauthorized modification or contamination from less-trusted sources",
@@ -6928,7 +6928,7 @@ export const questions = [
   },
   {
     id: "d5_113", domain: 5, difficulty: 1, section: "Authentication Factors",
-    question: "Which of the following is an example of 'something you know' as an authentication factor?",
+    question: "A security architect categorizes authentication factors into three types — something you know, something you have, and something you are — when designing a new login system. Which of the following is an example of the 'something you know' factor?",
     options: [
       "A fingerprint biometric scan captured and matched by a reader",
       "A hardware OTP token device",
@@ -7206,7 +7206,7 @@ export const questions = [
   },
   {
     id: "d6_021", domain: 6, difficulty: 1, section: "Penetration Testing Phases",
-    question: "Which phase of a penetration test produces the final deliverable that describes findings, their business impact, and recommended remediation steps?",
+    question: "After a two-week penetration test concludes, the testing firm delivers a document to the client describing every finding, its business impact, and recommended remediation steps. Which phase of the penetration test produces this deliverable?",
     options: [
       "Exploitation",
       "Post-exploitation",
@@ -7266,7 +7266,7 @@ export const questions = [
   },
   {
     id: "d6_026", domain: 6, difficulty: 1, section: "Vulnerability Scoring",
-    question: "The CVSS v3 Base Score is composed of two metric groups. Which groups make up the Base Score?",
+    question: "A vulnerability management analyst calculating a CVSS v3 Base Score for a newly disclosed flaw needs to combine two specific metric groups that make up that score. Which two groups are these?",
     options: [
       "Exploitability metrics and Impact metrics",
       "Temporal metrics and Environmental metrics",
@@ -7302,7 +7302,7 @@ export const questions = [
   },
   {
     id: "d6_029", domain: 6, difficulty: 1, section: "Automated Scanning Tools",
-    question: "Which vulnerability scanning tool is known for its broad plugin library, agent-based scanning capabilities, and is widely used by enterprises for continuous vulnerability management?",
+    question: "An enterprise security team is selecting a vulnerability scanner known for its broad plugin library and agent-based scanning, to run continuous vulnerability management across thousands of endpoints. Which vulnerability scanning tool is this?",
     options: [
       "Metasploit",
       "Nessus",
@@ -7422,7 +7422,7 @@ export const questions = [
   },
   {
     id: "d6_039", domain: 6, difficulty: 1, section: "Security Audits",
-    question: "Which type of security audit is conducted by the organization's own staff to assess compliance with internal policies and standards?",
+    question: "A company's own internal audit department reviews its business units annually to confirm they comply with internal policies and standards, independent of any external regulator. Which type of security audit does this describe?",
     options: [
       "External audit",
       "Third-party audit",
@@ -7494,7 +7494,7 @@ export const questions = [
   },
   {
     id: "d6_045", domain: 6, difficulty: 1, section: "Log Management and SIEM",
-    question: "Which log management requirement ensures that log records are preserved in a manner that proves they have not been altered after collection?",
+    question: "A forensic investigator needs to prove in court that a set of collected log records has not been tampered with since the moment they were captured. Which log management requirement addresses this specific need?",
     options: [
       "Log rotation",
       "Log aggregation",
@@ -7926,7 +7926,7 @@ export const questions = [
   },
   {
     id: "d6_081", domain: 6, difficulty: 1, section: "Log Management and SIEM",
-    question: "Which of the following is the MOST important reason to implement NTP (Network Time Protocol) synchronization across all systems that generate logs?",
+    question: "During an incident investigation, an analyst tries to correlate log entries from three different servers, but their timestamps are inconsistent by several minutes, making it impossible to reconstruct the true order of events. Which of the following is the MOST important reason to implement NTP (Network Time Protocol) synchronization across all systems that generate logs?",
     options: [
       "To reduce the overall network bandwidth consumed when transmitting verbose log data to the central logging and SIEM server",
       "To ensure consistent timestamps across all log sources, enabling accurate event correlation and timeline reconstruction",
@@ -8408,7 +8408,7 @@ export const questions = [
   // ─── NEW: D7 ───
   {
     id: "d7_020", domain: 7, difficulty: 1, section: "Incident Response",
-    question: "Which phase of the incident response lifecycle involves establishing policies, procedures, and response capabilities BEFORE an incident occurs?",
+    question: "Before any incident ever occurs, a CSIRT drafts response playbooks, trains staff, and stages forensic tools so the team is ready to act the moment something happens. Which phase of the incident response lifecycle does this represent?",
     options: [
       "Identification",
       "Preparation",
@@ -8420,7 +8420,7 @@ export const questions = [
   },
   {
     id: "d7_021", domain: 7, difficulty: 1, section: "Incident Response",
-    question: "During which phase of incident response does the team work to stop further damage and limit the scope of a confirmed security incident?",
+    question: "During an active data exfiltration attempt, the response team disables the compromised account and blocks the outbound connection before more data can leave the network. During which phase of incident response does this occur?",
     options: [
       "Eradication",
       "Recovery",
@@ -8456,7 +8456,7 @@ export const questions = [
   },
   {
     id: "d7_024", domain: 7, difficulty: 1, section: "Incident Response",
-    question: "What is the correct order of phases in the NIST SP 800-61 incident response lifecycle?",
+    question: "An organization building its incident response plan around NIST SP 800-61 needs to sequence its playbook phases correctly, from initial readiness through final review. What is the correct order of phases in the NIST SP 800-61 incident response lifecycle?",
     options: [
       "Preparation → Detection & Analysis → Containment, Eradication & Recovery → Post-Incident Activity",
       "Detection → Identification → Containment → Eradication → Recovery → Lessons Learned (six-phase model)",
@@ -8576,7 +8576,7 @@ export const questions = [
   },
   {
     id: "d7_034", domain: 7, difficulty: 1, section: "Digital Forensics",
-    question: "Which of the following is considered the MOST volatile type of digital evidence and must be collected first?",
+    question: "A forensic examiner arriving at a compromised, still-powered-on workstation must decide which type of evidence to capture first, before it disappears the moment the system is powered off. Which of the following is considered the MOST volatile type of digital evidence and must be collected first?",
     options: [
       "Contents of hard disk drives",
       "Data stored in RAM (system memory)",
@@ -8624,7 +8624,7 @@ export const questions = [
   },
   {
     id: "d7_038", domain: 7, difficulty: 1, section: "Legal Hold",
-    question: "What is a legal hold (litigation hold) and when should it be implemented?",
+    question: "As soon as a company receives notice of a pending lawsuit, its legal team issues a directive instructing all departments to stop deleting emails and documents related to the matter, even if normal retention policy would allow it. What is this directive called, and when should it be implemented?",
     options: [
       "A network firewall rule configured to block all external access during an active legal dispute",
       "A directive to suspend normal data deletion policies and preserve all relevant ESI when litigation is reasonably anticipated",
@@ -8648,7 +8648,7 @@ export const questions = [
   },
   {
     id: "d7_040", domain: 7, difficulty: 1, section: "Malware Types",
-    question: "What distinguishes a worm from a virus?",
+    question: "A piece of malware spreads automatically across a network by exploiting a vulnerability, with no user needing to open a file or click anything, while a separate infection only spreads when a user shares an already-infected document. What distinguishes the first type of malware (a worm) from the second (a virus)?",
     options: [
       "A worm requires an executable host file to run, while a virus is entirely self-contained",
       "A worm self-replicates across networks without requiring a host file, while a virus attaches to existing files",
@@ -8816,7 +8816,7 @@ export const questions = [
   },
   {
     id: "d7_054", domain: 7, difficulty: 1, section: "SIEM",
-    question: "What is the primary function of a Security Information and Event Management (SIEM) system?",
+    question: "A security team deploys a platform that pulls in logs from firewalls, servers, and endpoints, correlates them in real time, and raises an alert when a suspicious pattern emerges across multiple sources. What is the primary function of this Security Information and Event Management (SIEM) system?",
     options: [
       "To fully replace firewall and intrusion detection systems with one single unified platform",
       "To collect, aggregate, correlate, and analyze security logs and events from multiple sources in real time",
@@ -8864,7 +8864,7 @@ export const questions = [
   },
   {
     id: "d7_058", domain: 7, difficulty: 1, section: "Change Management",
-    question: "What is the primary role of a Change Advisory Board (CAB) in IT change management?",
+    question: "Before a planned database schema change can be deployed to production, a committee reviews the proposed change, assesses its risk, and either approves or rejects it. What is the primary role of this Change Advisory Board (CAB) in IT change management?",
     options: [
       "To directly implement and deploy approved changes onto production systems",
       "To review, approve, or reject proposed changes to minimize risk to production environments",
@@ -8912,7 +8912,7 @@ export const questions = [
   },
   {
     id: "d7_062", domain: 7, difficulty: 1, section: "Configuration Management",
-    question: "What is a configuration baseline in security operations?",
+    question: "A systems administrator deploying 200 new workstations applies the same documented, approved set of security settings to each one, so every machine starts from an identical, hardened state. What is this documented standard called in security operations?",
     options: [
       "The minimum hardware specifications a vendor requires to run a given operating system",
       "A documented, approved, secure configuration that serves as the standard for deploying and maintaining systems",
@@ -8960,7 +8960,7 @@ export const questions = [
   },
   {
     id: "d7_066", domain: 7, difficulty: 1, section: "Backup Strategies",
-    question: "What does the 3-2-1 backup rule recommend?",
+    question: "A backup administrator designing a resilient backup strategy wants at least one copy stored off-site and the data spread across more than one storage medium, in case any single device or location fails. What does the 3-2-1 backup rule recommend?",
     options: [
       "3 full backups, 2 offsite copies, 1 cloud copy",
       "3 copies of data, on 2 different media types, with 1 copy stored offsite",
@@ -9080,7 +9080,7 @@ export const questions = [
   },
   {
     id: "d7_076", domain: 7, difficulty: 1, section: "Environmental Controls",
-    question: "Why is a clean agent fire suppression system (e.g., FM-200, Inergen) preferred over a water-based sprinkler system in data centers?",
+    question: "A data center manager selecting a fire suppression system for a server room needs one that won't destroy the electronic equipment it's meant to protect if it ever activates. Why is a clean agent fire suppression system (e.g., FM-200, Inergen) preferred over a water-based sprinkler system in this environment?",
     options: [
       "Clean agent fire suppression systems are generally less expensive to install than water-based systems",
       "Clean agents suppress fires without damaging electronic equipment, while water causes irreparable damage to servers",
@@ -9320,7 +9320,7 @@ export const questions = [
   },
   {
     id: "d7_096", domain: 7, difficulty: 1, section: "Malware Types",
-    question: "A botnet is best described as:",
+    question: "A threat actor remotely controls thousands of compromised home routers and IoT devices, directing them simultaneously to flood a target website with traffic. This network of compromised devices under the attacker's control is best described as:",
     options: [
       "A specialized type of firewall that protects multiple systems simultaneously",
       "A network of compromised computers controlled by an attacker to perform coordinated malicious activities",
@@ -9416,7 +9416,7 @@ export const questions = [
   },
   {
     id: "d7_104", domain: 7, difficulty: 1, section: "Physical Security",
-    question: "What is the purpose of a Faraday cage in security operations?",
+    question: "A forensic lab places a seized smartphone inside a special enclosure immediately upon collection, specifically to prevent it from receiving a remote wipe command or any other wireless signal. What is the purpose of this Faraday cage in security operations?",
     options: [
       "To provide physical access control by means of electromagnetic door locks",
       "To block electromagnetic signals, preventing wireless communication to/from devices inside",
@@ -9464,7 +9464,7 @@ export const questions = [
   },
   {
     id: "d7_108", domain: 7, difficulty: 1, section: "Incident Classification",
-    question: "What distinguishes a security 'event' from a security 'incident'?",
+    question: "A firewall logs thousands of routine, benign connection attempts every day, but only a small number of those logged occurrences actually turn out to represent a real compromise attempt requiring response. What distinguishes a security 'event' from a security 'incident'?",
     options: [
       "An incident always involves personal data, while an event involves only generic system data",
       "An event is any observable occurrence in a system; an incident is an event that actually or potentially adversely impacts security",
@@ -9512,7 +9512,7 @@ export const questions = [
   },
   {
     id: "d7_112", domain: 7, difficulty: 1, section: "Recovery Sites",
-    question: "Which recovery site type requires the LONGEST time to become operational after a disaster declaration?",
+    question: "A disaster recovery planner comparing recovery site options needs to know which type takes the longest to become operational after a disaster is declared, since it arrives with only bare infrastructure and no pre-installed systems or data. Which recovery site type requires the LONGEST time to become operational?",
     options: [
       "Hot site",
       "Warm site",
@@ -9584,7 +9584,7 @@ export const questions = [
   },
   {
     id: "d7_118", domain: 7, difficulty: 1, section: "Incident Response",
-    question: "Which document provides the legal authorization for an incident response team to access, monitor, and collect evidence from corporate systems during an investigation?",
+    question: "During an active investigation, an incident responder needs to know which internal document actually gives them the legal authority to access, monitor, and collect evidence from an employee's corporate systems. Which document provides this authorization?",
     options: [
       "The organization's formally documented and board-approved incident response plan that was drafted and approved by the CSIRT leadership team",
       "A formal court-issued search warrant signed and authorized by a presiding judge",
@@ -9644,7 +9644,7 @@ export const questions = [
   },
   {
     id: "d7_123", domain: 7, difficulty: 1, section: "Backup Strategies",
-    question: "Which backup type backs up ALL data every time, regardless of what has changed since the previous backup?",
+    question: "A backup administrator configures a job that copies every single file on a server each night, regardless of whether that file changed since the previous backup. Which backup type is being performed?",
     options: [
       "Incremental backup",
       "Differential backup",
@@ -9742,7 +9742,7 @@ export const questions = [
   // ─── NEW: D8 ───
   {
     id: "d8_019", domain: 8, difficulty: 1, section: "Software Development Lifecycle",
-    question: "Which SDLC model is characterized by sequential, non-overlapping phases where each phase must be completed before the next begins?",
+    question: "A development team follows a strict process where requirements must be fully finalized before design begins, and design must be complete before any coding starts, with no phase revisited once passed. Which SDLC model is characterized by this sequential, non-overlapping structure?",
     options: [
       "Spiral model (iterative)",
       "Agile model (Scrum/Kanban)",
@@ -9766,7 +9766,7 @@ export const questions = [
   },
   {
     id: "d8_021", domain: 8, difficulty: 1, section: "Software Development Lifecycle",
-    question: "In Agile development, what is the primary mechanism for incorporating security feedback continuously into the development process?",
+    question: "A Scrum team wants security requirements and testing addressed continuously throughout development, rather than saved for a single review at the end of the release. What is the primary mechanism for incorporating security feedback this way in Agile development?",
     options: [
       "Conducting a penetration test after every third sprint",
       "Embedding security requirements and testing within each sprint",
@@ -9814,7 +9814,7 @@ export const questions = [
   },
   {
     id: "d8_025", domain: 8, difficulty: 1, section: "Secure Coding Principles",
-    question: "Which secure coding principle recommends that a component should have access only to the resources and permissions it needs to perform its function?",
+    question: "A developer designs a microservice so it can only read from the one database table it actually needs, with no ability to write, delete, or access any other table in the system. Which secure coding principle does this reflect?",
     options: [
       "Defense in depth",
       "Fail securely",
@@ -10848,7 +10848,7 @@ export const questions = [
   // ─── NEW: D1 ───
   {
     id: "d1_026", domain: 1, difficulty: 1, section: "Risk Management Frameworks",
-    question: "Which framework provides a structured, flexible process for managing information security risk that is most commonly used by U.S. federal agencies?",
+    question: "A U.S. federal agency's CISO is selecting a risk management framework to standardize how the agency categorizes, selects, and monitors security controls across its systems. Which framework is most commonly used for this purpose?",
     options: [
       "ISO/IEC 27001 international standard",
       "NIST Risk Management Framework (RMF)",
@@ -10896,7 +10896,7 @@ export const questions = [
   },
   {
     id: "d1_030", domain: 1, difficulty: 1, section: "Security Policy Framework",
-    question: "Which document in the security policy hierarchy provides the HIGHEST level of guidance and represents management's intent?",
+    question: "An auditor reviewing an organization's governance documents wants to identify the single document that sits at the top of the policy hierarchy and represents senior management's overall intent for security. Which document is this?",
     options: [
       "Standard",
       "Procedure",
@@ -10932,7 +10932,7 @@ export const questions = [
   },
   {
     id: "d1_033", domain: 1, difficulty: 1, section: "Legal & Regulatory Compliance",
-    question: "Which U.S. federal law requires healthcare organizations and their business associates to protect the privacy and security of patient health information?",
+    question: "A hospital's compliance officer is identifying which U.S. federal law obligates both the hospital and its billing vendor (a business associate) to protect the privacy and security of patient health records. Which law applies?",
     options: [
       "FERPA",
       "GLBA",
@@ -11028,7 +11028,7 @@ export const questions = [
   },
   {
     id: "d1_041", domain: 1, difficulty: 1, section: "Risk Concepts & Formulas",
-    question: "In quantitative risk analysis, which formula correctly calculates the Single Loss Expectancy (SLE)?",
+    question: "A risk analyst wants to calculate the expected loss from a single occurrence of a server outage, using the asset's value and the percentage of that value expected to be lost if the event occurs. Which formula correctly calculates this Single Loss Expectancy (SLE)?",
     options: [
       "SLE = Annual Rate of Occurrence × Annualized Loss Expectancy",
       "SLE = Asset Value × Exposure Factor",
@@ -11124,7 +11124,7 @@ export const questions = [
   },
   {
     id: "d1_049", domain: 1, difficulty: 1, section: "Threat & Vulnerability Concepts",
-    question: "Which term describes a weakness in a system that could be exploited by a threat to cause harm?",
+    question: "During a risk assessment, an analyst identifies an unpatched software flaw in a public-facing server that could be exploited by an attacker. Which term describes this specific weakness itself, independent of any actor who might exploit it?",
     options: [
       "Risk — the combined likelihood and impact of a threat exploiting a weakness",
       "Threat — a potential event or actor capable of exploiting a vulnerability",
@@ -11244,7 +11244,7 @@ export const questions = [
   },
   {
     id: "d1_059", domain: 1, difficulty: 1, section: "Personnel Security Controls",
-    question: "During which phase of the employee lifecycle should background checks PRIMARILY be conducted?",
+    question: "An organization is hiring for a role with access to sensitive financial systems and wants to verify a candidate's history before granting any access at all. During which phase of the employee lifecycle should background checks PRIMARILY be conducted?",
     options: [
       "During the employee's scheduled annual performance review meetings",
       "Before extending a job offer or during pre-employment screening",
@@ -11292,7 +11292,7 @@ export const questions = [
   },
   {
     id: "d1_063", domain: 1, difficulty: 1, section: "Security Awareness & Training",
-    question: "What is the PRIMARY goal of a security awareness program?",
+    question: "After several employees fall for a phishing simulation, a CISO launches a recurring training initiative aimed at changing how staff think about and react to suspicious emails day-to-day. What is the PRIMARY goal of this kind of security awareness program?",
     options: [
       "To train employees to independently perform hands-on technical security tasks",
       "To satisfy mandatory annual regulatory and compliance training obligations",
@@ -11388,7 +11388,7 @@ export const questions = [
   },
   {
     id: "d1_071", domain: 1, difficulty: 1, section: "Privacy Principles",
-    question: "Which privacy concept states that personal data should only be collected and processed for specific, explicit, and legitimate purposes?",
+    question: "A company collects customer email addresses during checkout for order confirmations, then later starts using that same list for unrelated marketing campaigns without additional consent. Which privacy concept has been violated by this expanded use?",
     options: [
       "Data minimization",
       "Storage limitation",
@@ -11508,7 +11508,7 @@ export const questions = [
   },
   {
     id: "d1_081", domain: 1, difficulty: 1, section: "Risk Appetite & Risk Tolerance",
-    question: "Which term describes the amount of risk an organization is willing to accept in pursuit of its business objectives?",
+    question: "A board of directors sets a formal statement defining how much risk the organization is willing to take on in pursuit of its strategic objectives, before any specific risk has even been identified. Which term describes this overall willingness to accept risk?",
     options: [
       "Risk threshold",
       "Risk appetite",
@@ -11736,7 +11736,7 @@ export const questions = [
   },
   {
     id: "d1_100", domain: 1, difficulty: 1, section: "Risk Management Frameworks",
-    question: "ISO/IEC 27001 is best described as:",
+    question: "An organization pursuing certification to demonstrate it has established, implemented, and continually improves a formal Information Security Management System (ISMS) is working toward which standard?",
     options: [
       "A narrowly scoped technical standard limited strictly to configuring firewalls, routers, and other network perimeter devices — inaccurate",
       "An international standard for establishing, implementing, maintaining, and continually improving an Information Security Management System (ISMS) — accurate",
@@ -11856,7 +11856,7 @@ export const questions = [
   },
   {
     id: "d1_110", domain: 1, difficulty: 1, section: "Risk Management Frameworks",
-    question: "Which NIST publication provides a catalogue of security and privacy controls for federal information systems and organizations?",
+    question: "A federal systems security officer needs to select an appropriate set of security and privacy controls for a new information system and is consulting NIST's control catalogue for this purpose. Which NIST publication is this?",
     options: [
       "NIST SP 800-37",
       "NIST SP 800-30",
