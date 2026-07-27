@@ -5522,7 +5522,7 @@ export const questions = [
   },
   {
     id: "d4_109", domain: 4, difficulty: 3, section: "TLS and SSL",
-    question: "Which property of TLS with ECDHE key exchange ensures that compromising the server's private key cannot decrypt previously captured encrypted sessions?",
+    question: "An attacker later obtains a web server's private key and attempts to decrypt years of previously captured, encrypted TLS traffic to and from that server, but finds it's impossible because the session keys were never derivable from that long-term key. Which property of TLS with ECDHE key exchange ensures this?",
     options: [
       "Certificate pinning — the client outright rejects any certificate that was not previously pinned by the application",
       "Perfect Forward Secrecy (PFS) — ephemeral session keys are not derived from the long-term private key",
@@ -11088,7 +11088,7 @@ export const questions = [
   },
   {
     id: "d1_046", domain: 1, difficulty: 3, section: "Risk Response Strategies",
-    question: "Which type of risk cannot be reduced through controls and must always be accepted by the organization?",
+    question: "A CISO explaining risk categories to the board notes that one type of risk, by definition, can never be reduced through any control at all and must simply be accepted as the cost of operating. Which type of risk is this?",
     options: [
       "Inherent risk",
       "Residual risk",
