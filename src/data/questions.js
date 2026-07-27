@@ -609,7 +609,7 @@ export const questions = [
   },
   {
     id: "d3_003", domain: 3, difficulty: 2, section: "Cryptography – Symmetric vs Asymmetric",
-    question: "Which cryptographic algorithm is considered ASYMMETRIC?",
+    question: "A developer choosing an algorithm for a key-exchange system needs one that uses a public/private key pair rather than a single shared secret key. Which cryptographic algorithm is considered ASYMMETRIC?",
     options: ["AES-256", "3DES", "RSA", "HMAC-SHA256"],
     answer: 2,
     explanation: "RSA is an asymmetric algorithm that uses a public key for encryption and a private key for decryption (or vice versa for signatures). AES and 3DES are symmetric; HMAC is a message authentication code using a shared secret.",
@@ -716,7 +716,7 @@ export const questions = [
   },
   {
     id: "d4_002", domain: 4, difficulty: 2, section: "Routing Security",
-    question: "Which protocol provides authentication of routing updates to prevent route injection attacks?",
+    question: "A network engineer hardening a router's routing protocol wants to ensure that incoming route advertisements are authenticated, preventing an attacker from injecting false routes. Which protocol provides this authentication of routing updates?",
     options: ["BGP with MD5 authentication", "OSPF with passive interfaces", "RIP version 1", "ARP inspection"],
     answer: 0,
     explanation: "BGP supports TCP MD5 authentication (and newer RPKI for route origin validation) to authenticate routing peers and prevent unauthorized route injection. RIP v1 has no authentication; passive interfaces prevent routing advertisements from reaching end devices.",
@@ -754,7 +754,7 @@ export const questions = [
   },
   {
     id: "d4_006", domain: 4, difficulty: 2, section: "VPN Protocols",
-    question: "Which VPN protocol is considered MOST secure for remote access and operates natively on UDP port 500 for key exchange?",
+    question: "A company selecting a remote-access VPN protocol wants the most secure option available, one that natively uses UDP port 500 for key exchange. Which VPN protocol is considered MOST secure for remote access?",
     options: ["PPTP", "L2TP/IPSec", "IPSec IKEv2", "SSL VPN over TCP 443"],
     answer: 2,
     explanation: "IPSec with IKEv2 provides strong authentication, perfect forward secrecy, and fast reconnection (MOBIKE). It uses UDP 500 for IKE negotiation and UDP 4500 for NAT traversal. PPTP is deprecated due to known vulnerabilities.",
@@ -773,7 +773,7 @@ export const questions = [
   },
   {
     id: "d4_008", domain: 4, difficulty: 2, section: "Wireless Security Standards",
-    question: "Which wireless security protocol replaced WEP and is now considered vulnerable due to attacks against TKIP?",
+    question: "A security assessment flags a wireless network using the protocol that originally replaced WEP, but is now itself considered vulnerable due to attacks against its TKIP encryption. Which wireless security protocol is this?",
     options: [
       "WPA (original, TKIP-based)",
       "WPA2-Enterprise 802.1X",
@@ -797,7 +797,7 @@ export const questions = [
   },
   {
     id: "d4_010", domain: 4, difficulty: 2, section: "Key Exchange Protocols",
-    question: "Which protocol provides secure, authenticated key exchange for SSL/TLS sessions?",
+    question: "A cryptographer designing a TLS handshake needs a mechanism that lets two parties establish a shared secret over an insecure channel without ever transmitting the secret itself. Which protocol provides this secure, authenticated key exchange for SSL/TLS sessions?",
     options: [
       "Diffie-Hellman (DH) key exchange",
       "MD5 hashing for integrity",
@@ -835,7 +835,7 @@ export const questions = [
   },
   {
     id: "d5_003", domain: 5, difficulty: 2, section: "Federation & Single Sign-On",
-    question: "Which Single Sign-On (SSO) standard is commonly used for federated identity between web applications using tokens?",
+    question: "A company federating identity between its internal apps and a third-party SaaS platform needs a standard that exchanges authentication tokens over XML. Which Single Sign-On (SSO) standard is commonly used for this purpose?",
     options: ["LDAP", "RADIUS", "SAML 2.0", "Kerberos"],
     answer: 2,
     explanation: "Security Assertion Markup Language (SAML) 2.0 is the dominant standard for web-based SSO federation, exchanging XML-based authentication assertions between an Identity Provider (IdP) and Service Providers (SPs). OAuth 2.0/OIDC is a more modern alternative.",
@@ -854,7 +854,7 @@ export const questions = [
   },
   {
     id: "d5_005", domain: 5, difficulty: 2, section: "Authentication Weaknesses",
-    question: "What is the PRIMARY risk of using password-based authentication alone for privileged administrator accounts?",
+    question: "A CISO reviewing privileged account security finds that domain administrator accounts rely solely on a password with no additional verification step. What is the PRIMARY risk of this password-based authentication alone for privileged administrator accounts?",
     options: [
       "Password expiration policies for administrators are too frequent, creating operational overhead",
       "Passwords can be guessed, stolen, or phished, providing no additional verification",
@@ -1358,7 +1358,7 @@ export const questions = [
   },
   {
     id: "d1_021", domain: 1, difficulty: 2, section: "Accountability & Non-Repudiation",
-    question: "Which concept ensures that individuals are held accountable for their actions through unique identification and activity logging?",
+    question: "An auditor tracing a fraudulent transaction back to the specific employee who performed it relies on unique user IDs and detailed activity logs. Which concept ensures that individuals are held accountable for their actions this way?",
     options: ["Authentication", "Authorization", "Accountability", "Non-repudiation"],
     answer: 2,
     explanation: "Accountability requires that actions can be traced back to a specific individual. It depends on identification (who you claim to be), authentication (proving it), and logging (recording what was done). Non-repudiation is a related concept ensuring actions cannot be denied after the fact.",
@@ -1377,7 +1377,7 @@ export const questions = [
   },
   {
     id: "d1_023", domain: 1, difficulty: 2, section: "Risk Concepts & Formulas",
-    question: "Which of the following BEST describes the relationship between threats, vulnerabilities, and risk?",
+    question: "A risk analyst calculating the overall risk to an asset needs to combine the likelihood of a threat exploiting a weakness with the value of what could be lost. Which of the following BEST describes the relationship between threats, vulnerabilities, and risk?",
     options: [
       "Risk = Threat × Vulnerability × Asset Value",
       "Threat = Risk + Vulnerability",
@@ -1565,7 +1565,7 @@ export const questions = [
   },
   {
     id: "d3_020", domain: 3, difficulty: 2, section: "Access Control Models (MAC)",
-    question: "Which access control model bases decisions on security labels attached to subjects and objects, and is typically mandatory — users cannot change the labels?",
+    question: "A government system labels every file and user with a fixed classification level, and the system itself enforces access based on those labels — no user, not even the file's creator, can override them. Which access control model does this represent?",
     options: [
       "Role-Based Access Control (RBAC)",
       "Discretionary Access Control (DAC)",
@@ -1598,7 +1598,7 @@ export const questions = [
   // ─── DOMAIN 4 – Additional questions ───
   {
     id: "d4_012", domain: 4, difficulty: 2, section: "DNS Security",
-    question: "Which DNS security extension prevents DNS response forgery by digitally signing DNS records?",
+    question: "A domain administrator wants to prevent an attacker from forging fake DNS responses that redirect users to a malicious site, by digitally signing every DNS record. Which DNS security extension provides this?",
     options: ["DNSSEC", "DNS over HTTPS (DoH)", "DNS over TLS (DoT)", "Split-horizon DNS"],
     answer: 0,
     explanation: "DNSSEC (DNS Security Extensions) uses public-key cryptography to sign DNS records, allowing resolvers to verify that responses are authentic and unmodified. DoH and DoT encrypt DNS queries for privacy but do not authenticate DNS records.",
@@ -1705,7 +1705,7 @@ export const questions = [
   // ─── DOMAIN 5 – Additional questions ───
   {
     id: "d5_010", domain: 5, difficulty: 2, section: "Authentication Protocols",
-    question: "Which authentication protocol transmits credentials in cleartext and should never be used over untrusted networks?",
+    question: "A network engineer auditing an old remote-access setup discovers a protocol that sends usernames and passwords across the wire completely unencrypted. Which authentication protocol transmits credentials in cleartext and should never be used over untrusted networks?",
     options: ["RADIUS", "PAP", "CHAP", "EAP-TLS"],
     answer: 1,
     explanation: "PAP (Password Authentication Protocol) transmits username and password in plaintext. CHAP uses a challenge-response mechanism; RADIUS encrypts the password field; EAP-TLS uses mutual certificate authentication. PAP should only be used, if at all, over encrypted tunnels.",
@@ -1767,7 +1767,7 @@ export const questions = [
   },
   {
     id: "d5_016", domain: 5, difficulty: 2, section: "Biometric Authentication",
-    question: "Which biometric characteristic has the LOWEST equal error rate (EER) and therefore the HIGHEST accuracy among common modalities?",
+    question: "A high-security facility comparing biometric options wants the modality that most accurately balances false acceptances against false rejections. Which biometric characteristic has the LOWEST equal error rate (EER) and therefore the HIGHEST accuracy among common modalities?",
     options: [
       "Signature dynamics",
       "Fingerprint",
@@ -1974,7 +1974,7 @@ export const questions = [
   // ─── DOMAIN 8 – Additional questions ───
   {
     id: "d8_010", domain: 8, difficulty: 2, section: "XSS Attack Types",
-    question: "Which type of XSS attack stores malicious script in the application's database so it executes for every user who views the affected page?",
+    question: "An attacker submits a malicious script into a website's comment field, and the site saves it to its database so that every visitor who later views that comment unknowingly runs the script in their browser. Which type of XSS attack does this describe?",
     options: [
       "Reflected (non-persistent) XSS",
       "Stored (persistent) XSS",
@@ -2010,7 +2010,7 @@ export const questions = [
   },
   {
     id: "d8_013", domain: 8, difficulty: 2, section: "CSRF Prevention",
-    question: "Which secure coding practice prevents CSRF attacks in web applications?",
+    question: "A web developer wants to prevent an attacker from tricking an authenticated user's browser into submitting an unwanted request to the application on their behalf. Which secure coding practice prevents CSRF attacks in web applications?",
     options: [
       "Parameterized queries (prepared statements)",
       "Anti-CSRF tokens (synchronizer token pattern)",
@@ -2022,7 +2022,7 @@ export const questions = [
   },
   {
     id: "d8_014", domain: 8, difficulty: 2, section: "Password Storage Security",
-    question: "What is the MAIN security concern with using MD5 to store user passwords?",
+    question: "A security audit finds that a legacy application stores user passwords hashed with MD5, and a penetration tester is able to crack a large percentage of them within minutes using precomputed tables. What is the MAIN security concern with using MD5 to store user passwords?",
     options: [
       "MD5 hashing is too computationally slow for login systems handling many concurrent users",
       "MD5 is a fast hash, making it easy to crack with rainbow tables or brute force",
@@ -2046,7 +2046,7 @@ export const questions = [
   },
   {
     id: "d8_016", domain: 8, difficulty: 2, section: "Secure Code Review",
-    question: "Which SDLC activity involves developers reviewing each other's code before it is merged, with the explicit goal of catching security issues?",
+    question: "Before a pull request can be merged, another developer on the team reads through the proposed code changes line by line, specifically looking for security issues the author may have missed. Which SDLC activity does this describe?",
     options: [
       "Fuzz testing",
       "Peer code review",
@@ -2108,7 +2108,7 @@ export const questions = [
   },
   {
     id: "dx_003", domain: 5, difficulty: 2, section: "Least Privilege Principle",
-    question: "Which access control principle limits access rights for users, accounts, and processes to only those required for legitimate purposes?",
+    question: "A cloud engineer configures an application's service account so it can only invoke the three specific API calls its function requires, with no broader permissions granted 'just in case.' Which access control principle does this reflect?",
     options: [
       "Need to know",
       "Least privilege",
@@ -2686,7 +2686,7 @@ export const questions = [
   },
   {
     id: "d2_060", domain: 2, difficulty: 2, section: "PII Handling",
-    question: "Which of the following is the BEST definition of Personally Identifiable Information (PII)?",
+    question: "A privacy officer building a data inventory needs a working definition to determine which fields — like name, address, or SSN — qualify for special handling. Which of the following is the BEST definition of Personally Identifiable Information (PII)?",
     options: [
       "Any data stored electronically in a relational database system",
       "Information that can be used to identify, locate, or contact a specific individual",
@@ -2758,7 +2758,7 @@ export const questions = [
   },
   {
     id: "d2_066", domain: 2, difficulty: 2, section: "Intellectual Property Protection",
-    question: "Which form of intellectual property protection covers original creative works such as software source code, literary works, and artistic works automatically upon creation?",
+    question: "A software company automatically gains legal protection over its original source code the moment it's written, without needing to file any application or pay any fee. Which form of intellectual property protection covers original creative works this way?",
     options: [
       "Patent",
       "Trademark",
@@ -2794,7 +2794,7 @@ export const questions = [
   },
   {
     id: "d2_069", domain: 2, difficulty: 2, section: "Records Management",
-    question: "Which records management principle ensures that records are authentic, reliable, and unaltered from their original state?",
+    question: "An auditor examining an organization's records management program wants assurance that historical records haven't been silently modified since they were first created. Which records management principle addresses this specific concern?",
     options: [
       "Accessibility",
       "Integrity",
@@ -3058,7 +3058,7 @@ export const questions = [
   },
   {
     id: "d2_091", domain: 2, difficulty: 2, section: "Baseline Security Configurations",
-    question: "Which of the following BEST describes the purpose of configuration management baselines in the context of information security?",
+    question: "A security team wants a documented, approved reference state for a server's configuration, so any unauthorized change can be detected by comparing the current state against it. Which of the following BEST describes the purpose of configuration management baselines in this context?",
     options: [
       "To document the hardware specifications and vendor models of officially approved systems",
       "To define the known-good, approved security state of a system against which deviations can be detected",
@@ -3348,7 +3348,7 @@ export const questions = [
   },
   {
     id: "d3_037", domain: 3, difficulty: 2, section: "Security Models",
-    question: "Which security model is specifically designed to address the challenge of subjects at intermediate classification levels potentially leaking information between subjects at different levels?",
+    question: "A government system architect designing a multi-level classification system needs a model specifically built to prevent information from leaking between subjects at intermediate classification levels who read data above their level or write data down to a lower level. Which security model addresses this?",
     options: [
       "Biba model",
       "Bell-LaPadula model",
@@ -4610,7 +4610,7 @@ export const questions = [
   },
   {
     id: "d4_033", domain: 4, difficulty: 2, section: "IPv6 Security",
-    question: "Which IPv6 feature eliminates the need for ARP and what attack does this help mitigate?",
+    question: "A network engineer explaining IPv6 to a colleague notes that it doesn't use ARP at all for local address resolution, but the replacement mechanism has its own spoofing risk. Which IPv6 feature eliminates the need for ARP, and what attack does this help mitigate?",
     options: [
       "IPv6 uses DHCPv6 instead of ARP for address assignment, mitigating DHCP starvation attacks",
       "IPv6 uses Neighbor Discovery Protocol (NDP) instead of ARP, but is itself vulnerable to NDP spoofing",
@@ -4718,7 +4718,7 @@ export const questions = [
   },
   {
     id: "d4_042", domain: 4, difficulty: 2, section: "DHCP Security",
-    question: "Which network switch security feature mitigates both DHCP starvation and rogue DHCP server attacks?",
+    question: "A network administrator wants a switch-level feature that blocks an attacker from exhausting the DHCP pool with fake requests and also prevents a rogue DHCP server from handing out malicious IP configurations. Which network switch security feature mitigates both attacks?",
     options: [
       "Port security with MAC address limiting per switch port",
       "DHCP snooping with trusted and untrusted port designation",
@@ -4910,7 +4910,7 @@ export const questions = [
   },
   {
     id: "d4_058", domain: 4, difficulty: 2, section: "Network Access Control",
-    question: "Which standard provides port-based network access control by requiring devices to authenticate before gaining network access, commonly used with RADIUS servers?",
+    question: "A network security team wants devices to authenticate against a RADIUS server before they're allowed onto the network at all, enforced at the switch port level. Which standard provides this port-based network access control?",
     options: [
       "IEEE 802.11i",
       "IEEE 802.1X",
@@ -4946,7 +4946,7 @@ export const questions = [
   },
   {
     id: "d4_061", domain: 4, difficulty: 2, section: "VPN Technologies",
-    question: "What is the primary security difference between IPSec AH (Authentication Header) and IPSec ESP (Encapsulating Security Payload)?",
+    question: "A network engineer configuring an IPSec tunnel needs to choose between a protocol that only authenticates and verifies packet integrity, and one that also encrypts the payload. What is the primary security difference between IPSec AH (Authentication Header) and IPSec ESP (Encapsulating Security Payload)?",
     options: [
       "AH provides both encryption and authentication for the entire packet payload and header fields; ESP by contrast provides only authentication services",
       "AH provides data origin authentication and integrity but no encryption; ESP provides both encryption and authentication",
@@ -4994,7 +4994,7 @@ export const questions = [
   },
   {
     id: "d4_065", domain: 4, difficulty: 2, section: "Wireless Security",
-    question: "What significant security improvement does WPA3-Personal provide over WPA2-Personal?",
+    question: "A network administrator upgrading a wireless network from WPA2 to WPA3 wants to know what actually changed to make offline dictionary attacks against the passphrase much harder. What significant security improvement does WPA3-Personal provide over WPA2-Personal?",
     options: [
       "WPA3 mandates 256-bit AES encryption for all devices, replacing WPA2's 128-bit AES entirely",
       "WPA3 uses SAE (Simultaneous Authentication of Equals) to provide forward secrecy and resist offline dictionary attacks",
@@ -5042,7 +5042,7 @@ export const questions = [
   },
   {
     id: "d4_069", domain: 4, difficulty: 2, section: "Bluetooth and NFC",
-    question: "Which Bluetooth attack involves sending unsolicited messages to Bluetooth-enabled devices without requiring pairing?",
+    question: "A user's phone receives an unsolicited message from a nearby stranger's device, apparently sent without ever establishing a Bluetooth pairing connection. Which Bluetooth attack does this describe?",
     options: [
       "Bluejacking",
       "Bluesnarfing",
@@ -5186,7 +5186,7 @@ export const questions = [
   },
   {
     id: "d4_081", domain: 4, difficulty: 2, section: "DoS and DDoS",
-    question: "Which type of DDoS attack consumes server resources by exploiting the TCP three-way handshake, sending SYN packets but never completing the connection?",
+    question: "An attacker floods a web server with thousands of connection requests that each complete only the first step of the TCP handshake, exhausting the server's connection table and preventing legitimate users from connecting. Which type of DDoS attack is this?",
     options: [
       "UDP flood attack",
       "SYN flood attack",
@@ -5330,7 +5330,7 @@ export const questions = [
   },
   {
     id: "d4_093", domain: 4, difficulty: 2, section: "OSI Model",
-    question: "Which OSI layer is responsible for establishing, maintaining, and terminating connections (sessions) between applications on different hosts?",
+    question: "A protocol analyst needs to identify which OSI layer is responsible for opening, maintaining, and properly closing a communication session between two applications, distinct from the actual data transport below it. Which OSI layer is this?",
     options: [
       "Transport layer (Layer 4)",
       "Presentation layer (Layer 6)",
@@ -5594,7 +5594,7 @@ export const questions = [
   },
   {
     id: "d4_115", domain: 4, difficulty: 2, section: "Wireless Attacks",
-    question: "What is the PMKID attack against WPA2, and how does it differ from the traditional 4-way handshake capture method?",
+    question: "A penetration tester captures a single frame from a WPA2 access point and is able to attempt an offline password crack without ever needing a client to connect or performing a deauthentication attack. What is this PMKID attack against WPA2, and how does it differ from the traditional 4-way handshake capture method?",
     options: [
       "PMKID attacks work by brute-forcing the eight-digit WPS PIN rather than the WPA2 passphrase itself",
       "PMKID can be captured from the first EAPOL frame without waiting for a client to connect, enabling offline password cracking without a deauth attack",
@@ -5726,7 +5726,7 @@ export const questions = [
   },
   {
     id: "d4_126", domain: 4, difficulty: 2, section: "Honeypots",
-    question: "Which type of honeypot emulates only the service banners and initial response of services without actually running the full service stack?",
+    question: "A security team deploys a decoy that only mimics the banner and initial handshake of a few common services, without running any real underlying service software, to minimize risk while still detecting scans. Which type of honeypot is this?",
     options: [
       "High-interaction honeypot — runs real services on real operating systems",
       "Low-interaction honeypot — simulates limited service responses",
@@ -5896,7 +5896,7 @@ export const questions = [
   },
   {
     id: "d5_027", domain: 5, difficulty: 2, section: "Password Attacks",
-    question: "Which defense mechanism is MOST effective at rendering rainbow table attacks useless against stolen password hashes?",
+    question: "A security engineer wants to ensure that even if an attacker steals the password hash database, they can't use a precomputed table of common hash values to crack the passwords quickly. Which defense mechanism is MOST effective at rendering rainbow table attacks useless against stolen password hashes?",
     options: [
       "Requiring all user passwords to be at least 12 characters in length",
       "Enforcing password complexity rules requiring uppercase letters, numbers, and symbols",
@@ -5932,7 +5932,7 @@ export const questions = [
   },
   {
     id: "d5_030", domain: 5, difficulty: 2, section: "Biometric Authentication",
-    question: "What does the Crossover Error Rate (CER), also known as the Equal Error Rate (EER), represent in biometric systems?",
+    question: "A biometric vendor benchmarking a new fingerprint scanner reports the specific threshold at which the system's false-acceptance rate and false-rejection rate are equal. What does this Crossover Error Rate (CER), also known as the Equal Error Rate (EER), represent in biometric systems?",
     options: [
       "The rate at which the biometric scanner physically fails to capture a usable reading",
       "The point at which the FAR and FRR are equal, used as a benchmark for overall system accuracy",
@@ -6028,7 +6028,7 @@ export const questions = [
   },
   {
     id: "d5_038", domain: 5, difficulty: 2, section: "Single Sign-On",
-    question: "What is the PRIMARY security risk of Single Sign-On implementations?",
+    question: "An attacker phishes a single employee's SSO credential and is then able to log into every connected application that employee had access to, without needing to compromise each one separately. What is the PRIMARY security risk illustrated by this Single Sign-On implementation?",
     options: [
       "SSO requires that every connected application be exposed directly to the public internet",
       "A compromised SSO credential provides access to all connected systems simultaneously",
@@ -6160,7 +6160,7 @@ export const questions = [
   },
   {
     id: "d5_049", domain: 5, difficulty: 2, section: "Kerberos",
-    question: "What defense is MOST effective at detecting and mitigating Kerberoasting attacks?",
+    question: "A red team successfully extracts a service account's Kerberos ticket and cracks its weak, never-changed password offline within hours. What defense is MOST effective at detecting and mitigating this kind of Kerberoasting attack?",
     options: [
       "Disabling Kerberos entirely and relying exclusively on NTLM authentication for all service accounts",
       "Using long, complex, randomly generated passwords for all service accounts or replacing them with Group Managed Service Accounts (gMSA)",
@@ -6580,7 +6580,7 @@ export const questions = [
   },
   {
     id: "d5_084", domain: 5, difficulty: 2, section: "Social Engineering Against Identity",
-    question: "Which help desk control BEST prevents social engineering attacks that attempt to obtain unauthorized password resets?",
+    question: "An attacker calls the help desk pretending to be a locked-out executive, pressuring the technician to reset the password immediately without any further verification. Which help desk control BEST prevents this kind of social engineering attack from succeeding?",
     options: [
       "Training help desk staff to prioritize friendliness and customer service so callers feel comfortable and requests are handled quickly, without adding any independent verification step to the process",
       "Requiring identity verification through an out-of-band method (such as a callback to a verified number or manager approval) before performing any account changes",
@@ -7590,7 +7590,7 @@ export const questions = [
   },
   {
     id: "d6_053", domain: 6, difficulty: 2, section: "Honeypots and Deception Technology",
-    question: "Which of the following represents the PRIMARY advantage of deception technology (honeypots) compared to signature-based intrusion detection?",
+    question: "A SOC lead compares two detection strategies and notes that any interaction at all with a decoy system is inherently suspicious, since no legitimate user has any reason to touch it. Which of the following represents the PRIMARY advantage of deception technology (honeypots) compared to signature-based intrusion detection?",
     options: [
       "Deception technology delivers substantially faster alert triage and analyst response times than signatures",
       "Deception technology generates near-zero false positives because any interaction with decoys indicates malicious intent",
@@ -8118,7 +8118,7 @@ export const questions = [
   },
   {
     id: "d6_097", domain: 6, difficulty: 2, section: "Fuzzing and Mutation Testing",
-    question: "Which type of fuzzer generates test inputs based on knowledge of the target protocol or file format specification, producing more targeted and effective test cases compared to purely random input generation?",
+    question: "A QA engineer wants a fuzzing tool that constructs test inputs based on the target file format's actual grammar and structure, rather than just mutating existing sample inputs randomly. Which type of fuzzer does this describe?",
     options: [
       "Mutation-based input fuzzer",
       "Generation-based (grammar-based) fuzzer",
@@ -8444,7 +8444,7 @@ export const questions = [
   },
   {
     id: "d7_023", domain: 7, difficulty: 2, section: "Incident Response",
-    question: "Which PICERL phase is most commonly skipped by organizations, and what is the primary risk of skipping it?",
+    question: "After closing out a major incident, a CSIRT moves straight on to the next ticket without ever holding a retrospective meeting to document what went wrong and update their playbooks. Which PICERL phase is most commonly skipped by organizations this way, and what is the primary risk of skipping it?",
     options: [
       "Identification; the organization may fail to notice attacks already underway",
       "Containment; the attack may spread further to additional connected systems",
@@ -8612,7 +8612,7 @@ export const questions = [
   },
   {
     id: "d7_037", domain: 7, difficulty: 2, section: "Digital Forensics",
-    question: "What is the primary purpose of write blockers in digital forensics?",
+    question: "A forensic examiner connects a suspect's hard drive to an imaging workstation using a hardware device specifically designed to guarantee that the imaging process itself cannot alter a single bit on the original drive. What is the primary purpose of this write blocker in digital forensics?",
     options: [
       "To speed up the overall process of creating forensic disk images",
       "To prevent any writes to the original evidence media during acquisition",
@@ -9128,7 +9128,7 @@ export const questions = [
   },
   {
     id: "d7_080", domain: 7, difficulty: 2, section: "Privileged Account Monitoring",
-    question: "Which control is MOST effective at detecting and preventing privileged account abuse by system administrators?",
+    question: "A security team wants every privileged login recorded on video, granted only for a limited time window, and automatically revoked when no longer needed, rather than standing access sitting active indefinitely. Which control is MOST effective at detecting and preventing privileged account abuse by system administrators?",
     options: [
       "Requiring administrators to use complex passwords that rotate every 90 days",
       "Implementing a Privileged Access Workstation (PAW) program with network restrictions that restricts which network segments admins can connect from",
@@ -9392,7 +9392,7 @@ export const questions = [
   },
   {
     id: "d7_102", domain: 7, difficulty: 2, section: "SOC Operations",
-    question: "What is the PRIMARY purpose of security operations runbooks and playbooks?",
+    question: "A newly hired SOC analyst is handed a document describing the exact steps to follow whenever a phishing alert fires, so their response is consistent regardless of who's on shift. What is the PRIMARY purpose of this kind of security operations runbook or playbook?",
     options: [
       "To document a historical record of past security incidents purely for reporting purposes",
       "To provide standardized, repeatable procedures for analysts to follow when responding to specific alert types or incidents",
@@ -9500,7 +9500,7 @@ export const questions = [
   },
   {
     id: "d7_111", domain: 7, difficulty: 2, section: "Digital Forensics",
-    question: "What is the difference between dead-box forensics and live forensics?",
+    question: "A forensic examiner powers down a compromised server and images its hard drive, while a colleague on another case captures RAM and running processes from a system that's still live and can't be shut down. What is the difference between dead-box forensics and live forensics illustrated here?",
     options: [
       "Dead-box forensics analyzes physically destroyed systems; live forensics analyzes fully functioning systems",
       "Dead-box forensics analyzes a powered-off system (disk imaging); live forensics analyzes a running system to capture volatile data",
@@ -9560,7 +9560,7 @@ export const questions = [
   },
   {
     id: "d7_116", domain: 7, difficulty: 2, section: "Threat Hunting",
-    question: "What distinguishes threat hunting from traditional reactive security monitoring?",
+    question: "A security analyst proactively searches through logs for subtle indicators of compromise that never triggered any alert, rather than waiting for the SIEM to flag something automatically. What distinguishes this threat hunting activity from traditional reactive security monitoring?",
     options: [
       "Threat hunting relies solely on automated tools, while monitoring is performed entirely manually by analysts",
       "Threat hunting proactively searches for hidden threats that have evaded existing controls; monitoring reactively processes alerts from automated detection systems",
@@ -9680,7 +9680,7 @@ export const questions = [
   },
   {
     id: "d7_126", domain: 7, difficulty: 2, section: "Insider Threat",
-    question: "Which combination of controls creates the MOST effective insider threat detection program?",
+    question: "A security team building an insider threat program wants to combine automated log analysis and data-loss alerts with human review of unusual employee behavior, backed by a formal process for escalating concerns. Which combination of controls creates the MOST effective insider threat detection program?",
     options: [
       "Strict physical access controls combined with continuous CCTV monitoring only",
       "Technical monitoring (UEBA, DLP, PAM logs) combined with behavioral indicators and a defined investigation process",
@@ -9778,7 +9778,7 @@ export const questions = [
   },
   {
     id: "d8_022", domain: 8, difficulty: 2, section: "DevSecOps",
-    question: "Which DevSecOps practice is best described as 'moving security testing earlier in the software delivery pipeline'?",
+    question: "A DevSecOps team moves its static code analysis and dependency scanning into the same pipeline stage where developers first commit code, rather than waiting until a pre-release security review. Which DevSecOps practice is best described as 'moving security testing earlier in the software delivery pipeline'?",
     options: [
       "Security as code",
       "Shift-left security",
@@ -9886,7 +9886,7 @@ export const questions = [
   },
   {
     id: "d8_031", domain: 8, difficulty: 2, section: "SQL Injection",
-    question: "Which technique is the MOST effective primary defense against SQL injection attacks?",
+    question: "A developer rewrites a database query so that user input is always passed as a separate, typed parameter rather than being concatenated directly into the SQL string. Which technique is the MOST effective primary defense against SQL injection attacks?",
     options: [
       "Input length validation",
       "Web application firewall (WAF) with SQL injection signatures",
@@ -9922,7 +9922,7 @@ export const questions = [
   },
   {
     id: "d8_034", domain: 8, difficulty: 2, section: "Cross-Site Scripting",
-    question: "Which Content Security Policy (CSP) directive most directly prevents the execution of inline scripts and thus mitigates XSS attacks?",
+    question: "A web developer configures a security header so that any inline script tag injected by an attacker simply won't execute in the browser, even if it makes it into the page's HTML. Which Content Security Policy (CSP) directive most directly prevents this execution of inline scripts and thus mitigates XSS attacks?",
     options: [
       "X-Frame-Options: DENY",
       "script-src 'self'",
@@ -9958,7 +9958,7 @@ export const questions = [
   },
   {
     id: "d8_037", domain: 8, difficulty: 2, section: "Cross-Site Request Forgery",
-    question: "Which of the following is the MOST effective technical defense against Cross-Site Request Forgery (CSRF) attacks?",
+    question: "A web application embeds a unique, unpredictable value in every form and verifies it matches the user's session before processing any state-changing request. Which of the following is the MOST effective technical defense against Cross-Site Request Forgery (CSRF) attacks illustrated here?",
     options: [
       "Validating the HTTP Referer and Origin request headers",
       "Enforcing HTTPS/TLS encryption for all sensitive transactions",
@@ -10126,7 +10126,7 @@ export const questions = [
   },
   {
     id: "d8_051", domain: 8, difficulty: 2, section: "Input Validation",
-    question: "Which principle states that input validation should be performed on the server side even if client-side validation is already implemented?",
+    question: "A penetration tester opens the browser's developer tools, disables the page's client-side JavaScript validation, and submits a malicious payload directly to the server anyway. Which principle explains why input validation should still be performed on the server side even when client-side validation is already implemented?",
     options: [
       "Defense in depth — client-side validation becomes entirely redundant once server-side validation is properly implemented",
       "Client-side validation cannot realistically be bypassed by any attacker with technical skill, so server-side checks exist purely for user experience and cosmetic feedback",
@@ -10258,7 +10258,7 @@ export const questions = [
   },
   {
     id: "d8_062", domain: 8, difficulty: 2, section: "Code Review",
-    question: "Which type of application security testing analyzes source code or compiled binaries without executing the program to find security vulnerabilities?",
+    question: "A security team runs a tool against the application's source code repository, without ever compiling or running the application, to flag hardcoded secrets and insecure coding patterns before a single line reaches production. Which type of application security testing does this describe?",
     options: [
       "Dynamic Application Security Testing (DAST)",
       "Penetration testing",
@@ -10558,7 +10558,7 @@ export const questions = [
   },
   {
     id: "d8_087", domain: 8, difficulty: 2, section: "Software Development Lifecycle",
-    question: "Which SDLC phase is the MOST cost-effective time to identify and fix security requirements?",
+    question: "A CISO presenting to leadership explains that fixing a missing security requirement is dramatically cheaper when caught before a single line of code is written, compared to catching the same gap after the product has already shipped. Which SDLC phase is the MOST cost-effective time to identify and fix security requirements?",
     options: [
       "Testing phase validation",
       "Deployment phase rollout and production release management",
@@ -10702,7 +10702,7 @@ export const questions = [
   },
   {
     id: "d8_099", domain: 8, difficulty: 2, section: "Software Development Lifecycle",
-    question: "Which activity is MOST associated with the security verification phase of the SDLC?",
+    question: "Before a release is approved, a security team conducts a thorough code review and simulated attack against the near-final build to confirm the security requirements were actually implemented correctly. Which activity is MOST associated with this security verification phase of the SDLC?",
     options: [
       "Creating data flow diagrams for threat modeling",
       "Defining security requirements from regulatory requirements",
@@ -11112,7 +11112,7 @@ export const questions = [
   },
   {
     id: "d1_048", domain: 1, difficulty: 2, section: "Qualitative Risk Analysis",
-    question: "What is the PRIMARY advantage of qualitative risk analysis over quantitative risk analysis?",
+    question: "A risk manager facing a tight deadline and no reliable financial figures ranks risks as High/Medium/Low using expert judgment instead of calculating exact dollar values. What is the PRIMARY advantage of this qualitative risk analysis over quantitative risk analysis?",
     options: [
       "It produces highly specific and precise monetary values for every identified risk — actually a quantitative trait",
       "It can be performed more quickly with less data and is useful when precise values are unavailable — the real advantage",
@@ -11304,7 +11304,7 @@ export const questions = [
   },
   {
     id: "d1_064", domain: 1, difficulty: 2, section: "Security Awareness & Training",
-    question: "Which type of security training is MOST appropriate for software developers to address secure coding vulnerabilities?",
+    question: "A company rolls out a hands-on course covering input validation, parameterized queries, and secure authentication patterns, specifically for its engineering team rather than the whole staff. Which type of security training is MOST appropriate for software developers to address secure coding vulnerabilities?",
     options: [
       "General security awareness training covering broad organizational topics",
       "Role-based technical training specific to secure development practices",
@@ -11448,7 +11448,7 @@ export const questions = [
   },
   {
     id: "d1_076", domain: 1, difficulty: 2, section: "Computer Crime Laws",
-    question: "Which U.S. federal law is the primary statute governing unauthorized access to computers and computer fraud?",
+    question: "A federal prosecutor charging an attacker for breaking into a company's servers without authorization cites the primary U.S. statute that criminalizes this kind of unauthorized computer access. Which U.S. federal law is this?",
     options: [
       "Electronic Communications Privacy Act (ECPA)",
       "Computer Fraud and Abuse Act (CFAA)",
@@ -11544,7 +11544,7 @@ export const questions = [
   },
   {
     id: "d1_084", domain: 1, difficulty: 2, section: "Security Governance",
-    question: "Which governance model structure places the security team centrally, with authority over all business units' security activities?",
+    question: "A CISO's team sets security policy and directly manages security tooling and decisions for every business unit across the company, with no unit setting its own independent security direction. Which governance model structure does this represent?",
     options: [
       "Decentralized security governance",
       "Hybrid security governance",
@@ -11616,7 +11616,7 @@ export const questions = [
   },
   {
     id: "d1_090", domain: 1, difficulty: 2, section: "Risk Assessment Methods",
-    question: "Which risk assessment approach involves using historical data, statistical models, and exact financial figures to quantify risk?",
+    question: "A risk analyst calculates an exact Annualized Loss Expectancy in dollars for a specific threat, using historical incident data and statistical modeling rather than a High/Medium/Low rating. Which risk assessment approach does this represent?",
     options: [
       "Qualitative risk assessment",
       "Quantitative risk assessment",
@@ -11676,7 +11676,7 @@ export const questions = [
   },
   {
     id: "d1_095", domain: 1, difficulty: 2, section: "Legal & Regulatory Compliance",
-    question: "Which U.S. law specifically protects the privacy of student education records and applies to institutions that receive federal funding?",
+    question: "A university's compliance officer is identifying which U.S. law protects the privacy of student transcripts and education records, applying specifically because the school receives federal funding. Which law is this?",
     options: [
       "HIPAA",
       "COPPA",
@@ -11748,7 +11748,7 @@ export const questions = [
   },
   {
     id: "d1_101", domain: 1, difficulty: 2, section: "Security Policy Exceptions & Risk",
-    question: "Which of the following represents the BEST practice for managing security policy exceptions?",
+    question: "A business unit needs a temporary exception to a security policy to meet a deadline, and the security team requires a documented justification, a risk acceptance sign-off, compensating controls, and a firm expiration date before granting it. Which of the following represents the BEST practice for managing security policy exceptions?",
     options: [
       "Grant exceptions informally on a case-by-case basis whenever business units request them, in order to preserve maximum operational flexibility — ungoverned risk",
       "Never grant any exceptions under any circumstances, since every policy requirement must be followed exactly regardless of business impact — impractical rigidity",
@@ -11784,7 +11784,7 @@ export const questions = [
   },
   {
     id: "d1_104", domain: 1, difficulty: 2, section: "Security Awareness & Training",
-    question: "What distinguishes security training from security awareness?",
+    question: "One program teaches all employees to recognize a phishing email, while a separate program teaches developers the specific technical skill of writing parameterized SQL queries. What distinguishes this second program (security training) from the first (security awareness)?",
     options: [
       "Training is a mandatory requirement while awareness participation remains entirely voluntary — not the actual distinction here",
       "Awareness creates recognition of security issues; training builds specific skills to perform security tasks",
@@ -11844,7 +11844,7 @@ export const questions = [
   },
   {
     id: "d1_109", domain: 1, difficulty: 2, section: "Business Continuity Planning",
-    question: "Which BCP/DR test is the MOST comprehensive but also carries the HIGHEST operational risk?",
+    question: "A disaster recovery team actually shuts down the live production environment and fails over to the backup site to prove the plan works under real conditions, accepting the risk that something could go wrong during the test itself. Which BCP/DR test is the MOST comprehensive but also carries the HIGHEST operational risk?",
     options: [
       "Tabletop discussion exercise",
       "Walkthrough review test",
@@ -12048,7 +12048,7 @@ export const questions = [
   },
   {
     id: "d1_126", domain: 1, difficulty: 2, section: "Quantitative Risk Analysis",
-    question: "Which of the following is the MOST significant limitation of quantitative risk analysis?",
+    question: "A risk analyst attempting a quantitative analysis realizes the organization has no reliable historical loss data and the figures needed for the formula are essentially guesses. Which of the following is the MOST significant limitation of quantitative risk analysis illustrated here?",
     options: [
       "It cannot ever produce results that are meaningful or useful to senior management — an overstatement",
       "It requires significant historical data and precise estimates that may be unavailable or unreliable",
@@ -12204,7 +12204,7 @@ export const questions = [
   },
   {
     id: "d1_139", domain: 1, difficulty: 2, section: "Risk Assessment Methods",
-    question: "What is the Delphi technique used for in security risk assessments?",
+    question: "A risk committee wants a panel of subject matter experts to independently and anonymously rank the organization's top risks across several rounds, specifically to prevent one senior voice from dominating the discussion. What is this technique used for in security risk assessments?",
     options: [
       "Calculating precise monetary values for identified risk exposures — a quantitative method instead",
       "Gathering anonymous consensus from a panel of experts to reduce groupthink and dominant opinions",
