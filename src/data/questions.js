@@ -508,12 +508,12 @@ export const questions = [
     question: "An organization accepts a residual risk of $50,000 per year after implementing security controls that cost $30,000 annually. The risk before controls was $200,000 ALE. What is the value of the security controls?",
     options: [
       "The controls have negative value overall because a residual risk of $50,000 still remains after implementation",
-      "The controls save $120,000 net annually once the $30,000 implementation cost is subtracted from total savings",
+      "The controls deliver $150,000 in total value, since the reduction in ALE alone determines the benefit regardless of implementation cost",
       "The controls save $170,000 but cost $30,000 to implement, yielding overall net savings of $140,000 annually",
       "The controls save $150,000 minus $30,000 cost, for a net benefit of $120,000",
     ],
     answer: 3,
-    explanation: "Risk reduction = $200,000 (ALE before) − $50,000 (ALE after) = $150,000 in avoided loss; net benefit = $150,000 − $30,000 (control cost) = $120,000. Option one is wrong because a remaining residual risk doesn't make a control valueless — the question is whether the reduction achieved exceeds the cost, and here it does by a wide margin. Option three uses the wrong reduction figure ($170,000 instead of the actual $150,000), which inflates the resulting net-benefit calculation. Option two describes the same final $120,000 figure in vaguer terms without showing that the $150,000 reduction is where that number actually comes from — the marked answer is the one that shows the correct arithmetic explicitly.",
+    explanation: "Risk reduction = $200,000 (ALE before) − $50,000 (ALE after) = $150,000 in avoided loss; net benefit = $150,000 − $30,000 (control cost) = $120,000. Option one is wrong because a remaining residual risk doesn't make a control valueless — the question is whether the reduction achieved exceeds the cost, and here it does by a wide margin. Option two correctly identifies the $150,000 risk reduction but stops there, ignoring that the $30,000 annual cost of the control still needs to be subtracted to arrive at the actual net benefit. Option three uses the wrong reduction figure ($170,000 instead of the actual $150,000), which inflates the resulting net-benefit calculation. The marked answer is the one that both uses the correct $150,000 reduction and correctly subtracts the $30,000 cost to reach the true $120,000 net benefit.",
   },
 
   // ─── DOMAIN 2: Asset Security ───
@@ -11045,10 +11045,10 @@ export const questions = [
       "$45,000",
       "$75,000",
       "$180,000",
-      "$45,000",
+      "$135,000",
     ],
     answer: 0,
-    explanation: "SLE = Asset Value × Exposure Factor = $300,000 × 0.60 = $180,000. ALE = SLE × ARO = $180,000 × 0.25 = $45,000. $75,000 results from multiplying the asset value directly by the ARO while skipping the exposure factor step. $180,000 is the SLE — the loss from a single occurrence — before annualizing it by multiplying by the ARO, a common stopping point for those who forget the final step.",
+    explanation: "SLE = Asset Value × Exposure Factor = $300,000 × 0.60 = $180,000. ALE = SLE × ARO = $180,000 × 0.25 = $45,000. $75,000 results from multiplying the asset value directly by the ARO while skipping the exposure factor step. $180,000 is the SLE — the loss from a single occurrence — before annualizing it by multiplying by the ARO, a common stopping point for those who forget the final step. $135,000 comes from subtracting the ARO as a percentage from the SLE ($180,000 × (1 − 0.25)) rather than multiplying by it — treating annualization as a discount instead of a probability-weighted frequency.",
   },
   {
     id: "d1_043", domain: 1, difficulty: 2, section: "Risk Analysis & Security ROI",
@@ -11092,11 +11092,11 @@ export const questions = [
     options: [
       "Inherent risk",
       "Residual risk",
-      "Total risk",
+      "Risk appetite",
       "Absolute risk",
     ],
     answer: 3,
-    explanation: "Absolute (or total) risk is the theoretical, maximum risk that would exist if no controls were ever applied — by definition, it isn't reduced by controls, since it represents the state before any control is factored in at all. Inherent risk is closely related — the risk level before considering current controls — but it's typically used when analyzing a specific control gap, not as a permanent, unreducible category. Residual risk is the opposite of what's being described: it's what remains AFTER controls are applied, and it's the number security teams actively try to reduce. Total risk describes essentially the same underlying concept as absolute risk in most CISSP materials, which is why it's the closest distractor rather than a clearly separate category.",
+    explanation: "Absolute risk is the theoretical, maximum risk that would exist if no controls were ever applied — by definition, it isn't reduced by controls, since it represents the state before any control is factored in at all. Inherent risk is closely related — the risk level before considering current controls — but it's typically used when analyzing a specific control gap, not as a permanent, unreducible category. Residual risk is the opposite of what's being described: it's what remains AFTER controls are applied, and it's the number security teams actively try to reduce. Risk appetite is a governance concept describing how much risk an organization is willing to accept — a policy decision, not a category of risk that is mathematically unreducible by controls.",
   },
   {
     id: "d1_047", domain: 1, difficulty: 2, section: "Qualitative Risk Analysis",
