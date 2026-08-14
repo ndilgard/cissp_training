@@ -527,7 +527,7 @@ export const questions = [
       "Public / Unrestricted",
     ],
     answer: 2,
-    explanation: "An internal employee directory is sensitive enough to restrict from public release but is not highly sensitive. 'Internal' or 'Private' classification is appropriate for information used within the organization that is not intended for external audiences.",
+    explanation: "An internal employee directory needs to be kept from public release, but its sensitivity is low — it doesn't warrant the tightest protections. Restricted or Top Secret tiers are reserved for the most sensitive data, where disclosure could cause severe harm; a directory of employee names and extensions doesn't rise to that level. Confidential or Sensitive classification is also too strong here — that tier typically covers data like financial records or trade secrets, not routine internal contact information. Public or Unrestricted would allow release outside the organization, which doesn't fit data explicitly meant to stay internal.",
   },
   {
     id: "d2_002", domain: 2, difficulty: 2, section: "Data Remanence & Sanitization",
@@ -539,7 +539,7 @@ export const questions = [
       "Data that is deliberately transmitted redundantly across multiple independent network paths",
     ],
     answer: 1,
-    explanation: "Data remanence refers to residual data that remains on storage media after deletion or attempted sanitization. This is why proper media sanitization (overwriting, degaussing, or physical destruction) is critical before disposal.",
+    explanation: "Data remanence is residual data that remains on media after deletion or sanitization attempts — the reason proper wiping, degaussing, or destruction matters before disposal. Encrypting data while it's stored describes a protection method, not what happens to data left behind after deletion. Duplicating data across multiple locations describes geographic redundancy for availability, unrelated to leftover traces after erasure. Deliberately transmitting data across multiple network paths describes a network resilience technique, not a storage or disposal concept at all.",
   },
   {
     id: "d2_003", domain: 2, difficulty: 2, section: "Media Sanitization & Destruction",
@@ -551,14 +551,14 @@ export const questions = [
       "Encrypting the data with AES-256 before deleting the files",
     ],
     answer: 2,
-    explanation: "Physical destruction (shredding, disintegration) provides the highest assurance of data elimination. Degaussing alone works well for magnetic media, and combining it with physical destruction eliminates any possibility of recovery.",
+    explanation: "Degaussing followed by physical destruction provides the highest assurance because it renders magnetic media completely unrecoverable and then eliminates the media entirely — no combination of software or hardware recovery techniques can retrieve data from destroyed media. A single-pass zero overwrite is reasonably effective on modern drives but doesn't provide the same certainty as physical destruction, especially on media with bad sectors or wear-leveled flash storage. Reformatting with the OS-native utility typically only clears the file system's index, leaving the underlying data recoverable with forensic tools. Encrypting before deleting the files still leaves the (encrypted) data physically present on the media — it's a reasonable technique on its own (crypto-erasure), but it doesn't destroy the media itself and provides less assurance than physical destruction for classified data.",
   },
   {
     id: "d2_004", domain: 2, difficulty: 1, section: "Data Ownership & Roles",
     question: "A newly hired data governance analyst wants to know who should make the final call on how sensitive a given dataset is. Who is PRIMARILY responsible for determining the classification level of data within an organization?",
     options: ["The data custodian", "The data owner", "The security administrator", "The end user"],
     answer: 1,
-    explanation: "The data owner (typically a business manager or executive) is responsible for determining the classification and sensitivity of data. The data custodian implements the controls the owner mandates.",
+    explanation: "The data owner — typically a business manager or executive accountable for the data — is responsible for determining its classification level, since they understand its business value and sensitivity. The data custodian implements the technical controls the owner mandates, but doesn't decide the classification itself. The security administrator configures and manages security tools and access based on classification decisions made elsewhere, not the classification decision itself. The end user consumes and works with the data day-to-day but has no authority to determine its sensitivity level.",
   },
   {
     id: "d2_005", domain: 2, difficulty: 3, section: "Cloud Data Lifecycle Management",
@@ -570,14 +570,14 @@ export const questions = [
       "Reviewing the provider's internal data retention and disposal policy documentation",
     ],
     answer: 1,
-    explanation: "Relying on the provider's word or a contract alone is insufficient. Cryptographic erasure (destroying encryption keys so data is unrecoverable) or a third-party certificate of destruction provides verifiable evidence that data has been properly disposed of.",
+    explanation: "Cryptographic erasure proof or an independent third-party certificate of destruction provides verifiable, auditable evidence that data was actually destroyed, not just a promise that it was. A signed contractual clause states an obligation but provides no verification that the deletion actually happened — it's a legal commitment, not evidence of execution. Checking that the provider's management console shows the data as 'deleted' relies entirely on the same provider's own reporting, with no independent verification. Reviewing the provider's internal retention and disposal policy documentation shows what the provider says it does in general, not confirmation that this specific customer's data was actually destroyed.",
   },
   {
     id: "d2_006", domain: 2, difficulty: 2, section: "Privacy Principles",
     question: "Which privacy concept requires that collected data be used only for the purpose it was originally collected?",
     options: ["Data minimization", "Purpose limitation", "Storage limitation", "Integrity and confidentiality"],
     answer: 1,
-    explanation: "Purpose limitation (a core GDPR principle) requires that personal data be collected for specified, explicit, and legitimate purposes and not further processed in a way incompatible with those purposes.",
+    explanation: "Purpose limitation requires that collected data be used only for the purpose it was originally collected for, and not repurposed for something incompatible without new authorization. Data minimization is a different principle — it limits how MUCH data is collected, not what it's later used for. Storage limitation restricts how LONG data can be retained, a time-based constraint unrelated to permitted use. Integrity and confidentiality require that data stay accurate and protected from unauthorized access, a data-protection principle rather than a use-restriction one.",
   },
   {
     id: "d2_007", domain: 2, difficulty: 3, section: "Data Security Controls",
@@ -589,7 +589,7 @@ export const questions = [
       "Data loss prevention tools and antivirus software",
     ],
     answer: 0,
-    explanation: "Encryption at rest protects confidentiality by making data unreadable without the key. Digital signatures protect integrity by detecting unauthorized modifications. Together they address both core requirements for IP protection.",
+    explanation: "Encryption at rest protects confidentiality by making data unreadable without the key, while digital signatures protect integrity by detecting unauthorized modification — together covering both requirements the question asks for. Firewall rules and intrusion detection protect the network perimeter and detect intrusions, but don't directly protect the confidentiality or integrity of the data itself once someone has access. Backups support availability (recovering lost data) and access logging supports accountability, but neither directly prevents unauthorized disclosure or detects tampering the way encryption and signatures do. DLP tools help prevent data from leaving the organization and antivirus detects malware, but neither is a targeted confidentiality-plus-integrity control for data at rest the way this pairing is.",
   },
 
   // ─── DOMAIN 3: Security Architecture and Engineering ───
@@ -598,21 +598,21 @@ export const questions = [
     question: "A system architect designs an application so that every single request to access a resource — even a repeated request from the same session — is checked against the access control mechanism, with no cached bypass path. Which security design principle does this reflect?",
     options: ["Open design", "Complete mediation", "Fail-safe defaults", "Economy of mechanism"],
     answer: 1,
-    explanation: "Complete mediation requires that every access attempt to every resource be validated through the access control mechanism — access should never be assumed based on a previous check or cached permission.",
+    explanation: "Complete mediation requires that every single access attempt be checked against the access control mechanism, with no cached or bypassed checks — exactly what's described. Open design means a system's security shouldn't depend on the secrecy of its design or implementation, unrelated to checking every request. Fail-safe defaults means the system defaults to denying access on error or failure, a different principle about default state rather than checking every request. Economy of mechanism means keeping the security design as simple as possible to make it easier to verify — a design-simplicity principle, not a mediation-frequency one.",
   },
   {
     id: "d3_002", domain: 3, difficulty: 2, section: "Security Design Principles",
     question: "A system that defaults to denying access when it encounters an error is implementing which security principle?",
     options: ["Least privilege", "Defense in depth", "Fail-safe defaults", "Separation of duties"],
     answer: 2,
-    explanation: "Fail-safe defaults means the system should default to a secure state (access denied) when an error or failure occurs. This prevents accidental access from system failures.",
+    explanation: "Fail-safe defaults means a system defaults to a secure state — denying access — when it hits an error, preventing accidental access from a system failure. Least privilege limits how much access a subject has under normal operation, not what happens specifically during an error condition. Defense in depth uses multiple independent layers of security controls, a different principle about redundancy rather than default failure behavior. Separation of duties splits a process across multiple people so no one person controls it entirely — unrelated to how a system behaves when it encounters an error.",
   },
   {
     id: "d3_003", domain: 3, difficulty: 2, section: "Cryptography – Symmetric vs Asymmetric",
     question: "A developer choosing an algorithm for a key-exchange system needs one that uses a public/private key pair rather than a single shared secret key. Which cryptographic algorithm is considered ASYMMETRIC?",
     options: ["AES-256", "3DES", "RSA", "HMAC-SHA256"],
     answer: 2,
-    explanation: "RSA is an asymmetric algorithm that uses a public key for encryption and a private key for decryption (or vice versa for signatures). AES and 3DES are symmetric; HMAC is a message authentication code using a shared secret.",
+    explanation: "RSA is asymmetric — it uses a public/private key pair, where one key encrypts and the other decrypts (or one signs and the other verifies), making it suitable for key exchange without sharing a single secret. AES is a symmetric algorithm, using the same single key for both encryption and decryption. 3DES is also symmetric, applying the DES algorithm three times with (up to) three keys, but still a single shared-secret approach. HMAC-SHA256 isn't an encryption algorithm at all — it's a message authentication code that uses a shared secret key to verify integrity and authenticity, not a public/private key pair.",
   },
   {
     id: "d3_004", domain: 3, difficulty: 3, section: "Hardware Security (TPM)",
@@ -624,7 +624,7 @@ export const questions = [
       "It provides a secure channel for remote attestation of software signatures",
     ],
     answer: 1,
-    explanation: "The Trusted Platform Module (TPM) securely stores encryption keys and measures system components at boot (platform configuration registers). For FDE, it releases the disk encryption key only when the boot sequence matches expected measurements, preventing offline attacks.",
+    explanation: "The TPM securely stores encryption keys and measures system components at boot, releasing the disk encryption key only if those measurements match what's expected — protecting against offline attacks on a stolen or removed drive. It doesn't perform the actual disk encryption itself — that's done by software like BitLocker, using a key the TPM protects. It doesn't replace user authentication either — full-disk encryption via TPM typically still requires a login, and the TPM just protects the key that unlocks the drive at boot. And while TPMs can support remote attestation as a related capability, that's a separate use case from their core role in full-disk encryption — protecting and releasing the encryption key based on boot integrity.",
   },
   {
     id: "d3_005", domain: 3, difficulty: 2, section: "Covert Channels",
@@ -636,7 +636,7 @@ export const questions = [
       "An authenticated network protocol that transmits data without encrypting the payload",
     ],
     answer: 1,
-    explanation: "A covert channel is a communication path that was not designed or intended to transfer information but can be exploited to leak data (e.g., using CPU timing, storage allocation, or network packet timing to encode information).",
+    explanation: "A covert channel is a communication path that wasn't designed or intended for information transfer at all, but can still be exploited to leak data — like encoding information in CPU timing or packet arrival patterns. An IPsec or TLS tunnel is a legitimate, intentional communication channel designed specifically to protect data in transit — the opposite of an unintended path. A VPN configured to bypass firewall rules is a deliberately misused legitimate channel, not a path that was never intended for communication in the first place. An authenticated protocol that doesn't encrypt its payload is simply an insecure but intentional communication method — its lack of encryption doesn't make it a covert channel.",
   },
   {
     id: "d3_006", domain: 3, difficulty: 1, section: "Security Models (Bell-LaPadula)",
@@ -648,7 +648,7 @@ export const questions = [
       "Non-repudiation — preventing users from denying actions they performed",
     ],
     answer: 1,
-    explanation: "The Bell-LaPadula model enforces confidentiality through its 'no read up, no write down' rules, preventing subjects from reading data at higher classification levels or writing data to lower classification levels.",
+    explanation: "Bell-LaPadula's 'no read up, no write down' rules exist specifically to prevent unauthorized disclosure of classified information — a confidentiality model. Integrity — preventing unauthorized modification — is what the Biba model addresses, using the inverse rules ('no write up, no read down'). Availability concerns whether systems and data remain accessible, a goal Bell-LaPadula doesn't address at all; it says nothing about uptime or denial of service. Non-repudiation ensures someone can't deny having taken an action, typically achieved through logging and digital signatures — an entirely different concern from controlling who can read or write classified data.",
   },
   {
     id: "d3_007", domain: 3, difficulty: 3, section: "Cryptography – Cipher Modes",
@@ -660,7 +660,7 @@ export const questions = [
       "CBC is faster because it does not require a nonce",
     ],
     answer: 0,
-    explanation: "CTR (Counter) mode converts AES into a stream cipher and allows parallel encryption/decryption, making it significantly faster for large datasets. CBC mode requires each block to be encrypted sequentially (each block depends on the previous ciphertext). Both modes require proper IV/nonce management.",
+    explanation: "CTR mode's key advantage for large datasets is that it allows parallel encryption and decryption, since each block's keystream can be computed independently — CBC requires sequential processing because each block depends on the previous ciphertext block. CBC isn't inherently more secure than CTR because it XORs with the previous ciphertext — both modes are secure when implemented correctly with proper IV/nonce management; chaining isn't itself a security advantage over counter-based encryption. CTR doesn't require a longer initialization vector than CBC — both typically use IVs/nonces sized to the block length. And CBC isn't faster — it's slower for large datasets precisely because it can't be parallelized, and it does use an IV, so 'no nonce' isn't accurate either.",
   },
   {
     id: "d3_008", domain: 3, difficulty: 2, section: "Security Kernel & Reference Monitor",
@@ -672,14 +672,14 @@ export const questions = [
       "To provide secure, authenticated remote access to the system over the network",
     ],
     answer: 1,
-    explanation: "The security kernel implements the reference monitor — the abstract concept of an access control mechanism that mediates all subject-to-object access requests and must be tamper-proof, always invoked, and verifiable.",
+    explanation: "A security kernel's primary purpose is implementing the reference monitor concept — the abstract access control mechanism that mediates every subject-to-object request and must be tamper-proof, always invoked, and verifiable. Encrypting all data on disk is a specific data-protection function, not the defining purpose of a security kernel, which is about mediating access decisions. Separating user-mode from kernel-mode processes is a general operating system stability and isolation mechanism, not specifically what makes a security kernel 'trusted.' Providing secure authenticated remote access is a networking/access feature, unrelated to the core reference-monitor enforcement role a security kernel plays.",
   },
   {
     id: "d3_009", domain: 3, difficulty: 3, section: "Common Criteria & Evaluation",
     question: "Which Common Criteria evaluation assurance level (EAL) is typically required for high-security government systems and involves formal verification of the design?",
     options: ["EAL2 — Structurally Tested", "EAL4 — Methodically Designed, Tested and Reviewed", "EAL6 — Semiformally Verified Design and Tested", "EAL7 — Formally Verified Design and Tested"],
     answer: 2,
-    explanation: "EAL6 (Semiformally Verified Design and Tested) is used for high-risk situations requiring maximum assurance in security engineering. EAL7 involves complete formal verification and is rarely practical. Most commercial products reach EAL4; high-security government applications typically target EAL5–EAL6.",
+    explanation: "EAL6 (Semiformally Verified Design and Tested) is the level typically targeted for high-risk, high-security government systems requiring strong assurance without the extreme cost of full formal verification. EAL2 (Structurally Tested) provides only a low level of independently assured security, appropriate for products where security isn't the primary concern — far below what high-security systems need. EAL4 (Methodically Designed, Tested and Reviewed) is the highest level most commercial products realistically achieve, but it doesn't involve the formal/semiformal verification methods high-security government systems require. EAL7 (Formally Verified Design and Tested) involves complete formal verification, but it's so costly and impractical that it's rarely used outside extremely narrow, specialized security functions — EAL6 is the more realistic target for general high-security government use.",
   },
   {
     id: "d3_010", domain: 3, difficulty: 2, section: "Physical Security (Fire Suppression)",
@@ -691,7 +691,7 @@ export const questions = [
       "Deluge sprinkler system that opens all sprinkler heads simultaneously",
     ],
     answer: 2,
-    explanation: "Clean agent systems (such as FM-200 or CO2 alternatives) suppress fires without damaging electronic equipment or leaving residue. Water-based systems can destroy servers and cause short circuits; clean agents are preferred for active data center equipment.",
+    explanation: "Clean agent systems (like FM-200) suppress fires by removing heat or interrupting the chemical reaction without leaving residue or conducting electricity, making them ideal for protecting active servers. A wet-pipe system keeps pipes constantly charged with water, meaning a pipe rupture or accidental trigger floods equipment immediately — a serious risk in a room full of live electronics. A dry-pipe system delays water release slightly (air must escape first) but still ultimately floods the area with water once triggered, which is just as damaging to servers as a wet-pipe system. A deluge system opens ALL sprinkler heads simultaneously and dumps a large volume of water at once — the most aggressive and most damaging option for sensitive electronic equipment.",
   },
   {
     id: "d3_011", domain: 3, difficulty: 1, section: "Virtualization Security",
@@ -703,7 +703,7 @@ export const questions = [
       "Phishing attacks that trick administrators into revealing credentials",
     ],
     answer: 1,
-    explanation: "VM escape is a vulnerability unique to virtualization where a malicious process inside a guest VM breaks the isolation boundary and gains unauthorized access to the hypervisor or other VMs — a risk that does not exist in physical hardware environments.",
+    explanation: "VM escape — a guest VM breaking out of its isolation boundary to reach the hypervisor or other VMs — is a risk that only exists because of the virtualization layer itself; there's no physical equivalent since separate physical machines have no shared hypervisor to escape into. Denial of service attacks can target virtual or physical systems equally — flooding a system with traffic doesn't depend on whether it's virtualized. SQL injection exploits unsanitized application input, a vulnerability that exists regardless of whether the database server is virtualized or runs on bare metal. Phishing targets human behavior, not infrastructure — it's just as effective (or ineffective) against administrators of physical or virtual environments.",
   },
 
   // ─── DOMAIN 4: Communication and Network Security ───
@@ -712,14 +712,14 @@ export const questions = [
     question: "A network engineer configuring IPSec to encrypt traffic between two branch office routers needs to know which OSI layer the protocol operates at, since that determines whether it protects individual applications or the entire IP packet. At which OSI layer does IPSec primarily operate?",
     options: ["Layer 2 — Data Link", "Layer 3 — Network", "Layer 4 — Transport", "Layer 7 — Application"],
     answer: 1,
-    explanation: "IPSec operates at Layer 3 (Network layer) and provides authentication and encryption for IP packets. It can protect all traffic regardless of the application, unlike TLS which operates at the Transport/Session layer.",
+    explanation: "IPSec operates at Layer 3 (Network), authenticating and encrypting entire IP packets regardless of which application generated them — that's what lets it protect all traffic transparently rather than requiring per-application support. Layer 2 (Data Link) handles frame-level addressing and delivery on a local segment, below where IPSec actually operates. Layer 4 (Transport) is where TLS operates instead, protecting individual application sessions rather than every IP packet. Layer 7 (Application) is where application-specific protocols run — IPSec deliberately operates lower in the stack precisely so it doesn't depend on application awareness.",
   },
   {
     id: "d4_002", domain: 4, difficulty: 2, section: "Routing Security",
     question: "A network engineer hardening a router's routing protocol wants to ensure that incoming route advertisements are authenticated, preventing an attacker from injecting false routes. Which protocol provides this authentication of routing updates?",
     options: ["BGP with MD5 authentication", "OSPF with passive interfaces", "RIP version 1", "ARP inspection"],
     answer: 0,
-    explanation: "BGP supports TCP MD5 authentication (and newer RPKI for route origin validation) to authenticate routing peers and prevent unauthorized route injection. RIP v1 has no authentication; passive interfaces prevent routing advertisements from reaching end devices.",
+    explanation: "BGP with MD5 authentication (and newer RPKI) authenticates routing peers and their advertisements, preventing an attacker from injecting unauthorized routes. OSPF passive interfaces stop routing advertisements from being sent out specific interfaces, which limits exposure but doesn't authenticate the advertisements OSPF does send — a different protocol and a different mechanism than BGP's peer authentication. RIP version 1 has no authentication mechanism at all, making it one of the least secure routing protocols rather than a solution to this problem. ARP inspection validates Layer 2 address mappings on a local subnet — an entirely different layer and problem than authenticating routing protocol updates between routers.",
   },
   {
     id: "d4_003", domain: 4, difficulty: 2, section: "Network Attacks (ARP Poisoning)",
@@ -731,7 +731,7 @@ export const questions = [
       "Implementing VLAN segmentation across all switch ports",
     ],
     answer: 1,
-    explanation: "Dynamic ARP Inspection (DAI) on a managed switch validates ARP packets against a DHCP snooping binding table, dropping ARP replies that don't match known IP-MAC mappings and preventing ARP poisoning attacks.",
+    explanation: "Dynamic ARP Inspection on a managed switch validates ARP packets against a DHCP snooping binding table, dropping replies that don't match known IP-MAC mappings — directly stopping forged ARP replies at the switch. Manually configuring static ARP entries on every host doesn't scale, is error-prone to maintain, and doesn't stop an attacker from still sending forged replies to devices that weren't statically configured. Disabling ARP processing on the router interface would break normal network communication entirely, since ARP is required for basic Layer 2/3 address resolution — not a viable mitigation. VLAN segmentation limits the blast radius of an ARP poisoning attack to a smaller broadcast domain, but it doesn't actually prevent forged ARP replies from working within that segment.",
   },
   {
     id: "d4_004", domain: 4, difficulty: 3, section: "TLS/SSL Security",
@@ -743,21 +743,21 @@ export const questions = [
       "Certificate pinning implementations in mobile apps will silently trust the proxy's re-signed certificate",
     ],
     answer: 1,
-    explanation: "TLS inspection (SSL/TLS man-in-the-middle by design) terminates the TLS session at the proxy, decrypts the content, inspects it, then re-encrypts toward the destination. This fundamentally breaks end-to-end confidentiality — the proxy reads all traffic, including credentials, sensitive data, and private communications.",
+    explanation: "Re-signing traffic with its own CA certificate means the inspection proxy fully decrypts and can read every byte of inspected traffic — end-to-end confidentiality between the client and the real destination is broken at that midpoint, by design. The proxy's CA key does become a high-value target worth protecting, but that's a secondary operational risk, not the core privacy concern this scenario is highlighting — the fundamental issue is that the proxy can read everything, key compromise risk aside. Added handshake or negotiation delay is a real performance consideration with TLS inspection, but it's a performance tradeoff, not the privacy/security concern the question is asking about. Certificate pinning is actually designed to detect and reject exactly this kind of substituted certificate — a properly pinned mobile app would break rather than silently trust the proxy's re-signed certificate, so this option describes pinning failing in a way it's specifically built not to.",
   },
   {
     id: "d4_005", domain: 4, difficulty: 1, section: "Network Devices & OSI Model",
     question: "A network technician is troubleshooting a device that forwards frames based on MAC address tables rather than IP routing tables. Which network device operates at OSI Layer 2 and forwards frames based on MAC addresses?",
     options: ["Router", "Switch", "Firewall", "Load balancer"],
     answer: 1,
-    explanation: "A network switch operates at OSI Layer 2 (Data Link) and makes forwarding decisions based on destination MAC addresses using a MAC address table. Routers operate at Layer 3 and use IP addresses.",
+    explanation: "A switch operates at Layer 2 and forwards frames based on destination MAC addresses using a MAC address table it builds from observed traffic. A router operates at Layer 3, making forwarding decisions based on IP addresses and routing tables, not MAC-based frame forwarding. A firewall filters traffic based on rules that can span multiple layers (ports, protocols, sometimes application content), but its defining function is access control, not MAC-address-based frame forwarding. A load balancer distributes traffic across multiple backend servers, typically operating at Layer 4 or Layer 7 depending on type, not making Layer 2 MAC-table forwarding decisions.",
   },
   {
     id: "d4_006", domain: 4, difficulty: 2, section: "VPN Protocols",
     question: "A company selecting a remote-access VPN protocol wants the most secure option available, one that natively uses UDP port 500 for key exchange. Which VPN protocol is considered MOST secure for remote access?",
     options: ["PPTP", "L2TP/IPSec", "IPSec IKEv2", "SSL VPN over TCP 443"],
     answer: 2,
-    explanation: "IPSec with IKEv2 provides strong authentication, perfect forward secrecy, and fast reconnection (MOBIKE). It uses UDP 500 for IKE negotiation and UDP 4500 for NAT traversal. PPTP is deprecated due to known vulnerabilities.",
+    explanation: "IPSec IKEv2 provides strong authentication, perfect forward secrecy, and fast reconnection after network changes (MOBIKE), using UDP 500 for key exchange — the most robust option among these for remote access. PPTP is deprecated and known to be cryptographically broken, making it the weakest choice here despite once being common. L2TP/IPSec is reasonably secure but adds encapsulation overhead and is generally considered less modern and efficient than IKEv2, which handles reconnection and mobility better. SSL VPN over TCP 443 is a legitimate and often convenient option (it blends in with regular HTTPS traffic), but it isn't inherently the most secure choice — the question specifically asks about the protocol using UDP 500 for key exchange, which is IKEv2, not an SSL VPN.",
   },
   {
     id: "d4_007", domain: 4, difficulty: 3, section: "Network Attacks (Man-in-the-Middle)",
@@ -769,7 +769,7 @@ export const questions = [
       "Smurf attack (ICMP flood)",
     ],
     answer: 1,
-    explanation: "A Man-in-the-Middle attack involves an attacker secretly positioning between two communicating parties, intercepting and potentially altering messages. Mutual authentication and certificate validation are primary defenses.",
+    explanation: "A Man-in-the-Middle attack involves an attacker secretly positioning between two communicating parties, intercepting and potentially modifying messages without either party's knowledge — exactly what's described. A replay attack captures and resends previously captured legitimate traffic later, rather than actively sitting between two parties in real time. Session hijacking involves stealing an already-established session token or ID to impersonate a user, a different technique than covertly relaying live traffic between two parties. A smurf attack is a denial-of-service technique that floods a target with spoofed ICMP traffic, unrelated to intercepting or relaying communications between two parties.",
   },
   {
     id: "d4_008", domain: 4, difficulty: 2, section: "Wireless Security Standards",
@@ -781,7 +781,7 @@ export const questions = [
       "802.1X EAP-TLS certificate-based authentication",
     ],
     answer: 0,
-    explanation: "The original WPA using TKIP (Temporal Key Integrity Protocol) replaced WEP but is now considered vulnerable to attacks like TKIP MIC key recovery. WPA2 with AES-CCMP is the minimum recommended standard; WPA3 with SAE provides the strongest current protection.",
+    explanation: "The original WPA, using TKIP encryption, replaced WEP but is now itself considered vulnerable — particularly to attacks that can recover the TKIP MIC key. WPA2-Enterprise with 802.1X uses AES-CCMP rather than TKIP and adds centralized authentication, making it substantially stronger than the original WPA. WPA3-SAE uses the Dragonfly key exchange and is the current strongest standard, specifically designed to resist the offline attacks that affect WPA/WPA2-Personal. 802.1X EAP-TLS is a certificate-based authentication method that can be layered on top of stronger encryption standards — it's an authentication mechanism, not the vulnerable TKIP-based protocol the question is describing.",
   },
   {
     id: "d4_009", domain: 4, difficulty: 3, section: "Zero Trust Architecture",
@@ -793,7 +793,7 @@ export const questions = [
       "Requires that all internal and external traffic be routed through a central DMZ segment",
     ],
     answer: 2,
-    explanation: "Zero Trust operates on the principle 'never trust, always verify' — resources are not trusted based on network location alone. Every access request is authenticated, authorized, and continuously validated regardless of whether the device is inside or outside the traditional perimeter.",
+    explanation: "Zero trust's defining principle is that no device or user is implicitly trusted just because it's inside the traditional network perimeter — every request must be authenticated, authorized, and continuously validated regardless of location. Zero trust doesn't specifically mandate any particular encryption algorithm strength — encryption standards are a separate technical consideration from the trust model itself. It also doesn't eliminate perimeter firewalls entirely — they can still play a role, but zero trust adds identity- and context-based verification on top of, not instead of, network controls. And zero trust doesn't require routing all traffic through a central DMZ — that describes a specific network topology, not the verification-based trust philosophy that actually defines the zero trust model.",
   },
   {
     id: "d4_010", domain: 4, difficulty: 2, section: "Key Exchange Protocols",
@@ -805,7 +805,7 @@ export const questions = [
       "3DES encryption for symmetric data protection",
     ],
     answer: 0,
-    explanation: "Diffie-Hellman (and its variant ECDH) enables two parties to securely establish a shared secret over an untrusted channel without prior shared knowledge. TLS uses DH/ECDH key exchange to establish session keys. Ephemeral DH (DHE/ECDHE) also provides Perfect Forward Secrecy.",
+    explanation: "Diffie-Hellman (and ECDH) lets two parties establish a shared secret over an insecure channel without ever transmitting the secret itself, using mathematical properties that make it infeasible for an eavesdropper to derive the shared key — exactly the mechanism TLS uses for key exchange. MD5 is a hashing algorithm used for integrity checking, not a key exchange mechanism, and is also cryptographically broken for security-sensitive uses. RC4 is a (now deprecated) stream cipher used for bulk data encryption after a key is already established — it doesn't perform key exchange itself. 3DES is a symmetric encryption algorithm, also used for bulk data protection after keys exist, not a method for two parties to establish a shared secret in the first place.",
   },
 
   // ─── DOMAIN 5: Identity and Access Management ───
@@ -819,7 +819,7 @@ export const questions = [
       "Attribute-Based Access Control (ABAC)",
     ],
     answer: 2,
-    explanation: "Role-Based Access Control (RBAC) assigns permissions to roles (e.g., 'HR Manager', 'Developer') rather than individuals. Users are assigned to roles, inheriting the permissions of those roles — simplifying administration and enforcing least privilege.",
+    explanation: "Role-Based Access Control assigns permissions to defined roles (like 'HR Manager') rather than individuals, and users inherit permissions by being assigned to a role — exactly the job-title-based scheme described. Mandatory Access Control assigns access based on fixed classification labels enforced by the system, not job-role-based permission sets like this scenario describes. Discretionary Access Control lets the resource owner decide who gets access to their specific resources, a very different, owner-driven model rather than role-based grouping. Attribute-Based Access Control makes decisions using a combination of attributes (user, resource, environment), a more granular and dynamic approach than simply grouping by job title.",
   },
   {
     id: "d5_002", domain: 5, difficulty: 2, section: "Authentication Factors",
@@ -831,14 +831,14 @@ export const questions = [
       "Somewhere you are",
     ],
     answer: 1,
-    explanation: "A smart card is a physical token — something you have. It represents possession-based authentication. Combined with a PIN (something you know), it constitutes two-factor authentication.",
+    explanation: "A smart card is a physical object the user possesses, making it a 'something you have' factor — possession-based authentication. 'Something you know' refers to a memorized secret like a password or PIN, not a physical item. 'Something you are' refers to a biometric characteristic like a fingerprint or iris pattern, not a token you carry. 'Somewhere you are' refers to location-based authentication (like GPS or network location), a context factor rather than a physical possession.",
   },
   {
     id: "d5_003", domain: 5, difficulty: 2, section: "Federation & Single Sign-On",
     question: "A company federating identity between its internal apps and a third-party SaaS platform needs a standard that exchanges authentication tokens over XML. Which Single Sign-On (SSO) standard is commonly used for this purpose?",
     options: ["LDAP", "RADIUS", "SAML 2.0", "Kerberos"],
     answer: 2,
-    explanation: "Security Assertion Markup Language (SAML) 2.0 is the dominant standard for web-based SSO federation, exchanging XML-based authentication assertions between an Identity Provider (IdP) and Service Providers (SPs). OAuth 2.0/OIDC is a more modern alternative.",
+    explanation: "SAML 2.0 is the dominant standard for web-based SSO federation, exchanging XML-based authentication assertions between an Identity Provider and Service Providers — exactly the XML-based token exchange described. LDAP is a directory access protocol used to query and manage directory data, not a federation standard for exchanging authentication tokens between separate organizations. RADIUS is an authentication, authorization, and accounting protocol commonly used for network access (like VPN or Wi-Fi logins), not a web SSO federation standard. Kerberos is a ticket-based authentication protocol typically used within a single trusted realm (like a Windows domain), not designed for federating identity between separate organizations over XML.",
   },
   {
     id: "d5_004", domain: 5, difficulty: 3, section: "Identity Lifecycle Management",
@@ -850,7 +850,7 @@ export const questions = [
       "Failure to encrypt stored financial data protected by the account",
     ],
     answer: 1,
-    explanation: "Timely account de-provisioning — disabling or deleting accounts when an employee leaves — is the direct control that failed. Without prompt offboarding procedures, terminated employees retain access, creating significant security and compliance risk.",
+    explanation: "A terminated employee's account still working three months later points directly to a failure of timely account de-provisioning during offboarding — the account should have been disabled the moment employment ended. Lacking MFA on financial systems is a real weakness, but it's not what allowed a terminated employee's own valid credentials to keep working — MFA wouldn't have stopped someone who could still complete the first factor and would've needed to also be provisioned for a second factor tied to a still-active account. Missing audit logs would make the unauthorized access harder to detect, but it isn't what caused the access to remain possible in the first place. Unencrypted data would be a confidentiality risk once accessed, but it doesn't explain why the account itself was still able to log in months after departure.",
   },
   {
     id: "d5_005", domain: 5, difficulty: 2, section: "Authentication Weaknesses",
@@ -862,7 +862,7 @@ export const questions = [
       "Administrators frequently forget complex passwords, resulting in frequent account lockouts and delays",
     ],
     answer: 1,
-    explanation: "Single-factor password authentication provides no protection if the password is compromised through phishing, keyloggers, credential stuffing, or password reuse. MFA provides an additional layer that remains protective even if the password is stolen.",
+    explanation: "Password-only authentication provides no additional verification step — if the password is guessed, phished, or stolen, there's nothing else standing between the attacker and privileged access. Overly frequent password expiration is an operational annoyance and can even push people toward weaker, more predictable passwords, but it's not the core risk of relying on a password alone. Whether password managers are allowed is a separate operational policy question, unrelated to the fundamental risk of having no second factor. Administrators forgetting passwords and getting locked out is an inconvenience, not a security risk — the actual danger is what happens when the ONE credential required is compromised, not when it's forgotten.",
   },
   {
     id: "d5_006", domain: 5, difficulty: 3, section: "Kerberos Authentication",
@@ -874,7 +874,7 @@ export const questions = [
       "The Key Distribution Center's realm database",
     ],
     answer: 2,
-    explanation: "The Authentication Server (AS), part of the Key Distribution Center (KDC), issues the Ticket Granting Ticket (TGT) after successfully authenticating the user. The TGS then uses the TGT to issue service tickets for specific resources.",
+    explanation: "The Authentication Server (AS), part of the Key Distribution Center, issues the Ticket Granting Ticket after successfully authenticating the user — the very first step in the Kerberos flow. The Service Server is the resource the user ultimately wants to access, and it receives service tickets, not TGTs — it doesn't issue anything in this flow. The Ticket Granting Server uses an already-issued TGT to issue service tickets for specific resources — it operates AFTER the TGT already exists, so it can't be what issues it in the first place. The KDC's realm database is a data store holding account and key information — it's a component the AS and TGS both rely on, not an active issuer of tickets itself.",
   },
   {
     id: "d5_007", domain: 5, difficulty: 2, section: "Least Privilege & Access Reviews",
@@ -886,7 +886,7 @@ export const questions = [
       "Grant access based on department membership alone and allow managers to request ad hoc exceptions as needed",
     ],
     answer: 1,
-    explanation: "RBAC with periodic access reviews (to remove stale permissions) combined with just-in-time privilege elevation (granting elevated access only when needed, for limited duration) provides the strongest least-privilege enforcement at scale.",
+    explanation: "RBAC combined with periodic access reviews (to catch and remove stale permissions) and just-in-time privilege elevation (granting elevated access only when needed, briefly) enforces least privilege at scale without constant manual overhead. Granting broad read access by default and only restricting write access individually inverts least privilege entirely — it starts everyone with more access than they likely need rather than the minimum required. Requiring a helpdesk ticket and manager sign-off for every individual system doesn't scale in a large enterprise and easily leads to either bottlenecks or, more commonly, rubber-stamped approvals that undermine the review's value. Granting access based solely on department membership, with ad hoc manager exceptions, tends to accumulate excess access over time with no structured review process to claw it back.",
   },
   {
     id: "d5_008", domain: 5, difficulty: 1, section: "Identity Provisioning",
@@ -898,7 +898,7 @@ export const questions = [
       "Encrypting user credentials stored within the directory service database",
     ],
     answer: 1,
-    explanation: "Provisioning is the process of creating and managing user accounts, roles, and access rights throughout the identity lifecycle — from onboarding through role changes to offboarding (de-provisioning).",
+    explanation: "Creating an account, assigning group memberships, and granting role-based application access describes provisioning — the process of creating and managing user accounts and access rights throughout the identity lifecycle. Authentication is a separate, later process — confirming that someone logging in is actually who they claim to be, not the initial creation of their account and access. Auditing access logs is an ongoing monitoring activity that happens after an account exists and is being used, not the initial account-creation process. Encrypting stored credentials is a data protection measure for how credentials are stored, unrelated to the process of actually creating the account and assigning its access.",
   },
 
   // ─── DOMAIN 6: Security Assessment and Testing ───
@@ -912,7 +912,7 @@ export const questions = [
       "Vulnerability assessments can only be conducted against externally facing systems and network perimeters",
     ],
     answer: 1,
-    explanation: "A vulnerability assessment identifies, classifies, and prioritizes vulnerabilities. A penetration test goes further by attempting to actually exploit identified vulnerabilities to demonstrate real-world impact — providing evidence of exploitability, not just existence.",
+    explanation: "A vulnerability assessment identifies, classifies, and prioritizes weaknesses, while a penetration test goes further and actively attempts to exploit them to demonstrate real-world impact — the core distinction described in this scenario. Vulnerability assessments aren't purely automated, and penetration tests aren't purely manual — both can blend automated tools and manual analysis; the real difference is identification versus active exploitation, not tooling. Penetration testing is generally MORE time- and cost-intensive than a vulnerability assessment, not less, since it requires skilled manual effort to safely attempt exploitation. And vulnerability assessments aren't limited to external-facing systems — they're commonly run against internal infrastructure too, so scope isn't the defining difference between the two.",
   },
   {
     id: "d6_002", domain: 6, difficulty: 2, section: "Penetration Testing Methods",
@@ -924,7 +924,7 @@ export const questions = [
       "Crystal-box testing",
     ],
     answer: 2,
-    explanation: "Black-box testing simulates an external attacker with no prior knowledge of the target's internal architecture, source code, or configurations. White-box testing provides full knowledge; gray-box provides partial knowledge.",
+    explanation: "Black-box testing simulates an external attacker with no prior knowledge of the target's internal architecture, source code, or configuration — exactly the no-prior-knowledge scenario described. White-box testing is the opposite: the tester has full knowledge, including source code and architecture diagrams, before starting. Gray-box testing falls in between, giving the tester partial knowledge (like limited credentials or architecture documentation), not the complete blank slate described here. Crystal-box is simply another name for white-box testing — full knowledge — not a separate no-knowledge category.",
   },
   {
     id: "d6_003", domain: 6, difficulty: 2, section: "Code Review & Analysis",
@@ -936,7 +936,7 @@ export const questions = [
       "Fuzz testing",
     ],
     answer: 1,
-    explanation: "Dynamic analysis tests code by executing it and observing runtime behavior — memory usage, API calls, responses to inputs. Static analysis examines source code without execution. Fuzz testing is a subset of dynamic analysis that inputs malformed data.",
+    explanation: "Dynamic analysis tests code by actually executing it and observing runtime behavior — memory usage, API calls, responses to input — rather than reading the source itself. Static analysis examines the source code without ever running it, the opposite approach of watching live execution. Manual code review is a person reading through source code line by line, also without execution, distinct from observing runtime behavior. Fuzz testing is actually a specific subset of dynamic analysis — it does involve execution, but it's a narrower technique (feeding malformed input) rather than the broader category of dynamic analysis itself, which is what the question is asking about.",
   },
   {
     id: "d6_004", domain: 6, difficulty: 3, section: "Log Management & Security Audits",
@@ -948,7 +948,7 @@ export const questions = [
       "Logs stored alongside the application may capture sensitive customer data, creating exposure under privacy regulations",
     ],
     answer: 1,
-    explanation: "Logs stored on the same system and writable by the application process can be tampered with or deleted by an attacker who compromises the application — destroying forensic evidence and covering tracks. Logs should be written to a separate, write-protected or append-only log management system.",
+    explanation: "Logs stored on the same server and writable by the application process can be modified or deleted by an attacker who compromises that application — directly destroying the forensic evidence needed to investigate the incident. Disk space exhaustion is a real operational concern with verbose logging, but it's not the security issue this scenario is highlighting — the issue is who can write to and tamper with the logs, not how much space they consume. I/O overhead from logging is a performance consideration, unrelated to whether an attacker could alter or erase the log data itself. Whether logs happen to capture sensitive customer data is a separate privacy/data-handling concern, not the specific tampering risk created by co-locating writable logs with the application that generates them.",
   },
   {
     id: "d6_005", domain: 6, difficulty: 2, section: "Vulnerability Scoring (CVSS)",
@@ -960,7 +960,7 @@ export const questions = [
       "Scope (S)",
     ],
     answer: 2,
-    explanation: "Attack Complexity (AC) measures the conditions beyond the attacker's control that must exist for the vulnerability to be exploited — such as requiring a specific race condition or configuration. Low AC means the exploit can be reliably repeated; high AC means specific conditions must be met.",
+    explanation: "Attack Complexity measures conditions beyond the attacker's control that must exist for successful exploitation — like requiring a specific race condition or configuration — directly addressing how complex the attack must be. Attack Vector describes HOW an attacker reaches the vulnerability (network, adjacent, local, physical), a different dimension than how complex the exploitation itself is. Privileges Required describes what level of access the attacker needs before attempting exploitation, not the complexity of the exploitation technique itself. Scope describes whether a vulnerability in one component can affect resources beyond its own security authority — a different concept entirely from how complex the attack is to pull off.",
   },
   {
     id: "d6_006", domain: 6, difficulty: 2, section: "Continuous Security Monitoring",
@@ -972,7 +972,7 @@ export const questions = [
       "Delivering periodic security awareness training sessions to staff",
     ],
     answer: 1,
-    explanation: "Continuous security monitoring provides ongoing, real-time visibility into the effectiveness of security controls. Annual penetration tests and periodic reviews provide snapshots but miss the continuous operational assurance that monitoring provides.",
+    explanation: "Continuous security monitoring with automated control testing provides ongoing, near-real-time visibility into whether controls are actually working, rather than just a snapshot at one moment in time. An annual penetration test is valuable but only provides a single point-in-time snapshot, missing control failures that might occur at any other point during the year. Reviewing policies and standards every six months checks whether documentation is current, not whether the actual technical controls are functioning as intended day to day. Periodic security awareness training improves human behavior over time, but it doesn't verify whether technical security controls themselves are operating correctly on an ongoing basis.",
   },
   {
     id: "d6_007", domain: 6, difficulty: 3, section: "Vulnerability Disclosure",
@@ -984,7 +984,7 @@ export const questions = [
       "Zero-day exploitation for profit",
     ],
     answer: 1,
-    explanation: "Responsible (coordinated) disclosure involves reporting vulnerabilities privately to the vendor/organization first, giving them time to patch before any public disclosure. Bug bounty programs formalize this process. Full disclosure means immediate public release without prior notice to the vendor.",
+    explanation: "Reporting a critical vulnerability only to the company first — giving them the opportunity to fix it — describes responsible (coordinated) disclosure, which bug bounty programs formalize. Immediate full public disclosure without any advance notice is the opposite approach (full disclosure), releasing details before the vendor has any chance to patch. Calling it purely 'vendor-only private disclosure' with no eventual public component misses that coordinated disclosure typically still involves eventual public disclosure after a fix is available — it's not meant to stay permanently secret. Selling the vulnerability on an exploit marketplace is a criminal, self-interested use of the finding, the complete opposite of participating in a legitimate bug bounty program.",
   },
 
   // ─── DOMAIN 7: Security Operations ───
@@ -993,7 +993,7 @@ export const questions = [
     question: "A SOC team confirms an active ransomware infection and immediately isolates the affected servers from the network to stop it from spreading further. Which phase of incident response does this action represent?",
     options: ["Preparation", "Identification", "Containment", "Eradication"],
     answer: 2,
-    explanation: "The Containment phase focuses on limiting the damage from an ongoing incident — isolating affected systems, blocking malicious traffic, and preventing the attack from spreading. This follows Identification (detecting the incident) and precedes Eradication (removing the threat).",
+    explanation: "Isolating affected servers to stop ransomware from spreading is containment — limiting the damage from an already-detected, ongoing incident. Preparation refers to the readiness work done before an incident occurs — tools, plans, training — not an action taken during an active response. Identification is the earlier step of actually detecting and confirming that an incident is occurring, which the SOC team had already done before isolating anything. Eradication comes later — removing the malware and closing the vulnerability — a step that follows containment, not the isolation action itself.",
   },
   {
     id: "d7_002", domain: 7, difficulty: 2, section: "Digital Forensics & Chain of Custody",
@@ -1005,7 +1005,7 @@ export const questions = [
       "To identify the perpetrator of an incident by correlating access logs with physical entry records",
     ],
     answer: 1,
-    explanation: "Chain of custody documents every person who handled evidence, when they had it, and what they did with it. This ensures evidence integrity and admissibility in legal proceedings by proving it has not been tampered with or contaminated.",
+    explanation: "Chain of custody documents who handled evidence, when, and what they did with it, proving it wasn't tampered with or contaminated — establishing that the evidence is legally defensible and admissible. It doesn't accelerate analysis by skipping verification steps — if anything, it adds rigor and documentation overhead specifically to preserve integrity, not to speed things up. Encrypting evidence files is a separate storage protection measure, unrelated to documenting who physically handled the evidence and when. Chain of custody also doesn't identify a perpetrator by itself — that's an investigative outcome that might use evidence whose integrity chain of custody helps establish, but identifying the attacker isn't the documentation's purpose.",
   },
   {
     id: "d7_003", domain: 7, difficulty: 2, section: "Change Management",
@@ -1017,7 +1017,7 @@ export const questions = [
       "Rollback planning and documented backout procedures",
     ],
     answer: 1,
-    explanation: "The Change Advisory Board (CAB) reviews proposed changes for impact, risk, and resource requirements before authorizing implementation. This prevents unauthorized or poorly-planned changes from disrupting services or introducing security vulnerabilities.",
+    explanation: "A Change Advisory Board reviews proposed changes with a group of stakeholders for impact, risk, and resource requirements before authorizing implementation — the multi-stakeholder review process described. Emergency change authorization by a single CAB chair is specifically an exception path for urgent changes that bypasses the full group review process, not the standard multi-stakeholder review itself. Configuration item tagging in a CMDB is an inventory and tracking practice, not a review or approval control. Rollback planning documents how to reverse a change if it fails — a risk-mitigation step that's part of good change management, but not the group-review control the question is asking about.",
   },
   {
     id: "d7_004", domain: 7, difficulty: 3, section: "Malware & C2 Detection",
@@ -1029,7 +1029,7 @@ export const questions = [
       "Network Time Protocol (NTP) synchronization occurring at a misconfigured polling interval",
     ],
     answer: 1,
-    explanation: "Regular, periodic outbound connections to external IPs at consistent intervals (beaconing) are a classic indicator of C2 malware checking in with an attacker-controlled server. HTTPS on non-standard ports helps evade inspection. The 60-second interval and high-port randomization are textbook beaconing behavior.",
+    explanation: "Regular, periodic outbound connections to an external IP at consistent intervals — especially over HTTPS on a random high port — are a classic sign of a C2 beacon, malware checking in with an attacker-controlled server; using HTTPS and non-standard ports helps it evade inspection. A browser auto-update check wouldn't typically repeat every 60 seconds continuously, and wouldn't specifically target a random high port designed to blend in and evade detection. A legitimate cloud sync client's traffic pattern is usually recognizable (known destination domains, standard behavior) and doesn't typically hide behind randomized high ports the way this traffic does. NTP synchronization uses a specific protocol and port (UDP 123) for time synchronization, not HTTPS traffic to an external IP on a random high port — a fundamentally different protocol and behavior than what's described.",
   },
   {
     id: "d7_005", domain: 7, difficulty: 2, section: "Backup Strategies",
@@ -1041,7 +1041,7 @@ export const questions = [
       "Snapshot backup — point-in-time state",
     ],
     answer: 2,
-    explanation: "A differential backup captures all changes since the last full backup. Restore requires only the full backup + latest differential. An incremental backup captures only changes since the last backup of any type, requiring the full backup + all incrementals to restore — more complex but smaller daily backups.",
+    explanation: "A differential backup captures all changes since the last FULL backup — restoring only requires the full backup plus the most recent differential, regardless of how many differentials have run since. A full backup is a complete copy of everything, not just changes since a prior backup — the baseline the other backup types build on. An incremental backup captures only changes since the last backup of ANY type (full or incremental), which means restoring requires the full backup plus every incremental since — smaller daily backups but a more complex restore than differential. A snapshot backup captures a point-in-time state of a system or volume, often used for quick rollback, but it isn't specifically defined by capturing changes since the last full backup the way a differential is.",
   },
   {
     id: "d7_006", domain: 7, difficulty: 2, section: "Security Monitoring & Clipping Levels",
@@ -1053,7 +1053,7 @@ export const questions = [
       "The number of consecutive failed login attempts that triggers an automatic account lockout",
     ],
     answer: 1,
-    explanation: "A clipping level sets a minimum threshold for logging or alerting — events below this level are considered normal noise and not recorded. For example, 3 failed logins might be normal, but 10+ triggers an alert. This reduces alert fatigue while catching anomalies.",
+    explanation: "A clipping level sets a baseline threshold below which events are considered normal noise and aren't logged or alerted on — like treating a few failed logins as routine but flagging ten or more. It has nothing to do with how fast a SIEM can ingest and parse log events — that's a performance/capacity characteristic, not a logging threshold concept. It's also unrelated to the encryption key length used to protect archived logs — that's a data protection measure, not a monitoring threshold. And while a clipping level might inform related security decisions, it isn't specifically the number of failed logins that triggers an account lockout — that's a distinct, closely related but separate control (an account lockout policy) rather than the general logging/alerting threshold concept the term describes.",
   },
   {
     id: "d7_007", domain: 7, difficulty: 3, section: "Malware Analysis & Sandboxing",
@@ -1065,7 +1065,7 @@ export const questions = [
       "Submit the sample to VirusTotal and rely on existing signatures",
     ],
     answer: 1,
-    explanation: "A sandbox is an isolated virtual environment where malware can be safely executed and its behavior observed (network calls, file modifications, registry changes) without risk to production systems. VirusTotal provides signatures but won't reveal novel behavior; dynamic analysis in a sandbox is essential for unknown or evasive malware.",
+    explanation: "Analyzing the malware in an isolated sandboxed environment lets the team safely observe its actual behavior — network calls, file changes, registry modifications — without any risk to production systems. Running it on a 'sacrificial' production server still keeps the malware within the production network and its associated risk, even with monitoring in place — a much less safe boundary than a truly isolated sandbox. Reverse engineering only static file headers without ever executing the sample misses the malware's actual runtime behavior, which is often exactly what's needed to understand novel or evasive threats. Relying solely on VirusTotal signatures only tells you whether the sample matches known, previously-cataloged malware — it won't reveal the behavior of a new or evasive sample that doesn't yet match existing signatures.",
   },
   {
     id: "d7_008", domain: 7, difficulty: 1, section: "IDS/IPS Detection Methods",
@@ -1077,7 +1077,7 @@ export const questions = [
       "Heuristic detection",
     ],
     answer: 1,
-    explanation: "Signature-based detection matches traffic or activity against a database of known attack patterns. It is highly accurate for known attacks but cannot detect zero-days or novel attacks. Anomaly-based detection identifies deviations from a baseline but may have higher false positive rates.",
+    explanation: "Signature-based detection flags traffic by matching it exactly against a database of known attack patterns — precisely what's described when the traffic pattern matches a known exploit string. Anomaly-based detection instead flags deviations from an established normal baseline, without needing a known signature to match against — a different underlying detection method. Behavioral-based detection looks at patterns of activity over time, like a sequence of actions that resembles known attack behavior, rather than matching one specific known string. Heuristic detection uses rules and characteristics to identify likely-malicious activity even without an exact known match — closer to educated pattern-guessing than the precise string match described in this scenario.",
   },
   {
     id: "d7_009", domain: 7, difficulty: 3, section: "Forensic Evidence Collection",
@@ -1089,7 +1089,7 @@ export const questions = [
       "Log files stored in the /var/log directory on disk",
     ],
     answer: 2,
-    explanation: "RAM is volatile — its contents are lost when power is removed. RAM can contain encryption keys, running processes, network connections, logged-in user sessions, and malware that only exists in memory. Proper forensics requires RAM capture before powering down when feasible.",
+    explanation: "Powering off a system before imaging loses volatile data — RAM contents, running processes, and active network connections — all of which disappear the instant power is removed, since RAM requires continuous power to retain its contents. Files on the hard drive's persistent storage survive a power-off just fine — that's the defining characteristic of persistent storage, unlike RAM. Network configuration files stored locally on disk are also persistent and would still be present and recoverable after powering down. Log files in /var/log are likewise written to persistent disk storage and would survive a power-off — the real loss here is specifically the in-memory, volatile data that a proper live-response RAM capture would have preserved.",
   },
 
   // ─── DOMAIN 8: Software Development Security ───
@@ -1103,7 +1103,7 @@ export const questions = [
       "Security Misconfiguration",
     ],
     answer: 1,
-    explanation: "Cross-Site Scripting (XSS) injects malicious scripts into web pages viewed by other users. The victim's browser executes the script in the context of the trusted site, allowing session theft, credential harvesting, or redirects. Prevention includes output encoding and Content Security Policy (CSP).",
+    explanation: "Injecting a script into a comment field that then runs in every visitor's browser and steals session cookies is Cross-Site Scripting — malicious script execution in the context of the trusted site. SQL Injection targets the backend database through unsanitized query input, not a script running in other users' browsers. CSRF tricks an authenticated user's browser into submitting an unwanted request to a site they're already logged into — a different attack that doesn't involve injecting a persistent script that runs for other visitors. Security Misconfiguration refers to insecure default settings, unnecessary features, or missing hardening — a broad category, but not the specific script-injection-and-execution mechanism XSS describes.",
   },
   {
     id: "d8_002", domain: 8, difficulty: 2, section: "Secure SDLC & DevSecOps",
@@ -1115,7 +1115,7 @@ export const questions = [
       "User acceptance testing (UAT)",
     ],
     answer: 1,
-    explanation: "DevSecOps (and the 'shift-left' approach) integrates security into every phase of development — from requirements and design through coding, testing, and deployment — rather than treating security as a final gate before release. This finds and fixes security issues earlier when they are cheaper to remediate.",
+    explanation: "DevSecOps (shift-left security) integrates security testing throughout the entire development lifecycle — from requirements and design through coding and deployment — rather than treating it as a final gate, catching issues earlier when they're cheaper to fix. Waterfall development is a sequential project management methodology with distinct phases; it doesn't inherently integrate security throughout — security could still be bolted on only at the end even in a waterfall process. Black-box testing at deployment is exactly the 'only at the end' approach the question describes as the alternative to shift-left — testing after the fact rather than throughout. User acceptance testing verifies the software meets business/user requirements before release, a functional validation step, not a security-integration practice spanning the whole lifecycle.",
   },
   {
     id: "d8_003", domain: 8, difficulty: 2, section: "Secure Coding (Credential Management)",
@@ -1127,7 +1127,7 @@ export const questions = [
       "Source code compilers may corrupt or truncate hard-coded credential strings during optimization passes",
     ],
     answer: 1,
-    explanation: "Hard-coded credentials in source code are exposed to anyone who can read the code — including all developers, version control system users, and anyone who can decompile the binary. Credentials should be stored in a secrets management vault and injected at runtime.",
+    explanation: "Hard-coded credentials in source code are exposed to anyone who can read that code — every developer, anyone with version control access, and anyone able to decompile the resulting binary — making the credentials trivially easy to extract. This isn't a performance issue — reading a hard-coded string doesn't meaningfully add parsing overhead to application startup. It's also not fundamentally about MFA compatibility — the security problem is that the static credential itself is exposed, regardless of whether MFA is layered on top elsewhere. And compilers don't randomly corrupt or truncate hard-coded strings during optimization — that's not a real failure mode; the actual risk is exposure, not string integrity.",
   },
   {
     id: "d8_004", domain: 8, difficulty: 3, section: "SQL Injection",
@@ -1139,7 +1139,7 @@ export const questions = [
       "Path traversal attack; validate and canonicalize file paths before use",
     ],
     answer: 1,
-    explanation: "This is a classic SQL injection attempt. The input `' OR '1'='1` modifies the SQL query logic to bypass authentication or retrieve all records. The primary defense is parameterized queries (prepared statements), which separate SQL code from data, making injection impossible. Input validation is secondary defense.",
+    explanation: "The `' OR '1'='1` input is a classic SQL injection payload designed to manipulate query logic (like bypassing a WHERE clause), and the primary defense is parameterized queries/prepared statements, which separate SQL code from user-supplied data entirely. XSS involves injecting script that executes in a victim's browser, not manipulating a backend SQL query's logic — the input and mechanism here are database-focused, not browser-focused. CSRF tricks an authenticated user's browser into submitting a request on their behalf — an entirely different attack vector than manipulating a SQL query's WHERE clause logic. Path traversal uses sequences like '../' to escape an intended directory and access unauthorized files — a different vulnerability class than SQL syntax injection.",
   },
   {
     id: "d8_005", domain: 8, difficulty: 2, section: "Web Application Security Controls",
@@ -1151,7 +1151,7 @@ export const questions = [
       "To authenticate users and enforce single sign-on before granting web application access",
     ],
     answer: 1,
-    explanation: "A WAF sits in front of web applications and inspects HTTP/HTTPS traffic, blocking requests that match known attack patterns (SQLi, XSS, CSRF, etc.). It operates at OSI Layer 7 and provides application-layer protection that network firewalls cannot provide.",
+    explanation: "A Web Application Firewall inspects HTTP/HTTPS traffic and blocks requests matching known application-layer attack patterns (SQLi, XSS, CSRF), providing Layer 7 protection that a traditional network firewall doesn't. Some WAFs can terminate TLS as part of their deployment, but that's not their defining PURPOSE — a dedicated load balancer or reverse proxy can also terminate TLS without providing any attack-pattern filtering at all. Load balancing distributes traffic across servers for availability and performance, a separate infrastructure function from inspecting requests for malicious patterns. Authenticating users and enforcing SSO is the job of an identity provider or the application itself, not a WAF's core purpose, which is filtering malicious traffic patterns rather than managing identity.",
   },
   {
     id: "d8_006", domain: 8, difficulty: 3, section: "Software Composition Analysis",
@@ -1163,7 +1163,7 @@ export const questions = [
       "Code signing",
     ],
     answer: 1,
-    explanation: "Software Composition Analysis (SCA) inventories third-party and open-source components in an application and identifies known vulnerabilities (CVEs) in those components. Given that modern applications use dozens of dependencies, SCA is essential for supply chain security — as demonstrated by incidents like Log4Shell.",
+    explanation: "Software Composition Analysis inventories third-party and open-source components and checks them against known vulnerability databases (CVEs) before or as they're incorporated into an application — exactly the third-party-library scanning described, critical given incidents like Log4Shell. Threat modeling identifies potential threats and attack surfaces during design, a broader analytical exercise rather than scanning specific dependency versions for known CVEs. Dynamic application security testing tests a running application by interacting with it, looking for vulnerabilities in the application's own behavior, not by inventorying which third-party libraries and versions are included. Code signing cryptographically verifies that code hasn't been tampered with and comes from a trusted source — a distribution integrity control, not a vulnerability-scanning activity for dependencies.",
   },
   {
     id: "d8_007", domain: 8, difficulty: 2, section: "Secure Error Handling",
@@ -1175,7 +1175,7 @@ export const questions = [
       "Stack traces consume excessive disk space when written to application log files, especially in high-traffic production environments with verbose logging enabled",
     ],
     answer: 1,
-    explanation: "Verbose error messages with stack traces expose internal file paths, framework versions, database structure, and logic flow — information an attacker can use to craft more targeted attacks. Applications should display generic error messages to users and log detailed errors only in server-side logs accessible to developers.",
+    explanation: "Verbose error messages with stack traces expose internal file paths, framework versions, and database schema details — information an attacker can use to craft more targeted, effective attacks against the specific technology stack in use. Generating stack traces does have some performance cost, but that's a minor operational concern, not the security issue this scenario is highlighting. Whether error messages render consistently across browsers is a cosmetic/compatibility concern, unrelated to the sensitive information the error content itself reveals. Disk space consumed by verbose logs is an operational storage concern — the actual security risk here is that this same detailed information is being shown TO USERS, not just written to internal logs.",
   },
   {
     id: "d8_008", domain: 8, difficulty: 3, section: "Threat Modeling",
@@ -1187,7 +1187,7 @@ export const questions = [
       "Static code analysis",
     ],
     answer: 1,
-    explanation: "Threat modeling (e.g., using STRIDE, PASTA, or LINDDUN frameworks) is performed during the design phase to identify potential threats, attack surfaces, and required security controls before code is written. This is the most cost-effective time to address security issues.",
+    explanation: "Threat modeling (using frameworks like STRIDE, PASTA, or LINDDUN) evaluates the security implications of new features during the design phase, before any code is written — the most cost-effective point to catch and address security issues. Security regression testing verifies that previously fixed vulnerabilities haven't been reintroduced by new changes, an activity that happens after code already exists, not during initial design. Fuzz testing feeds malformed or random input to a running program to find crashes or vulnerabilities — a dynamic testing technique performed against actual code, not a design-phase activity. Static code analysis examines existing source code for vulnerability patterns — again, something performed after code has been written, not during the design phase before implementation begins.",
   },
 
   // Additional harder questions for CAT
@@ -1213,7 +1213,7 @@ export const questions = [
       "TLS encryption in transit with certificate pinning",
     ],
     answer: 1,
-    explanation: "Client-side encryption means data is encrypted before it leaves the customer's environment, using keys the customer controls and stores on-premises. The cloud provider receives only encrypted ciphertext and never has access to plaintext or keys. CMK/BYOK using the provider's KMS still gives the provider potential access to key operations.",
+    explanation: "Client-side encryption with keys stored on-premises means data is encrypted before it ever leaves the customer's environment, so the cloud provider only ever receives ciphertext and never has access to the keys or plaintext. Customer-managed keys through the provider's own Key Management Service still means the keys exist and are used within the provider's infrastructure — the provider retains at least some potential access to key operations, which doesn't satisfy a 'never accessible to the provider' requirement. Server-side encryption with provider-managed keys is the weakest option here — the provider both holds the keys and performs the encryption/decryption, giving them full access to plaintext data. TLS encryption in transit only protects data while it's moving between the customer and the provider — once it arrives, it's typically decrypted and stored in whatever form the provider's storage layer uses, which doesn't address data at rest or key exposure at all.",
   },
   {
     id: "d4_011", domain: 4, difficulty: 3, section: "Network Segmentation",
@@ -1225,7 +1225,7 @@ export const questions = [
       "Use NAT translation to mask IoT device addresses when they communicate with the payment system",
     ],
     answer: 1,
-    explanation: "Micro-segmentation using VLANs with stateful firewall rules between segments limits lateral movement. IoT devices (often poorly secured) should be isolated from PCI-scoped systems. Firewall rules should enforce only required traffic flows between segments based on business need.",
+    explanation: "Separate VLANs with firewall rules enforcing least-privilege traffic flows isolate IoT sensors, workstations, and the payment system from each other while still allowing only the specific communication each actually needs. A single flat network relying only on a perimeter firewall gives an attacker who compromises any one device (like a poorly secured IoT sensor) a direct path to everything else, including the payment system. Connecting IoT devices directly to the payment processing network for convenience defeats the entire purpose of segmentation — it puts poorly secured devices on the same segment as the most sensitive system in the environment. NAT masking hides addresses for routing purposes, but it doesn't function as an access control or segmentation mechanism — a device behind NAT can still reach whatever it's routed to unless firewall rules also restrict that traffic.",
   },
   {
     id: "d5_009", domain: 5, difficulty: 3, section: "OAuth & API Token Security",
@@ -1237,7 +1237,7 @@ export const questions = [
       "OAuth access tokens stored in localStorage cannot be refreshed once their lifetime expires",
     ],
     answer: 1,
-    explanation: "localStorage is accessible to any JavaScript running on the page, including malicious scripts injected via XSS. Tokens should be stored in httpOnly, Secure cookies (inaccessible to JavaScript) instead. A successful XSS attack can steal localStorage tokens and hijack API access.",
+    explanation: "Any JavaScript running on the page — including malicious scripts injected via XSS — can read localStorage, so a successful XSS attack can steal the token directly; httpOnly cookies, by contrast, aren't accessible to JavaScript at all. Token expiration timing is a configuration choice unrelated to where the token is stored — localStorage itself doesn't cause tokens to expire faster than any other storage method. localStorage is broadly supported across modern mobile and desktop browsers alike — availability isn't the security concern here. And storing a token in localStorage has no bearing on whether it can be refreshed — refresh capability depends on the OAuth flow and refresh token handling, not the storage location of the access token itself.",
   },
   {
     id: "d6_008", domain: 6, difficulty: 3, section: "Penetration Testing Methods",
@@ -1249,7 +1249,7 @@ export const questions = [
       "Sell the zero-day details to the highest bidder on an underground exploit marketplace",
     ],
     answer: 1,
-    explanation: "The tester must fulfill contractual obligations by reporting to the client. Ethical practice then requires advising the client to engage in coordinated vulnerability disclosure with the affected vendor so a patch can be developed — protecting other organizations without immediate public exploitation risk.",
+    explanation: "Reporting the zero-day to the client as contractually required, then advising them to pursue coordinated disclosure with the affected vendor, satisfies both the tester's contractual obligation and the broader ethical responsibility to help get the vulnerability fixed. Immediately publishing full technical details publicly breaches the Rules of Engagement's confidentiality requirement and could give attackers a working exploit before any patch exists. Keeping the vulnerability confidential indefinitely — beyond just fulfilling the immediate reporting obligation — leaves other organizations using the same widely-used application exposed to a risk nobody is working to fix. Selling the details on an underground market is both a serious ethical violation and almost certainly illegal, turning a legitimate finding into a weapon for other attackers.",
   },
   {
     id: "d7_010", domain: 7, difficulty: 3, section: "Data Loss Prevention (DLP)",
@@ -1261,7 +1261,7 @@ export const questions = [
       "Add the customer records document type to the DLP policy's exception list going forward",
     ],
     answer: 2,
-    explanation: "The root cause is a business process gap — employees lack a secure way to work with sensitive data remotely. Providing VPN or VDI access eliminates the need to email data externally, solving the problem without creating exceptions that weaken DLP coverage or punishing an employee for a process failure.",
+    explanation: "Providing secure remote access like VPN or VDI addresses the actual root cause — employees lacking a safe way to work with sensitive data remotely — eliminating the NEED to email data externally in the first place, without weakening DLP coverage. Terminating the employee is a disproportionate response to a policy gap that management itself created by not providing a secure remote work option, especially given confirmed non-malicious intent. Disabling DLP alerting for that one employee's account creates a permanent blind spot on that account, doing nothing to fix the underlying process gap and potentially missing genuinely malicious activity from that account in the future. Adding a blanket exception for that document type to the DLP policy weakens protection for ALL similar sensitive data everywhere, not just this specific employee's legitimate remote-work need — a much broader and riskier fix than actually solving the root cause.",
   },
   {
     id: "d8_009", domain: 8, difficulty: 3, section: "Supply Chain Security",
@@ -1273,7 +1273,7 @@ export const questions = [
       "An insider threat from a build tool maintainer",
     ],
     answer: 1,
-    explanation: "A supply chain attack targets the software supply chain — in this case, the build toolchain. By compromising the update mechanism, the attacker's malicious code is automatically distributed and trusted by all users of the tool. Defenses include artifact signing, reproducible builds, and build pipeline integrity verification.",
+    explanation: "Compromising the build tool's update server to inject malicious code into an automated update is a supply chain attack — targeting the trusted distribution mechanism so the malicious code gets automatically trusted and distributed to everyone using the tool. A zero-day exploit targets an unknown vulnerability in the application itself, not the trusted update mechanism of a build tool used to build it. A man-in-the-middle attack against a specific developer's workstation would target one individual's traffic, not the centralized update server that distributes to every user of the tool. An insider threat specifically implies someone with legitimate internal access acting maliciously — this scenario describes an external attacker compromising the update server, not a maintainer's own insider action.",
   },
 
   // ─── DOMAIN 1 – Additional questions ───
@@ -1418,14 +1418,14 @@ export const questions = [
     question: "Which data state is MOST vulnerable when an employee emails a sensitive document to a personal account?",
     options: ["Data at rest", "Data in use", "Data in transit", "Data in archive"],
     answer: 2,
-    explanation: "Data in transit refers to data moving across a network. Emailing a document sends it over potentially untrusted networks and delivers it to an uncontrolled personal mailbox. DLP controls at the email gateway specifically address this exposure.",
+    explanation: "Emailing a document sends it across a network — potentially untrusted — and delivers it into an uncontrolled personal mailbox, making data in transit the most vulnerable state here. Data at rest refers to data sitting in storage, not actively moving across a network as this scenario describes. Data in use refers to data actively being processed in memory, a different exposure than data traveling over a network connection. Data in archive refers to long-term retained data, unrelated to the moment a document is actively being transmitted.",
   },
   {
     id: "d2_009", domain: 2, difficulty: 1, section: "Data Ownership & Roles",
     question: "A database administrator applies encryption, access controls, and backup schedules to a dataset based on instructions from the business unit that owns it. Which role is this administrator fulfilling?",
     options: ["Data owner", "Data custodian", "Data subject", "Privacy officer"],
     answer: 1,
-    explanation: "The data custodian (often IT) is responsible for the technical storage, backup, and protection of data per the data owner's instructions. The data owner defines what protection is needed; the custodian implements it.",
+    explanation: "Applying encryption, access controls, and backups based on the owner's instructions describes the data custodian's role — the technical implementer who protects data on the owner's behalf. The data owner is the one who decides what protection is needed and gives those instructions — a different role from the administrator carrying them out. The data subject is the individual the data is about, not a role responsible for technically protecting it. The privacy officer oversees an organization's privacy program and compliance, not the day-to-day technical implementation of a specific dataset's controls.",
   },
   {
     id: "d2_010", domain: 2, difficulty: 2, section: "Data Masking & Anonymization",
@@ -1437,7 +1437,7 @@ export const questions = [
       "Hashing / one-way cryptographic digest",
     ],
     answer: 2,
-    explanation: "Data masking (pseudonymization) replaces real personal data with realistic fictional substitutes (e.g., replacing a real name with a random name). Tokenization replaces data with a non-meaningful token; encryption is reversible with a key; hashing is one-way but may be re-identifiable with a dictionary.",
+    explanation: "Data masking (pseudonymization) replaces identifying fields with realistic but fictional values — like swapping a real name for a random but plausible-looking one — exactly what's described. Encryption is reversible with the right key, producing unreadable ciphertext rather than realistic fictional substitute values. Tokenization replaces data with a non-meaningful token (like a random reference number) rather than a realistic-looking substitute value. Hashing produces a one-way cryptographic digest — a fixed-length string that doesn't resemble a realistic fictional value, and (unlike proper masking) can sometimes be reversed via dictionary attacks against low-entropy inputs.",
   },
   {
     id: "d2_011", domain: 2, difficulty: 3, section: "Media Sanitization (SSD/Flash)",
@@ -1449,14 +1449,14 @@ export const questions = [
       "Degaussing the drive using a high-powered magnetic field",
     ],
     answer: 2,
-    explanation: "Flash/SSD wear leveling can leave data in cells that overwrite tools cannot reach. Cryptographic erasure — storing data only in encrypted form and destroying the key — renders all data unrecoverable regardless of where cells wrote data. Degaussing does not work on solid-state media.",
+    explanation: "Cryptographic erasure — storing data only in encrypted form and destroying the key — works regardless of which physical cells the data actually landed in, making it the right choice when wear leveling makes direct overwriting unreliable. A single-pass overwrite may not reach every cell on an SSD because wear leveling redistributes writes across the drive in ways the overwrite tool can't fully control. A DoD 5220.22-M seven-pass overwrite has the same fundamental problem as a single pass on flash media — more passes don't help if the tool still can't guarantee it reaches every physical cell. Degaussing works by disrupting magnetic fields, but SSDs and flash storage don't store data magnetically, so degaussing has no effect on them at all.",
   },
   {
     id: "d2_012", domain: 2, difficulty: 2, section: "Privacy Principles",
     question: "Which privacy principle limits data collection to only what is necessary for the stated purpose?",
     options: ["Accuracy", "Data minimization", "Openness", "Individual participation"],
     answer: 1,
-    explanation: "Data minimization (GDPR Article 5(1)(c)) requires that personal data be 'adequate, relevant, and limited to what is necessary' for the processing purpose. Collecting more data than needed increases breach impact and regulatory exposure.",
+    explanation: "Data minimization requires collecting only what's necessary for the stated purpose — the less unnecessary data collected, the smaller the impact if a breach occurs. Accuracy is a different privacy principle concerned with whether the data collected is correct and kept up to date, not how much is collected. Openness (or transparency) requires organizations to be clear about their data practices, not limit the actual volume of data gathered. Individual participation gives data subjects rights like access and correction to their own data — a rights-based principle, not a collection-volume limit.",
   },
   {
     id: "d2_013", domain: 2, difficulty: 3, section: "Data Classification Management",
@@ -1468,7 +1468,7 @@ export const questions = [
       "Automatically default all acquired data to the highest classification tier as a precautionary measure regardless of actual sensitivity",
     ],
     answer: 1,
-    explanation: "Mapping the acquired scheme to the acquiring company's standard provides consistency while the review proceeds. Defaulting to the lowest classification exposes sensitive data; defaulting to the highest creates unnecessary operational burden. Permanent parallel schemes create confusion.",
+    explanation: "Mapping the acquired company's four-tier scheme to the acquirer's three-tier standard, then reviewing sensitive assets individually, balances consistency with practicality during integration. Defaulting everything to the lowest tier until reviewed is dangerous — it could expose genuinely sensitive acquired data (like trade secrets or regulated records) under weak protection in the meantime. Running both schemes in parallel indefinitely creates ongoing confusion about which rules apply to which data, and never actually resolves the integration problem. Defaulting everything to the highest tier avoids under-protecting data but creates a large, unnecessary operational burden — locking down low-sensitivity data as if it were critical, for assets that may never actually need that level of control.",
   },
   {
     id: "d2_014", domain: 2, difficulty: 2, section: "Privacy & Re-identification Risk",
@@ -1480,7 +1480,7 @@ export const questions = [
       "Anonymous data",
     ],
     answer: 1,
-    explanation: "Quasi-identifiers (indirect identifiers) are attributes like ZIP code, birth date, and gender that individually seem harmless but can be combined to re-identify individuals. This is the foundation of re-identification attacks against 'anonymized' datasets.",
+    explanation: "A quasi-identifier (indirect identifier) is an attribute — like ZIP code, birth date, or gender — that isn't identifying alone but can re-identify someone when combined with other quasi-identifiers. Sensitive personal information refers to data that's inherently sensitive on its own (like health or financial records), not data that only becomes identifying in combination with other fields. Aggregate data is summarized or grouped data (like totals or averages) meant to obscure individual records, the opposite of data that can re-identify someone. Anonymous data is supposed to have identifying information permanently removed such that re-identification isn't possible — quasi-identifiers are exactly what undermine that assumption in poorly anonymized datasets.",
   },
 
   // ─── DOMAIN 3 – Additional questions ───
@@ -1489,7 +1489,7 @@ export const questions = [
     question: "A network architect requires that a compromise of any single control — a firewall rule, an antivirus signature, or one unpatched vulnerability — should never immediately expose the entire system. Which security design principle does this reflect?",
     options: ["Least privilege", "Defense in depth", "Fail-safe defaults", "Open design"],
     answer: 1,
-    explanation: "Defense in depth (layered security) uses multiple independent controls so an attacker must overcome each layer. If one control fails or is bypassed, others still provide protection. This is also called a 'castle' approach — moat, walls, keep, and guards all independently protect.",
+    explanation: "Defense in depth uses multiple independent layers of controls so that a compromise of any single one — a firewall rule, an AV signature, an unpatched flaw — doesn't immediately expose the whole system, since other layers still stand. Least privilege limits how much access any one subject has, a different principle about minimizing individual permissions rather than layering multiple independent controls. Fail-safe defaults concerns what happens when a system encounters an error (defaulting to denial), not how multiple controls work together to contain a single compromised layer. Open design means security shouldn't rely on secrecy of the design itself, a transparency principle unrelated to layering redundant controls.",
   },
   {
     id: "d3_014", domain: 3, difficulty: 2, section: "Security Models (Biba)",
@@ -1501,7 +1501,7 @@ export const questions = [
       "Subjects can only read data at their own integrity level",
     ],
     answer: 1,
-    explanation: "Biba enforces integrity using 'no write up' (a subject cannot write to a higher integrity object) and 'no read down' (a subject cannot read from a lower integrity object, as contaminated data would corrupt higher integrity). This is the inverse of Bell-LaPadula.",
+    explanation: "Biba enforces integrity with 'no write up' (a subject can't write to a higher-integrity object, which could contaminate trusted data with less-trusted input) and 'no read down' (a subject can't read from a lower-integrity object, since that data might be unreliable). 'No read up, no write down' is actually Bell-LaPadula's confidentiality rule, not Biba's — an easy pair to confuse since they're inverses of each other. 'No read up, no write up' isn't a real rule pairing used by either model — it doesn't reflect Biba's actual integrity logic. Restricting subjects to reading only their own exact integrity level is far more restrictive than Biba actually requires — Biba permits reading at or above one's own integrity level, just not below it.",
   },
   {
     id: "d3_015", domain: 3, difficulty: 2, section: "Side-Channel Attacks",
@@ -1513,7 +1513,7 @@ export const questions = [
       "Dictionary-based password attack",
     ],
     answer: 1,
-    explanation: "Side-channel attacks exploit information leaked by the physical implementation — timing variations, power consumption, electromagnetic emissions, or acoustic signals — rather than mathematical weaknesses in the algorithm. A mathematically perfect algorithm can still be vulnerable to side-channel attacks.",
+    explanation: "A side-channel attack exploits weaknesses in how a cryptographic algorithm is physically implemented — timing, power consumption, electromagnetic emissions — rather than any mathematical flaw in the algorithm itself, meaning even a theoretically sound algorithm can be broken this way. A brute-force attack exploits the limits of key length by trying every possible key, a mathematical/computational attack on the algorithm's keyspace, not an implementation flaw. A birthday paradox collision attack exploits the mathematical probability of hash collisions, a property of the algorithm's output space, not its physical implementation. A dictionary-based password attack tries likely password guesses against a hash or login system — a targeted guessing attack, unrelated to implementation-level information leakage.",
   },
   {
     id: "d3_016", domain: 3, difficulty: 3, section: "Confidential Computing",
@@ -1525,7 +1525,7 @@ export const questions = [
       "Data tokenization performed at the application layer before storage",
     ],
     answer: 1,
-    explanation: "Confidential computing (e.g., Intel SGX, AMD SEV) uses hardware-enforced trusted execution environments where data is encrypted in memory and the cloud provider's administrators, hypervisor, and even the OS cannot access it — even during active processing. This addresses the 'privileged insider' threat at the provider.",
+    explanation: "Confidential computing uses hardware-based trusted execution environments (like Intel SGX or AMD SEV) so that data stays encrypted even while being actively processed in memory — inaccessible to the provider's administrators, hypervisor, or OS, addressing the 'privileged insider' threat directly. Data encrypted at rest with provider-managed keys still leaves the provider capable of decrypting the data, since they hold and can use the keys — the opposite of the stated requirement. VPC network isolation controls who can reach the data over the network, but says nothing about whether the provider's own infrastructure and staff can access it directly. Application-layer tokenization protects specific fields by replacing them with tokens, but it doesn't protect the broader dataset during active processing the way a hardware-enforced TEE does.",
   },
   {
     id: "d3_017", domain: 3, difficulty: 2, section: "Cryptographic Hash Functions",
@@ -1537,7 +1537,7 @@ export const questions = [
       "It must execute significantly faster than standard symmetric block cipher encryption operations in all cases",
     ],
     answer: 2,
-    explanation: "Cryptographic hash functions must be preimage resistant (hard to reverse), second preimage resistant (hard to find another input with the same hash), and collision resistant (hard to find any two inputs that hash to the same value). Collision resistance is especially critical for digital signatures and certificates.",
+    explanation: "A cryptographically secure hash function must be collision resistant — computationally infeasible to find two different inputs that produce the same output — which is critical for trusting digital signatures and certificates. It must NOT be reversible at all, with or without a key — hashing is fundamentally one-way, unlike encryption, which is designed to be reversed with the correct key. Its output length must be fixed regardless of input size, not vary — that fixed-length property is actually one of a hash function's defining characteristics, the opposite of what this option claims. And while hash functions are often fast, there's no requirement that they always outperform symmetric encryption in every case — speed relative to ciphers isn't a defining cryptographic security property.",
   },
   {
     id: "d3_018", domain: 3, difficulty: 1, section: "Physical Security (Mantraps)",
@@ -1549,7 +1549,7 @@ export const questions = [
       "Motion detection sensor",
     ],
     answer: 1,
-    explanation: "A mantrap (airlock, access control vestibule) uses two doors where the second cannot open until the first closes. This prevents tailgating (piggybacking) by physically containing one person at a time for authentication before entering the secure area.",
+    explanation: "A mantrap (airlock or access control vestibule) uses two interlocked doors where the second won't open until the first closes, physically containing one person at a time to prevent tailgating. A turnstile restricts passage to one person per authenticated cycle, but without two interlocked doors — it doesn't provide the same containment against a determined tailgater following closely behind. A biometric fingerprint reader is an authentication method that decides WHO gets through, but on its own doesn't physically prevent a second person from following someone through an open door. A motion detection sensor only detects movement in an area — it doesn't physically prevent or control entry at all, and can't stop tailgating by itself.",
   },
   {
     id: "d3_019", domain: 3, difficulty: 3, section: "Cryptography – IV & CBC Mode",
@@ -1561,7 +1561,7 @@ export const questions = [
       "Non-repudiation — a sender can later deny having transmitted the original messages",
     ],
     answer: 1,
-    explanation: "Reusing an IV with the same key in CBC mode reveals when two plaintexts share common blocks (the ciphertext blocks will be identical). This breaks semantic security (IND-CPA), allowing an attacker to learn information about plaintexts. A fresh random IV must be used for every encryption.",
+    explanation: "Reusing an IV with the same key in CBC mode means identical plaintext blocks produce identical ciphertext blocks, letting an attacker detect when the same or similar plaintext was encrypted more than once — a break in semantic security (IND-CPA), even without ever decrypting the message. This isn't primarily an integrity issue — CBC alone doesn't provide integrity protection either way (that requires a separate MAC), and IV reuse doesn't make undetected tampering any more or less possible than it already was. It doesn't affect availability either — reused IVs don't cause legitimate decryption to fail; the ciphertext still decrypts correctly with the right key. And it has nothing to do with non-repudiation — that concerns proving who sent a message, not whether patterns in ciphertext leak information about the plaintext.",
   },
   {
     id: "d3_020", domain: 3, difficulty: 2, section: "Access Control Models (MAC)",
@@ -1573,7 +1573,7 @@ export const questions = [
       "Attribute-Based Access Control (ABAC)",
     ],
     answer: 2,
-    explanation: "Mandatory Access Control (MAC) assigns sensitivity labels to all subjects and objects. Access is determined by the system based on label comparisons — not by the resource owner. Users cannot grant others access to their files. This model is used in government/military classification systems.",
+    explanation: "Mandatory Access Control (MAC) assigns fixed classification labels to every subject and object, with the system itself enforcing access based on label comparisons — not even the resource owner can override it, which fits a government classification scenario exactly. Role-Based Access Control assigns permissions based on job roles defined by administrators, but typically still allows more flexibility and doesn't rely on the rigid, system-enforced label comparisons MAC uses. Discretionary Access Control puts access decisions in the hands of the resource owner, who CAN grant or change access at their discretion — the direct opposite of the no-override rule described here. Attribute-Based Access Control makes decisions using a broader combination of attributes (user, resource, environment) rather than the fixed clearance-label comparison that defines MAC's classification-driven approach.",
   },
   {
     id: "d3_021", domain: 3, difficulty: 3, section: "Hardware Security Modules (HSM)",
@@ -1585,14 +1585,14 @@ export const questions = [
       "HSMs eliminate the ongoing operational need for periodic key rotation",
     ],
     answer: 1,
-    explanation: "An HSM is a hardened, tamper-resistant device where keys are generated and used internally — they never exist in plaintext outside the HSM boundary. If physically attacked, HSMs are designed to zeroize (destroy) keys. This protects against software vulnerabilities, memory dumps, and insider access to key material.",
+    explanation: "An HSM's primary advantage is that it's tamper-resistant and keys are generated and used entirely within the device — they never exist in plaintext outside its protected boundary, and physical tampering triggers key zeroization. HSMs don't inherently use longer key lengths than software-based storage — key length is a property of the algorithm and configuration, not of where the key is physically stored. HSMs do have finite capacity for concurrent cryptographic operations — they're actually often a performance bottleneck at scale, not a source of unlimited throughput. And HSMs don't eliminate the need for periodic key rotation — rotation remains a security best practice regardless of where keys are stored; an HSM protects the keys, it doesn't remove the operational need to rotate them.",
   },
   {
     id: "d3_022", domain: 3, difficulty: 2, section: "Cloud Deployment Models",
     question: "Which cloud deployment model provides dedicated infrastructure for a single organization, either managed on-premises or by a third party?",
     options: ["Public cloud", "Private cloud", "Community cloud", "Hybrid cloud"],
     answer: 1,
-    explanation: "A private cloud provides cloud computing resources exclusively to one organization — either hosted on-premises or at a third-party facility. This offers greater control and isolation than public cloud but at higher cost. Community cloud is shared by organizations with common interests.",
+    explanation: "A private cloud provides dedicated infrastructure for a single organization — whether hosted on-premises or by a third party — offering more control and isolation than shared models. A public cloud shares infrastructure across many different customers/tenants, the opposite of the dedicated, single-organization model described here. A community cloud is shared among multiple organizations that have common interests or requirements (like several government agencies), not dedicated to just one. A hybrid cloud combines two or more deployment models (like private plus public) working together, rather than describing a single dedicated environment on its own.",
   },
 
   // ─── DOMAIN 4 – Additional questions ───
@@ -1601,14 +1601,14 @@ export const questions = [
     question: "A domain administrator wants to prevent an attacker from forging fake DNS responses that redirect users to a malicious site, by digitally signing every DNS record. Which DNS security extension provides this?",
     options: ["DNSSEC", "DNS over HTTPS (DoH)", "DNS over TLS (DoT)", "Split-horizon DNS"],
     answer: 0,
-    explanation: "DNSSEC (DNS Security Extensions) uses public-key cryptography to sign DNS records, allowing resolvers to verify that responses are authentic and unmodified. DoH and DoT encrypt DNS queries for privacy but do not authenticate DNS records.",
+    explanation: "DNSSEC uses public-key cryptography to digitally sign DNS records, letting resolvers verify that a response is authentic and hasn't been tampered with — directly addressing forged DNS responses. DNS over HTTPS encrypts DNS queries in transit for privacy, preventing eavesdroppers from seeing what's being looked up, but it doesn't verify that the DNS records themselves are authentic. DNS over TLS provides the same privacy-focused encryption-in-transit benefit as DoH, again without adding any cryptographic signing or authentication of the actual DNS record data. Split-horizon DNS serves different answers depending on whether a query comes from inside or outside the network — a network design technique for access control, not a mechanism for authenticating record integrity.",
   },
   {
     id: "d4_013", domain: 4, difficulty: 1, section: "OSI Model & Transport Layer",
     question: "A protocol analyst is identifying which OSI layer handles end-to-end error detection and flow control between hosts, and where TCP and UDP specifically operate. Which layer is this?",
     options: ["Layer 2 — Data Link", "Layer 3 — Network", "Layer 4 — Transport", "Layer 5 — Session"],
     answer: 2,
-    explanation: "Layer 4 (Transport) provides end-to-end communication services including error recovery, flow control, and segmentation. TCP provides reliable, connection-oriented service; UDP provides connectionless, best-effort delivery. Both are Layer 4 protocols.",
+    explanation: "Layer 4 (Transport) provides end-to-end error detection, flow control, and segmentation between hosts — TCP offers reliable, connection-oriented delivery while UDP offers connectionless, best-effort delivery, both operating at this layer. Layer 2 (Data Link) handles local frame delivery and MAC addressing on a single network segment, well below the end-to-end host communication Transport layer protocols provide. Layer 3 (Network) handles logical addressing and routing between networks using IP, a different function than the error recovery and flow control TCP/UDP perform. Layer 5 (Session) is responsible for establishing, managing, and terminating sessions between applications — a layer above Transport, not where TCP and UDP themselves actually operate.",
   },
   {
     id: "d4_014", domain: 4, difficulty: 3, section: "DoS / DDoS Attacks",
@@ -1620,7 +1620,7 @@ export const questions = [
       "Teardrop attack; apply the latest OS security patches",
     ],
     answer: 1,
-    explanation: "A SYN flood is a TCP-layer DoS attack. SYN cookies address it by not allocating server memory for a half-open connection until the three-way handshake completes — eliminating the queue exhaustion vulnerability without blocking legitimate traffic.",
+    explanation: "A flood of SYN packets without completing the handshake is a SYN flood, and SYN cookies mitigate it by not allocating memory for a half-open connection until the handshake actually completes — eliminating the queue exhaustion the attack relies on. ARP poisoning is a completely different Layer 2 attack involving forged address mappings, not a flood of incomplete TCP handshakes, so DAI wouldn't address this scenario. A smurf attack floods a target with spoofed ICMP traffic reflected off a broadcast address — a different protocol and mechanism than exploiting the TCP three-way handshake. A teardrop attack sends malformed, overlapping IP fragments to crash vulnerable systems — again a different attack type than exploiting incomplete TCP connections, so patching alone wouldn't be the specific mitigation for this SYN-based scenario.",
   },
   {
     id: "d4_015", domain: 4, difficulty: 2, section: "Network Architecture (DMZ)",
@@ -1632,7 +1632,7 @@ export const questions = [
       "A network segment reserved exclusively for terminating remote-access VPN client connections",
     ],
     answer: 1,
-    explanation: "A DMZ is a perimeter network segment placed between the external (untrusted) network and the internal (trusted) network. Internet-facing services (web servers, mail gateways) are placed here so that if compromised, attackers do not have direct access to internal systems.",
+    explanation: "A DMZ is a buffer network segment positioned between the untrusted internet and the trusted internal network, hosting externally accessible services (web servers, mail gateways) so a compromise there doesn't directly expose internal systems. It isn't meant to isolate the organization's most sensitive internal databases — those should generally live deeper inside the trusted network, not in a zone designed to be internet-facing. A DMZ isn't configured with a blanket deny-all rule for every packet either — by definition it permits specific inbound traffic to the externally accessible services it hosts. And while VPN termination can sometimes occur near a DMZ, the DMZ's purpose isn't reserved exclusively for VPN connections — its core function is hosting public-facing services safely.",
   },
   {
     id: "d4_016", domain: 4, difficulty: 2, section: "Wireless Attacks",
@@ -1644,7 +1644,7 @@ export const questions = [
       "WPS PIN brute force against the registrar",
     ],
     answer: 1,
-    explanation: "WPA2-Personal (PSK) authentication uses a four-way handshake to derive session keys from the passphrase. Capturing this handshake (by being present or forcing reauthentication with deauth frames) allows offline dictionary attacks against the PSK. WPA3's SAE (Simultaneous Authentication of Equals) eliminates this offline attack.",
+    explanation: "Capturing the four-way handshake — which WPA2-Personal uses to derive session keys from the passphrase — gives an attacker the data needed to attempt offline dictionary or brute-force attacks against the PSK without needing to stay connected to the network. An evil twin attack sets up a fake access point to trick users into connecting, a social-engineering-style attack rather than a method for capturing handshake data for offline cracking. A deauthentication flood forces clients to reassociate, which is often used as a technique TO trigger a fresh handshake capture — but the flood itself isn't what enables offline cracking, capturing the resulting handshake is. WPS PIN brute forcing targets a completely separate, often-vulnerable PIN-based setup mechanism, not the WPA2-Personal passphrase itself via handshake capture.",
   },
   {
     id: "d4_017", domain: 4, difficulty: 3, section: "Firewall Security Principles",
@@ -1656,7 +1656,7 @@ export const questions = [
       "Complete mediation",
     ],
     answer: 1,
-    explanation: "'Deny all, permit by exception' is fail-safe defaults applied to network access control — the system's default state is secure (deny), and only explicitly authorized traffic is permitted. This prevents accidental exposure from rules that weren't written, unlike 'permit all, deny by exception' which allows anything not explicitly blocked.",
+    explanation: "'Deny all, permit by exception' is fail-safe defaults applied to firewall policy — the default state is secure (deny), and only explicitly authorized traffic gets through, preventing accidental exposure from rules nobody thought to write. Defense in depth is about layering multiple independent controls, not about what a single control's default behavior should be when nothing else applies. Least privilege is about giving a subject only the minimum access needed for their role, a related but distinct concept from a firewall's overall default posture toward unclassified traffic. Complete mediation requires checking every single access request against the control, which a deny-by-default firewall policy may support, but that's a different principle from what the default state itself should be.",
   },
   {
     id: "d4_018", domain: 4, difficulty: 2, section: "Network Access Control (802.1X)",
@@ -1668,7 +1668,7 @@ export const questions = [
       "LACP (Link Aggregation Control Protocol)",
     ],
     answer: 1,
-    explanation: "802.1X is a port-based Network Access Control (NAC) standard. A supplicant (device) must authenticate to an authenticator (switch port) via an authentication server (RADIUS) before network access is granted. This prevents unauthorized devices from connecting by simply plugging in.",
+    explanation: "802.1X is a port-based Network Access Control standard requiring a device to authenticate (often via RADIUS) before being granted access to the network through a switch port — exactly the control described. SNMP is a protocol for monitoring and managing network devices, unrelated to authenticating devices before granting them network access. STP (Spanning Tree Protocol) prevents Layer 2 loops in a switched network — a network stability function, not an access control mechanism. LACP bundles multiple physical links into a single logical link for redundancy and throughput, also unrelated to authenticating devices before they're allowed onto the network.",
   },
   {
     id: "d4_019", domain: 4, difficulty: 3, section: "BGP & Routing Attacks",
@@ -1680,7 +1680,7 @@ export const questions = [
       "IP spoofing to forge the packet source address",
     ],
     answer: 1,
-    explanation: "BGP route hijacking (prefix hijacking) occurs when a malicious or misconfigured Autonomous System advertises ownership of IP prefixes it doesn't control, redirecting traffic. RPKI (Resource Public Key Infrastructure) is the primary defense, cryptographically binding IP prefixes to authorized ASes.",
+    explanation: "An unknown AS advertising routes to IP space it doesn't control is BGP route hijacking (prefix hijacking) — RPKI is the primary defense, cryptographically binding IP prefixes to their legitimate authorized ASes. DNS hijacking involves compromising DNS records or a registrar to redirect domain resolution, a completely different layer and mechanism than an AS advertising bogus BGP routes. ARP spoofing operates on a local Layer 2 segment, forging address mappings between hosts on the same subnet — unrelated to global inter-AS routing announcements. IP spoofing forges the source address in individual packets, a technique used in various attacks, but it doesn't describe an AS falsely announcing ownership of IP prefixes at the routing protocol level.",
   },
   {
     id: "d4_020", domain: 4, difficulty: 1, section: "Firewall Types",
@@ -1692,14 +1692,14 @@ export const questions = [
       "Stateful firewalls must be implemented as dedicated hardware appliances while stateless firewalls run only as software agents",
     ],
     answer: 1,
-    explanation: "A stateful firewall maintains a connection state table and automatically permits return traffic for established connections, reducing rule complexity. A stateless (packet-filtering) firewall evaluates every packet independently against rules, requiring explicit rules for both directions of communication.",
+    explanation: "A stateful firewall tracks the state of active connections and automatically permits their return traffic, reducing the number of explicit rules needed; a stateless firewall evaluates every packet independently, with no memory of prior packets, requiring explicit rules for both directions. Stateful firewalls aren't faster because they skip deep packet inspection — connection tracking is actually additional overhead compared to simple stateless packet filtering, not less work. It's stateful (not stateless) firewalls, particularly next-generation ones, that are more commonly associated with deep application-layer content inspection — stateless firewalls typically only examine basic header fields like ports and protocols. And neither firewall type is restricted to a specific hardware-versus-software implementation — both stateful and stateless filtering can be implemented as dedicated appliances or as software, so that's not a defining distinction between them.",
   },
   {
     id: "d4_021", domain: 4, difficulty: 2, section: "Secure Network Management",
     question: "Which protocol is used to securely manage network devices and is a replacement for Telnet?",
     options: ["SNMP v3", "SSH", "HTTPS", "SFTP"],
     answer: 1,
-    explanation: "SSH (Secure Shell) provides encrypted, authenticated remote management sessions and is the standard replacement for unencrypted Telnet. SSH encrypts all traffic including credentials, while Telnet transmits everything in plaintext. SSHv2 is the current secure version.",
+    explanation: "SSH provides encrypted, authenticated remote management sessions and is the standard secure replacement for Telnet, which transmits everything — including credentials — in plaintext. SNMPv3 adds authentication and encryption to network device monitoring and configuration data, but it's a management/monitoring protocol, not an interactive remote shell replacement for Telnet. HTTPS secures web traffic to browsers and web-based management interfaces, a different use case than an interactive command-line remote session. SFTP secures file transfer specifically, layered over SSH, but it's a file-transfer protocol, not the general-purpose interactive remote management replacement for Telnet that SSH itself provides.",
   },
 
   // ─── DOMAIN 5 – Additional questions ───
@@ -1708,7 +1708,7 @@ export const questions = [
     question: "A network engineer auditing an old remote-access setup discovers a protocol that sends usernames and passwords across the wire completely unencrypted. Which authentication protocol transmits credentials in cleartext and should never be used over untrusted networks?",
     options: ["RADIUS", "PAP", "CHAP", "EAP-TLS"],
     answer: 1,
-    explanation: "PAP (Password Authentication Protocol) transmits username and password in plaintext. CHAP uses a challenge-response mechanism; RADIUS encrypts the password field; EAP-TLS uses mutual certificate authentication. PAP should only be used, if at all, over encrypted tunnels.",
+    explanation: "PAP (Password Authentication Protocol) transmits the username and password in plaintext with no protection at all, making it unsafe over any untrusted network. RADIUS encrypts the password field specifically (though not the entire packet) as part of its protocol design, unlike PAP's fully unencrypted approach. CHAP uses a challenge-response mechanism that avoids ever sending the password itself across the wire, a fundamentally different and safer design than PAP. EAP-TLS uses mutual certificate-based authentication, avoiding password transmission entirely — the strongest option among these, not the cleartext one being described.",
   },
   {
     id: "d5_011", domain: 5, difficulty: 1, section: "Identification vs Authentication",
@@ -1720,7 +1720,7 @@ export const questions = [
       "Authentication happens before identification in the access control process",
     ],
     answer: 1,
-    explanation: "Identification is claiming an identity (e.g., entering a username). Authentication is proving that claim (e.g., entering a password or presenting biometrics). The process order is: Identify → Authenticate → Authorize → Audit.",
+    explanation: "Identification is the act of claiming an identity — typing in a username — while authentication is proving that claim is actually true, typically with a password or biometric. The first option reverses the actual definitions: identification is the claim, not the verification, and authentication is the proof, not the claim itself. The two terms are not interchangeable — they're distinct, sequential steps in the access control process, each with a specific meaning. And authentication doesn't happen before identification — you have to claim an identity first (enter a username) before that claim can be verified (enter a password); the order is identify, then authenticate.",
   },
   {
     id: "d5_012", domain: 5, difficulty: 3, section: "Phishing & Credential Attacks",
@@ -1732,14 +1732,14 @@ export const questions = [
       "Golden ticket forged from krbtgt hash",
     ],
     answer: 1,
-    explanation: "Typosquatting registers domains similar to legitimate ones (substituting '0' for 'o'). Combined with a cloned login page, it's a credential phishing attack. Defenses include user awareness training, FIDO2/WebAuthn (phishing-resistant MFA), and browser-based phishing detection.",
+    explanation: "Registering a lookalike domain (substituting '0' for 'o') and hosting a cloned login page to capture credentials is typosquatting combined with credential phishing — tricking users into typing real credentials into a fake site. Pass-the-hash uses an already-captured NTLM hash to authenticate directly without ever needing the plaintext password — a completely different technique that doesn't involve tricking a user into entering credentials on a fake site. Kerberoasting extracts and cracks a service account's Kerberos ticket offline, a Windows-domain-specific attack unrelated to a lookalike phishing domain. A golden ticket attack forges Kerberos tickets using a compromised krbtgt account hash, again a domain-specific technique with no relationship to typosquatting or fake login pages.",
   },
   {
     id: "d5_013", domain: 5, difficulty: 2, section: "Directory Services (LDAP/AD)",
     question: "Which LDAP attribute is the standard unique identifier for a user object in a directory service?",
     options: ["cn (Common Name)", "sAMAccountName", "objectGUID", "userPrincipalName"],
     answer: 2,
-    explanation: "The objectGUID is a globally unique, immutable identifier assigned at object creation in the directory service. sAMAccountName and userPrincipalName can be changed; objectGUID cannot. For stable identity references across renames or moves, objectGUID is the authoritative identifier.",
+    explanation: "The objectGUID is a globally unique, immutable identifier assigned when an object is created in the directory — it never changes even if the user is renamed or moved, making it the authoritative reference for identity. The Common Name (cn) is a display attribute that's often just the user's name — it can change and isn't guaranteed to be unique across the directory. sAMAccountName is the legacy logon name, which administrators CAN change (e.g., during a rename), so it isn't a stable long-term identifier. userPrincipalName is a more modern, email-style logon identifier, but like sAMAccountName, it can also be changed — only objectGUID is immutable by design.",
   },
   {
     id: "d5_014", domain: 5, difficulty: 3, section: "Pass-the-Hash Attack",
@@ -1751,7 +1751,7 @@ export const questions = [
       "AS-REP roasting",
     ],
     answer: 1,
-    explanation: "Pass-the-hash (PtH) exploits the fact that Windows NTLM authentication accepts the hash itself as proof of identity — the plaintext password is never needed. Mitigations include Credential Guard, disabling NTLM where possible, and enforcing Protected Users group membership.",
+    explanation: "Authenticating directly with a captured NTLM hash, without ever cracking it to obtain the plaintext password, is pass-the-hash — exploiting the fact that NTLM accepts the hash itself as sufficient proof of identity. Pass-the-ticket is a related but distinct technique that reuses a captured Kerberos ticket rather than an NTLM hash to authenticate. Kerberoasting extracts a service account's Kerberos ticket and attempts to crack it offline to recover the plaintext password — the opposite approach of using the hash directly without cracking it. AS-REP roasting targets accounts that don't require Kerberos pre-authentication, capturing and cracking their response offline — again a different mechanism than directly reusing an NTLM hash.",
   },
   {
     id: "d5_015", domain: 5, difficulty: 2, section: "Identity Federation",
@@ -1763,7 +1763,7 @@ export const questions = [
       "It synchronizes user account attributes across multiple directory service forests",
     ],
     answer: 1,
-    explanation: "An Identity Provider (IdP) performs authentication and issues security assertions (SAML assertions, JWT tokens, OIDC ID tokens) that service providers trust. The service provider delegates authentication to the IdP; the IdP vouches for the user's identity without the SP needing to handle credentials.",
+    explanation: "An Identity Provider authenticates users and issues assertions or tokens (SAML assertions, JWT, OIDC ID tokens) that service providers trust — the SP delegates the authentication step to the IdP rather than handling credentials itself. Storing and managing resources like files or shared drives is the job of the service provider or resource server, not the IdP, which deals specifically with identity and authentication. Enforcing authorization decisions on behalf of service providers typically remains the SP's own responsibility — the IdP vouches for WHO someone is, but the SP usually still decides WHAT that person can do. Synchronizing account attributes across directory forests is a separate identity synchronization function (like AD sync tools), not the core authenticate-and-assert role of an IdP in a federation flow.",
   },
   {
     id: "d5_016", domain: 5, difficulty: 2, section: "Biometric Authentication",
@@ -1775,7 +1775,7 @@ export const questions = [
       "Voice recognition",
     ],
     answer: 2,
-    explanation: "Iris recognition has among the lowest EER of common biometrics due to the high uniqueness and stability of iris patterns. Fingerprint is widely deployed with good accuracy; voice recognition has the highest EER (most errors) due to variability from illness, environment, and aging.",
+    explanation: "Iris recognition has among the lowest equal error rate of common biometric modalities, thanks to the high uniqueness and stability of iris patterns over a person's lifetime. Signature dynamics (how someone signs, not just what the signature looks like) tends to have higher variability and a higher error rate than iris scanning, since handwriting can change with mood, injury, or surface. Fingerprint recognition is widely deployed and generally accurate, but it doesn't match iris scanning's very low EER, and fingerprints can also be degraded by cuts, dirt, or wear. Voice recognition typically has the highest EER among common modalities, since it's affected by illness, background noise, and changes in the voice over time.",
   },
   {
     id: "d5_017", domain: 5, difficulty: 3, section: "Privileged Access Management",
@@ -1787,7 +1787,7 @@ export const questions = [
       "To log all administrator activity separately within a dedicated, isolated SIEM platform",
     ],
     answer: 1,
-    explanation: "PAWs prevent credential theft by ensuring privileged credentials are only used from a dedicated, locked-down workstation with no internet browsing, email, or general-purpose use. If the admin's regular workstation is compromised, attackers cannot pivot to steal admin credentials because they were never used on that machine.",
+    explanation: "A Privileged Access Workstation isolates administrative tasks on a dedicated, hardened system that's never used for browsing or email — so if an administrator's everyday device is compromised, the attacker never had a path to steal credentials that were only ever used on the separate PAW. Providing faster hardware is a nice side benefit at best, but performance isn't the security objective driving PAW adoption. Enforcing MFA is a valuable complementary control, but it's a separate measure from the PAW's specific purpose — isolating where privileged credentials are ever used, not how many factors are checked at login. Logging administrator activity in a dedicated SIEM is also a valuable practice, but it addresses detection and monitoring after the fact, not the PAW's core objective of preventing credential theft in the first place.",
   },
 
   // ─── DOMAIN 6 – Additional questions ───
@@ -1796,7 +1796,7 @@ export const questions = [
     question: "A QA team is given only the application's URL and login page, with no access to source code or internal documentation, and is asked to test it exactly as a real end user would. Which type of software testing does this describe?",
     options: ["White-box testing", "Gray-box testing", "Black-box testing", "Regression testing"],
     answer: 2,
-    explanation: "Black-box testing treats the application as an opaque system — the tester has no access to source code, design documents, or architecture. It simulates an external attacker's perspective. White-box provides full code access; gray-box provides partial information.",
+    explanation: "Given only the application's URL and login page, with no source code or internal documentation, is a classic black-box scenario — testing exactly as an external end user or attacker would experience the application. White-box testing provides the tester full access to source code and internal design, the opposite of the minimal information given here. Gray-box testing provides some partial internal knowledge (like limited documentation or credentials), more than the bare URL-and-login-page access described in this scenario. Regression testing verifies that new changes haven't broken existing functionality — a different testing goal entirely from evaluating an application with no prior knowledge, whether for security or general QA purposes.",
   },
   {
     id: "d6_010", domain: 6, difficulty: 2, section: "Red Team Operations",
@@ -1808,7 +1808,7 @@ export const questions = [
       "Baseline configuration review against internal hardening standards and benchmarks",
     ],
     answer: 1,
-    explanation: "Red team exercises go beyond standard penetration testing by simulating specific threat actors using their known tactics, techniques, and procedures (TTPs from MITRE ATT&CK). The goal is to test detection and response capabilities, not just identify vulnerabilities.",
+    explanation: "Red team exercises use threat intelligence about specific real-world adversaries and their known tactics, techniques, and procedures (TTPs, often mapped to MITRE ATT&CK) to realistically simulate how a specific attacker would operate against the organization's actual defenses. Automated vulnerability scanning identifies known technical weaknesses using signature or version matching, without simulating a specific adversary's behavior or testing detection/response capabilities. A formal compliance audit checks adherence to regulations or standards through documentation and control review, not simulated attack behavior. A baseline configuration review compares current system settings against an internal hardening standard, a static comparison rather than an active adversarial simulation.",
   },
   {
     id: "d6_011", domain: 6, difficulty: 2, section: "Web Application Vulnerabilities",
@@ -1820,14 +1820,14 @@ export const questions = [
       "XML external entity (XXE) injection flaw",
     ],
     answer: 1,
-    explanation: "HTTP response splitting (header injection) occurs when unvalidated user input is reflected into response headers. An attacker can inject newline characters (\\r\\n) to split the response and inject arbitrary headers or a full second response, enabling cache poisoning and XSS.",
+    explanation: "Reflecting unvalidated user input into HTTP response headers without encoding allows an attacker to inject newline characters and split the response, enabling header injection (HTTP response splitting) — which can lead to cache poisoning or XSS. SQL injection involves unsanitized input reaching a database query, a completely different vulnerability class from manipulating HTTP response headers. SSRF tricks a server into making unintended requests to internal or external resources on the attacker's behalf — unrelated to reflecting input into response headers. XXE exploits XML parsers that process external entity references, a different vulnerability class involving XML processing rather than raw HTTP header manipulation.",
   },
   {
     id: "d6_012", domain: 6, difficulty: 3, section: "Audit Sampling Techniques",
     question: "An audit team samples 30 access control changes from the past quarter and finds 4 that lacked proper change approval. What type of audit technique is this?",
     options: ["Substantive testing", "Compliance testing", "Sampling", "Interview"],
     answer: 2,
-    explanation: "Audit sampling tests a representative subset of a population to draw conclusions about the whole. Finding 4 exceptions in 30 samples suggests approximately 13% non-compliance, which the auditor projects to the full population. This is more efficient than reviewing every change record.",
+    explanation: "Testing a representative subset (30 out of the full population) and projecting the findings to draw conclusions about the whole population is audit sampling — a standard, efficient technique when reviewing every single record isn't practical. Substantive testing verifies the accuracy and completeness of specific data or transactions directly, a broader testing category that sampling can be used within, but 'substantive testing' isn't the specific technique name for this scenario. Compliance testing checks whether controls are being followed as designed — which is what this sample is actually assessing — but the METHOD used to select and evaluate the 30 records is sampling; the question asks specifically about that technique. An interview involves questioning personnel directly, not examining a subset of actual change records, which is what happened here.",
   },
   {
     id: "d6_013", domain: 6, difficulty: 2, section: "Log Analysis & Forensics",
@@ -1839,7 +1839,7 @@ export const questions = [
       "Endpoint antivirus signature scan logs",
     ],
     answer: 1,
-    explanation: "Windows Security Event Log records authentication events: Event ID 4624 (successful logon) with Logon Type 3 (network) or 10 (remote interactive) and Event ID 4648 (logon using explicit credentials) are key indicators of lateral movement using stolen credentials.",
+    explanation: "Windows Security Event Log entries — especially Event ID 4624 (successful logon, particularly Logon Type 3 or 10) and 4648 (logon using explicit credentials) — directly record the authentication events that reveal credential-based lateral movement between hosts. WAF logs record web application traffic and rule triggers, useful for web-layer attacks but not for Windows host-to-host authentication events. NetFlow/IPFIX shows that network connections occurred and basic metadata about them, but it doesn't show WHO authenticated or with WHAT credentials — the specific evidence needed here. Antivirus scan logs show malware detection results, not authentication activity, and stolen-credential lateral movement often doesn't involve any malware for AV to flag at all.",
   },
   {
     id: "d6_014", domain: 6, difficulty: 3, section: "Honeypots & Deception Technology",
@@ -1851,7 +1851,7 @@ export const questions = [
       "The accidental connection will trigger a false-positive incident response investigation",
     ],
     answer: 1,
-    explanation: "If legitimate users accidentally interact with the honeypot, their credentials, session data, or sensitive information may be captured in the honeypot's logs — creating a privacy/security risk. Honeypots should be isolated from legitimate user traffic paths and clearly excluded from developer and user access.",
+    explanation: "If a legitimate developer accidentally connects to a honeypot, their real credentials or session data could be captured and retained in the honeypot's logs — creating an unintended privacy and security exposure for that legitimate user. The honeypot itself isn't typically designed to infect connecting devices with malware — its purpose is deception and observation of attacker behavior, not delivering payloads to whoever connects. A developer accidentally discovering the honeypot's location is a minor operational inconvenience, far less serious than that developer's actual credentials being logged and retained. Triggering a false-positive investigation wastes some analyst time, but it's a much smaller concern than a legitimate user's sensitive data being captured and stored by a system that was never meant to interact with real users.",
   },
   {
     id: "d6_015", domain: 6, difficulty: 2, section: "IDS/IPS Alert Types",
@@ -1863,7 +1863,7 @@ export const questions = [
       "A poorly tuned IDS signature that has never triggered an alert",
     ],
     answer: 1,
-    explanation: "A false positive is a legitimate, benign event that an IDS incorrectly flags as malicious. High false positive rates cause alert fatigue, where analysts start ignoring alerts — increasing the risk that real attacks are missed. Tuning signatures and baselines reduces false positives.",
+    explanation: "A false positive is legitimate, benign activity that the IDS incorrectly classifies as an attack — a false alarm that, at scale, can cause analysts to tune out real alerts. An actual attack that the IDS fails to detect describes a false negative — the opposite error, where something malicious slips through undetected rather than something benign getting flagged. A genuine attack that the IDS correctly detects and blocks is a true positive — the system working exactly as intended, not an error at all. A signature that has simply never triggered an alert isn't a false positive either — that's just an untested or unused rule, not an instance of incorrectly flagging benign activity.",
   },
 
   // ─── DOMAIN 7 – Additional questions ───
@@ -1877,7 +1877,7 @@ export const questions = [
       "Restoring affected systems to normal business operation using verified clean backups",
     ],
     answer: 2,
-    explanation: "Eradication involves removing the cause of the incident — deleting malware, patching the exploited vulnerability, removing unauthorized accounts, and ensuring the threat is fully eliminated before recovery begins. Jumping to recovery before eradication risks re-infection.",
+    explanation: "Eradication is removing the cause of the incident entirely — deleting malware, patching the exploited vulnerability, removing any unauthorized accounts — making sure the threat is fully gone before moving on to recovery. Confirming that an incident occurred describes the earlier Identification phase, which happens before containment or eradication, not this later cleanup step. Isolating affected systems to stop the spread describes Containment, the phase that comes before eradication, not the removal of the threat itself. Restoring systems to normal operation using clean backups describes Recovery, which comes AFTER eradication — restoring too early, before the threat is actually eliminated, risks reinfecting a freshly restored system.",
   },
   {
     id: "d7_012", domain: 7, difficulty: 2, section: "Log Retention & Forensics",
@@ -1889,14 +1889,14 @@ export const questions = [
       "The ability to detect the same attacker if they attempt to return in the future",
     ],
     answer: 1,
-    explanation: "Insufficient log retention destroys forensic visibility. Security frameworks like NIST and regulations like PCI DSS require at minimum 1 year log retention (3 months immediately available) to enable complete incident investigation. 60-day retention erased the first 30 days of the attacker's access.",
+    explanation: "With only 60 days of retained logs covering a 90-day intrusion, the organization lost the ability to reconstruct the full attack timeline — the first 30 days of the attacker's activity are simply gone, with no record of how the intrusion began or what happened early on. Real-time alerting capability isn't affected by retention length at all — that's about detecting events as they happen, a separate function from how long historical logs are kept afterward. Full regulatory compliance is a real risk of short retention (many frameworks mandate specific minimum periods), but it's a secondary consequence here, not the 'critical capability' directly described by losing the ability to investigate what already happened. The ability to detect the SAME attacker returning in the future depends on current and future monitoring and threat intelligence, not on how much historical log data was retained about this particular past intrusion.",
   },
   {
     id: "d7_013", domain: 7, difficulty: 2, section: "Disaster Recovery Sites",
     question: "Which disaster recovery site type is maintained in a near-ready state with hardware already installed but not fully current with data, requiring some time to bring online?",
     options: ["Cold site", "Warm site", "Hot site", "Mobile site"],
     answer: 1,
-    explanation: "A warm site has hardware and connectivity pre-installed but data and systems are not fully current. It requires hours to a few days to restore operations from backups. A hot site is nearly identical to production with real-time replication; a cold site has only space and power with no equipment.",
+    explanation: "A warm site has hardware and connectivity already installed, but data isn't fully current, requiring some time (hours to days) to bring fully online from backups — the near-ready-but-not-current state described. A hot site is nearly identical to production with real-time or near-real-time data replication, allowing much faster failover than the warm site described here. A cold site provides only space and power with no pre-installed equipment at all, requiring far more time and effort to become operational than a warm site. A mobile site is a transportable, self-contained recovery unit (like a trailer with equipment) rather than a fixed facility categorized by readiness level the way cold/warm/hot sites are.",
   },
   {
     id: "d7_014", domain: 7, difficulty: 3, section: "Malware & DNS Attacks",
@@ -1908,7 +1908,7 @@ export const questions = [
       "Domain generation algorithm (DGA) malware C2",
     ],
     answer: 3,
-    explanation: "Domain Generation Algorithms (DGAs) are used by malware to generate large numbers of pseudo-random domain names for C2 communication, making blocking difficult. High-frequency DNS queries for randomized subdomains are a textbook DGA signature. DNS tunneling would show longer subdomains with encoded data.",
+    explanation: "Randomly-generated, high-frequency subdomain queries are the textbook signature of a Domain Generation Algorithm — malware that generates large numbers of pseudo-random domain names to reach its command-and-control server, making blocking by static domain lists difficult. A DNS amplification DDoS attack uses spoofed source addresses to reflect and amplify traffic toward a victim — a volumetric attack technique, not a pattern of outbound queries from an infected host. DNS tunneling does use unusual subdomains too, but it typically involves longer, structured queries encoding actual data for exfiltration, and generates a different traffic pattern than the short random C2 lookups described. DNS cache poisoning targets a resolver to redirect it toward malicious IPs for legitimate-looking domains — a different attack aimed at corrupting DNS resolution itself, not a pattern of outbound randomized-subdomain queries from an infected endpoint.",
   },
   {
     id: "d7_015", domain: 7, difficulty: 2, section: "Patch Management",
@@ -1920,7 +1920,7 @@ export const questions = [
       "To document software license compliance for audit and procurement purposes",
     ],
     answer: 1,
-    explanation: "Patch management reduces the exploitation window — the period between when a vulnerability is disclosed (and potentially exploited) and when it is patched. The longer a system remains unpatched, the greater the risk of exploitation, especially for critical vulnerabilities that attract rapid weaponization.",
+    explanation: "The primary purpose of patch management is reducing the window of exposure between when a vulnerability is disclosed (and potentially weaponized) and when it's actually remediated — the longer that window stays open, the greater the risk. Keeping software versions standardized across the organization can be a helpful side effect of consistent patching, but it's not the security-driven purpose behind the program. Avoiding reboots during business hours is an operational scheduling consideration for HOW patches get deployed, not the underlying reason the program exists. Documenting license compliance is a procurement and audit concern entirely separate from the security goal of closing known vulnerabilities quickly.",
   },
   {
     id: "d7_016", domain: 7, difficulty: 3, section: "MITRE ATT&CK Framework",
@@ -1932,7 +1932,7 @@ export const questions = [
       "Exfiltration",
     ],
     answer: 1,
-    explanation: "MITRE ATT&CK Tactic TA0003 (Persistence) covers techniques attackers use to maintain access across reboots and credential changes. Scheduled tasks (T1053.005) are a common persistence mechanism. The external download is an execution technique — but the scheduled task itself establishes persistence.",
+    explanation: "A scheduled task that maintains the attacker's foothold across reboots and credential changes is a Persistence technique (T1053.005) — the tactic covering how attackers keep their access alive over time. Initial Access covers how the attacker first got into the environment, a separate, earlier tactic from establishing an ongoing foothold once already inside. Lateral Movement covers moving between systems within the compromised environment, a different goal than maintaining access on a single already-compromised host. Exfiltration covers getting stolen data OUT of the environment, unrelated to a mechanism for maintaining persistent access on a system.",
   },
   {
     id: "d7_017", domain: 7, difficulty: 1, section: "Physical Security Controls",
@@ -1944,7 +1944,7 @@ export const questions = [
       "Compensating controls used when primary controls are infeasible",
     ],
     answer: 2,
-    explanation: "Physical and environmental controls include fences, walls, lighting, locks, cameras, and natural barriers like rivers or hills that define and protect security perimeters. They are distinct from technical (logical) controls and administrative (policy) controls.",
+    explanation: "Fences, lighting, and terrain that guide visitors toward monitored entry points are physical and environmental controls — tangible barriers and design elements that protect a security perimeter. Technical controls are implemented through system configuration — firewalls, access control lists, encryption — not physical barriers like fences and terrain. Administrative controls are defined through organizational policy — like background check requirements or acceptable use policies — not the physical layout of a campus. Compensating controls are alternative measures used specifically when a primary control can't be implemented, not a general category describing physical security design.",
   },
   {
     id: "d7_018", domain: 7, difficulty: 2, section: "Forensic Imaging",
@@ -1956,7 +1956,7 @@ export const questions = [
       "Take a virtual machine snapshot of the running system's current state",
     ],
     answer: 1,
-    explanation: "A bit-for-bit (sector-level) image captures everything including deleted files, unallocated space, and file slack. A hardware write blocker prevents any writes to the evidence drive. Hashing the original and image (MD5, SHA-256) proves the image is identical to the original — establishing forensic integrity.",
+    explanation: "Creating a bit-for-bit image using a write blocker, then verifying with a cryptographic hash, captures everything — including deleted files, unallocated space, and file slack — while the write blocker guarantees the original evidence drive is never modified during acquisition, and the hash proves the image matches the original exactly. Copying individual files through Windows Explorer only captures active, visible files — it misses deleted data and unallocated space entirely, and the act of copying can itself alter metadata like access timestamps. Compressing files into a zip archive similarly only captures selected active files, losing forensically significant data like deleted files and slack space, and doesn't preserve the same level of integrity verification. A VM snapshot captures the state of a virtual machine at a point in time, but it isn't the standard bit-for-bit forensic disk-imaging process for a physical (or even most virtual) evidence acquisitions, and doesn't inherently include the write-blocking and hash-verification rigor forensic soundness requires.",
   },
   {
     id: "d7_019", domain: 7, difficulty: 3, section: "BCP/DR Testing",
@@ -1968,7 +1968,7 @@ export const questions = [
       "Full interruption test",
     ],
     answer: 3,
-    explanation: "A full interruption test shuts down the primary site and operates exclusively from the recovery site — the most realistic but also most disruptive test type. A parallel test runs both sites simultaneously; a tabletop is a discussion exercise; a walkthrough reviews the plan step by step without activation.",
+    explanation: "A full interruption test actually shuts down the primary site and runs operations exclusively from the recovery site — the most realistic test type, but also the most disruptive, exactly matching a real 24-hour cutover. A tabletop exercise is a discussion-based walkthrough where participants talk through the plan without actually activating anything — far less disruptive but also far less realistic than a full interruption. A structured walkthrough reviews the plan step by step, similarly without actually activating the recovery site or shifting real operations. A parallel test runs the recovery site alongside the still-active primary site simultaneously, rather than actually cutting over and relying on the recovery site alone the way this scenario describes.",
   },
 
   // ─── DOMAIN 8 – Additional questions ───
@@ -1982,7 +1982,7 @@ export const questions = [
       "Blind (out-of-band) XSS",
     ],
     answer: 1,
-    explanation: "Stored (persistent) XSS saves the malicious script server-side (e.g., in a comment or profile field) so it executes every time any user loads the page — affecting multiple victims from a single injection. Reflected XSS requires tricking a user into clicking a crafted link each time.",
+    explanation: "Saving the malicious script server-side (in a comment or database field) so it runs automatically for every future visitor who views that content is stored (persistent) XSS — a single injection affecting many victims over time. Reflected XSS requires tricking each individual victim into clicking a specially crafted link every time — the malicious script isn't saved anywhere, it's just reflected back in that one request's response. DOM-based XSS occurs entirely client-side, where a vulnerable JavaScript function processes untrusted data without ever involving the server storing anything — a different mechanism than the server-side database storage described here. Blind XSS is a variant of stored XSS where the payload executes somewhere the attacker can't directly observe (like an admin panel) — a specific subcategory, but the general mechanism described in this scenario (saved to the database, runs for all viewers) is simply stored XSS.",
   },
   {
     id: "d8_011", domain: 8, difficulty: 1, section: "Input Validation",
@@ -1994,7 +1994,7 @@ export const questions = [
       "To authenticate users prior to accepting any form submission data",
     ],
     answer: 1,
-    explanation: "Input validation ensures that all data entering the application conforms to expected format, type, length, and range before it is processed. It is the first line of defense against injection attacks (SQLi, XSS, command injection) and unexpected application behavior.",
+    explanation: "Checking that a submitted value matches the expected type, format, and range before processing — like confirming an age field contains only reasonable numeric values — is input validation, the first line of defense against injection attacks and unexpected application behavior. While rejecting invalid input early can incidentally reduce unnecessary processing, that's not the actual purpose of validation — the goal is correctness and security, not primarily a performance optimization. Validating input format has nothing to do with encrypting the data afterward — those are two entirely separate concerns. Input validation also isn't a form of user authentication — it checks whether submitted DATA is well-formed, not whether the person submitting it is who they claim to be.",
   },
   {
     id: "d8_012", domain: 8, difficulty: 3, section: "Path Traversal Attack",
@@ -2006,7 +2006,7 @@ export const questions = [
       "Insecure direct object reference (IDOR)",
     ],
     answer: 1,
-    explanation: "Path traversal uses '../' sequences to escape the intended directory and access arbitrary files on the server. The input '../../etc/passwd' navigates up two directories from '/data/' to reach the filesystem root and read the password file. Prevention: canonicalize the path and verify it remains within the allowed base directory.",
+    explanation: "Passing user input directly into a file path and receiving '../../etc/passwd' is path traversal — using '../' sequences to escape the intended directory and reach arbitrary files elsewhere on the filesystem. SQL injection involves manipulating a database query's logic through unsanitized input, an entirely different vulnerability class than manipulating a file system path. Remote file inclusion involves tricking an application into loading and executing a file from a remote, attacker-controlled location — a related but distinct vulnerability from traversing the LOCAL filesystem using relative path sequences. Insecure direct object reference involves accessing another user's data by directly manipulating a reference (like an ID in a URL) without proper authorization checks — a different mechanism than escaping a directory structure via relative path traversal.",
   },
   {
     id: "d8_013", domain: 8, difficulty: 2, section: "CSRF Prevention",
@@ -2018,7 +2018,7 @@ export const questions = [
       "Rate limiting on repeated API requests",
     ],
     answer: 1,
-    explanation: "CSRF exploits a user's authenticated session by tricking their browser into sending requests to a trusted site. Anti-CSRF tokens (unique, secret, per-session tokens embedded in forms) prevent this because the attacker's forged request cannot include the token. The SameSite cookie attribute is a modern supplementary defense.",
+    explanation: "Anti-CSRF tokens — unique, secret, per-session values embedded in forms — prevent CSRF because an attacker's forged cross-site request has no way to include the correct token, so the application can reject it. Parameterized queries prevent SQL injection by separating code from data in database queries — an entirely different vulnerability and defense than protecting against forged cross-site requests. Output encoding of HTML content prevents XSS by ensuring injected content is rendered as inert text rather than executable script — again a different vulnerability class than CSRF. Rate limiting slows down repeated requests to prevent abuse like brute-forcing or scraping, but it doesn't verify that a request actually originated from the legitimate site's own form, which is what stops CSRF specifically.",
   },
   {
     id: "d8_014", domain: 8, difficulty: 2, section: "Password Storage Security",
@@ -2030,7 +2030,7 @@ export const questions = [
       "MD5 requires a public/private key pair to verify hashes, which is impractical to manage",
     ],
     answer: 1,
-    explanation: "MD5 (and SHA-1/SHA-256 without a work factor) are designed to be fast — a modern GPU can compute billions of MD5 hashes per second, making offline brute-force and rainbow table attacks practical. Password storage requires slow, salted hashing algorithms like bcrypt, scrypt, or Argon2.",
+    explanation: "MD5 is designed to be a FAST hash — a modern GPU can compute billions of MD5 hashes per second, which makes offline brute-force and rainbow table attacks against password hashes highly practical, exactly what the penetration tester demonstrated. The problem isn't that MD5 is too slow for concurrent logins — it's actually the opposite: MD5's speed is precisely what makes it unsuitable for password storage, where slowness is a deliberate security feature. MD5's 128-bit output length isn't the core weakness for password storage — the issue is how fast it can be computed and searched, not how many bits the digest happens to contain. MD5 also doesn't involve any public/private key pair at all — it's a one-way hash function, not an asymmetric cryptographic scheme, so key management isn't relevant to this vulnerability.",
   },
   {
     id: "d8_015", domain: 8, difficulty: 3, section: "JWT Security",
@@ -2042,7 +2042,7 @@ export const questions = [
       "An attacker can brute-force the JWT signing secret key using offline computation",
     ],
     answer: 1,
-    explanation: "JWT signature verification is the sole mechanism that prevents tampering with token claims. Without verification, an attacker creates a JWT with any claims they want (e.g., admin: true) and the server accepts it as valid. This is analogous to a passport check where the officer doesn't look at the document.",
+    explanation: "Disabling JWT signature verification removes the only mechanism preventing tampering with a token's claims — an attacker can then simply write their own JWT with any claims they want (like admin: true) and the server will accept it as valid, since it never checks the signature at all. This isn't specifically about intercepting tokens in transit via a network MITM attack — the vulnerability is that the server accepts ANY token's claims at face value, whether intercepted, forged from scratch, or otherwise. It's also not primarily about replaying an expired token — with verification disabled, an attacker doesn't need a real prior token at all; they can simply forge a brand new one with whatever expiration and claims they like. And it doesn't require brute-forcing the signing secret either — that would matter if verification were still happening; here, verification isn't happening at all, so there's no signature check to defeat in the first place.",
   },
   {
     id: "d8_016", domain: 8, difficulty: 2, section: "Secure Code Review",
@@ -2054,7 +2054,7 @@ export const questions = [
       "Integration testing",
     ],
     answer: 1,
-    explanation: "Peer code review (including security-focused code review) has developers examine each other's code for logic errors, vulnerability patterns, and deviations from secure coding standards. It is one of the most cost-effective ways to find security bugs early — before they reach testing or production.",
+    explanation: "Another developer reading through proposed code changes line by line, specifically looking for security issues, is peer code review — one of the most cost-effective ways to catch security bugs before they reach testing or production. Fuzz testing feeds malformed or random input to a running program to find crashes, a dynamic technique performed against executing code, not a human reading through a diff. User acceptance testing verifies that the software meets business or user requirements, typically performed by stakeholders or QA, not a developer reviewing another developer's code changes for security issues. Integration testing verifies that different components work correctly together, a functional testing activity distinct from a human reviewer reading code line by line for security flaws.",
   },
   {
     id: "d8_017", domain: 8, difficulty: 3, section: "Server-Side Request Forgery (SSRF)",
@@ -2078,7 +2078,7 @@ export const questions = [
       "Obfuscating network traffic patterns and protocol headers to prevent packet interception and analysis",
     ],
     answer: 1,
-    explanation: "Security by obscurity relies on secrecy of design rather than robustness of controls. Once the secret is discovered (through reverse engineering, insider leaks, or accidental disclosure), the security collapses completely. Kerckhoffs's principle states that a system should be secure even if everything about it, except the key, is public knowledge.",
+    explanation: "Relying on keeping implementation details secret as the primary security mechanism is security by obscurity — it's considered weak because once the secret is discovered (through reverse engineering, leaks, or accidental disclosure), the security collapses entirely, with nothing else standing behind it. Encrypting compiled code to slow reverse engineering is a real (if limited) technique, but most experts do NOT consider it a genuinely strong deterrent on its own — determined attackers can still reverse engineer protected binaries, and it shouldn't be relied on as the core security mechanism. Using a proprietary algorithm known only to the vendor does NOT provide stronger protection than a publicly reviewed one — Kerckhoffs's principle holds that a system should remain secure even when everything except the key is public, and public algorithms benefit from broad expert scrutiny that proprietary ones lack. Obfuscating network traffic patterns is a different practice from hiding how an authentication ALGORITHM itself works — it doesn't describe the vendor's stated reasoning about their algorithm's secrecy.",
   },
 
   // ─── Cross-domain scenario questions ───
@@ -2104,7 +2104,7 @@ export const questions = [
       "Database indexes cannot efficiently search or sort encrypted columns when keys are stored nearby",
     ],
     answer: 1,
-    explanation: "Encryption's value depends entirely on the secrecy of the key. Storing keys alongside encrypted data is like storing a safe combination on the door of the safe — a single breach compromises both. Keys must be stored in a separate, access-controlled system (HSM, key management service, or separate vault).",
+    explanation: "Encryption's security depends entirely on keeping the key secret — storing it in the same database as the data it protects means a single breach exposes both the ciphertext and the key needed to unlock it, defeating the purpose of encrypting in the first place. The real problem isn't storage overhead or indexing cost — those are minor operational concerns, not the security issue this practice creates. Key rotation isn't rendered impossible by co-location — it's still technically achievable, though co-location makes the whole scheme insecure regardless of how rotation is handled. And searching or sorting encrypted columns is a separate database design challenge unrelated to where the keys themselves are physically stored — the core issue here is exposure, not query performance.",
   },
   {
     id: "dx_003", domain: 5, difficulty: 2, section: "Least Privilege Principle",
@@ -2116,7 +2116,7 @@ export const questions = [
       "Mandatory access control",
     ],
     answer: 1,
-    explanation: "Least privilege grants the minimum permissions required for a user or process to perform its function — nothing more. Need to know is a related concept applied specifically to information access based on job requirements. Together they minimize the blast radius of compromised accounts or processes.",
+    explanation: "Limiting a service account to only the three specific API calls it actually needs — with nothing extra 'just in case' — is a textbook application of least privilege: granting the minimum access required to perform a function, nothing more. Need to know is a closely related but distinct concept usually applied to information access based on job function, rather than to scoping a service account's specific technical permissions. Separation of duties involves splitting a process across multiple people or systems so no single one can act alone, a different structural control than simply minimizing one account's permission set. Mandatory access control assigns access based on fixed system-enforced classification labels, an entirely different model from scoping a cloud service account down to its minimum required API permissions.",
   },
   {
     id: "dx_004", domain: 6, difficulty: 2, section: "Cloud Security Assessment",
@@ -2128,7 +2128,7 @@ export const questions = [
       "Social engineering assessment targeting cloud administrators",
     ],
     answer: 1,
-    explanation: "CSPM tools automatically scan cloud resources (IAM policies, storage bucket permissions, security group rules, encryption settings) against security benchmarks (CIS, CSA). Manual configuration review supplements this. Traditional network pentests miss cloud-specific misconfigurations like overly permissive IAM policies or public S3 buckets.",
+    explanation: "Cloud Security Posture Management tools automatically scan cloud resources — IAM policies, storage bucket permissions, security group rules — against established benchmarks, making them purpose-built for catching cloud-specific misconfigurations like overly permissive IAM roles or public storage buckets. Traditional network-layer penetration testing targets on-premises infrastructure and network protocols, and typically misses cloud-native misconfiguration issues that don't show up as open ports or network vulnerabilities. Automated web application vulnerability scanners look for flaws like injection or XSS within an application's code and inputs, not misconfigurations in the underlying cloud infrastructure itself. A social engineering assessment tests human susceptibility to manipulation, an entirely different risk category from technical cloud configuration weaknesses.",
   },
   {
     id: "dx_005", domain: 7, difficulty: 3, section: "Business Continuity & DR",
@@ -2190,7 +2190,7 @@ export const questions = [
       "The age of the data since it was originally created or collected",
     ],
     answer: 1,
-    explanation: "Classification decisions must be driven by the potential harm (confidentiality, integrity, or availability impact) that would result from compromise. Cost, volume, and age may influence retention or storage decisions but do not determine classification level. FIPS 199 and the CISSP CBK both anchor classification to potential impact.",
+    explanation: "Classification decisions must be driven by the potential impact if the data were disclosed, modified, or destroyed — the actual harm that would result from a compromise. The cost of the system storing the data is a budgeting or infrastructure concern, not a measure of how sensitive the data itself is. The volume of data stored might affect how classification is operationally applied, but a small amount of highly sensitive data still needs strong protection regardless of quantity. The age of the data can sometimes factor into declassification decisions, but it isn't the primary driver of the initial classification level — a decades-old trade secret can still be extremely sensitive.",
   },
   {
     id: "d2_019", domain: 2, difficulty: 1, section: "Data Ownership Roles",
@@ -2214,7 +2214,7 @@ export const questions = [
       "Data processor",
     ],
     answer: 2,
-    explanation: "The data custodian is the party that has day-to-day responsibility for protecting and maintaining data on behalf of the data owner — this includes backups, access controls, and patching. The data owner sets policy. The data controller (a GDPR term) decides the purposes of processing. The data processor processes data on behalf of the controller.",
+    explanation: "An IT operations team implementing backups, access controls, and patching on behalf of the data owner is acting as the data custodian — responsible for day-to-day technical protection, not for setting policy. The data owner is the role that sets classification and protection requirements — the business side, not the IT team carrying them out technically. The data controller is a GDPR-specific term for the party that decides the purposes and means of processing personal data — a policy-level decision-maker, similar in spirit to a data owner but not this operational IT team. The data processor is also a GDPR term, referring to a party (often a third-party vendor) that processes data on the controller's behalf — a different relationship than an internal IT team executing the data owner's own instructions.",
   },
   {
     id: "d2_021", domain: 2, difficulty: 2, section: "Data Ownership Roles",
@@ -2262,7 +2262,7 @@ export const questions = [
       "Archive",
     ],
     answer: 2,
-    explanation: "The Create phase is when data comes into existence — either generated internally or received from external sources. This is the appropriate point to classify it and establish initial access controls so protections are in place from the start. Applying controls later (at Store or Share) creates a window of exposure and makes remediation harder.",
+    explanation: "Classification and initial access controls should be applied at the Create phase — when data first comes into existence — so protections are in place from the very start rather than retrofitted later. Applying labels only at the Store phase leaves a window where newly created data sits unclassified and potentially unprotected before it's ever saved. Waiting until the Share phase to classify data means it could already have been mishandled or exposed internally before anyone decided how sensitive it was. Waiting until Archive is even later still — by then, the data may have already been used, shared, or exposed without appropriate controls for its entire active life.",
   },
   {
     id: "d2_025", domain: 2, difficulty: 2, section: "Data Lifecycle Management",
@@ -3464,7 +3464,7 @@ export const questions = [
       "Blowfish",
     ],
     answer: 2,
-    explanation: "AES (Advanced Encryption Standard), also known as Rijndael, was selected by NIST in 2001 to replace DES. It supports 128-, 192-, and 256-bit keys with a block size of 128 bits. DES uses a 56-bit key (insecure). 3DES uses three 56-bit DES keys for an effective strength of 112 bits. Blowfish is a flexible algorithm but not the US federal standard.",
+    explanation: "AES (Rijndael) was selected by NIST in 2001 as the current U.S. federal standard, supporting 128-, 192-, and 256-bit keys with a 128-bit block size. DES uses only a 56-bit key, considered insecure today and long superseded as the federal standard. 3DES applies DES three times for an effective strength of about 112 bits — a stronger stopgap than DES, but still not the current federal standard and been deprecated in most modern uses. Blowfish is a capable, flexible symmetric cipher, but it was never adopted as the official U.S. federal standard — AES specifically won that role through NIST's public selection process.",
   },
   {
     id: "d3_047", domain: 3, difficulty: 2, section: "Symmetric Encryption",
@@ -3572,7 +3572,7 @@ export const questions = [
       "512 bits",
     ],
     answer: 2,
-    explanation: "SHA-256 (part of the SHA-2 family) produces a 256-bit (32-byte) hash output. The number in the name indicates the output size in bits. SHA-1 produces 160 bits. SHA-384 and SHA-512 produce 384 and 512 bits respectively. SHA-3 (Keccak) also supports 256-bit output as SHA3-256. These are all part of the SHA family standardized by NIST.",
+    explanation: "SHA-256 produces a 256-bit (32-byte) hash output — the number in its name directly indicates the output size in bits. 128 bits was the output size of older, now-broken hash functions like MD5, not SHA-256. 160 bits is SHA-1's output size — a related but shorter, now-deprecated hash from an earlier generation. 512 bits belongs to SHA-512 (and SHA-384 produces 384 bits) — larger members of the SHA-2 family, but not what SHA-256 itself produces.",
   },
   {
     id: "d3_056", domain: 3, difficulty: 3, section: "Cryptographic Hash Functions",
@@ -3800,7 +3800,7 @@ export const questions = [
       "Uses software emulation rather than hardware-assisted virtualization",
     ],
     answer: 1,
-    explanation: "A Type 1 (bare-metal) hypervisor runs directly on the physical hardware — it IS the operating system layer. A Type 2 (hosted) hypervisor runs on top of a conventional OS. Type 1 hypervisors are generally more secure and performant because they have a smaller attack surface and no host OS layer.",
+    explanation: "A Type 1 (bare-metal) hypervisor runs directly on the physical hardware, acting as its own operating system layer — generally more secure and performant due to a smaller attack surface. Running on top of a host operating system describes a Type 2 (hosted) hypervisor instead, which relies on an underlying OS like Windows or macOS. Type 1 hypervisors are built to support many concurrent virtual machines, not just a single one — that's the whole point of enterprise virtualization platforms like ESXi or Hyper-V. And modern Type 1 hypervisors typically use hardware-assisted virtualization (like Intel VT-x or AMD-V) rather than relying purely on software emulation, which would be slower and isn't the defining trait that separates Type 1 from Type 2.",
   },
   {
     id: "d3_075", domain: 3, difficulty: 3, section: "Virtualization Security",
@@ -4498,7 +4498,7 @@ export const questions = [
       "Bit",
     ],
     answer: 2,
-    explanation: "The PDU at the Data Link layer (Layer 2) is called a Frame. Packets are the PDU at the Network layer (Layer 3). Segments are the PDU at the Transport layer (Layer 4). Bits are the PDU at the Physical layer (Layer 1). Understanding PDU names helps identify which layer a protocol or attack targets.",
+    explanation: "The Protocol Data Unit at the Data Link layer (Layer 2) is called a Frame — the unit that carries MAC addressing information for local delivery. A Packet is the PDU at the Network layer (Layer 3), carrying IP addressing information — one layer up from where frames operate. A Segment is the PDU at the Transport layer (Layer 4), associated with TCP/UDP — two layers up from the Data Link layer. A Bit is the PDU at the Physical layer (Layer 1) — one layer below the Data Link layer, representing raw binary signal rather than a structured frame.",
   },
   {
     id: "d4_024", domain: 4, difficulty: 1, section: "OSI Model",
@@ -7178,7 +7178,7 @@ export const questions = [
       "Crystal box",
     ],
     answer: 2,
-    explanation: "A black box test provides the tester with minimal or no prior knowledge of the target, simulating an external attacker with no insider information. White box testing provides full knowledge including source code, architecture diagrams, and credentials. Gray box provides partial knowledge. Crystal box is another name for white box testing.",
+    explanation: "Given only the company name and a list of IP ranges — with no internal knowledge at all — is a black box engagement, simulating an outside attacker starting from public information alone. White box testing gives the tester full internal knowledge, including source code and architecture, the opposite of the minimal starting information here. Gray box testing provides some partial internal information, more than just a name and IP ranges. Crystal box is simply another term for white box testing (full knowledge), not a distinct minimal-knowledge category.",
   },
   {
     id: "d6_019", domain: 6, difficulty: 2, section: "Penetration Testing Phases",
@@ -7826,7 +7826,7 @@ export const questions = [
       "Re-performance",
     ],
     answer: 2,
-    explanation: "Observation involves watching a process or activity being performed to verify it occurs as documented. The auditor directly witnesses the control in operation. Inspection examines documents, records, and tangible assets. Inquiry involves questioning personnel. Re-performance means independently re-executing a procedure to verify the result.",
+    explanation: "Watching HR staff process onboarding cases in real time to verify the background check procedure is actually followed is observation — directly witnessing a control in operation as it happens. Inspection involves examining documents, records, or tangible evidence after the fact, not watching a live process unfold. Inquiry involves asking personnel questions about how a process works, relying on their account rather than direct observation. Re-performance means the auditor independently redoes the procedure themselves to verify the result matches, a more hands-on technique than simply watching HR carry it out.",
   },
   {
     id: "d6_073", domain: 6, difficulty: 2, section: "Vulnerability Scoring",
@@ -9822,7 +9822,7 @@ export const questions = [
       "Economy of mechanism",
     ],
     answer: 2,
-    explanation: "Least privilege dictates that a component (user, process, or service) should operate with the minimum permissions necessary. Defense in depth is layered controls. Fail securely means that when a system fails, it defaults to a secure state. Economy of mechanism means keeping designs simple to reduce attack surface.",
+    explanation: "Designing a microservice so it can only read from the one table it actually needs — no write, delete, or access to anything else — is least privilege: granting the minimum permissions necessary to perform its function. Defense in depth is about layering multiple independent controls, not about scoping any single component's specific access down to the minimum required. Fail securely concerns what happens when a system encounters an error — defaulting to a secure state — a different concern from what access a component has under normal operation. Economy of mechanism is about keeping the overall design as simple as possible to make it easier to verify and secure, a design-simplicity principle rather than the specific access-scoping this scenario describes.",
   },
   {
     id: "d8_026", domain: 8, difficulty: 2, section: "Secure Coding Principles",
@@ -9846,7 +9846,7 @@ export const questions = [
       "Insecure Design",
     ],
     answer: 2,
-    explanation: "In the 2021 OWASP Top 10, Broken Access Control moved to #1, acknowledging that failures to properly enforce what authenticated users are allowed to do are the most widespread web application vulnerability. Injection dropped to #3. Cryptographic Failures (formerly Sensitive Data Exposure) moved to #2. Insecure Design was newly added at #4.",
+    explanation: "In the 2021 OWASP Top 10, Broken Access Control moved to the #1 position, reflecting how widespread failures to properly enforce what authenticated users are allowed to do had become across web applications, with Injection dropping to #3. Cryptographic Failures (renamed from the earlier 'Sensitive Data Exposure') moved up to #2 in the same update — a significant shift, but not the category that took the top spot. Security Misconfiguration also moved up in the 2021 list, but it didn't reach #1 either — it remained a distinct, lower-ranked category. Insecure Design was a newly introduced category in the 2021 list, debuting at #4 — new to the list, but not the category that overtook Injection for the top position.",
   },
   {
     id: "d8_028", domain: 8, difficulty: 2, section: "OWASP Top 10",
