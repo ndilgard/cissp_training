@@ -386,14 +386,14 @@ export const questions = [
       "To specify the exact hardware models and vendor configurations required to build secure production systems",
     ],
     answer: 1,
-    explanation: "A security policy defines management's intent and high-level direction for information security. It is not a technical document — procedures, standards, and guidelines provide the implementation details.",
+    explanation: "A security policy defines management's intent and high-level direction for information security — the what and why, not the how. Detailed configuration settings and specific hardware/vendor requirements belong in standards, which translate policy into mandatory technical baselines. Step-by-step incident response procedures are operational documents that implement policy goals; they aren't the policy itself. Treating any of these implementation artifacts as the policy collapses the governance hierarchy that lets one policy statement drive many procedures across changing technology.",
   },
   {
     id: "d1_002", domain: 1, difficulty: 2, section: "Quantitative Risk Analysis",
     question: "An organization is conducting a quantitative risk assessment. The asset value is $500,000, the exposure factor is 40%, and the annual rate of occurrence is 0.5. What is the Annualized Loss Expectancy (ALE)?",
     options: ["$100,000", "$200,000", "$250,000", "$400,000"],
     answer: 0,
-    explanation: "SLE = Asset Value × EF = $500,000 × 0.4 = $200,000. ALE = SLE × ARO = $200,000 × 0.5 = $100,000.",
+    explanation: "This is a classic ALE calculation: SLE = Asset Value × Exposure Factor = $500,000 × 0.4 = $200,000, then ALE = SLE × ARO = $200,000 × 0.5 = $100,000. $200,000 is the SLE — the loss from a single occurrence — but the question asks for the annualized figure, which requires multiplying by the ARO. $250,000 and $400,000 don't correspond to a correct application of either formula and result from mixing up which values to multiply or skipping a step.",
   },
   {
     id: "d1_003", domain: 1, difficulty: 2, section: "Risk Management",
@@ -405,7 +405,7 @@ export const questions = [
       "Risk acceptance — acknowledging the risk and retaining it without further action",
     ],
     answer: 2,
-    explanation: "Risk transference (also called risk sharing) moves the financial impact of a risk to a third party, such as purchasing cyber insurance or outsourcing a high-risk function.",
+    explanation: "Risk transference (or risk sharing) shifts the financial impact of a risk to a third party, such as through insurance or outsourcing — the organization still experiences the risk event but someone else absorbs the cost. Risk avoidance is different: it eliminates the risk entirely by discontinuing the activity that creates it, rather than paying someone else to bear it. Risk mitigation reduces the likelihood or impact through controls, but the organization still owns any remaining risk. Risk acceptance involves no third party at all — the organization simply retains the risk and takes no further action.",
   },
   {
     id: "d1_004", domain: 1, difficulty: 1, section: "Personnel Security Controls",
@@ -417,7 +417,7 @@ export const questions = [
       "Need to know — restricting information access to only what one's duties require",
     ],
     answer: 1,
-    explanation: "Separation of duties ensures that critical tasks require more than one person, preventing a single individual from committing and concealing fraud or error.",
+    explanation: "Separation of duties splits a sensitive process across two or more people so no single individual can both create and approve a transaction — exactly what's described here. Least privilege is about limiting how much access one person has, not about splitting a process across multiple people. Job rotation periodically moves staff between roles to expose fraud after the fact, rather than structurally preventing one person from controlling an entire process. Need to know restricts access to information, not control over a workflow's steps.",
   },
   {
     id: "d1_005", domain: 1, difficulty: 3, section: "Legal & Regulatory Compliance",
@@ -429,7 +429,7 @@ export const questions = [
       "Performance of a contract",
     ],
     answer: 2,
-    explanation: "When processing is required to comply with a legal obligation (e.g., tax reporting mandated by law), Article 6(1)(c) of GDPR — 'compliance with a legal obligation' — is the appropriate legal basis. Consent is not appropriate for mandatory processing.",
+    explanation: "When processing is legally mandated — like tax reporting — GDPR Article 6(1)(c), 'compliance with a legal obligation,' is the correct basis, since the organization has no choice but to process the data. Consent is inappropriate here because it must be freely given and revocable, and an employee can't opt out of legally mandated tax reporting. Legitimate interests requires balancing the controller's interest against the individual's rights, which doesn't fit a mandatory legal requirement. Performance of a contract applies to processing necessary to fulfill an agreement with the data subject, not a government-imposed reporting duty.",
   },
   {
     id: "d1_006", domain: 1, difficulty: 2, section: "Threat & Vulnerability Concepts",
@@ -441,7 +441,7 @@ export const questions = [
       "A threat originates strictly from technical sources like malware; a vulnerability originates strictly from administrative gaps",
     ],
     answer: 1,
-    explanation: "A threat is any potential event or actor that could exploit a weakness to cause harm. A vulnerability is a weakness in a system, process, or control that could be exploited by a threat.",
+    explanation: "A threat is any potential event or actor — human or natural, intentional or accidental — that could exploit a weakness to cause harm; a vulnerability is the weakness itself. Option one is wrong because threats aren't always intentional (natural disasters and human error are threats too) and vulnerabilities aren't always accidental misconfigurations (they can be design flaws or unpatched code). Option three reverses cause and effect — a vulnerability is the weakness, not the resulting damage, which is closer to describing impact or loss. Option four is wrong because both threats and vulnerabilities can originate from technical or administrative sources; neither is confined to one category.",
   },
   {
     id: "d1_007", domain: 1, difficulty: 3, section: "Data Retention & Records Management",
@@ -453,7 +453,7 @@ export const questions = [
       "The legal team's recommendation should be disregarded and revisited only after a breach or litigation event occurs",
     ],
     answer: 2,
-    explanation: "Data retention decisions require balancing legal, regulatory, privacy, and operational needs. A formal data retention policy, approved by management and legal counsel, governs these trade-offs — neither security nor legal should unilaterally override the other.",
+    explanation: "Retention decisions that pit legal risk against operational or security needs require a formal, documented policy approved by both management and legal counsel — no single department should unilaterally decide. Letting the security team's forensic preference override legal counsel's litigation-risk concern ignores the legal exposure that concern is meant to prevent. Automatically choosing the longer of two conflicting retention periods ignores the reasoning behind each requirement and can itself create liability. Waiting for a breach or lawsuit before addressing a known conflict is reactive risk management, not the proactive governance a retention policy is meant to provide.",
   },
   {
     id: "d1_008", domain: 1, difficulty: 1, section: "Security Foundations (CIA Triad)",
@@ -465,7 +465,7 @@ export const questions = [
       "Classification, Isolation, Accountability",
     ],
     answer: 1,
-    explanation: "The CIA Triad — Confidentiality, Integrity, and Availability — are the three foundational principles of information security that guide security decisions and control selection.",
+    explanation: "The CIA Triad — Confidentiality, Integrity, and Availability — represents the three foundational goals that every security control ultimately supports. The other three options are distractors built from real security terms (control, assurance, compliance, identity, authentication, classification, accountability) that are all legitimate concepts in the field, but none of those groupings is the standard triad taught in the CBK. Recognizing the correct three terms — and not substituting a plausible-sounding related term for one of them — is the point of this question.",
   },
   {
     id: "d1_009", domain: 1, difficulty: 2, section: "Legal & Regulatory Compliance",
@@ -477,7 +477,7 @@ export const questions = [
       "Contract law — legal rules governing enforceable agreements between parties",
     ],
     answer: 2,
-    explanation: "Administrative or regulatory law (e.g., GDPR, HIPAA) imposes mandatory obligations on organizations that cannot be contracted away. Violations may result in civil penalties or criminal prosecution.",
+    explanation: "Administrative or regulatory law consists of rules issued by government agencies that carry the force of law and cannot be waived by private agreement — GDPR and HIPAA are examples. Common law is built from judicial precedent and court rulings rather than agency rulemaking, and its application can vary by jurisdiction and case history. Tort law addresses civil wrongs and compensation for harm between private parties, not mandatory regulatory obligations. Contract law governs enforceable agreements between parties, which — unlike regulatory law — can generally be negotiated or waived by mutual consent.",
   },
   {
     id: "d1_010", domain: 1, difficulty: 3, section: "Business Continuity Planning",
@@ -489,7 +489,7 @@ export const questions = [
       "Maximum Tolerable Downtime (MTD)",
     ],
     answer: 1,
-    explanation: "Recovery Point Objective (RPO) defines the maximum acceptable data loss measured in time — how far back in time recovery can go. The RTO defines how quickly a system must be restored, not how much data loss is acceptable.",
+    explanation: "The 4-hour tolerance for lost transaction data describes the Recovery Point Objective (RPO) — how far back in time recovery can go. RTO is a different metric entirely: it measures how quickly a system must be restored after an outage, not how much data loss is acceptable. MTTR (Mean Time to Repair) measures the average time to fix a failed component, an operational metric unrelated to data-loss tolerance. MTD (Maximum Tolerable Downtime) is the outer limit on how long a business function can be unavailable before causing unacceptable harm — a time-to-recover concept, not a data-loss concept.",
   },
   {
     id: "d1_011", domain: 1, difficulty: 2, section: "Security Awareness & Training",
@@ -501,7 +501,7 @@ export const questions = [
       "To formally document that employees have reviewed and acknowledged the security policy",
     ],
     answer: 1,
-    explanation: "While compliance is a side benefit, the primary goal of security awareness training is to change human behavior — reducing the risk of social engineering, phishing, and other human-vector attacks.",
+    explanation: "The primary goal of security awareness training is changing employee behavior — reducing the human-related risk of phishing, social engineering, and careless handling of information. Meeting regulatory or legal compliance training requirements is a real byproduct, but compliance is a side effect of a good program, not its driving purpose. Hands-on technical skills training is role-based training for IT/security staff, not general awareness training for the whole workforce. A signed acknowledgment that someone reviewed the policy proves exposure to the material, not that their behavior actually changed.",
   },
   {
     id: "d1_012", domain: 1, difficulty: 3, section: "Risk Analysis & Security ROI",
@@ -513,7 +513,7 @@ export const questions = [
       "The controls save $150,000 minus $30,000 cost, for a net benefit of $120,000",
     ],
     answer: 3,
-    explanation: "Risk reduction = $200,000 - $50,000 = $150,000. Net benefit = $150,000 - $30,000 (control cost) = $120,000. The controls provide a net annual savings of $120,000.",
+    explanation: "Risk reduction = $200,000 (ALE before) − $50,000 (ALE after) = $150,000 in avoided loss; net benefit = $150,000 − $30,000 (control cost) = $120,000. Option one is wrong because a remaining residual risk doesn't make a control valueless — the question is whether the reduction achieved exceeds the cost, and here it does by a wide margin. Option three uses the wrong reduction figure ($170,000 instead of the actual $150,000), which inflates the resulting net-benefit calculation. Option two describes the same final $120,000 figure in vaguer terms without showing that the $150,000 reduction is where that number actually comes from — the marked answer is the one that shows the correct arithmetic explicitly.",
   },
 
   // ─── DOMAIN 2: Asset Security ───
@@ -1201,7 +1201,7 @@ export const questions = [
       "Remove the 30-day patching requirement from policy entirely to accommodate operational maintenance constraints",
     ],
     answer: 2,
-    explanation: "A risk-based exception process should grant a time-limited exception with compensating controls (e.g., enhanced monitoring, network isolation, WAF rules) and a firm remediation date. Permanently exempting systems or ignoring the policy creates unacceptable risk; removing the policy requirement abandons the control entirely.",
+    explanation: "A mature exception process grants a time-limited exception with compensating controls (enhanced monitoring, network isolation, WAF rules) and a firm remediation date — balancing operational reality against risk. Denying the exception outright ignores a legitimate operational constraint (the maintenance window) without offering any risk-based alternative. Granting a permanent exception abandons the patching requirement for this system indefinitely, leaving a known critical vulnerability unaddressed with no plan to close it. Removing the 30-day requirement from policy entirely weakens the control for every system, not just this one, to accommodate a single system's constraint.",
   },
   {
     id: "d3_012", domain: 3, difficulty: 3, section: "Cloud Security & Key Management",
@@ -1287,7 +1287,7 @@ export const questions = [
       "Formally documenting that previously identified security incidents have been fully resolved",
     ],
     answer: 1,
-    explanation: "Due diligence means doing the research — understanding risks, threats, and best practices before making security decisions. Due care means actually implementing appropriate controls. Together they demonstrate that management acted responsibly.",
+    explanation: "Researching a vendor's certifications, breach history, and control maturity before signing a contract is due diligence — investigating and understanding risk before making a decision. Reactive controls implemented only after a breach describe the opposite of due diligence — acting after the fact rather than researching beforehand. Delegating security responsibility entirely to a vendor doesn't eliminate the organization's own accountability for the decision to use that vendor, which due diligence is meant to inform. Documenting that past incidents were resolved is a record-keeping activity, not the pre-decision investigation this question describes.",
   },
   {
     id: "d1_015", domain: 1, difficulty: 2, section: "Risk Management",
@@ -1299,14 +1299,14 @@ export const questions = [
       "Avoid the risk entirely by discontinuing the associated business process or activity",
     ],
     answer: 2,
-    explanation: "A high-likelihood, low-impact risk warrants monitoring and cost-effective mitigation to reduce frequency. Acceptance may be appropriate if controls cost more than the impact; avoidance is excessive for low-impact risks. The response should be proportional.",
+    explanation: "A high-likelihood, low-impact risk calls for a proportional response — monitoring the risk and applying cost-effective controls to reduce its frequency, since the impact alone doesn't justify major investment. Accepting it without any action ignores that a frequent risk, even a small one, adds up in cumulative cost or nuisance over time. Transferring it immediately via insurance is usually not cost-effective for low-impact events — insurers price frequent small claims high, and the premium can exceed the risk itself. Avoiding it entirely by discontinuing the business process is a disproportionate response to a low-impact risk and would likely cost more in lost business value than the risk itself.",
   },
   {
     id: "d1_016", domain: 1, difficulty: 2, section: "Security Policy Framework",
     question: "Which document type provides specific step-by-step instructions for implementing a security control?",
     options: ["Policy", "Standard", "Guideline", "Procedure"],
     answer: 3,
-    explanation: "A procedure provides detailed, step-by-step instructions for carrying out a task. Policies state management intent; standards define mandatory requirements; guidelines offer recommendations. Procedures operationalize standards into actionable steps.",
+    explanation: "A procedure provides detailed, step-by-step instructions for carrying out a specific task — exactly what's being described. A policy states management's high-level intent and direction, without operational detail. A standard defines mandatory requirements (like minimum password length) that a procedure would then explain how to implement. A guideline offers optional, discretionary recommendations rather than the concrete instructions the question describes.",
   },
   {
     id: "d1_017", domain: 1, difficulty: 3, section: "Legal & Regulatory Compliance",
@@ -1318,7 +1318,7 @@ export const questions = [
       "Notification to the supervisory authority is only required if more than 500 individuals are affected",
     ],
     answer: 1,
-    explanation: "Under GDPR Article 33, the data controller must notify the supervisory authority within 72 hours of becoming aware of a breach. The processor must notify the controller 'without undue delay.' The 72-hour clock starts when the controller has awareness, not the processor.",
+    explanation: "Under GDPR Article 33, the data controller — not the processor — must notify the supervisory authority within 72 hours of becoming aware of a breach; the processor's obligation is only to notify the controller 'without undue delay.' Saying the processor notifies the authority directly reverses this chain of responsibility. Requiring both parties to independently notify within 24 hours misstates both the timeline (72 hours, not 24) and the structure (only the controller notifies the authority). There's no minimum affected-individual threshold under GDPR that exempts notification — unlike some U.S. state breach laws, GDPR's notification duty isn't conditioned on a headcount.",
   },
   {
     id: "d1_018", domain: 1, difficulty: 2, section: "Risk Assessment Methods",
@@ -1330,7 +1330,7 @@ export const questions = [
       "Measuring the Mean Time Between Failures for critical hardware components in the environment",
     ],
     answer: 1,
-    explanation: "Qualitative risk assessment uses descriptive scales (e.g., High/Medium/Low) rather than exact financial figures. It is faster and requires less data but is more subjective. Quantitative techniques use numerical values like ALE and MTBF.",
+    explanation: "A 5×5 risk matrix using High/Medium/Low-style labels is a classic qualitative technique — it ranks risk using descriptive categories rather than precise numbers. Calculating Annualized Loss Expectancy from SLE and ARO is a quantitative technique, since it produces an exact dollar figure. Determining exact financial loss per incident is likewise quantitative by definition — precision in dollar terms is the defining trait of quantitative analysis. Measuring Mean Time Between Failures is a reliability engineering metric, not a risk-ranking technique at all, qualitative or quantitative.",
   },
   {
     id: "d1_019", domain: 1, difficulty: 1, section: "Personnel Security Controls",
@@ -1342,7 +1342,7 @@ export const questions = [
       "Ensure business continuity and knowledge transfer when an employee unexpectedly leaves",
     ],
     answer: 1,
-    explanation: "Job rotation is a security control that detects fraud and errors by periodically moving employees between roles. When someone else takes over a role, they may discover unauthorized activities. It also acts as a deterrent since employees know their work will be reviewed.",
+    explanation: "Job rotation's primary security purpose is fraud detection — when someone else temporarily takes over a role, they may notice irregularities the original person was concealing. Reducing burnout and improving morale can be a side benefit of rotation, but it's not why security programs mandate it. Cross-training reduces training costs as a byproduct, but that's an operational efficiency goal, not the security rationale. Business continuity and knowledge transfer are also secondary benefits — useful if someone leaves unexpectedly, but not the primary reason rotation is treated as a security control.",
   },
   {
     id: "d1_020", domain: 1, difficulty: 3, section: "Legal & Regulatory Compliance",
@@ -1354,14 +1354,14 @@ export const questions = [
       "Delete the user's data only from servers physically located within the European Union",
     ],
     answer: 2,
-    explanation: "When multiple privacy laws apply, the principle of applying the most protective standard ensures compliance with both. In practice, the organization must satisfy all applicable legal requirements simultaneously, which often means following the strictest provision of each.",
+    explanation: "When multiple privacy laws apply to the same individual and data, the organization must satisfy all of them — in practice, that means applying whichever provision is strictest for each specific requirement, since compliance with one law doesn't excuse non-compliance with another. Applying only GDPR ignores that CCPA has its own independent requirements the company must also meet for a California resident. Applying only CCPA because the user is a California resident ignores that GDPR may also apply based on other factors (like where the company operates) and can't simply be skipped. Deleting data only from EU-based servers misunderstands both laws — the deletion obligation follows the data subject's rights, not the physical location of the server.",
   },
   {
     id: "d1_021", domain: 1, difficulty: 2, section: "Accountability & Non-Repudiation",
     question: "An auditor tracing a fraudulent transaction back to the specific employee who performed it relies on unique user IDs and detailed activity logs. Which concept ensures that individuals are held accountable for their actions this way?",
     options: ["Authentication", "Authorization", "Accountability", "Non-repudiation"],
     answer: 2,
-    explanation: "Accountability requires that actions can be traced back to a specific individual. It depends on identification (who you claim to be), authentication (proving it), and logging (recording what was done). Non-repudiation is a related concept ensuring actions cannot be denied after the fact.",
+    explanation: "Accountability means actions can be traced back to a specific individual — exactly what unique user IDs and detailed logs provide here. Authentication is the act of proving an identity claim (like a password check), not the ongoing ability to trace actions afterward. Authorization determines what an authenticated user is permitted to do, which is a separate question from who did what. Non-repudiation is closely related but distinct — it specifically means the individual cannot deny having performed the action (often via cryptographic proof), whereas accountability more broadly means actions can be attributed and tracked.",
   },
   {
     id: "d1_022", domain: 1, difficulty: 3, section: "Third-Party & Vendor Risk",
@@ -1373,7 +1373,7 @@ export const questions = [
       "Requiring the vendor to carry cyber liability insurance",
     ],
     answer: 1,
-    explanation: "A SOC 2 Type II report provides independent third-party assurance that a vendor's security controls were operating effectively over a period of time (typically 6–12 months). Type II is more valuable than Type I, which only assesses design at a point in time.",
+    explanation: "A SOC 2 Type II report provides independent, third-party assurance that the vendor's controls operated effectively over an extended period (typically 6-12 months) — the strongest ongoing evidence among these options. An NDA protects confidential information but says nothing about whether the vendor's security controls actually work. Physical office visits are impractical to sustain quarterly, don't scale, and reveal little about controls the auditor doesn't have expertise to assess. Cyber liability insurance protects the organization financially after a breach occurs — it doesn't provide assurance that a breach is less likely to happen in the first place.",
   },
   {
     id: "d1_023", domain: 1, difficulty: 2, section: "Risk Concepts & Formulas",
@@ -1385,7 +1385,7 @@ export const questions = [
       "Risk exists when a threat cannot exploit a vulnerability",
     ],
     answer: 0,
-    explanation: "Risk is the product of threat likelihood, vulnerability, and the value of the asset at stake: Risk = Threat × Vulnerability × Asset Value. No vulnerability means no risk from that threat; no asset value means no meaningful risk.",
+    explanation: "Risk is the product of threat likelihood, vulnerability, and the value of what's at stake — Risk = Threat × Vulnerability × Asset Value. The other formulas rearrange these terms into relationships that don't hold: threat isn't derived by adding risk and vulnerability, and vulnerability isn't threat minus risk — these are distinct, independently-measured factors, not algebraic derivatives of each other. The fourth option gets the logic backwards entirely: risk exists precisely when a threat CAN exploit a vulnerability, not when it cannot.",
   },
   {
     id: "d1_024", domain: 1, difficulty: 1, section: "Business Impact Analysis",
@@ -1397,7 +1397,7 @@ export const questions = [
       "To assess the security capabilities and controls maintained by third-party vendors — a vendor risk task",
     ],
     answer: 1,
-    explanation: "A BIA identifies critical business functions, determines the maximum tolerable downtime (MTD) for each, quantifies financial and operational impact of disruptions, and establishes recovery priorities. It is the foundation for BCP/DRP planning.",
+    explanation: "Determining which business functions matter most and how long each can be down describes the core purpose of a Business Impact Analysis (BIA) — identifying critical functions and quantifying disruption impact. Identifying every threat and vulnerability facing the organization is the job of a broader risk assessment, which looks at causes of harm rather than the criticality of business functions. Creating the actual disaster recovery plan is a downstream deliverable that uses the BIA's findings — it's a DRP output, not the BIA itself. Assessing third-party vendor security capabilities is a distinct vendor risk management activity, unrelated to internal business function criticality.",
   },
   {
     id: "d1_025", domain: 1, difficulty: 3, section: "Risk Analysis & Security ROI",
@@ -1409,7 +1409,7 @@ export const questions = [
       "Cannot be calculated without additional information about the underlying asset's value",
     ],
     answer: 1,
-    explanation: "Savings = $150,000 × 60% = $90,000/year. Net = $90,000 − $200,000 = −$110,000. The tool costs more than it saves annually, giving a negative ROI. The CISO should either find a cheaper control or accept/transfer the risk instead.",
+    explanation: "Savings = $150,000 ALE × 60% reduction = $90,000/year; net = $90,000 − $200,000 tool cost = −$110,000. The tool costs $110,000 more per year than it saves, so the ROI is negative. Calling this a positive $90,000 savings ignores the tool's cost entirely — $90,000 is the gross risk reduction, not the net financial outcome. Calling it break-even is wrong because $90,000 in savings doesn't come close to offsetting a $200,000 annual cost. And the calculation absolutely can be done with the numbers given — asset value isn't needed once the ALE and reduction percentage are already provided.",
   },
 
   // ─── DOMAIN 2 – Additional questions ───
@@ -2092,7 +2092,7 @@ export const questions = [
       "Apply for a formal regulatory waiver to preserve the existing 5-day notification timeline",
     ],
     answer: 1,
-    explanation: "When regulatory requirements conflict with internal procedures, the internal procedure must be updated to comply. The IR plan's notification timeline must be shortened to 72 hours (or less, to allow for internal escalation before the regulatory deadline). Waiting until a breach occurs leaves the organization non-compliant.",
+    explanation: "When a new regulation sets a stricter notification deadline than an existing internal plan, the plan must be updated to comply — here, tightening the IR plan's timeline to meet the 72-hour requirement. Waiting until an actual breach occurs to address a known compliance gap leaves the organization non-compliant the moment an incident happens, which is entirely avoidable by updating the plan now. Proactively notifying regulators about an internal timeline discrepancy — before any breach — isn't a required or meaningful action; regulators want compliance, not a heads-up about outdated documentation. Applying for a waiver to preserve a slower timeline works against the purpose of the regulation and isn't a realistic or appropriate first step.",
   },
   {
     id: "dx_002", domain: 3, difficulty: 3, section: "Cryptography Key Management",
@@ -10856,7 +10856,7 @@ export const questions = [
       "COSO ERM enterprise framework",
     ],
     answer: 1,
-    explanation: "The NIST RMF (SP 800-37) is the primary risk management framework mandated for U.S. federal information systems. ISO 27001 is an international standard widely used in the private sector. COBIT focuses on IT governance and COSO ERM is an enterprise risk management framework used in financial/audit contexts.",
+    explanation: "The NIST Risk Management Framework (SP 800-37) is the framework mandated for U.S. federal information systems, governing how they're categorized, controls selected, and continuously monitored. ISO/IEC 27001 is an international standard widely adopted in the private sector, but it isn't the federal mandate this question describes. COBIT 2019 is an IT governance framework focused on aligning IT with business goals — broader than security-specific risk management and not the federal standard. COSO ERM is an enterprise risk management framework mainly used in financial reporting and audit contexts, not federal information system risk management.",
   },
   {
     id: "d1_027", domain: 1, difficulty: 2, section: "Risk Management Frameworks",
@@ -10880,7 +10880,7 @@ export const questions = [
       "Recover",
     ],
     answer: 2,
-    explanation: "The five NIST CSF core functions are: Identify, Protect, Detect, Respond, and Recover. 'Audit' is not one of them. The framework provides a common language for organizations to manage cybersecurity risk at a strategic level.",
+    explanation: "The five NIST CSF core functions are Identify, Protect, Detect, Respond, and Recover — 'Audit' isn't one of them, even though auditing is a real security activity that happens to overlap with these functions. Identify, Protect, and Recover are all genuine CSF functions (covering asset/risk understanding, protective safeguards, and restoration after an incident, respectively) — the question is testing whether you can spot the one plausible-sounding term that doesn't belong among the five actual functions, which also include Detect and Respond.",
   },
   {
     id: "d1_029", domain: 1, difficulty: 3, section: "Risk Management Frameworks",
@@ -10892,7 +10892,7 @@ export const questions = [
       "COBIT exists primarily to help organizations comply with Sarbanes-Oxley financial reporting mandates — too narrow a characterization",
     ],
     answer: 1,
-    explanation: "COBIT 2019 is an IT governance and management framework that aligns IT activities with business goals. Information security is one domain within COBIT but the framework is broader. It does not replace ISO 27001 (a security-specific standard) and while it supports SOX compliance, it is not solely a SOX tool.",
+    explanation: "COBIT 2019 is an IT governance framework that aligns IT goals with business objectives, with information security as one component within that broader scope. It isn't a purely technical standard — it doesn't mandate specific encryption algorithms or key lengths, which are implementation details far below COBIT's governance-level focus. It doesn't replace ISO 27001 either — ISO 27001 is a security-specific management system standard, while COBIT addresses IT governance more broadly, and organizations often use both together. And while COBIT can support Sarbanes-Oxley compliance efforts, that's one use case among many, not its primary purpose.",
   },
   {
     id: "d1_030", domain: 1, difficulty: 1, section: "Security Policy Framework",
@@ -10904,7 +10904,7 @@ export const questions = [
       "Guideline",
     ],
     answer: 2,
-    explanation: "A security policy is the highest-level document that expresses management's intent and direction. Standards define mandatory requirements derived from policy, procedures provide step-by-step instructions, and guidelines are optional recommendations.",
+    explanation: "A security policy sits at the top of the governance hierarchy, expressing senior management's overall intent and direction — the document an auditor would look to for that authority. A standard sits below policy, defining mandatory requirements derived from it. A procedure sits further down still, providing step-by-step operational instructions. A guideline is the least authoritative of the four, offering optional, discretionary recommendations rather than binding direction from senior management.",
   },
   {
     id: "d1_031", domain: 1, difficulty: 2, section: "Security Policy Framework",
@@ -10916,7 +10916,7 @@ export const questions = [
       "Standards require executive approval; guidelines do not",
     ],
     answer: 1,
-    explanation: "The key distinction is that standards are mandatory requirements that must be followed, while guidelines are recommended best practices that are discretionary. Both can be internal or external documents, and both can apply to systems and users.",
+    explanation: "The defining distinction between a standard and a guideline is enforceability: standards are mandatory requirements that must be followed, while guidelines are optional, recommended best practices. Where a document originates — internally or from an external body — doesn't determine whether it's a standard or a guideline; both types can come from either source. Whether a document applies to technical systems or to users is also not the distinguishing factor — both standards and guidelines can address either audience. And while significant standards often do get executive sign-off, formal approval isn't what separates a standard from a guideline; mandatory versus optional is.",
   },
   {
     id: "d1_032", domain: 1, difficulty: 2, section: "Security Policy Framework",
@@ -10928,7 +10928,7 @@ export const questions = [
       "Guideline",
     ],
     answer: 1,
-    explanation: "A standard defines specific mandatory requirements—in this case, the minimum length and character classes for passwords. A policy would state the intent (e.g., 'passwords must be complex enough to resist attack'), while a procedure would provide step-by-step instructions for creating passwords. A guideline would offer optional recommendations.",
+    explanation: "Specific, measurable requirements — a 12-character minimum with defined character classes — are exactly what a standard contains: a mandatory, concrete requirement derived from policy. A policy would only state the intent (passwords must resist attack), without specifying exact length or complexity rules. A procedure would walk through the steps for actually setting or resetting a password, not define the complexity rules themselves. A guideline would suggest optional best practices for password strength, not impose the mandatory minimums described here.",
   },
   {
     id: "d1_033", domain: 1, difficulty: 1, section: "Legal & Regulatory Compliance",
@@ -10964,7 +10964,7 @@ export const questions = [
       "The internal audit committee reporting to the board of directors",
     ],
     answer: 2,
-    explanation: "SOX Section 302 requires the CEO and CFO to personally certify the accuracy of financial statements and the effectiveness of internal controls. Executives who knowingly certify false reports face criminal penalties. CISOs and auditors support compliance but are not the primary signatories of SOX certifications.",
+    explanation: "SOX Section 302 specifically requires the CEO and CFO to personally certify the accuracy of financial statements and the effectiveness of internal controls, with criminal liability if they knowingly certify false reports. The CISO supports SOX compliance by securing the systems that produce financial data, but doesn't sign the certification and isn't the accountable party under the law. The external auditor reviews and opines on the financial statements but doesn't bear the same personal certification liability as the CEO/CFO. The internal audit committee provides oversight and reports to the board, but SOX places the direct certification obligation on the CEO and CFO specifically, not the committee.",
   },
   {
     id: "d1_036", domain: 1, difficulty: 3, section: "Legal & Regulatory Compliance",
@@ -11000,7 +11000,7 @@ export const questions = [
       "€5 million or 1% of global annual turnover, whichever is higher",
     ],
     answer: 1,
-    explanation: "GDPR Article 83 sets two tiers of fines. For the most serious violations (e.g., unlawful processing, lack of consent, violating data subjects' rights), the maximum fine is €20 million or 4% of global annual turnover, whichever is higher. Less serious violations (e.g., failure to maintain records) carry fines up to €10 million or 2%.",
+    explanation: "GDPR Article 83 sets the higher fine tier — €20 million or 4% of global annual turnover, whichever is greater — for the most serious violations, including unlawful processing without a legal basis. €10 million/2% is real, but it's the LOWER tier, reserved for less severe violations like inadequate record-keeping, not the most serious ones this question describes. €50 million/5% doesn't exist under GDPR's fine structure — there is no third, higher tier. €5 million/1% is also not a real GDPR fine tier; it understates both figures from the actual lower tier.",
   },
   {
     id: "d1_039", domain: 1, difficulty: 2, section: "Ethics",
@@ -11012,7 +11012,7 @@ export const questions = [
       "Advance and protect the profession by mentoring others and sharing knowledge — the fourth-priority canon",
     ],
     answer: 1,
-    explanation: "The ISC2 Code of Ethics canons in priority order are: (1) Protect society and the common good — the highest priority; (2) Act honorably, honestly, justly, responsibly, and legally; (3) Provide diligent and competent service; (4) Advance and protect the profession. When canons conflict, the higher-priority canon prevails.",
+    explanation: "The ISC2 Code of Ethics ranks 'protect society, the common good, necessary public trust and confidence, and the infrastructure' as the highest-priority canon — when canons conflict, this one wins. Acting honorably, honestly, justly, responsibly, and legally is real and important, but it's the second-priority canon, meant to be applied after the first is satisfied. Providing diligent and competent service to employers is the third canon — professional competence matters, but ranks below both protecting society and acting ethically. Advancing and protecting the profession through mentorship is the fourth and lowest-priority canon of the four.",
   },
   {
     id: "d1_040", domain: 1, difficulty: 2, section: "Ethics",
@@ -11036,7 +11036,7 @@ export const questions = [
       "SLE = Exposure Factor ÷ Annual Rate of Occurrence",
     ],
     answer: 1,
-    explanation: "SLE = Asset Value (AV) × Exposure Factor (EF). The SLE represents the expected monetary loss from a single occurrence of a threat. ALE = SLE × ARO. The exposure factor is the percentage of asset value lost in a single incident.",
+    explanation: "SLE (Single Loss Expectancy) equals Asset Value multiplied by Exposure Factor — the dollar loss from one occurrence of the threat. The first option is circular and backwards: ALE is derived FROM SLE (ALE = SLE × ARO), so defining SLE in terms of ALE reverses the actual formula relationship. The third option substitutes Annual Rate of Occurrence for Exposure Factor — ARO measures how often an event happens per year, not what percentage of the asset's value is lost in a single occurrence. The fourth option uses division instead of multiplication and pairs the wrong two variables entirely, producing a meaningless result.",
   },
   {
     id: "d1_042", domain: 1, difficulty: 2, section: "Risk Concepts & Formulas",
@@ -11048,7 +11048,7 @@ export const questions = [
       "$45,000",
     ],
     answer: 0,
-    explanation: "SLE = $300,000 × 0.60 = $180,000. ALE = SLE × ARO = $180,000 × 0.25 = $45,000. This represents the expected annual monetary loss from this particular risk scenario.",
+    explanation: "SLE = Asset Value × Exposure Factor = $300,000 × 0.60 = $180,000. ALE = SLE × ARO = $180,000 × 0.25 = $45,000. $75,000 results from multiplying the asset value directly by the ARO while skipping the exposure factor step. $180,000 is the SLE — the loss from a single occurrence — before annualizing it by multiplying by the ARO, a common stopping point for those who forget the final step.",
   },
   {
     id: "d1_043", domain: 1, difficulty: 2, section: "Risk Analysis & Security ROI",
@@ -11060,7 +11060,7 @@ export const questions = [
       "$120,000 net benefit",
     ],
     answer: 1,
-    explanation: "Value of control = ALE(before) - ALE(after) - Cost of control = $120,000 - $50,000 - $30,000 = $40,000 net benefit. This calculation (sometimes called the cost-benefit analysis of a safeguard) determines whether a control is economically justified.",
+    explanation: "Value of control = ALE(before) − ALE(after) − cost = $120,000 − $50,000 − $30,000 = $40,000 net benefit. $90,000 net loss would result from subtracting the cost from the wrong base figure or reversing the sign of the calculation entirely. $70,000 net benefit skips subtracting the $30,000 control cost from the $70,000 risk reduction ($120,000 − $50,000), stopping one step early. $120,000 net benefit mistakes the ALE before controls for the net benefit figure, without accounting for either the reduction achieved or the cost incurred.",
   },
   {
     id: "d1_044", domain: 1, difficulty: 1, section: "Risk Response Strategies",
@@ -11072,7 +11072,7 @@ export const questions = [
       "Risk acceptance",
     ],
     answer: 2,
-    explanation: "Purchasing insurance transfers the financial consequences of a risk to a third party (the insurer). Risk avoidance eliminates the activity causing the risk, risk mitigation reduces the probability or impact, and risk acceptance means acknowledging the risk without additional action.",
+    explanation: "Purchasing cyber liability insurance transfers the financial consequences of a breach to a third party — the insurer — which is the definition of risk transfer. Risk avoidance would mean eliminating the activity that creates the breach risk entirely (e.g., not collecting the sensitive data at all), not paying someone else to absorb the cost if it happens. Risk mitigation reduces the likelihood or impact of a breach through controls like encryption or MFA — insurance doesn't make a breach less likely, it just covers the financial fallout. Risk acceptance means acknowledging the risk and taking no further action, whereas buying insurance is itself a deliberate risk-response action.",
   },
   {
     id: "d1_045", domain: 1, difficulty: 2, section: "Risk Response Strategies",
@@ -11084,7 +11084,7 @@ export const questions = [
       "Eliminating it",
     ],
     answer: 2,
-    explanation: "After implementing compensating controls (isolation, monitoring), some residual risk remains. The organization is accepting this remaining risk while continuing to operate the system. This is a conscious, documented decision by management — not the same as ignoring the risk.",
+    explanation: "After implementing network isolation and monitoring as compensating controls, whatever risk remains is being formally accepted by the organization — a conscious decision to keep operating the system despite the unpatched vulnerability. This isn't transference, since no third party is absorbing the financial impact of the risk. It isn't avoidance either, since avoidance means discontinuing the risky activity — here, the system stays in operation. And it isn't elimination, since compensating controls reduce but don't remove the underlying risk; some risk always remains as long as the unpatched system keeps running.",
   },
   {
     id: "d1_046", domain: 1, difficulty: 3, section: "Risk Response Strategies",
@@ -11096,7 +11096,7 @@ export const questions = [
       "Absolute risk",
     ],
     answer: 3,
-    explanation: "Total (or absolute) risk is the theoretical risk if no controls exist. Residual risk is what remains after controls are applied — some residual risk always remains in any system. Inherent risk is the risk before controls. However, some residual risk is unavoidable in any operating environment, and management must formally accept it.",
+    explanation: "Absolute (or total) risk is the theoretical, maximum risk that would exist if no controls were ever applied — by definition, it isn't reduced by controls, since it represents the state before any control is factored in at all. Inherent risk is closely related — the risk level before considering current controls — but it's typically used when analyzing a specific control gap, not as a permanent, unreducible category. Residual risk is the opposite of what's being described: it's what remains AFTER controls are applied, and it's the number security teams actively try to reduce. Total risk describes essentially the same underlying concept as absolute risk in most CISSP materials, which is why it's the closest distractor rather than a clearly separate category.",
   },
   {
     id: "d1_047", domain: 1, difficulty: 2, section: "Qualitative Risk Analysis",
@@ -11108,7 +11108,7 @@ export const questions = [
       "Fault tree failure-path analysis",
     ],
     answer: 2,
-    explanation: "A Probability-Impact (or likelihood-consequence) matrix is a qualitative tool that maps risks on a grid based on their likelihood of occurring and their potential impact. This helps prioritize risks without requiring precise monetary values. The Delphi technique gathers anonymous expert opinion, and fault tree analysis models failure paths.",
+    explanation: "A Probability-Impact (likelihood-consequence) matrix is the qualitative tool that plots risks on a grid by likelihood and impact — exactly what's described. The Delphi technique is a different qualitative method entirely: it gathers anonymous, iterative consensus from a panel of experts rather than plotting risks on a grid. A risk register is simply a log or inventory of identified risks — a place to record findings, not a technique for assessing likelihood and impact. Fault tree analysis models the chain of failures that could lead to a specific event, a structured technique for engineering reliability analysis, not a general risk-prioritization matrix.",
   },
   {
     id: "d1_048", domain: 1, difficulty: 2, section: "Qualitative Risk Analysis",
@@ -11120,7 +11120,7 @@ export const questions = [
       "It completely eliminates subjective judgment from the entire risk assessment process — not true, judgment is still used",
     ],
     answer: 1,
-    explanation: "Qualitative risk analysis is faster, requires less precise data, and relies on expert judgment and relative rankings (high/medium/low). It is useful early in a risk assessment or when asset values and threat frequencies cannot be precisely determined. Quantitative analysis provides monetary values but requires more data and is more time-consuming.",
+    explanation: "Qualitative risk analysis's real advantage is speed and lower data requirements — useful exactly when reliable financial figures, like in this scenario, aren't available. Producing precise monetary values is actually the defining trait of quantitative analysis, the opposite of what qualitative analysis offers. Qualitative analysis isn't inherently more accurate or reliable than quantitative — it's more subjective by nature, trading precision for speed and simplicity. And it doesn't eliminate subjective judgment at all — expert judgment IS the method; qualitative analysis leans into subjectivity rather than removing it.",
   },
   {
     id: "d1_049", domain: 1, difficulty: 1, section: "Threat & Vulnerability Concepts",
@@ -11132,7 +11132,7 @@ export const questions = [
       "Exposure — the degree to which an organization is open to potential harm",
     ],
     answer: 2,
-    explanation: "A vulnerability is a weakness or flaw in a system, process, or control that could be exploited. A threat is a potential event or actor that could exploit a vulnerability. Risk is the likelihood and impact of a threat exploiting a vulnerability. Exposure is the degree to which the organization is open to potential harm.",
+    explanation: "An unpatched software flaw, independent of any actor, is a vulnerability — a weakness in a system that could be exploited to cause harm. Risk combines this weakness with likelihood and impact — it's the broader consequence, not the flaw itself. A threat is the potential actor or event that could exploit the flaw (like an attacker with the skill to use it) — the flaw and the actor are two separate things. Exposure describes the degree to which the organization is open to harm overall, a broader concept than a single specific weakness like this one.",
   },
   {
     id: "d1_050", domain: 1, difficulty: 2, section: "Threat & Vulnerability Concepts",
@@ -11144,7 +11144,7 @@ export const questions = [
       "This situation represents pure exposure only, with no associated risk to the organization — an incorrect characterization here",
     ],
     answer: 2,
-    explanation: "Risk exists when a threat (the available exploit and potential attacker) can exploit a vulnerability (the unpatched server). Both components are present here, creating an active risk that should be remediated by patching or applying compensating controls.",
+    explanation: "An unpatched, internet-facing server (the vulnerability) with a known working exploit (the threat) means both components required for risk are present, and risk exists as a result. Saying there's a threat but no vulnerability ignores that the unpatched server IS the vulnerability described in the scenario. Saying there's a vulnerability but no active threat ignores that a known, usable exploit is explicitly described as existing. Calling this 'pure exposure with no associated risk' misapplies the term — exposure describes openness to harm, but with both a real threat and a real vulnerability present, this scenario is a textbook example of active risk, not merely theoretical exposure.",
   },
   {
     id: "d1_051", domain: 1, difficulty: 3, section: "Threat & Vulnerability Concepts",
@@ -11156,7 +11156,7 @@ export const questions = [
       "Nation-state advanced persistent threat actor",
     ],
     answer: 2,
-    explanation: "Organized cybercrime groups are financially motivated and often use sophisticated techniques like ransomware, banking trojans, and business email compromise. Script kiddies use pre-built tools with low skill, hacktivists are motivated by ideology, and nation-state actors typically pursue espionage or sabotage with the greatest resources.",
+    explanation: "Financially motivated actors using sophisticated techniques within a criminal organization describes organized cybercrime — groups behind ransomware, banking trojans, and business email compromise. A script kiddie uses pre-built tools with minimal skill and isn't typically part of an organized criminal enterprise. A hacktivist is driven by ideology or political causes, not financial gain. A nation-state APT actor typically pursues espionage or sabotage backed by government resources — a different motivation and sponsor than a profit-driven criminal group.",
   },
   {
     id: "d1_052", domain: 1, difficulty: 2, section: "Business Continuity Planning",
@@ -11168,7 +11168,7 @@ export const questions = [
       "Work Recovery Time (WRT) — added time to restore operations after systems return",
     ],
     answer: 1,
-    explanation: "The Maximum Tolerable Downtime (MTD), also called Maximum Tolerable Period of Disruption (MTPD), is the longest time a business function can be unavailable before the impact becomes unacceptable. The RTO is the target recovery time (must be less than MTD), and the RPO defines the maximum acceptable data loss measured in time.",
+    explanation: "Maximum Tolerable Downtime (MTD) is the longest a business process can be disrupted before causing unacceptable damage — exactly what's being asked. RPO measures acceptable data loss in time, not downtime tolerance — a different dimension of disruption entirely. RTO is the target time to actually restore a system, which must be shorter than the MTD, not the outer limit itself. WRT is the additional time needed to resume full business operations after systems come back online — it's a component that, together with RTO, must fit within the MTD, not the MTD itself.",
   },
   {
     id: "d1_053", domain: 1, difficulty: 2, section: "Business Continuity Planning",
@@ -11180,7 +11180,7 @@ export const questions = [
       "Backups must be performed every 4 hours to meet compliance",
     ],
     answer: 1,
-    explanation: "The Recovery Point Objective (RPO) defines the maximum acceptable amount of data loss measured in time. An RPO of 4 hours means the organization can tolerate losing up to 4 hours of data — so backups or replication must occur at least every 4 hours to meet this objective.",
+    explanation: "An RPO of 4 hours means the organization can tolerate losing up to 4 hours of data if a failure occurs — it's a data-loss tolerance, not a recovery-time or compliance requirement. Saying the system must be recovered within 4 hours describes RTO, a completely different metric about restoration speed, not data loss. Saying the system can be offline for 4 hours without impact conflates RPO with downtime tolerance (closer to MTD/RTO) rather than data loss. And while a 4-hour RPO does imply backups or replication need to happen at least that often, framing it as a fixed 'compliance requirement' misstates what the RPO actually defines — a business-driven data-loss tolerance, not a regulatory mandate.",
   },
   {
     id: "d1_054", domain: 1, difficulty: 3, section: "Business Continuity Planning",
@@ -11192,7 +11192,7 @@ export const questions = [
       "Once the Recovery Time Objective is met, the Maximum Tolerable Downtime is automatically satisfied — not necessarily true",
     ],
     answer: 1,
-    explanation: "The relationship is: RTO + WRT ≤ MTD. Here, 48 + 12 = 60 hours ≤ 72 hours — this is correct. RTO is the time to restore IT systems; WRT is the additional time to restore business operations after systems are back. Together they must not exceed the MTD, otherwise the business suffers unacceptable harm.",
+    explanation: "The correct relationship is RTO + WRT ≤ MTD, and here 48 + 12 = 60 hours, which fits within the 72-hour MTD — so this combination is acceptable. The first option is simply wrong on the numbers: 60 hours does not exceed 72 hours, so this scenario doesn't violate the rule. There's no fixed rule that WRT must always be shorter than RTO — their relative lengths depend on the specific system and business process, not a universal ratio. And meeting the RTO alone doesn't automatically satisfy the MTD — WRT (the time to resume full business operations after systems return) still has to be added in and fit within the remaining budget, as this example shows.",
   },
   {
     id: "d1_055", domain: 1, difficulty: 2, section: "Business Continuity Planning",
@@ -11228,7 +11228,7 @@ export const questions = [
       "Least privilege — granting only the minimum access needed for a role",
     ],
     answer: 1,
-    explanation: "Separation of duties (also called segregation of duties) divides a sensitive process across two or more people so that no single individual can complete fraud alone. Here, initiation and approval are separated between different employees. Dual control requires simultaneous action by two people rather than sequential approval by different roles.",
+    explanation: "Requiring different employees to initiate versus approve a wire transfer is separation of duties — dividing a process into sequential steps so no one person controls it end-to-end. Dual control is a related but distinct concept: it requires two people to act simultaneously on the same single action (like two keys turned together), not sequential approval by different roles as described here. Need to know restricts access to information based on job function, which isn't what's being controlled in this workflow-based scenario. Least privilege limits how much access any one person has, but doesn't specifically address splitting a process across multiple people the way separation of duties does.",
   },
   {
     id: "d1_058", domain: 1, difficulty: 2, section: "Personnel Security Controls",
@@ -11240,7 +11240,7 @@ export const questions = [
       "To ensure the organization complies with applicable state and federal labor laws",
     ],
     answer: 1,
-    explanation: "Mandatory vacation policies (sometimes called 'forced leave') serve as a fraud detection control. Employees committing ongoing fraud often manipulate records continuously. When they are absent, a replacement may detect the irregularity. While morale and cross-training are benefits, the primary security purpose is fraud detection.",
+    explanation: "Mandatory vacation policies exist primarily to detect fraud — ongoing schemes often require continuous presence to conceal, so a forced absence gives someone else a chance to notice irregularities. Preventing burnout and improving morale are genuine benefits of taking vacation, but they're not the security rationale behind making it mandatory specifically for this purpose. Cross-training opportunities can result from a colleague covering someone's role, but that's incidental, not the policy's driving purpose. Labor law compliance is unrelated — mandatory vacation as a fraud-detection control is a security decision, not something driven by wage-and-hour labor regulations.",
   },
   {
     id: "d1_059", domain: 1, difficulty: 1, section: "Personnel Security Controls",
@@ -11252,7 +11252,7 @@ export const questions = [
       "Only when an employee is being promoted into a newly sensitive role",
     ],
     answer: 1,
-    explanation: "Background checks are most effective as a pre-employment control before a candidate is hired. This allows the organization to make informed hiring decisions before granting access to sensitive systems or data. Some organizations also perform periodic re-screening for employees in sensitive positions, but pre-employment is primary.",
+    explanation: "Background checks are most effective before extending an offer or during pre-employment screening — informing the hiring decision before any access is ever granted. Waiting for an annual performance review means the person has already been working with sensitive access for up to a year before being screened. Waiting 90 days into onboarding means access was granted to an unvetted candidate well before any check occurred, defeating the purpose. Screening only at promotion into a sensitive role ignores that many employees are hired directly into sensitive positions and would go unchecked entirely under that policy.",
   },
   {
     id: "d1_060", domain: 1, difficulty: 2, section: "Personnel Security Controls",
@@ -11264,7 +11264,7 @@ export const questions = [
       "Retrieving all company-owned devices, laptops, and mobile equipment from the departing employee — also secondary",
     ],
     answer: 1,
-    explanation: "Revoking logical access (system accounts, VPN, email, cloud) is the most critical control because a disgruntled employee with advance warning could cause damage remotely. Physical badge collection and device retrieval are important but secondary — an angry former employee with valid credentials can act within seconds from anywhere.",
+    explanation: "Revoking logical access — accounts, VPN, email, cloud credentials — simultaneously with or before notifying the employee is the most urgent step, because a disgruntled former employee with valid remote credentials can cause damage within seconds from anywhere. Collecting the physical badge matters, but it only prevents in-person building access, not remote system access, which is the more immediate risk. Conducting a documented exit interview is an HR process step with no bearing on whether the person can still log in. Retrieving company devices is also important but secondary — even without a device, valid credentials from a personal device would still work if access isn't revoked first.",
   },
   {
     id: "d1_061", domain: 1, difficulty: 2, section: "Due Diligence & Due Care",
@@ -11276,7 +11276,7 @@ export const questions = [
       "Reasonable care",
     ],
     answer: 1,
-    explanation: "Due diligence is the investigation and verification performed BEFORE making a decision — in this case, reviewing the SOC 2 report before contracting. The company failed to exercise due diligence. Due care involves taking prudent actions after the decision is made. Both are required, but the failure here is the pre-contract investigation.",
+    explanation: "Not reviewing the SOC 2 report before signing is a failure of due diligence — the investigation that should happen before a decision is made, not after. Due care refers to the ongoing, prudent actions taken after a decision — like monitoring the vendor relationship post-signing — which isn't what failed here; the failure happened at the pre-contract research stage. The prudent man rule and reasonable care are both legal standards for evaluating whether due care was exercised in general, but they describe the standard being measured, not the specific pre-decision investigative failure this scenario illustrates.",
   },
   {
     id: "d1_062", domain: 1, difficulty: 2, section: "Due Diligence & Due Care",
@@ -11312,7 +11312,7 @@ export const questions = [
       "Annual policy acknowledgment training completed by all staff",
     ],
     answer: 1,
-    explanation: "Role-based technical training targets the specific skills and responsibilities of a particular job function. Developers need training on secure coding, OWASP Top 10, input validation, etc. — content irrelevant to general users. General awareness training addresses social engineering and policy, not technical coding practices.",
+    explanation: "Role-based technical training tailored to secure coding practices — input validation, parameterized queries, secure authentication — is the appropriate training for developers, since it addresses skills specific to their job function. General security awareness training covers broad topics like phishing and password hygiene, useful for all staff but not the technical depth developers need to write secure code. Executive-level briefings are tailored for senior leadership decision-making, not hands-on coding practices. Annual policy acknowledgment training simply confirms staff reviewed a document — it doesn't teach any technical skill at all, let alone secure development practices.",
   },
   {
     id: "d1_065", domain: 1, difficulty: 3, section: "Security Awareness & Training",
@@ -11324,7 +11324,7 @@ export const questions = [
       "Discontinue phishing simulations entirely since they create unnecessary employee anxiety and distrust — not warranted",
     ],
     answer: 1,
-    explanation: "Phishing simulations are a measurement tool. The correct response is to use results to target additional training, track improvement over time, and tailor the security awareness program. Disciplining employees for clicking simulated links is counterproductive (it discourages reporting). Phishing simulations are not security incidents.",
+    explanation: "A 35% click rate is a measurement, and the right response is to use it to identify high-risk groups, deliver targeted training, and re-test to track improvement over time. Formally disciplining every employee who clicked is counterproductive — it punishes people for a training exercise and discourages honest reporting of real phishing emails out of fear. A simulated phishing exercise isn't a security incident and shouldn't be reported to regulators as one — no actual breach or compromise occurred. Discontinuing the program entirely throws away a valuable, low-cost measurement tool over discomfort, when the better response is using the data constructively.",
   },
   {
     id: "d1_066", domain: 1, difficulty: 2, section: "Third-Party & Vendor Risk",
@@ -11348,7 +11348,7 @@ export const questions = [
       "To verify that a vendor holds specific industry certifications such as ISO 27001 or SOC 2 — only part of the process",
     ],
     answer: 1,
-    explanation: "A vendor risk assessment evaluates the security practices, controls, and overall risk posture of a third party to determine whether the risk of doing business with them is acceptable. While reviewing certifications is part of this process, the overarching purpose is holistic risk evaluation — not just financial or certification review.",
+    explanation: "A vendor risk assessment evaluates a vendor's overall security posture to determine whether the risk of doing business with them is acceptable — a holistic security evaluation, not a narrow procurement task. Negotiating the lowest contract price is a procurement function entirely separate from assessing security risk. Reviewing financial stability and creditworthiness is one input into overall vendor risk, but it's a narrow financial lens, not the full security posture the assessment is meant to capture. Verifying that a vendor holds certifications like ISO 27001 or SOC 2 is part of the process, but checking a box for a certification is only one piece of a broader risk evaluation, not the assessment's whole purpose.",
   },
   {
     id: "d1_068", domain: 1, difficulty: 3, section: "Third-Party & Vendor Risk",
@@ -11384,7 +11384,7 @@ export const questions = [
       "To document all formal software change requests and their corresponding management approval history — a change management task",
     ],
     answer: 1,
-    explanation: "An SBOM is a machine-readable inventory of all software components and dependencies. When a new vulnerability is discovered in a component (e.g., Log4Shell), organizations with SBOMs can quickly determine which of their products are affected. Without an SBOM, discovering affected systems requires manual inventory effort.",
+    explanation: "A Software Bill of Materials (SBOM) is a machine-readable inventory of a product's components and dependencies, enabling organizations to quickly determine exposure when a new vulnerability (like Log4Shell) is disclosed. Tracking software licenses is a separate legal/procurement concern; an SBOM's purpose is vulnerability and dependency tracking, not license management. Verifying a clean compile with no errors or warnings is a software build-quality check, entirely unrelated to inventorying components for supply-chain risk. Documenting change requests and approvals is a change-management process, not an inventory of what's actually inside the software.",
   },
   {
     id: "d1_071", domain: 1, difficulty: 1, section: "Privacy Principles",
@@ -11420,7 +11420,7 @@ export const questions = [
       "Accuracy",
     ],
     answer: 1,
-    explanation: "The data was collected for a specific purpose (age verification) but is being used for an incompatible secondary purpose (behavioral profiling) without consent. This violates purpose limitation. Data minimization would be violated if excessive data were collected, not by secondary use.",
+    explanation: "Using birth dates collected for age verification to build advertising profiles without consent violates purpose limitation — data can only be used for the purpose it was originally collected for, or a compatible one, not repurposed freely. Data minimization would be violated if the company collected more data than necessary for age verification in the first place — that's not the issue here, since the data itself (birth date) is appropriate for the stated purpose. Storage limitation concerns how long data is kept, not what it's used for while it's retained. Accuracy concerns whether the data itself is correct and up to date — irrelevant to this scenario, which is about an unauthorized secondary use.",
   },
   {
     id: "d1_074", domain: 1, difficulty: 2, section: "Intellectual Property Law",
@@ -11432,7 +11432,7 @@ export const questions = [
       "Trade secret law",
     ],
     answer: 2,
-    explanation: "Software is protected by copyright law, which gives the creator exclusive rights to reproduce, distribute, and create derivative works. Unauthorized copying and distribution of software violates copyright. Patents protect inventions/methods. Trademarks protect brand identifiers. Trade secrets protect confidential business information.",
+    explanation: "Unauthorized copying and distribution of commercial software is a copyright violation — copyright gives the creator exclusive rights to reproduce and distribute their work, and copying without permission infringes those rights directly. Patent law protects inventions and novel processes, not the act of copying existing code. Trademark law protects brand identifiers like names and logos, not the underlying software itself. Trade secret law protects confidential business information that derives value from secrecy — but distributing a compiled, publicly sold product isn't a trade secret matter, since the software isn't being kept secret in the first place.",
   },
   {
     id: "d1_075", domain: 1, difficulty: 2, section: "Intellectual Property Law",
@@ -11456,7 +11456,7 @@ export const questions = [
       "Stored Communications Act (SCA)",
     ],
     answer: 1,
-    explanation: "The Computer Fraud and Abuse Act (CFAA) is the primary U.S. federal law prohibiting unauthorized access to computers, computer fraud, and related offenses. The ECPA protects electronic communications. The DMCA addresses copyright in digital media. The SCA is part of ECPA and governs stored electronic communications.",
+    explanation: "The Computer Fraud and Abuse Act (CFAA) is the primary U.S. federal statute criminalizing unauthorized access to computers and computer-related fraud — exactly the charge described. The ECPA protects the privacy of electronic communications in transit and storage, a related but distinct area of law from unauthorized system access itself. The DMCA addresses copyright protection and circumvention of digital protections, not unauthorized computer intrusion. The SCA, part of the broader ECPA, governs law enforcement and provider access to stored communications — again a different focus than criminalizing the act of breaking into a server.",
   },
   {
     id: "d1_077", domain: 1, difficulty: 2, section: "Data Breach Notification",
@@ -11516,7 +11516,7 @@ export const questions = [
       "Residual risk",
     ],
     answer: 1,
-    explanation: "Risk appetite is the overall level of risk an organization is willing to accept. Risk tolerance is the acceptable deviation from risk appetite in specific areas. Risk threshold is the point at which action must be taken. Residual risk is the risk remaining after controls are applied.",
+    explanation: "Risk appetite is the board's overall, strategic statement of how much risk the organization is willing to accept in pursuit of its objectives — set at a high level, before any specific risk is even identified. Risk threshold is the specific point at which a risk level triggers required action, a more operational trigger than the broad appetite statement described here. Risk tolerance is the acceptable variation around that appetite for specific risk areas — narrower and more granular than the board-level statement in this question. Residual risk is what remains after controls are applied to a specific, already-identified risk — a completely different concept from a forward-looking appetite statement.",
   },
   {
     id: "d1_082", domain: 1, difficulty: 2, section: "Risk Appetite & Risk Tolerance",
@@ -11540,7 +11540,7 @@ export const questions = [
       "To directly respond to and manage active security incidents as they are detected and escalated — an operational function",
     ],
     answer: 1,
-    explanation: "A security steering committee provides strategic governance by bringing together business unit leaders, IT, legal, compliance, and security to align security priorities with business objectives. It is a decision-making body, not an operational one — it doesn't perform pen tests, approve individual firewall rules, or manage incidents directly.",
+    explanation: "A security steering committee provides cross-functional governance — bringing together business, IT, legal, and compliance leaders to prioritize security initiatives and align them with business strategy. It doesn't perform hands-on technical work like penetration testing; that's an operational security function carried out by specialists, not a governance body. Approving every individual firewall rule change would bury a strategic committee in operational minutiae far below its intended level. Directly managing active incidents is also an operational responsibility (handled by incident response teams), not something a governance-focused steering committee does.",
   },
   {
     id: "d1_084", domain: 1, difficulty: 2, section: "Security Governance",
@@ -11552,7 +11552,7 @@ export const questions = [
       "Federated security governance",
     ],
     answer: 2,
-    explanation: "Centralized governance gives a single security team authority and responsibility for security across the entire organization. It offers consistency but can be slow to respond to business unit-specific needs. Decentralized puts responsibility in each unit. Federated is a hybrid where units have autonomy within a central policy framework.",
+    explanation: "A single security team setting policy and directly managing tools and decisions for every business unit, with no unit-level autonomy, describes centralized governance — consistency and control concentrated in one place. Decentralized governance is the opposite: each business unit sets its own security direction independently, which doesn't match a scenario with no unit-level autonomy at all. A hybrid model blends centralized and decentralized elements, which also doesn't fit a scenario described as fully centralized with zero unit independence. Federated governance gives units autonomy within a shared central policy framework — a middle ground that, again, doesn't match the all-central structure described here.",
   },
   {
     id: "d1_085", domain: 1, difficulty: 2, section: "Accountability & Non-Repudiation",
@@ -11576,7 +11576,7 @@ export const questions = [
       "Authenticity",
     ],
     answer: 2,
-    explanation: "Accountability requires that users' actions can be traced back to them. Audit logs that record who did what and when support accountability by enabling forensic review and demonstrating that actions can be attributed to specific individuals. This also supports non-repudiation when combined with strong authentication.",
+    explanation: "Audit logs recording who did what and when directly support accountability — the ability to trace actions back to a specific individual for forensic review and attribution. Confidentiality is about restricting access to information, not tracking who accessed it after the fact. Availability concerns whether systems and data are accessible when needed, unrelated to logging user actions. Authenticity concerns whether something (like a message or identity) is genuine — a related but distinct concept from being able to trace an action back to the person who performed it.",
   },
   {
     id: "d1_087", domain: 1, difficulty: 1, section: "Security Foundations (CIA Triad)",
@@ -11588,7 +11588,7 @@ export const questions = [
       "Authenticity — ensuring the identity of a person or source is genuine",
     ],
     answer: 0,
-    explanation: "Confidentiality ensures that information is accessible only to authorized parties. Sending a confidential document to an unauthorized recipient (even accidentally) is a confidentiality breach. Integrity (data accuracy) and availability (system uptime) are not affected by this event.",
+    explanation: "Sending a confidential contract to the wrong, unauthorized recipient is a confidentiality breach — the information reached someone not authorized to see it, even though the mistake was accidental rather than malicious. Integrity concerns whether the contract's content itself was altered, which isn't what happened here — the document's contents remain accurate. Availability concerns whether the document remains accessible to those who need it, unaffected by this incident. Authenticity concerns whether the sender or source of information is genuine, not who received an accurate, unaltered document by mistake.",
   },
   {
     id: "d1_088", domain: 1, difficulty: 2, section: "Security Foundations (CIA Triad)",
@@ -11600,7 +11600,7 @@ export const questions = [
       "Non-repudiation",
     ],
     answer: 2,
-    explanation: "Ransomware primarily attacks availability by making data inaccessible. While some ransomware variants also exfiltrate data (confidentiality breach), the defining characteristic of ransomware — encrypting and locking files — is an availability attack. Integrity may also be affected if files are modified, but availability is the primary impact.",
+    explanation: "Ransomware's defining impact is on availability — encrypting files makes them inaccessible until a ransom is paid or backups are restored, directly denying access to legitimate users. Confidentiality can be affected too if the attacker also exfiltrates data before encrypting (double extortion), but that's a secondary tactic, not the core mechanism the question describes. Integrity could be affected if files were altered rather than just encrypted, but encryption for ransom doesn't change the underlying data's accuracy once decrypted — it blocks access, it doesn't corrupt content. Non-repudiation concerns proving who performed an action, which is unrelated to files simply being made inaccessible.",
   },
   {
     id: "d1_089", domain: 1, difficulty: 3, section: "Security Foundations (CIA Triad)",
@@ -11612,7 +11612,7 @@ export const questions = [
       "Authenticity",
     ],
     answer: 1,
-    explanation: "Integrity ensures that data is accurate and has not been tampered with. Altering a transaction amount without authorization is a direct integrity violation. Confidentiality would be violated if the transaction details were disclosed to unauthorized parties. Availability would be affected if the service was disrupted.",
+    explanation: "Changing a transaction amount without authorization is a direct integrity violation — the data has been tampered with and is no longer accurate. Confidentiality would be violated if the transaction's details were disclosed to someone unauthorized to see them, which isn't what happened here — the data was altered, not exposed. Availability would be affected if the transaction service itself became inaccessible, unrelated to a value being silently changed. Authenticity concerns whether the source of a message or transaction is genuine — this scenario is about the data's accuracy being corrupted after interception, which integrity specifically addresses.",
   },
   {
     id: "d1_090", domain: 1, difficulty: 2, section: "Risk Assessment Methods",
@@ -11624,7 +11624,7 @@ export const questions = [
       "Delphi risk assessment",
     ],
     answer: 1,
-    explanation: "Quantitative risk assessment uses numerical values, historical data, and financial metrics (ALE, SLE, ARO) to express risk in monetary terms. Qualitative assessment uses subjective categories (high/medium/low). Semi-quantitative combines both approaches. The Delphi technique is a qualitative method for gathering expert consensus.",
+    explanation: "Calculating an exact ALE in dollars, using historical data and statistical modeling, is quantitative risk assessment — precise numerical output is its defining trait. Qualitative assessment uses subjective categories like High/Medium/Low instead of exact dollar figures, the opposite of what's described. Semi-quantitative assessment blends numerical scoring with qualitative categories (like a 1-10 scale mapped to labels), which is a middle ground, not the pure dollar-based calculation described here. The Delphi technique is a qualitative method for gathering anonymous expert consensus — it doesn't involve historical statistical modeling to produce a monetary figure at all.",
   },
   {
     id: "d1_091", domain: 1, difficulty: 2, section: "Security Policy Exceptions & Risk",
@@ -11660,7 +11660,7 @@ export const questions = [
       "Assess",
     ],
     answer: 1,
-    explanation: "The NIST RMF steps are: Prepare, Categorize, Select, Implement, Assess, Authorize, Monitor. In the Select step, security controls are chosen from NIST SP 800-53 based on the system's categorization (impact level) determined in the Categorize step. Implement follows, then Assess to verify controls work, then Authorize for management approval.",
+    explanation: "In the NIST RMF's Select step, controls are chosen from SP 800-53 based on the system's categorization (impact level) determined in the prior Categorize step. Categorize comes before Select — it establishes the impact level that Select then uses, so it can't be the step where controls are actually chosen. Implement comes after Select — it's where the chosen controls are actually put into practice, not where they're picked. Assess comes after Implement — it's where the organization verifies the implemented controls are working correctly, a later step than selecting them in the first place.",
   },
   {
     id: "d1_094", domain: 1, difficulty: 2, section: "Security Metrics",
@@ -11672,7 +11672,7 @@ export const questions = [
       "Trend metric",
     ],
     answer: 2,
-    explanation: "Point-in-time metrics capture the current state of security at a specific moment (e.g., 'X% of systems are patched today'). KPIs measure performance against targets over time. KRIs measure risk levels and early warning signals. Trend metrics show changes over multiple measurement periods.",
+    explanation: "A point-in-time metric captures the current state of security at a specific moment — like 'X% of systems are patched today' — a snapshot rather than a trend. A Key Risk Indicator measures the level of risk and provides an early warning signal of increasing exposure, a forward-looking risk concept rather than a current-state snapshot. A Key Performance Indicator measures performance against a target over time, tracking progress rather than describing a single moment. A trend metric explicitly shows how a measurement has changed across multiple periods — the opposite of a single point-in-time snapshot.",
   },
   {
     id: "d1_095", domain: 1, difficulty: 2, section: "Legal & Regulatory Compliance",
@@ -11684,7 +11684,7 @@ export const questions = [
       "GLBA",
     ],
     answer: 2,
-    explanation: "FERPA (Family Educational Rights and Privacy Act) protects the privacy of student education records at institutions receiving federal funding. HIPAA covers health information. COPPA (Children's Online Privacy Protection Act) protects online data collection from children under 13. GLBA covers financial institutions.",
+    explanation: "FERPA (Family Educational Rights and Privacy Act) protects the privacy of student education records at institutions receiving federal funding — exactly the scenario described. HIPAA protects health information, not student transcripts or education records, so it doesn't apply here. COPPA protects the online data of children under 13 specifically, a narrower and different scope than general student education records regardless of age. GLBA governs the privacy of financial institution customer data, entirely unrelated to a university's student records.",
   },
   {
     id: "d1_096", domain: 1, difficulty: 2, section: "Legal & Regulatory Compliance",
@@ -11708,7 +11708,7 @@ export const questions = [
       "HIPAA — U.S. law protecting the privacy of health information",
     ],
     answer: 2,
-    explanation: "The California Consumer Privacy Act (CCPA), as amended by the CPRA, grants California residents the right to opt out of the sale of their personal information. GDPR is a European regulation. GLBA covers financial institution customer data. HIPAA covers health information. California's CCPA/CPRA is distinct from federal U.S. privacy law.",
+    explanation: "The CCPA, as amended by the CPRA, specifically grants California residents the right to opt out of the sale of their personal information — a right unique to this state law. GDPR is the EU's data protection regulation and doesn't grant rights specific to California residents under U.S. state law. GLBA governs the privacy practices of financial institutions specifically, not general consumer data sale rights. HIPAA protects health information specifically, unrelated to a general consumer's right to opt out of data sales.",
   },
   {
     id: "d1_098", domain: 1, difficulty: 2, section: "Business Impact Analysis",
@@ -11720,7 +11720,7 @@ export const questions = [
       "Residual risk",
     ],
     answer: 1,
-    explanation: "A mission-critical function (or critical business function) is a process or operation essential to the organization's survival — it must be protected and recovered first in a disaster. The BIA identifies these functions and determines their MTD, RTO, and RPO to drive recovery planning.",
+    explanation: "A specific critical business function that must continue operating during a disaster is a mission-critical function — the BIA identifies these functions as its core output. RPO is a data-loss tolerance metric that applies TO a critical function, not the function itself. MTD is a downtime tolerance measured for a critical function, again a metric applied to the function rather than a name for the function. Residual risk is the risk remaining after controls are applied — an unrelated risk concept, not a description of which business functions matter most.",
   },
   {
     id: "d1_099", domain: 1, difficulty: 2, section: "Business Impact Analysis",
@@ -11756,7 +11756,7 @@ export const questions = [
       "Allow individual business unit managers to approve their own exceptions internally, without requiring any centralized security review — lacks oversight",
     ],
     answer: 2,
-    explanation: "A formal exception management process ensures that deviations from policy are tracked, risk-assessed, and reviewed periodically. Key elements include: written business justification, risk assessment, compensating controls where possible, management sign-off, and an expiration date to force re-evaluation. Informal exceptions create ungoverned risk.",
+    explanation: "A formal exception process — documented justification, risk acceptance sign-off, compensating controls, and a firm expiration date — is the best practice because it ensures deviations from policy are tracked and periodically re-evaluated rather than becoming permanent, unmanaged risk. Granting exceptions informally case-by-case, with no consistent process, creates ungoverned risk that's difficult to track or ever revisit. Refusing all exceptions under any circumstance is impractical and ignores legitimate business constraints, often pushing people toward quietly working around the policy instead. Letting individual managers approve their own exceptions removes centralized security oversight entirely, undermining the whole point of having a security review process.",
   },
   {
     id: "d1_102", domain: 1, difficulty: 2, section: "Security Policies & Governance",
@@ -11768,7 +11768,7 @@ export const questions = [
       "A policy addresses technical matters while a procedure addresses administrative matters — not the real distinction here",
     ],
     answer: 1,
-    explanation: "Policies define high-level management intent and mandatory requirements (the WHAT). Procedures provide detailed, step-by-step instructions for carrying out specific tasks (the HOW). Both are mandatory documents. Policies are technology and platform agnostic; procedures may be specific to a system or process.",
+    explanation: "A policy states what must be done at a high level, while a procedure describes how to actually do it, step by step. The first option reverses the actual roles — policies are the mandatory ones, and while procedures are also generally required, framing policy as merely optional guidance is backwards. Policies apply organization-wide, not just to executives — they set expectations for all employees, with procedures implementing them at the operational level for whoever performs the task. The technical-versus-administrative split is also not the real distinction — policies and procedures can each address either technical or administrative matters; what separates them is level of detail (intent vs. instructions), not subject matter.",
   },
   {
     id: "d1_103", domain: 1, difficulty: 3, section: "Risk Concepts & Formulas",
@@ -11816,7 +11816,7 @@ export const questions = [
       "Residual risk exposure metric",
     ],
     answer: 1,
-    explanation: "Patch compliance rate is a Key Performance Indicator (KPI) that measures how well the organization is performing against a security objective. A KRI would measure risk level — such as the number of unpatched critical vulnerabilities. KPIs track process performance; KRIs warn about increasing risk levels.",
+    explanation: "An improving patch compliance rate over time is a Key Performance Indicator — it tracks how well the organization is performing against a defined security objective. A Key Risk Indicator would instead measure the level of risk itself, like the current count of unpatched critical vulnerabilities — a risk-level signal rather than a performance trend. A general threat indicator would describe external threat activity, not an internal measure of the organization's own process performance. A residual risk exposure metric measures risk remaining after controls, a risk-focused figure rather than a performance-tracking one like a compliance percentage improving over time.",
   },
   {
     id: "d1_107", domain: 1, difficulty: 3, section: "Supply Chain Risk Management",
@@ -11864,7 +11864,7 @@ export const questions = [
       "NIST SP 800-171",
     ],
     answer: 2,
-    explanation: "NIST SP 800-53 (Security and Privacy Controls for Information Systems and Organizations) provides the comprehensive control catalogue used by U.S. federal agencies. SP 800-37 is the RMF. SP 800-30 provides risk assessment guidance. SP 800-171 covers protecting controlled unclassified information in non-federal systems.",
+    explanation: "NIST SP 800-53 is the comprehensive security and privacy controls catalogue used by U.S. federal agencies to select controls for their systems — exactly the resource described. SP 800-37 is the Risk Management Framework itself, the overall process, not the control catalogue used within it. SP 800-30 provides guidance specifically for conducting risk assessments, a different activity than selecting controls from a catalogue. SP 800-171 addresses protecting Controlled Unclassified Information in non-federal systems (like government contractors), a narrower, different-scope publication than the general federal control catalogue.",
   },
   {
     id: "d1_111", domain: 1, difficulty: 2, section: "Third-Party & Vendor Risk",
@@ -11876,7 +11876,7 @@ export const questions = [
       "Type II reports are specifically required to satisfy GDPR obligations, while Type I reports are used instead to satisfy PCI-DSS requirements — not how it works",
     ],
     answer: 1,
-    explanation: "SOC 2 Type I assesses whether controls are suitably designed at a specific point in time. SOC 2 Type II assesses whether controls were operating effectively over a defined period (typically 6–12 months). Type II provides much stronger assurance because it tests actual operation, not just design. Both use the same Trust Services Criteria.",
+    explanation: "SOC 2 Type II tests whether controls actually operated effectively over an extended period (typically 6-12 months), while Type I only assesses whether controls are suitably designed at a single point in time — Type II is the stronger assurance because it verifies real operation, not just design. The claim that Type II covers a broader set of trust service criteria is incorrect — both report types use the same Trust Services Criteria; what differs is the testing period, not the scope of criteria. Type II audits are performed by independent external auditors, not internal staff — internal-only assessment wouldn't provide the independent assurance a SOC 2 report is meant to offer. And SOC 2 reports aren't tied to specific regulations like GDPR or PCI-DSS at all — they're a general assurance framework, not a substitute for those specific compliance regimes.",
   },
   {
     id: "d1_112", domain: 1, difficulty: 3, section: "Legal & Regulatory Compliance",
@@ -11912,7 +11912,7 @@ export const questions = [
       "Focus exclusively on satisfying the organization's minimum regulatory compliance requirements — misses broader risks",
     ],
     answer: 1,
-    explanation: "An effective security strategy is business-aligned — it reflects the organization's specific goals, risk appetite, and applicable regulations. Copying another organization's strategy ignores differences in risk profile. Minimum compliance may miss critical risks. Technology-first approaches may not address the most significant business risks.",
+    explanation: "An effective security strategy aligns with the organization's own business goals, risk appetite, and regulatory requirements — because those factors are unique to each organization and drive what actually needs protecting. Implementing whatever advanced technology is currently available is a technology-first approach that risks spending on tools that don't address the organization's actual highest risks. Copying a similarly sized peer's strategy ignores that risk profiles differ even between similar organizations — industry, data sensitivity, and threat exposure all vary. Focusing only on minimum regulatory compliance treats compliance as a ceiling rather than a floor, and can leave significant business risks unaddressed that regulations don't happen to cover.",
   },
   {
     id: "d1_115", domain: 1, difficulty: 2, section: "Privacy Principles",
@@ -11924,7 +11924,7 @@ export const questions = [
       "Integrity and confidentiality",
     ],
     answer: 1,
-    explanation: "Data minimization requires collecting only the personal data that is adequate, relevant, and limited to what is necessary for the specified purpose. Purpose limitation restricts how data can be used. Storage limitation restricts retention duration. Integrity and confidentiality requires data be protected from unauthorized access and modification.",
+    explanation: "Data minimization requires collecting only the personal data that's adequate, relevant, and necessary for the stated purpose — nothing extra 'just in case.' Purpose limitation is a related but different principle: it restricts how already-collected data can be used, not how much is collected in the first place. Storage limitation restricts how long data is retained, a time-based constraint rather than a collection-volume one. Integrity and confidentiality require that data be accurate and protected from unauthorized access — a data-protection principle, not one about how much data is collected up front.",
   },
   {
     id: "d1_116", domain: 1, difficulty: 3, section: "Business Continuity Planning",
@@ -11960,7 +11960,7 @@ export const questions = [
       "Only organizations that are subject to FISMA requirements — confuses CSF with a federal mandate",
     ],
     answer: 2,
-    explanation: "The NIST CSF was originally designed for critical infrastructure but has been adopted broadly across all sectors and organization sizes. Version 2.0 (2024) explicitly acknowledges its universal applicability. It is voluntary (unlike FISMA requirements for federal agencies) and scalable from small businesses to large enterprises.",
+    explanation: "The NIST CSF is designed for any organization, regardless of sector, size, or security maturity — Version 2.0 (2024) explicitly broadened and confirmed this universal scope. Saying it applies only to federal agencies confuses the CSF (voluntary, cross-sector) with mandatory federal frameworks like FISMA or the RMF. Saying it applies only to critical infrastructure reflects the CSF's original 2014 scope, but that limitation is outdated — it has since been adopted far more broadly. Saying it's limited to FISMA-covered organizations conflates a voluntary, flexible framework with a specific legal compliance mandate that federal systems must follow — the CSF isn't tied to FISMA applicability at all.",
   },
   {
     id: "d1_119", domain: 1, difficulty: 3, section: "Computer Crime Laws",
@@ -11984,7 +11984,7 @@ export const questions = [
       "To specify the required encryption standards for protecting data in transit",
     ],
     answer: 1,
-    explanation: "An Acceptable Use Policy defines how employees may (and may not) use organizational IT resources — computers, networks, email, internet. It sets behavioral expectations and legal boundaries. Technical controls implement those boundaries. An AUP is a policy document, not a technical specification or procedural guide.",
+    explanation: "An Acceptable Use Policy defines what employees may and may not do with organizational IT resources — setting behavioral and legal expectations for computer, network, email, and internet use. Describing specific technical security controls is what a standard or system documentation does, not an AUP, which focuses on user behavior rather than technical implementation. Outlining incident response procedures is a separate operational document guiding how the organization responds to incidents, unrelated to day-to-day acceptable use rules. Specifying encryption requirements for data in transit is a technical standard, not a behavioral policy governing how employees may use IT resources.",
   },
   {
     id: "d1_121", domain: 1, difficulty: 2, section: "Security Governance",
@@ -11996,7 +11996,7 @@ export const questions = [
       "Compliance management oversight — monitoring adherence to regulations and standards",
     ],
     answer: 2,
-    explanation: "The board reviewing, approving, and funding security initiatives is executive oversight — a core governance function. Governance at the board level sets strategic direction, approves resources, and establishes accountability. This is distinct from operational security activities like patching or incident response.",
+    explanation: "A board reviewing a security roadmap and approving budget is executive oversight — a core board-level governance function of setting direction and allocating resources. Risk mitigation planning is the operational work of selecting and implementing specific controls to reduce identified risks, a different activity than a board approving funding. Security operations management is the day-to-day running of security functions, carried out by staff, not the strategic governance role the board plays here. Compliance management oversight specifically monitors adherence to regulations and standards — a narrower, more specific governance function than the broad strategic and budgetary role described in this scenario.",
   },
   {
     id: "d1_122", domain: 1, difficulty: 2, section: "Risk Management Frameworks",
@@ -12008,7 +12008,7 @@ export const questions = [
       "Incident response procedures",
     ],
     answer: 1,
-    explanation: "NIST SP 800-30 (Guide for Conducting Risk Assessments) provides a methodology for assessing information security risk. SP 800-53 addresses control selection, SP 800-37 covers the RMF, and SP 800-61 addresses incident response.",
+    explanation: "NIST SP 800-30 (Guide for Conducting Risk Assessments) provides the methodology for assessing information security risk — exactly the activity this question asks about. Security control selection for federal systems is covered by SP 800-53, a different publication with a different purpose. Security certification and accreditation was covered by an older process largely superseded by the RMF and SP 800-37 today, not by SP 800-30. Incident response procedures are addressed in SP 800-61, a separate publication focused on handling and responding to security incidents, not conducting risk assessments.",
   },
   {
     id: "d1_123", domain: 1, difficulty: 3, section: "Privacy Principles",
@@ -12020,7 +12020,7 @@ export const questions = [
       "Integrity and confidentiality — keeping data accurate and protected from unauthorized access",
     ],
     answer: 2,
-    explanation: "Selling data to brokers is not compatible with the stated purpose ('improve services') and was not disclosed to users. This violates both purpose limitation (using data beyond the stated purpose) and transparency (failing to disclose actual data use). Users cannot meaningfully consent to undisclosed secondary uses.",
+    explanation: "Selling location data to brokers — beyond the stated purpose of 'improving services' and without disclosure — violates both purpose limitation (using data for an incompatible purpose) and transparency (failing to tell users the data would be sold). Data minimization concerns how much data is collected, not what it's later used for — the amount of location data collected isn't the issue here. Storage limitation concerns how long data is retained, unrelated to whether it's being sold to third parties without disclosure. Integrity and confidentiality address whether data stays accurate and protected from unauthorized access — but this is about an undisclosed secondary use of the data, not a security breach or corruption of it.",
   },
   {
     id: "d1_124", domain: 1, difficulty: 2, section: "Third-Party & Vendor Risk",
@@ -12056,7 +12056,7 @@ export const questions = [
       "It fails entirely to consider the probability of threats actually occurring — not true, since probability is a core input here",
     ],
     answer: 1,
-    explanation: "Quantitative risk analysis requires accurate asset values, exposure factors, and threat frequency data. When this data is unavailable, estimated, or based on incomplete history, the results can create a false sense of precision. This is why many organizations use qualitative methods initially and quantitative analysis where reliable data exists.",
+    explanation: "When an organization has no reliable historical loss data, the figures needed for quantitative formulas become guesses — illustrating quantitative analysis's real limitation: it requires accurate historical data and precise estimates that aren't always available. Saying it can never produce meaningful results is an overstatement — when good data does exist, quantitative analysis is genuinely valuable; the limitation is data availability, not the method's usefulness overall. Saying it takes too little time to be credible gets it backwards — quantitative analysis is typically more time- and data-intensive than qualitative methods, not less. And it doesn't fail to consider probability — the ARO (Annual Rate of Occurrence) is a probability input; the actual weakness is that this input, like the others, may be unreliable when history is thin.",
   },
   {
     id: "d1_127", domain: 1, difficulty: 2, section: "Ethics",
@@ -12080,7 +12080,7 @@ export const questions = [
       "Procedure",
     ],
     answer: 2,
-    explanation: "A baseline defines the minimum level of security that must be applied to a system or asset type — it is a mandatory, specific standard. A policy states management intent. A guideline offers optional recommendations. A procedure provides step-by-step instructions for tasks.",
+    explanation: "A security baseline specifying minimum configuration requirements for a system type is a form of standard — a mandatory, specific requirement rather than general intent or optional advice. A policy would state the high-level intent behind requiring secure configurations, without specifying the actual minimum settings. A guideline would offer optional, recommended configuration practices rather than a mandatory minimum baseline. A procedure would walk through the specific steps to apply the baseline settings to a workstation, not define what the baseline requirements are in the first place.",
   },
   {
     id: "d1_129", domain: 1, difficulty: 3, section: "Risk Response Strategies",
@@ -12116,7 +12116,7 @@ export const questions = [
       "Retain all previous access indefinitely until the employee requests its removal",
     ],
     answer: 1,
-    explanation: "When an employee changes roles, access should be immediately updated: revoke the previous role's access and grant only what is needed for the new role. Allowing access to accumulate across multiple roles violates least privilege and creates privilege creep — where users accumulate access beyond what any single role requires.",
+    explanation: "When an employee changes roles, immediately revoking the previous role's access and provisioning only what the new role requires prevents privilege creep — the gradual, unauthorized accumulation of access beyond what any current role needs. Allowing continued access to both old and new systems during a transition period, without a firm end date, is exactly how privilege creep begins and often never gets cleaned up. Letting the employee self-select their access ignores the principle that access should be determined by job requirements, not personal judgment. Retaining all previous access indefinitely until the employee requests its removal relies on the employee to voluntarily give up access they no longer need — something that rarely happens in practice.",
   },
   {
     id: "d1_132", domain: 1, difficulty: 2, section: "Security Awareness & Training",
@@ -12128,7 +12128,7 @@ export const questions = [
       "Baiting — luring victims with physical media like an infected USB drive",
     ],
     answer: 1,
-    explanation: "Pretexting involves creating a fabricated scenario (pretext) to manipulate someone into providing information. When conducted over the phone, it is also called vishing (voice phishing). Phishing is email-based. Spear phishing is targeted phishing with personalized content. Baiting uses physical media (e.g., infected USB drives).",
+    explanation: "Calling an employee and impersonating IT support to extract credentials is pretexting — fabricating a false scenario to manipulate someone — and specifically vishing when it happens by phone (voice phishing). Phishing refers to fraudulent email, not a phone call, so it doesn't match the delivery method described here. Spear phishing is a targeted, personalized phishing attack, but it's still email-based, not a phone call impersonating IT support. Baiting lures a victim using physical or digital bait, like an infected USB drive left somewhere findable — a different tactic entirely from a live phone impersonation.",
   },
   {
     id: "d1_133", domain: 1, difficulty: 3, section: "Risk Management Frameworks",
@@ -12152,7 +12152,7 @@ export const questions = [
       "A list of formally approved disaster recovery alternate sites — a DRP planning output, not a BIA deliverable",
     ],
     answer: 1,
-    explanation: "The BIA identifies which business functions are critical, what the impact of disruption would be over time, and establishes recovery time and point objectives. It drives the DR/BCP strategy. Threat/vulnerability identification is part of risk assessment. Quantified risk values come from risk analysis. DR site selection follows from BIA outputs.",
+    explanation: "The BIA's primary output is identifying which business functions are critical and establishing their recovery priorities, RTOs, and RPOs — the foundation everything else in continuity planning builds on. A comprehensive list of every threat and vulnerability is the output of a broader risk assessment, a different (though related) activity focused on causes of harm rather than business function criticality. A fully quantified risk register with monetary values is the output of quantitative risk analysis, not a BIA, which focuses on impact and recovery timing rather than dollar-denominated risk scoring. A list of approved disaster recovery alternate sites is a DRP planning deliverable that comes after and because of the BIA's findings, not a BIA output itself.",
   },
   {
     id: "d1_135", domain: 1, difficulty: 2, section: "Security Metrics",
@@ -12164,7 +12164,7 @@ export const questions = [
       "Total number of awareness emails sent to staff",
     ],
     answer: 2,
-    explanation: "Mean time to remediate (MTTR for vulnerabilities) directly measures the effectiveness of the vulnerability management process — how quickly the organization closes critical gaps. The number of vulnerabilities found indicates scan coverage but not remediation effectiveness. Staff count and email volume are activity metrics, not outcome metrics.",
+    explanation: "Mean time to remediate critical vulnerabilities directly measures how quickly the organization actually closes its most dangerous gaps — a true outcome metric for program effectiveness. The total number of vulnerabilities discovered reflects scan coverage and thoroughness, but says nothing about whether those vulnerabilities actually get fixed. The number of security staff employed is a resourcing metric, not a measure of whether the vulnerability management process is working. The number of awareness emails sent is an activity metric — proof that emails went out, not evidence that vulnerabilities are being remediated any faster.",
   },
   {
     id: "d1_136", domain: 1, difficulty: 2, section: "Due Diligence & Due Care",
@@ -12176,7 +12176,7 @@ export const questions = [
       "Safe harbor — a provision that protects compliant parties from certain liability",
     ],
     answer: 0,
-    explanation: "The prudent person (or prudent man) rule asks whether a reasonable person in the same circumstances would have taken similar protective actions. Courts use this standard to assess whether an organization exercised due care in securing its systems. Failing to patch a known critical vulnerability for six months would likely fail this test.",
+    explanation: "Courts use the prudent person (or prudent man) rule to ask whether a reasonable person in the same circumstances would have taken similar protective action — here, whether patching a known critical vulnerability within six months was reasonable, which it likely wasn't. Respondeat superior concerns an employer's liability for an employee's actions, a different legal question than whether the organization itself acted with reasonable care. Caveat emptor ('buyer beware') places due diligence responsibility on a buyer in a transaction, unrelated to evaluating an organization's own security negligence. Safe harbor provisions protect compliant parties from certain liability when specific conditions are met, but they don't provide the general standard courts use to evaluate whether reasonable care was exercised in the first place.",
   },
   {
     id: "d1_137", domain: 1, difficulty: 3, section: "Security Governance",
@@ -12212,7 +12212,7 @@ export const questions = [
       "Prioritizing risks strictly using a fixed mathematical formula — a quantitative approach instead",
     ],
     answer: 1,
-    explanation: "The Delphi technique is a structured qualitative method where experts independently provide assessments, results are anonymously shared, and the process repeats until consensus emerges. The anonymity reduces the influence of dominant personalities or groupthink. It is not a quantitative or automated method.",
+    explanation: "A panel of experts independently and anonymously ranking risks across multiple rounds, specifically to avoid one voice dominating, describes the Delphi technique — a structured method for building consensus while reducing groupthink. Calculating precise monetary risk values is a quantitative method, unrelated to gathering anonymous expert opinion. Performing automated vulnerability scans is a technical activity carried out by tools, not a structured method for expert judgment at all. Prioritizing risks with a fixed mathematical formula is another quantitative approach — the opposite of the anonymous, iterative, judgment-based process the Delphi technique represents.",
   },
   {
     id: "d1_140", domain: 1, difficulty: 2, section: "Supply Chain Risk Management",
@@ -12236,7 +12236,7 @@ export const questions = [
       "Integrity and confidentiality",
     ],
     answer: 2,
-    explanation: "Storage limitation requires that personal data be kept only for as long as necessary for the purpose for which it was collected. After that, data should be deleted or anonymized. Data minimization addresses the amount of data collected. Purpose limitation addresses the uses of data.",
+    explanation: "Storage limitation requires that personal data be kept in identifiable form no longer than necessary for the purpose it was collected for — after that, it should be deleted or anonymized. Data minimization addresses how much data is collected in the first place, a different constraint than how long it's retained. Purpose limitation addresses what the data can be used for, not how long it can be kept. Integrity and confidentiality require that retained data stay accurate and protected — a data-quality and security principle, not a retention-duration one.",
   },
   {
     id: "d1_142", domain: 1, difficulty: 3, section: "Risk Concepts & Formulas",
@@ -12248,7 +12248,7 @@ export const questions = [
       "ALE remained the same since asset value did not change",
     ],
     answer: 1,
-    explanation: "SLE = $2M × 0.50 = $1,000,000. Original ALE = $1,000,000 × 0.25 (once per 4 years) = $250,000. New ALE = $1,000,000 × 0.50 (once per 2 years) = $500,000. The ALE doubled because the ARO doubled. Changes in threat frequency directly affect ALE even when asset value and exposure factor remain constant.",
+    explanation: "SLE = $2M × 50% = $1,000,000. Original ALE (once per 4 years, ARO = 0.25) = $250,000; new ALE (once per 2 years, ARO = 0.50) = $500,000 — the ALE doubled because the ARO doubled while asset value and exposure factor stayed constant. Saying ALE decreased reverses the direction entirely — a more frequent threat increases annualized loss, it doesn't decrease it. Saying ALE quadrupled to $2,000,000 overstates the change — doubling the frequency doubles the ALE, it doesn't produce a fourfold increase, and $2,000,000 would actually equal the full asset value, which isn't what's being asked. Saying ALE remained unchanged ignores that ALE depends on ARO too, not just asset value — a frequency change alone is enough to change the annualized figure even when nothing else does.",
   },
   {
     id: "d1_143", domain: 1, difficulty: 2, section: "Security Policies & Governance",
@@ -12260,7 +12260,7 @@ export const questions = [
       "The elevated set of security controls applied only to the most sensitive systems — describes a control overlay instead",
     ],
     answer: 0,
-    explanation: "A security baseline defines the minimum required security configuration for a system category (e.g., all Windows workstations, all web servers). It represents the floor of security, not a ceiling. Baselines are derived from standards (e.g., CIS Benchmarks, DISA STIGs) and are tailored to the organization's environment.",
+    explanation: "A security baseline is the minimum set of security controls required for all systems of a given type — the floor everyone in that category must meet, typically derived from a source like CIS Benchmarks or DISA STIGs. A formally documented, board-approved risk tolerance statement describes risk appetite, a governance concept about how much risk the organization accepts — not a technical control baseline. A comprehensive inventory of every known vulnerability describes a vulnerability inventory or scan result, an entirely different artifact from a control baseline. An elevated set of controls applied only to the most sensitive systems describes a control overlay — additional requirements layered on top of the baseline for higher-risk systems, not the baseline itself.",
   },
   {
     id: "d1_144", domain: 1, difficulty: 2, section: "Legal & Regulatory Compliance",
