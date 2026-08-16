@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function Timer({ totalSeconds, onExpire, paused = false }) {
+export default function Timer({
+  totalSeconds,
+  onExpire,
+  paused = false,
+  onTick,
+}) {
   const [remaining, setRemaining] = useState(totalSeconds);
   const intervalRef = useRef(null);
 
@@ -13,11 +18,13 @@ export default function Timer({ totalSeconds, onExpire, paused = false }) {
           onExpire();
           return 0;
         }
-        return prev - 1;
+        const next = prev - 1;
+        onTick?.(next);
+        return next;
       });
     }, 1000);
     return () => clearInterval(intervalRef.current);
-  }, [paused, onExpire]);
+  }, [paused, onExpire, onTick]);
 
   const h = Math.floor(remaining / 3600);
   const m = Math.floor((remaining % 3600) / 60);

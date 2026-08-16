@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Flag } from 'lucide-react';
 import Question from './Question.jsx';
 import Timer from './Timer.jsx';
@@ -23,6 +23,11 @@ import {
   getWrongWeights,
 } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
+import {
+  saveExamProgress,
+  getExamProgress,
+  clearExamProgress,
+} from '../utils/progress.js';
 
 const EXAM_SECONDS = 3 * 60 * 60;
 
@@ -34,6 +39,7 @@ export default function ExamMode({ onHome }) {
   const allQuestions = buildQuestionPool();
   const [seenIds] = useState(() => getSeenIds());
   const [wrongWeights] = useState(() => getWrongWeights());
+  const [savedProgress] = useState(() => getExamProgress());
 
   const [catState, setCatState] = useState(() => initialState());
   const [questionHistory, setQHistory] = useState(() => {
@@ -52,10 +58,75 @@ export default function ExamMode({ onHome }) {
     ];
   });
   const [selected, setSelected] = useState(null);
-  const [phase, setPhase] = useState('exam'); // 'exam' | 'review' | 'results'
+  // 'resume' | 'exam' | 'review' | 'results'
+  const [phase, setPhase] = useState(() => (savedProgress ? 'resume' : 'exam'));
   const [scaledScore, setScaledScore] = useState(0);
   const [timedOut, setTimedOut] = useState(false);
   const [finalAnswered, setFinalAnswered] = useState([]);
+  const [examTotalSeconds, setExamTotalSeconds] = useState(
+    () => savedProgress?.remainingSeconds ?? EXAM_SECONDS,
+  );
+  const remainingSecondsRef = useRef(examTotalSeconds);
+  const handleTick = useCallback((secs) => {
+    remainingSecondsRef.current = secs;
+  }, []);
+
+  // Continuously snapshot in-progress exam state so closing the app doesn't
+  // lose it — mirrors PracticeMode's approach. usedIds is a Set, so it's
+  // converted to an array for JSON storage.
+  useEffect(() => {
+    if (phase !== 'exam' && phase !== 'review') return;
+    saveExamProgress({
+      phase,
+      catState: { ...catState, usedIds: [...catState.usedIds] },
+      questionHistory,
+      selected,
+      remainingSeconds: remainingSecondsRef.current,
+      timedOut,
+    });
+  }, [phase, catState, questionHistory, selected, timedOut]);
+
+  function handleResume() {
+    if (!savedProgress) {
+      setPhase('exam');
+      return;
+    }
+    setCatState({
+      ...savedProgress.catState,
+      usedIds: new Set(savedProgress.catState.usedIds),
+    });
+    setQHistory(savedProgress.questionHistory);
+    setSelected(savedProgress.selected);
+    setExamTotalSeconds(savedProgress.remainingSeconds ?? EXAM_SECONDS);
+    setTimedOut(savedProgress.timedOut || false);
+    setPhase(savedProgress.phase || 'exam');
+  }
+
+  function handleDiscardProgress() {
+    const p = savedProgress;
+    if (p && p.catState?.answered?.length > 0) {
+      // Use catState.answered (committed answers only) — questionHistory
+      // also includes the question currently on screen, which may still be
+      // unanswered and would otherwise get scored as a miss.
+      const answered = p.catState.answered;
+      const score = calculateScaledScore(p.catState);
+      saveSession({
+        mode: 'exam',
+        incomplete: true,
+        score,
+        pct: Math.round(
+          (answered.filter((a) => a.correct).length / answered.length) * 100,
+        ),
+        correct: answered.filter((a) => a.correct).length,
+        total: answered.length,
+        domainBreakdown: getDomainBreakdown(answered),
+        difficultyBreakdown: getDifficultyBreakdown(answered),
+      });
+    }
+    clearExamProgress();
+    setExamTotalSeconds(EXAM_SECONDS);
+    setPhase('exam');
+  }
 
   const currentIdx = catState.answered.length; // index of question being answered
   const currentEntry = questionHistory[currentIdx];
@@ -94,6 +165,7 @@ export default function ExamMode({ onHome }) {
       difficultyBreakdown: getDifficultyBreakdown(answered),
     });
 
+    clearExamProgress();
     setPhase('results');
   }
 
@@ -209,6 +281,32 @@ export default function ExamMode({ onHome }) {
     setSelected(null);
     setPhase('exam');
     setTimedOut(false);
+    setExamTotalSeconds(EXAM_SECONDS);
+    clearExamProgress();
+  }
+
+  if (phase === 'resume') {
+    const answeredCount = savedProgress?.catState?.answered?.length || 0;
+    const correctCount =
+      savedProgress?.catState?.answered?.filter((a) => a.correct).length || 0;
+    return (
+      <div className="setup-card">
+        <h2>Unfinished Exam Session</h2>
+        <p className="setup-card__sub">
+          Question {answeredCount + 1} · {correctCount}/{answeredCount} correct
+          so far · time remaining preserved
+        </p>
+        <button className="btn btn--primary btn--full" onClick={handleResume}>
+          Resume →
+        </button>
+        <button
+          className="btn btn--ghost btn--full"
+          onClick={handleDiscardProgress}
+        >
+          Save Results &amp; Start New
+        </button>
+      </div>
+    );
   }
 
   if (phase === 'review') {
@@ -243,7 +341,11 @@ export default function ExamMode({ onHome }) {
     <div className="exam-layout">
       <header className="exam-header">
         <div className="exam-header__title">CISSP Exam Simulation</div>
-        <Timer totalSeconds={EXAM_SECONDS} onExpire={handleExpire} />
+        <Timer
+          totalSeconds={examTotalSeconds}
+          onExpire={handleExpire}
+          onTick={handleTick}
+        />
         <div className="exam-header__progress">
           Q {questionNumber}
           {flagCount > 0 && (

@@ -13,6 +13,11 @@ import {
 } from '../utils/history.js';
 import { saveSession } from '../utils/sessions.js';
 import {
+  savePracticeProgress,
+  getPracticeProgress,
+  clearPracticeProgress,
+} from '../utils/progress.js';
+import {
   getDomainBreakdown,
   getDifficultyBreakdown,
   shuffleOptions,
@@ -46,7 +51,10 @@ function buildAllQuestions() {
 }
 
 export default function PracticeMode({ onHome, onWrongReview }) {
-  const [phase, setPhase] = useState('setup');
+  const [savedProgress] = useState(() => getPracticeProgress());
+  const [phase, setPhase] = useState(() =>
+    getPracticeProgress() ? 'resume' : 'setup',
+  );
   const [selectedDomain, setDomain] = useState(0);
   const [selectedDiff, setDiff] = useState(0);
   const [questionCount, setCount] = useState(20);
@@ -127,6 +135,59 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     setPhase('quiz');
   }
 
+  // Continuously snapshot in-progress quiz state so closing the app mid-session
+  // doesn't lose it. Excludes timeElapsed (per-question countdown) since that
+  // would write on every tick; resuming just restarts the current question's
+  // timer, which is an acceptable tradeoff for a study tool.
+  useEffect(() => {
+    if (phase !== 'quiz') return;
+    savePracticeProgress({
+      pool,
+      index,
+      selected,
+      showResult,
+      answered,
+      timeLimit,
+    });
+  }, [phase, pool, index, selected, showResult, answered, timeLimit]);
+
+  function handleResume() {
+    if (!savedProgress) {
+      setPhase('setup');
+      return;
+    }
+    setPool(savedProgress.pool);
+    setIndex(savedProgress.index);
+    setSelected(savedProgress.selected);
+    setShowResult(savedProgress.showResult);
+    setAnswered(savedProgress.answered);
+    setTimeLimit(savedProgress.timeLimit || 0);
+    setTimeElapsed(0);
+    setPhase('quiz');
+  }
+
+  function handleDiscardProgress() {
+    const prevAnswered = savedProgress?.answered || [];
+    if (prevAnswered.length > 0) {
+      saveSession({
+        mode: 'practice',
+        incomplete: true,
+        score: null,
+        pct: Math.round(
+          (prevAnswered.filter((a) => a.correct).length / prevAnswered.length) *
+            100,
+        ),
+        correct: prevAnswered.filter((a) => a.correct).length,
+        total: prevAnswered.length,
+        domainBreakdown: getDomainBreakdown(prevAnswered),
+        difficultyBreakdown: getDifficultyBreakdown(prevAnswered),
+      });
+      setSeenCount(getSeenCount());
+    }
+    clearPracticeProgress();
+    setPhase('setup');
+  }
+
   function handleSubmit() {
     clearInterval(timerRef.current);
     setShowResult(true);
@@ -161,6 +222,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
         domainBreakdown: getDomainBreakdown(newAnswered),
         difficultyBreakdown: getDifficultyBreakdown(newAnswered),
       });
+      clearPracticeProgress();
       setPhase('results');
       return;
     }
@@ -195,6 +257,31 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     // for when handleResetHistory() clears that history.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDomain, selectedDiff, seenCount]);
+
+  if (phase === 'resume') {
+    const answeredCount = savedProgress?.answered?.length || 0;
+    const correctCount =
+      savedProgress?.answered?.filter((a) => a.correct).length || 0;
+    return (
+      <div className="setup-card">
+        <h2>Unfinished Practice Session</h2>
+        <p className="setup-card__sub">
+          Question {(savedProgress?.index ?? 0) + 1} of{' '}
+          {savedProgress?.pool?.length ?? 0} · {correctCount}/{answeredCount}{' '}
+          correct so far
+        </p>
+        <button className="btn btn--primary btn--full" onClick={handleResume}>
+          Resume →
+        </button>
+        <button
+          className="btn btn--ghost btn--full"
+          onClick={handleDiscardProgress}
+        >
+          Save Results &amp; Start New
+        </button>
+      </div>
+    );
+  }
 
   if (phase === 'setup') {
     const effectiveAvailable = wrongOnly ? wrongCount : availableCount;

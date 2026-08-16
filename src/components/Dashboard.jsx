@@ -382,17 +382,21 @@ export default function Dashboard({ onHome }) {
   const [sessions, setSessions] = useState(() => getSessions());
 
   const examSessions = sessions.filter((s) => s.mode === 'exam');
+  // Pass/fail stats only count completed attempts — an exam abandoned at
+  // question 20 shouldn't pull down your average or pass rate.
+  const completedExamSessions = examSessions.filter((s) => !s.incomplete);
   const totalQs = sessions.reduce((sum, s) => sum + (s.total || 0), 0);
   const streak = useMemo(() => calcStreak(sessions), [sessions]);
-  const avgExam = examSessions.length
+  const avgExam = completedExamSessions.length
     ? Math.round(
-        examSessions.reduce((s, e) => s + e.score, 0) / examSessions.length,
+        completedExamSessions.reduce((s, e) => s + e.score, 0) /
+          completedExamSessions.length,
       )
     : null;
-  const recentExam = examSessions[examSessions.length - 1];
-  const passCount = examSessions.filter((s) => s.score >= 700).length;
-  const passRate = examSessions.length
-    ? Math.round((passCount / examSessions.length) * 100)
+  const recentExam = completedExamSessions[completedExamSessions.length - 1];
+  const passCount = completedExamSessions.filter((s) => s.score >= 700).length;
+  const passRate = completedExamSessions.length
+    ? Math.round((passCount / completedExamSessions.length) * 100)
     : null;
 
   function handleClear() {
@@ -454,7 +458,7 @@ export default function Dashboard({ onHome }) {
                     ? 'dash-stat__val--pass'
                     : 'dash-stat__val--fail'
                 }
-                sub={`${passCount}/${examSessions.length} exams`}
+                sub={`${passCount}/${completedExamSessions.length} exams`}
               />
             )}
             {avgExam !== null && (
@@ -523,6 +527,9 @@ export default function Dashboard({ onHome }) {
                     >
                       {s.mode}
                     </span>
+                    {s.incomplete && (
+                      <span className="badge-wrong-sm">partial</span>
+                    )}
                     <span className="session-row__date">
                       {new Date(s.date).toLocaleDateString()}
                     </span>
