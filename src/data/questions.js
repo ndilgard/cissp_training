@@ -1564,7 +1564,7 @@ export const questions = [
     explanation: "Reusing an IV with the same key in CBC mode means identical plaintext blocks produce identical ciphertext blocks, letting an attacker detect when the same or similar plaintext was encrypted more than once — a break in semantic security (IND-CPA), even without ever decrypting the message. This isn't primarily an integrity issue — CBC alone doesn't provide integrity protection either way (that requires a separate MAC), and IV reuse doesn't make undetected tampering any more or less possible than it already was. It doesn't affect availability either — reused IVs don't cause legitimate decryption to fail; the ciphertext still decrypts correctly with the right key. And it has nothing to do with non-repudiation — that concerns proving who sent a message, not whether patterns in ciphertext leak information about the plaintext.",
   },
   {
-    id: "d3_020", domain: 3, difficulty: 2, section: "Access Control Models (MAC)",
+    id: "d3_020", domain: 5, difficulty: 2, section: "Access Control Models (MAC)",
     question: "A government system labels every file and user with a fixed classification level, and the system itself enforces access based on those labels — no user, not even the file's creator, can override them. Which access control model does this represent?",
     options: [
       "Role-Based Access Control (RBAC)",
@@ -1742,7 +1742,7 @@ export const questions = [
     explanation: "The objectGUID is a globally unique, immutable identifier assigned when an object is created in the directory — it never changes even if the user is renamed or moved, making it the authoritative reference for identity. The Common Name (cn) is a display attribute that's often just the user's name — it can change and isn't guaranteed to be unique across the directory. sAMAccountName is the legacy logon name, which administrators CAN change (e.g., during a rename), so it isn't a stable long-term identifier. userPrincipalName is a more modern, email-style logon identifier, but like sAMAccountName, it can also be changed — only objectGUID is immutable by design.",
   },
   {
-    id: "d5_014", domain: 5, difficulty: 3, section: "Pass-the-Hash Attack",
+    id: "d5_014", domain: 3, difficulty: 3, section: "Pass-the-Hash Attack",
     question: "A penetration tester extracts NTLM hashes from a Windows domain controller's NTDS.dit file. Without cracking the hashes, the attacker authenticates to other systems using the hash directly. What is this technique?",
     options: [
       "Pass-the-ticket",
@@ -1830,7 +1830,7 @@ export const questions = [
     explanation: "Testing a representative subset (30 out of the full population) and projecting the findings to draw conclusions about the whole population is audit sampling — a standard, efficient technique when reviewing every single record isn't practical. Substantive testing verifies the accuracy and completeness of specific data or transactions directly, a broader testing category that sampling can be used within, but 'substantive testing' isn't the specific technique name for this scenario. Compliance testing checks whether controls are being followed as designed — which is what this sample is actually assessing — but the METHOD used to select and evaluate the 30 records is sampling; the question asks specifically about that technique. An interview involves questioning personnel directly, not examining a subset of actual change records, which is what happened here.",
   },
   {
-    id: "d6_013", domain: 6, difficulty: 2, section: "Log Analysis & Forensics",
+    id: "d6_013", domain: 7, difficulty: 2, section: "Log Analysis & Forensics",
     question: "Which log source would BEST provide evidence of a successful lateral movement from one Windows host to another using stolen credentials?",
     options: [
       "Web application firewall (WAF) access, block, and rule-trigger logs",
@@ -1842,7 +1842,7 @@ export const questions = [
     explanation: "Windows Security Event Log entries — especially Event ID 4624 (successful logon, particularly Logon Type 3 or 10) and 4648 (logon using explicit credentials) — directly record the authentication events that reveal credential-based lateral movement between hosts. WAF logs record web application traffic and rule triggers, useful for web-layer attacks but not for Windows host-to-host authentication events. NetFlow/IPFIX shows that network connections occurred and basic metadata about them, but it doesn't show WHO authenticated or with WHAT credentials — the specific evidence needed here. Antivirus scan logs show malware detection results, not authentication activity, and stolen-credential lateral movement often doesn't involve any malware for AV to flag at all.",
   },
   {
-    id: "d6_014", domain: 6, difficulty: 3, section: "Honeypots & Deception Technology",
+    id: "d6_014", domain: 7, difficulty: 3, section: "Honeypots & Deception Technology",
     question: "A security team implements a honeypot in the production network. A legitimate developer accidentally connects to it. What is the MOST significant concern with this scenario?",
     options: [
       "The developer's device may become infected with malware planted inside the honeypot",
@@ -2757,7 +2757,7 @@ export const questions = [
     explanation: "True anonymization requires that re-identification be not reasonably possible by any means, including combining with external datasets. GDPR Recital 26 and the Article 29 Working Party guidance establish this standard. Simply removing direct identifiers (names, SSN) results in pseudonymization, not anonymization, because quasi-identifiers may allow re-identification. Encryption is reversible with the key. Data processing agreements are legal instruments, not technical anonymization.",
   },
   {
-    id: "d2_066", domain: 2, difficulty: 2, section: "Intellectual Property Protection",
+    id: "d2_066", domain: 1, difficulty: 2, section: "Intellectual Property Protection",
     question: "A software company automatically gains legal protection over its original source code the moment it's written, without needing to file any application or pay any fee. Which form of intellectual property protection covers original creative works this way?",
     options: [
       "Patent",
@@ -2769,7 +2769,7 @@ export const questions = [
     explanation: "Copyright protection attaches automatically to original creative works (including software source code) at the moment of creation and fixation in a tangible medium — no registration is required (though registration provides legal benefits). Patents protect inventions and require a formal application and examination process. Trademarks protect brand identifiers. Trade secrets protect confidential business information through secrecy, not formal registration.",
   },
   {
-    id: "d2_067", domain: 2, difficulty: 2, section: "Intellectual Property Protection",
+    id: "d2_067", domain: 1, difficulty: 2, section: "Intellectual Property Protection",
     question: "A company develops a unique manufacturing process that provides competitive advantage. They never patent it; instead, they use NDAs, access controls, and physical security to protect it. Which IP protection mechanism are they relying on?",
     options: [
       "Patent rights",
@@ -2781,7 +2781,7 @@ export const questions = [
     explanation: "Trade secret protection applies to confidential business information that provides economic value precisely because it is kept secret. Unlike patents, trade secrets require no registration — protection depends entirely on maintaining secrecy through reasonable measures (NDAs, access controls, physical security). The Coca-Cola formula is a classic example. The downside is that if the secret is independently discovered or legitimately reverse-engineered, protection is lost.",
   },
   {
-    id: "d2_068", domain: 2, difficulty: 3, section: "Intellectual Property Protection",
+    id: "d2_068", domain: 1, difficulty: 3, section: "Intellectual Property Protection",
     question: "An employee leaves a company and joins a competitor, then uses proprietary algorithms they developed while employed. The former employer can MOST effectively protect their rights through:",
     options: [
       "Trademark registration of the algorithm's name",
@@ -3033,7 +3033,7 @@ export const questions = [
     explanation: "Synthetic data generation or masked data preserves the referential integrity and realistic characteristics needed for testing while eliminating actual PII exposure in the non-production environment. Copying or sampling production data exposes real customer information in less-secured test environments, violating privacy principles. Read-only access to production from test environments creates dependency on live data and still exposes sensitive information to developers.",
   },
   {
-    id: "d2_089", domain: 2, difficulty: 3, section: "Intellectual Property Protection",
+    id: "d2_089", domain: 1, difficulty: 3, section: "Intellectual Property Protection",
     question: "A software company licenses its application under terms that require the source code to remain confidential. An employee posts the source code to a public code repository 'for the benefit of the community.' The company's STRONGEST legal basis for action is:",
     options: [
       "Patent infringement of the underlying software algorithms",
@@ -3057,7 +3057,7 @@ export const questions = [
     explanation: "A record is information created, received, and maintained as evidence and as an asset by an organization in the conduct of its business transactions, activities, or decisions. Records are distinguished by their evidentiary value and the formal retention obligations that apply to them. They can be in any format (paper or digital) and at any classification level. They can be created by anyone in the course of business.",
   },
   {
-    id: "d2_091", domain: 2, difficulty: 2, section: "Baseline Security Configurations",
+    id: "d2_091", domain: 7, difficulty: 2, section: "Baseline Security Configurations",
     question: "A security team wants a documented, approved reference state for a server's configuration, so any unauthorized change can be detected by comparing the current state against it. Which of the following BEST describes the purpose of configuration management baselines in this context?",
     options: [
       "To document the hardware specifications and vendor models of officially approved systems",
@@ -4849,7 +4849,7 @@ export const questions = [
     explanation: "An evasion attack sends fragmented packets where the attack signature is split across multiple fragments. The target host reassembles the fragments and processes the complete attack, but the NIDS may not reassemble them and misses the signature. Session splicing is similar but specific to HTTP. Insertion attacks involve sending extra data that the NIDS processes but the target host ignores due to TTL or checksum differences. TTL manipulation exploits differences in TTL handling.",
   },
   {
-    id: "d4_053", domain: 4, difficulty: 1, section: "Honeypots",
+    id: "d4_053", domain: 7, difficulty: 1, section: "Honeypots",
     question: "A security team deploys a decoy system designed to look like a legitimate production server, specifically to attract and study attacker behavior while keeping them away from real assets. What is the primary security purpose of this honeypot?",
     options: [
       "To provide a redundant server that absorbs DDoS traffic and protects production systems",
@@ -4861,7 +4861,7 @@ export const questions = [
     explanation: "A honeypot is a decoy system designed to attract attackers, detect intrusions, and gather intelligence on attacker tools and techniques. It has no legitimate business purpose, so any interaction with it is suspicious. This helps detect attackers who have already bypassed perimeter defenses. It is not a load-balancing DDoS mitigation tool. Creating network segmentation is a DMZ function. Dark web intelligence requires different tools and techniques.",
   },
   {
-    id: "d4_054", domain: 4, difficulty: 3, section: "Honeypots",
+    id: "d4_054", domain: 7, difficulty: 3, section: "Honeypots",
     question: "A security team deploys a honeynet consisting of multiple honeypots designed to simulate an entire enterprise network. What legal consideration is most important before deployment?",
     options: [
       "Ensuring the honeynet uses production-grade hardware so its behavior appears realistic",
@@ -5725,7 +5725,7 @@ export const questions = [
     explanation: "Since the traffic used legitimate HTTPS connections, detection requires SSL/TLS inspection (decryption at the proxy) to reveal the HTTP headers, combined with DLP (Data Loss Prevention) analysis to detect encoded sensitive data in those headers. NetFlow would show connection metadata but not header content. Standard IDS signatures wouldn't detect this novel technique without SSL inspection. Blocking all HTTPS to cloud providers would disrupt business but is overkill. SSL inspection with DLP is the targeted, proportionate control.",
   },
   {
-    id: "d4_126", domain: 4, difficulty: 2, section: "Honeypots",
+    id: "d4_126", domain: 7, difficulty: 2, section: "Honeypots",
     question: "A security team deploys a decoy that only mimics the banner and initial handshake of a few common services, without running any real underlying service software, to minimize risk while still detecting scans. Which type of honeypot is this?",
     options: [
       "High-interaction honeypot — runs real services on real operating systems",
@@ -6135,7 +6135,7 @@ export const questions = [
     explanation: "The TGT is issued by the Authentication Service (AS) component of the KDC after the user successfully authenticates (typically with their password). The TGT is then presented to the Ticket-Granting Service (TGS) to obtain Service Tickets for individual services, avoiding the need to re-authenticate with credentials for each service. Service Tickets grant access to specific services. Kerberos does not encrypt all traffic. The TGT authenticates the user to the KDC, not the server to the client.",
   },
   {
-    id: "d5_047", domain: 5, difficulty: 3, section: "Kerberos",
+    id: "d5_047", domain: 3, difficulty: 3, section: "Kerberos",
     question: "An attacker who has compromised a domain controller extracts the NTLM hash of the krbtgt account and uses it to forge Kerberos tickets with arbitrary lifetimes and group memberships. What is this attack called?",
     options: [
       "Silver ticket attack",
@@ -6147,7 +6147,7 @@ export const questions = [
     explanation: "A golden ticket attack uses the NTLM hash of the krbtgt account (the Kerberos ticket-granting account) to forge TGTs with arbitrary content, including extended lifetimes and any group memberships. This gives the attacker persistent, stealthy domain-wide access. A silver ticket forges Service Tickets using a service account's hash (more limited scope). Pass-the-ticket reuses legitimate stolen tickets. Kerberoasting extracts service account password hashes from TGS tickets for offline cracking.",
   },
   {
-    id: "d5_048", domain: 5, difficulty: 3, section: "Kerberos",
+    id: "d5_048", domain: 3, difficulty: 3, section: "Kerberos",
     question: "Kerberoasting is a post-exploitation technique that targets which component of a Kerberos-based directory service?",
     options: [
       "The krbtgt account's password hash, which is used to forge fully privileged Ticket Granting Tickets for any account in the domain",
@@ -6159,7 +6159,7 @@ export const questions = [
     explanation: "Kerberoasting targets Service Principal Names (SPNs) — any authenticated domain user can request a Service Ticket (ST) for any SPN. The ST is encrypted with the service account's NTLM hash, which the attacker can extract and crack offline to recover the service account's password. It particularly targets service accounts configured with SPNs that have weak passwords. Forging TGTs with krbtgt is a golden ticket attack. Replication traffic capture is DCSync. LSASS memory extraction is pass-the-hash.",
   },
   {
-    id: "d5_049", domain: 5, difficulty: 2, section: "Kerberos",
+    id: "d5_049", domain: 3, difficulty: 2, section: "Kerberos",
     question: "A red team successfully extracts a service account's Kerberos ticket and cracks its weak, never-changed password offline within hours. What defense is MOST effective at detecting and mitigating this kind of Kerberoasting attack?",
     options: [
       "Disabling Kerberos entirely and relying exclusively on NTLM authentication for all service accounts",
@@ -6507,7 +6507,7 @@ export const questions = [
     explanation: "Evaluating multiple dynamic signals (auth strength, device health, behavioral analytics, context) at the time of each access request and adjusting access decisions accordingly is the definition of risk-based adaptive authentication and authorization. The access decision adapts based on the current risk score, not static role assignments or fixed classification rules. This is a core pattern in Zero Trust architectures using a policy engine and policy information points. Static RBAC and MAC do not use dynamic behavioral signals.",
   },
   {
-    id: "d5_078", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
+    id: "d5_078", domain: 3, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
     question: "An attacker extracts the NTLM hash of a user account from LSASS memory on a compromised Windows host without ever cracking the hash. The attacker then authenticates to another system using the hash directly. What is this attack called?",
     options: [
       "Kerberoasting",
@@ -6519,7 +6519,7 @@ export const questions = [
     explanation: "Pass-the-hash (PtH) exploits the fact that Windows NTLM authentication accepts the hash itself as authentication — the attacker does not need to know the plaintext password. By extracting the NTLM hash from LSASS memory (using tools like Mimikatz) and injecting it into a new authentication session, the attacker can authenticate as that user laterally across the network. Kerberoasting requires cracking extracted service ticket hashes. A golden ticket forges Kerberos TGTs using the krbtgt hash. Credential stuffing uses plaintext username/password pairs.",
   },
   {
-    id: "d5_079", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
+    id: "d5_079", domain: 3, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
     question: "Which security feature was specifically designed to mitigate pass-the-hash attacks by preventing NTLM credentials from being stored in LSASS memory in a way that can be extracted?",
     options: [
       "The built-in antivirus, which scans for known malware signatures in real time",
@@ -6531,7 +6531,7 @@ export const questions = [
     explanation: "The Protected Users security group prevents members' credentials from being cached in a format extractable for PtH (they cannot authenticate via NTLM, only Kerberos). Credential Guard uses Virtualization-Based Security (VBS) to isolate LSASS in a protected virtual environment, preventing attackers with admin privileges from extracting credential material. Full-disk encryption protects data at rest on disk. The built-in antivirus detects malware. The host-based firewall controls network traffic.",
   },
   {
-    id: "d5_080", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
+    id: "d5_080", domain: 3, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
     question: "An attacker steals a Kerberos TGT from a compromised workstation's memory and imports it into their own session on a different machine. What attack is this, and what is its primary advantage over pass-the-hash?",
     options: [
       "Kerberoasting — it can be performed completely offline once the service ticket has been captured from the network",
@@ -6591,7 +6591,7 @@ export const questions = [
     explanation: "Out-of-band identity verification — such as calling the employee back at their registered phone number, requiring manager approval via a separate channel, or requiring in-person identity verification — ensures that the person requesting the change is who they claim to be, even when the attacker is convincing. Employee ID numbers are often easily obtained (from email signatures, social engineering, or breaches) and are not sufficient verification. Business hours restriction reduces availability but does not verify identity. Customer service training is counterproductive for security.",
   },
   {
-    id: "d5_085", domain: 5, difficulty: 2, section: "Directory Services Security",
+    id: "d5_085", domain: 3, difficulty: 2, section: "Directory Services Security",
     question: "An attacker uses the DCSync technique against a directory service environment. What does this attack accomplish?",
     options: [
       "It floods the domain controller with a high volume of authentication requests to cause a denial of service across the domain",
@@ -6819,7 +6819,7 @@ export const questions = [
     explanation: "Shared service accounts have two fundamental security problems: (1) Accountability failure — since all team members use the same credential, audit logs cannot attribute specific actions to individual users, which is critical for forensics and compliance. (2) Least privilege failure — all developers get the same access level, violating the principle that each person should have only the minimum access needed. PCI DSS does prohibit shared accounts, but the question asks about the two main security problems, not regulatory status.",
   },
   {
-    id: "d5_104", domain: 5, difficulty: 1, section: "Access Control Models",
+    id: "d5_104", domain: 3, difficulty: 1, section: "Access Control Models",
     question: "A system architect notes that Bell-LaPadula effectively protects confidentiality but does nothing to stop a low-trust process from corrupting high-trust data. Which security concern does the Biba integrity model address that Bell-LaPadula does NOT?",
     options: [
       "Confidentiality of classified information through strict read-access classification level enforcement",
@@ -6903,7 +6903,7 @@ export const questions = [
     explanation: "This audit record demonstrates: Identification (the claim of 'jsmith' as the user ID), Authentication (the system accepted jsmith as verified — otherwise access wouldn't have been granted), and Accountability (the timestamped log that attributes the action to jsmith). Authorization is implicit (jsmith was permitted to query the database) but the record itself demonstrates all three. A complete access control trail involves all four IAAA elements.",
   },
   {
-    id: "d5_111", domain: 5, difficulty: 3, section: "Kerberos",
+    id: "d5_111", domain: 3, difficulty: 3, section: "Kerberos",
     question: "A Kerberos-based directory service environment has been configured to require all accounts to use AES-256 for Kerberos encryption and has disabled RC4 (NTLM) Kerberos encryption. How does this specifically mitigate the Kerberoasting attack?",
     options: [
       "AES-256 encryption prevents any service ticket requests from being issued for accounts with registered SPNs at all, effectively disabling the underlying Kerberos ticket-granting mechanism for those accounts",
@@ -6963,7 +6963,7 @@ export const questions = [
     explanation: "PIV card security is based on challenge-response using public key cryptography. The private key is generated on the card and is hardware-protected — it cannot be exported or extracted. Authentication proves the physical possession of the card by demonstrating that the holder can sign with the private key, without ever transmitting the key itself. This eliminates the risk of password theft, replay attacks, and credential sharing. Biometrics are separate from the PKI authentication mechanism. PIV cards are valid for multiple years. Speed is not the security basis.",
   },
   {
-    id: "d5_116", domain: 5, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
+    id: "d5_116", domain: 3, difficulty: 3, section: "Pass-the-Hash and Credential Attacks",
     question: "An organization has implemented a tiered administrative model in its directory service with separate administrative accounts for Tier 0 (domain controllers), Tier 1 (servers), and Tier 2 (workstations). How does this specifically mitigate pass-the-hash attacks?",
     options: [
       "It requires that every administrative account, regardless of tier, authenticate exclusively using smart cards and PINs",
@@ -7469,7 +7469,7 @@ export const questions = [
     explanation: "Exceptions in a SOC 2 Type II report indicate specific instances during the testing period where a control did not operate as described. The user organization must evaluate each exception to determine the risk to their own environment, whether compensating controls exist, and whether the risk is acceptable. Exceptions do not automatically invalidate the entire report or require vendor termination. They are not merely advisory — they represent actual control failures requiring risk-based evaluation.",
   },
   {
-    id: "d6_043", domain: 6, difficulty: 2, section: "Log Management and SIEM",
+    id: "d6_043", domain: 7, difficulty: 2, section: "Log Management and SIEM",
     question: "A SIEM rule triggers an alert when more than 10 failed authentication attempts from the same IP address occur within a 60-second window. This is an example of which SIEM capability?",
     options: [
       "Log aggregation",
@@ -7481,7 +7481,7 @@ export const questions = [
     explanation: "A correlation rule defines specific conditions across one or more log sources that, when met, trigger an alert. This example correlates multiple failed authentication events from a single source within a time window to detect potential brute force attacks. Log aggregation is the collection and normalization of logs. Anomaly detection uses statistical baselines rather than predefined rules. Threat intelligence integration enriches events with external IOC data.",
   },
   {
-    id: "d6_044", domain: 6, difficulty: 2, section: "Log Management and SIEM",
+    id: "d6_044", domain: 7, difficulty: 2, section: "Log Management and SIEM",
     question: "Which of the following is the PRIMARY security benefit of centralizing logs from all network devices, servers, and applications in a SIEM platform?",
     options: [
       "Reducing long-term storage costs through automated log compression and deduplication",
@@ -7493,7 +7493,7 @@ export const questions = [
     explanation: "The primary security benefit of SIEM is the ability to correlate events across multiple disparate data sources to detect attack patterns that would be invisible when examining any single log source in isolation. For example, correlating failed logins on a VPN with successful database queries helps detect credential stuffing. Storage efficiency and compliance reporting are secondary benefits. SIEM does not replace EDR tools.",
   },
   {
-    id: "d6_045", domain: 6, difficulty: 1, section: "Log Management and SIEM",
+    id: "d6_045", domain: 7, difficulty: 1, section: "Log Management and SIEM",
     question: "A forensic investigator needs to prove in court that a set of collected log records has not been tampered with since the moment they were captured. Which log management requirement addresses this specific need?",
     options: [
       "Log rotation",
@@ -7553,7 +7553,7 @@ export const questions = [
     explanation: "According to NIST SP 800-137, ISCM is defined as maintaining ongoing awareness of information security, vulnerabilities, and threats to support organizational risk management decisions. It is not simply about replacing point-in-time assessments but about creating a continuous feedback loop that keeps risk posture current. It encompasses monitoring security controls, status, and the effectiveness of controls over time.",
   },
   {
-    id: "d6_050", domain: 6, difficulty: 2, section: "Threat Hunting",
+    id: "d6_050", domain: 7, difficulty: 2, section: "Threat Hunting",
     question: "A security analyst proactively searches through network logs and endpoint telemetry looking for indicators of compromise associated with a specific APT group, even though no alerts have been triggered. This activity is BEST described as:",
     options: [
       "Incident response",
@@ -7565,7 +7565,7 @@ export const questions = [
     explanation: "Threat hunting is the proactive, hypothesis-driven search through security data to find evidence of threats that have evaded automated detection systems. Unlike reactive incident response or passive monitoring, hunting involves actively looking for attacker TTPs using threat intelligence, without waiting for an alert. Vulnerability assessment identifies security weaknesses. Security monitoring is the passive collection and alerting on events.",
   },
   {
-    id: "d6_051", domain: 6, difficulty: 3, section: "Threat Hunting",
+    id: "d6_051", domain: 7, difficulty: 3, section: "Threat Hunting",
     question: "A threat hunter is investigating a potential compromise using the MITRE ATT&CK framework. The hunter starts with a hypothesis that attackers may be using Living-off-the-Land (LotL) techniques for persistence. Which approach represents a hypothesis-driven hunt?",
     options: [
       "Running an authenticated vulnerability scanner against every Windows workstation on the organization's standard weekly scanning and reporting cadence",
@@ -7577,7 +7577,7 @@ export const questions = [
     explanation: "A hypothesis-driven threat hunt starts with a specific assumption about attacker behavior (LotL persistence using native tools) and then searches for evidence of that specific TTP (scheduled tasks created via schtasks.exe by unexpected accounts). This directly tests the hypothesis using relevant data sources. Running a vulnerability scanner is reactive. Reviewing all SIEM alerts is reactive monitoring. Updating threat intel feeds is preparatory, not active hunting.",
   },
   {
-    id: "d6_052", domain: 6, difficulty: 2, section: "Honeypots and Deception Technology",
+    id: "d6_052", domain: 7, difficulty: 2, section: "Honeypots and Deception Technology",
     question: "An organization deploys a server on the internal network that appears to be a critical database server with enticing names and fake data but has no legitimate business use. Any interaction with this server indicates unauthorized activity. This is BEST described as a:",
     options: [
       "Honeynet",
@@ -7589,7 +7589,7 @@ export const questions = [
     explanation: "A honeypot is a decoy system designed to attract attackers, with no legitimate use, so that any interaction indicates unauthorized or malicious activity. It can be used for early warning detection and attacker behavior analysis. A honeynet is a network of multiple honeypots. A DMZ server is a legitimate server in a demilitarized zone. Canary tokens are specific embedded triggers (e.g., fake credentials, document links) that alert when accessed.",
   },
   {
-    id: "d6_053", domain: 6, difficulty: 2, section: "Honeypots and Deception Technology",
+    id: "d6_053", domain: 7, difficulty: 2, section: "Honeypots and Deception Technology",
     question: "A SOC lead compares two detection strategies and notes that any interaction at all with a decoy system is inherently suspicious, since no legitimate user has any reason to touch it. Which of the following represents the PRIMARY advantage of deception technology (honeypots) compared to signature-based intrusion detection?",
     options: [
       "Deception technology delivers substantially faster alert triage and analyst response times than signatures",
@@ -7697,7 +7697,7 @@ export const questions = [
     explanation: "Control testing has two dimensions: design effectiveness (does the control, as designed, address the relevant risk if it operates as intended?) and operating effectiveness (did the control actually operate as designed consistently throughout the period?). A control can be well-designed but poorly operated. Both dimensions are tested in Type II SOC reports, ISO 27001 audits, and SOX assessments. Preventive/detective describes control function, not testing type.",
   },
   {
-    id: "d6_062", domain: 6, difficulty: 2, section: "Audit Trails and Evidence Collection",
+    id: "d6_062", domain: 7, difficulty: 2, section: "Audit Trails and Evidence Collection",
     question: "During a forensic investigation, an investigator calculates an MD5 hash of a disk image immediately after acquisition and again before analysis. What principle does this practice uphold?",
     options: [
       "Chain of custody documentation",
@@ -7889,7 +7889,7 @@ export const questions = [
     explanation: "A qualified opinion indicates that except for specific identified matters, the financial statements present fairly — the auditor has reservations about specific items but not the overall presentation. An adverse opinion means the financial statements do not present fairly. A disclaimer means the auditor cannot form an opinion. An unqualified (clean) opinion means no material exceptions were found. A significant deficiency noted alongside an overall opinion typically results in a qualified opinion.",
   },
   {
-    id: "d6_078", domain: 6, difficulty: 2, section: "Honeypots and Deception Technology",
+    id: "d6_078", domain: 7, difficulty: 2, section: "Honeypots and Deception Technology",
     question: "An organization deploys several interconnected honeypot systems that mimic an entire network segment, including fake workstations, servers, and network devices, to observe sophisticated attacker behavior. This is BEST described as a:",
     options: [
       "DMZ architecture",
@@ -7925,7 +7925,7 @@ export const questions = [
     explanation: "The question asks about exploitability given existing compensating controls, which can only be determined by actually attempting exploitation in the context of those controls — i.e., a penetration test. CVSS base scores do not account for environmental factors like firewall rules or WAF. Re-scanning would find the same vulnerabilities. NVD provides general advisories, not environment-specific exploitability assessments.",
   },
   {
-    id: "d6_081", domain: 6, difficulty: 1, section: "Log Management and SIEM",
+    id: "d6_081", domain: 7, difficulty: 1, section: "Log Management and SIEM",
     question: "During an incident investigation, an analyst tries to correlate log entries from three different servers, but their timestamps are inconsistent by several minutes, making it impossible to reconstruct the true order of events. Which of the following is the MOST important reason to implement NTP (Network Time Protocol) synchronization across all systems that generate logs?",
     options: [
       "To reduce the overall network bandwidth consumed when transmitting verbose log data to the central logging and SIEM server",
@@ -7937,7 +7937,7 @@ export const questions = [
     explanation: "Accurate timestamp synchronization via NTP is fundamental to log analysis and forensic investigation. Without synchronized time, correlating events across multiple systems is unreliable because the same event may appear to have occurred at different times on different systems. This makes reconstructing attack timelines and correlating related events across distributed systems extremely difficult or impossible.",
   },
   {
-    id: "d6_082", domain: 6, difficulty: 2, section: "Continuous Monitoring",
+    id: "d6_082", domain: 1, difficulty: 2, section: "Continuous Monitoring",
     question: "Under the NIST Risk Management Framework (RMF), which step specifically involves ongoing monitoring of security controls to maintain an up-to-date understanding of the information system's security and privacy posture?",
     options: [
       "Categorize",
@@ -7961,7 +7961,7 @@ export const questions = [
     explanation: "Under the cloud shared responsibility model, the cloud provider secures the underlying infrastructure but the customer is responsible for their configurations, access management, data, and applications. Customer-controlled cloud resources (storage bucket policies, IAM configurations, application security) represent significant attack surface and should be assessed. Excluding them leaves meaningful risk unexamined. Most major cloud providers also have penetration testing policies that permit customer testing of their own resources.",
   },
   {
-    id: "d6_084", domain: 6, difficulty: 2, section: "Audit Trails and Evidence Collection",
+    id: "d6_084", domain: 7, difficulty: 2, section: "Audit Trails and Evidence Collection",
     question: "Which principle requires that the handling of digital evidence be documented from initial collection through final disposition, with records of everyone who had access to the evidence?",
     options: [
       "Evidence integrity",
@@ -8033,7 +8033,7 @@ export const questions = [
     explanation: "The HIPAA Security Rule (45 CFR § 164.308(a)(1)) requires a comprehensive risk analysis covering all ePHI, threats, vulnerabilities, likelihood, and impact. A penetration test provides technical evidence about exploitable vulnerabilities but doesn't address administrative or physical safeguards, policy review, or the full risk assessment methodology required by HIPAA. A pentest can be valuable input to the risk analysis but cannot substitute for the full requirement.",
   },
   {
-    id: "d6_090", domain: 6, difficulty: 2, section: "Log Management and SIEM",
+    id: "d6_090", domain: 7, difficulty: 2, section: "Log Management and SIEM",
     question: "A security team is overwhelmed with 50,000 SIEM alerts per day, leading analysts to ignore most of them. This situation is MOST accurately described as:",
     options: [
       "Alert fatigue caused by excessive false positives and poorly tuned detection rules",
@@ -8069,7 +8069,7 @@ export const questions = [
     explanation: "IDE-integrated security analysis tools are a form of SAST that operates at development time, providing developers with immediate feedback on security issues as they write code. Examples include SonarLint, Checkmarx IDE plugin, and Snyk Code. This is the earliest possible 'shift left' integration point. DAST requires a running application. IAST requires runtime instrumentation. SCA focuses on dependencies, not the developer's own code.",
   },
   {
-    id: "d6_093", domain: 6, difficulty: 3, section: "Threat Hunting",
+    id: "d6_093", domain: 7, difficulty: 3, section: "Threat Hunting",
     question: "A threat hunter discovers that a process named 'svchost.exe' is running from C:\\Users\\Public\\svchost.exe rather than C:\\Windows\\System32\\svchost.exe. Which threat hunting methodology did the hunter MOST likely use?",
     options: [
       "IoC-based hunting driven entirely by threat intelligence feed matches",
@@ -8345,7 +8345,7 @@ export const questions = [
     explanation: "Multiple JWT security issues exist: (1) localStorage is vulnerable to XSS — any script on the page can read and exfiltrate the token, unlike HttpOnly cookies which are inaccessible to JavaScript; (2) no expiration (exp claim) means stolen tokens remain valid indefinitely; (3) if role claims in the token are trusted without server-side validation, an attacker who forges or tampers with the token (if the signature can be bypassed or the algorithm manipulated) could escalate privileges. The secure alternative is HttpOnly, Secure, SameSite cookies with server-side session validation.",
   },
   {
-    id: "d6_116", domain: 6, difficulty: 2, section: "Log Management and SIEM",
+    id: "d6_116", domain: 7, difficulty: 2, section: "Log Management and SIEM",
     question: "An organization's security policy requires log retention for a minimum of 12 months, with 3 months available online for immediate analysis. Logs older than 3 months must be archived. Which log management capability supports this requirement?",
     options: [
       "Log format normalization",
@@ -10353,7 +10353,7 @@ export const questions = [
     explanation: "Abuse cases (or misuse cases) describe how an attacker could misuse the system's functionality. By thinking adversarially during requirements, teams can derive security requirements to counter those scenarios before design begins. This is the security equivalent of use cases. They don't replace penetration testing but inform early security design decisions. They model adversarial actors, not legitimate user mistakes.",
   },
   {
-    id: "d8_070", domain: 8, difficulty: 2, section: "Penetration Testing",
+    id: "d8_070", domain: 6, difficulty: 2, section: "Penetration Testing",
     question: "A web application penetration tester is provided with full access to source code and architecture diagrams before testing. What type of penetration test is this?",
     options: [
       "Black-box test",
@@ -11195,7 +11195,7 @@ export const questions = [
     explanation: "The correct relationship is RTO + WRT ≤ MTD, and here 48 + 12 = 60 hours, which fits within the 72-hour MTD — so this combination is acceptable. The first option is simply wrong on the numbers: 60 hours does not exceed 72 hours, so this scenario doesn't violate the rule. There's no fixed rule that WRT must always be shorter than RTO — their relative lengths depend on the specific system and business process, not a universal ratio. And meeting the RTO alone doesn't automatically satisfy the MTD — WRT (the time to resume full business operations after systems return) still has to be added in and fit within the remaining budget, as this example shows.",
   },
   {
-    id: "d1_055", domain: 1, difficulty: 2, section: "Business Continuity Planning",
+    id: "d1_055", domain: 7, difficulty: 2, section: "Business Continuity Planning",
     question: "Which BCP/DR test type requires the LEAST disruption to normal operations while still verifying that personnel understand their roles?",
     options: [
       "Full interruption test",
@@ -11843,7 +11843,7 @@ export const questions = [
     explanation: "When the board sets risk appetite and receives security updates, they are performing executive oversight — a governance function. Governance involves strategic direction, accountability, and oversight. Operational management, architecture, and risk treatment are lower-level functions that fall under the governance framework established at the board level.",
   },
   {
-    id: "d1_109", domain: 1, difficulty: 2, section: "Business Continuity Planning",
+    id: "d1_109", domain: 7, difficulty: 2, section: "Business Continuity Planning",
     question: "A disaster recovery team actually shuts down the live production environment and fails over to the backup site to prove the plan works under real conditions, accepting the risk that something could go wrong during the test itself. Which BCP/DR test is the MOST comprehensive but also carries the HIGHEST operational risk?",
     options: [
       "Tabletop discussion exercise",
@@ -11927,7 +11927,7 @@ export const questions = [
     explanation: "Data minimization requires collecting only the personal data that's adequate, relevant, and necessary for the stated purpose — nothing extra 'just in case.' Purpose limitation is a related but different principle: it restricts how already-collected data can be used, not how much is collected in the first place. Storage limitation restricts how long data is retained, a time-based constraint rather than a collection-volume one. Integrity and confidentiality require that data be accurate and protected from unauthorized access — a data-protection principle, not one about how much data is collected up front.",
   },
   {
-    id: "d1_116", domain: 1, difficulty: 3, section: "Business Continuity Planning",
+    id: "d1_116", domain: 7, difficulty: 3, section: "Business Continuity Planning",
     question: "Which BCP element ensures that all critical business functions can be performed without the primary data center for an extended period?",
     options: [
       "Backup power supply — protects against short-duration electrical outages only",
