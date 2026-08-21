@@ -435,6 +435,9 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   return (
     <div className="exam-layout">
       <header className="exam-header">
+        <button className="btn btn--ghost" onClick={onHome}>
+          ← Menu
+        </button>
         <div className="exam-header__title">Practice Mode</div>
         <div className="exam-header__progress">
           Q {index + 1}/{pool.length}
