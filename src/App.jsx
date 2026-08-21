@@ -17,7 +17,10 @@ function App() {
   const [wrongQuestions, setWrongQuestions] = useState([]);
 
   function startWrongReview(qs) {
-    setWrongQuestions(qs.map(shuffleOptions));
+    const sorted = [...qs].sort(
+      (a, b) => a.domain - b.domain || a.id.localeCompare(b.id)
+    );
+    setWrongQuestions(sorted.map(shuffleOptions));
     setScreen('wrong-review');
   }
 
