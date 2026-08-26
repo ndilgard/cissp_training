@@ -8,7 +8,7 @@ import {
   Upload,
 } from 'lucide-react';
 import flashcards from '../data/flashcards.js';
-import { DOMAINS } from '../data/questions.js';
+import questions, { DOMAINS } from '../data/questions.js';
 import { getCustomQuestions } from '../utils/customQuestions.js';
 import { getFlashcardsDue } from '../utils/flashcardProgress.js';
 import { getWrongIds } from '../utils/history.js';
@@ -28,6 +28,7 @@ export default function HomeScreen({
   const wrongCount = getWrongIds().size;
   const lastExam = [...sessions].reverse().find((s) => s.mode === 'exam');
   const flashcardsDue = getFlashcardsDue().size;
+  const questionCount = questions.length.toLocaleString();
 
   return (
     <div className="home">
@@ -39,8 +40,8 @@ export default function HomeScreen({
           Start passing.
         </h1>
         <p>
-          1,000 adaptive practice questions across all 8 CISSP domains — built
-          for how the real exam tests you.
+          {questionCount} adaptive practice questions across all 8 CISSP
+          domains — built for how the real exam tests you.
         </p>
       </div>
 
@@ -179,8 +180,8 @@ export default function HomeScreen({
       </div>
 
       <div className="home__disclaimer">
-        1,000 CISSP-aligned practice questions · Not affiliated with ISC² · For
-        study purposes only
+        {questionCount} CISSP-aligned practice questions · Not affiliated with
+        ISC² · For study purposes only
       </div>
     </div>
   );
