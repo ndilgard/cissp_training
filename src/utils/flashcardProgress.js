@@ -1,3 +1,5 @@
+import { scheduleAutoSave } from './backup.js';
+
 const KEY = 'cissp_flashcard_progress';
 
 function load() {
@@ -10,6 +12,7 @@ function load() {
 
 function save(weights) {
   localStorage.setItem(KEY, JSON.stringify(weights));
+  scheduleAutoSave();
 }
 
 export function getFlashcardWeights() {
@@ -34,4 +37,5 @@ export function getFlashcardsDue() {
 
 export function resetFlashcardProgress() {
   localStorage.removeItem(KEY);
+  scheduleAutoSave();
 }

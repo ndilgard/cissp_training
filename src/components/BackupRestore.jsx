@@ -59,9 +59,10 @@ export default function BackupRestore({ onHome }) {
           lineHeight: 1.6,
         }}
       >
-        Everything here is stored only in this browser. Clearing your browser
-        data, reinstalling, or switching devices will erase it with no way to
-        get it back — unless you've saved a backup file first.
+        Progress lives in this browser, with an automatic backup to disk on
+        this machine (via the dev server) that restores itself if the
+        browser's storage ever gets wiped. Switching devices or moving off
+        this machine still requires exporting a backup file first.
       </p>
 
       <div className="import-current">

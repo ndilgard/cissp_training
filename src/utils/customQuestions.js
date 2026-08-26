@@ -1,3 +1,5 @@
+import { scheduleAutoSave } from './backup.js';
+
 const KEY = 'cissp_custom_questions';
 
 export function getCustomQuestions() {
@@ -10,10 +12,12 @@ export function getCustomQuestions() {
 
 export function saveCustomQuestions(questions) {
   localStorage.setItem(KEY, JSON.stringify(questions));
+  scheduleAutoSave();
 }
 
 export function clearCustomQuestions() {
   localStorage.removeItem(KEY);
+  scheduleAutoSave();
 }
 
 // Validate a question object matches our schema

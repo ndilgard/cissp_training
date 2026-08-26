@@ -1,3 +1,5 @@
+import { scheduleAutoSave } from './backup.js';
+
 const SEEN_KEY = 'cissp_seen_questions';
 const WRONG_KEY = 'cissp_wrong_answers';
 
@@ -14,6 +16,7 @@ export function markSeen(ids) {
   const s = getSeenIds();
   ids.forEach((id) => s.add(id));
   localStorage.setItem(SEEN_KEY, JSON.stringify([...s]));
+  scheduleAutoSave();
 }
 
 export function getSeenCount() {
@@ -42,6 +45,7 @@ export function updateWrongAnswers(answered) {
     }
   });
   localStorage.setItem(WRONG_KEY, JSON.stringify(weights));
+  scheduleAutoSave();
 }
 
 export function getWrongIds() {
@@ -53,4 +57,5 @@ export function getWrongIds() {
 export function resetHistory() {
   localStorage.removeItem(SEEN_KEY);
   localStorage.removeItem(WRONG_KEY);
+  scheduleAutoSave();
 }

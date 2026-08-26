@@ -1,3 +1,5 @@
+import { scheduleAutoSave } from './backup.js';
+
 const KEY = 'cissp_sessions';
 const MAX_SESSIONS = 50;
 
@@ -16,8 +18,10 @@ export function saveSession(session) {
   // Keep only the most recent MAX_SESSIONS
   const trimmed = sessions.slice(-MAX_SESSIONS);
   localStorage.setItem(KEY, JSON.stringify(trimmed));
+  scheduleAutoSave();
 }
 
 export function clearSessions() {
   localStorage.removeItem(KEY);
+  scheduleAutoSave();
 }
