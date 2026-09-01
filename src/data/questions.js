@@ -23546,7 +23546,7 @@ export const questions = [
     id: "d2_265", domain: 2, difficulty: 2, section: "Data at Rest, In Transit, In Use",
     question: "A support application is reconfigured so that agents see only the last four digits of each customer's national identification number on screen, while the complete value remains stored and is returned in full to the fraud investigation team. Which protection does this configuration primarily provide?",
     options: [
-    "It limits exposure of the data while it is in use, presenting only the portion each role needs to perform its task",
+    "It limits exposure of the data while in use, showing only the portion each role needs",
     "It replaces encryption of the stored records, since the sensitive digits are no longer retained",
     "It anonymizes the underlying database so that the records fall outside privacy regulation",
     "It satisfies the retention schedule by shortening how long the full value must be kept",
@@ -23561,7 +23561,7 @@ export const questions = [
     "Rely on the carrier's assurance that the circuit is private and not shared with other customers",
     "Rely on the link-layer encryption the carrier offers as an add-on service on its own equipment",
     "Place the replication traffic on a dedicated VLAN at each site to separate it from other traffic",
-    "Encrypt the replication payload at the endpoints under keys the organization controls, before it enters the carrier network",
+    "Encrypt the replication payload at the endpoints under keys the organization controls",
     ],
     answer: 3,
     explanation: "The stated threat is the transport provider itself, so the protection must begin and end inside the organization's trust boundary. Encrypting the data at the sending endpoint with keys the organization generates and manages, and decrypting only at the receiving endpoint, means everything the carrier and any downstream provider handles is ciphertext, regardless of how the circuit is provisioned or where it is groomed. Option 0 is wrong because a private circuit is a logical construct riding shared carrier infrastructure; privacy of routing is not confidentiality of content, and it depends entirely on carrier configuration and trustworthiness. Option 1 is wrong because encryption performed by the carrier on carrier-managed devices places the keys in the hands of the very party the requirement asks to exclude, and the traffic is plaintext at each hop where that service terminates. Option 2 is wrong because VLANs at the sites do not protect the data once it enters the provider network, and segmentation is not a confidentiality mechanism against a party with access to the transport.",
@@ -23570,7 +23570,7 @@ export const questions = [
     id: "d2_267", domain: 2, difficulty: 2, section: "Data at Rest, In Transit, In Use",
     question: "Executive compensation files are stored on a departmental file server that many system administrators can access. The server already uses full-disk encryption. Which control BEST addresses management's concern that administrators can browse the files?",
     options: [
-    "File-level or folder-level encryption keyed to the authorized users, so the content is unreadable to administrators without those keys",
+    "File- or folder-level encryption keyed to the authorized users, unreadable to others",
     "Adding a second layer of full-disk encryption on the underlying storage array",
     "Moving the files to a different physical volume on the same server",
     "Enabling file integrity monitoring so any change to the files generates an alert",
@@ -23584,7 +23584,7 @@ export const questions = [
     options: [
     "Increase the sensitivity of the existing pattern-matching rules so more content triggers a match",
     "Allow archive file types by default, since encrypted archives indicate the sender already protected the data",
-    "Block or quarantine outbound attachments the DLP cannot inspect, with a documented exception and approval process for legitimate encrypted transfers",
+    "Block or quarantine attachments the DLP cannot inspect, with a documented exception process for legitimate transfers",
     "Deploy the DLP agent to all endpoints, which allows the archives to be inspected after transmission",
     ],
     answer: 2,
@@ -23606,7 +23606,7 @@ export const questions = [
     id: "d2_270", domain: 2, difficulty: 2, section: "Data Loss Prevention",
     question: "An organization plans to drive DLP enforcement from the sensitivity labels that users apply to documents at creation, rather than from content inspection alone. Which dependency MUST be managed for this design to be effective?",
     options: [
-    "The completeness and integrity of labeling, including handling of unlabeled content and restrictions on who may downgrade a label",
+    "The completeness and integrity of labeling, including unlabeled content and downgrade restrictions",
     "The number of distinct file formats the DLP engine is licensed to open",
     "The network location of the DLP inspection point relative to the corporate egress",
     "The frequency with which the DLP signature and pattern definitions are updated by the vendor",
@@ -23631,7 +23631,7 @@ export const questions = [
     question: "A company must apply session controls and download restrictions when employees reach its sanctioned SaaS applications from personal, unmanaged devices where no agent can be installed. Which CASB deployment mode fits this requirement?",
     options: [
     "Forward proxy mode, directing device traffic to the broker before it reaches the cloud service",
-    "Reverse proxy mode, integrated with the identity provider so sessions are redirected through the broker after authentication",
+    "Reverse proxy mode, integrated with the identity provider to redirect sessions through the broker",
     "Application programming interface mode, connecting the broker directly to the cloud service tenant",
     "Log collection mode, ingesting firewall and proxy logs to analyze cloud service usage",
     ],
@@ -23654,7 +23654,7 @@ export const questions = [
     id: "d2_274", domain: 2, difficulty: 2, section: "Data Security Controls",
     question: "A team deploys its cloud access security broker exclusively through the sanctioned SaaS provider's application programming interfaces, deliberately avoiding any inline component. Which limitation must the team accept as a consequence of this choice?",
     options: [
-    "Enforcement is retroactive, so a policy violation is remediated after the content is already in the service rather than prevented at upload",
+    "Enforcement is retroactive, remediating violations after content is already in the service",
     "The broker cannot scan files that were uploaded before the integration was enabled",
     "The broker cannot apply any data loss prevention policy to content stored in the service",
     "The broker requires an agent on every endpoint that accesses the sanctioned service",
@@ -23669,7 +23669,7 @@ export const questions = [
     "Immediately for all copies, because revocation erases the document wherever it has been stored",
     "Never, because once a protected document has been delivered the recipient's copy is permanently usable",
     "Only after the document is deleted from the recipient's mailbox by an administrator",
-    "When the recipient's client next contacts the rights service, which may be delayed by any cached offline use license until it expires",
+    "When the recipient's client next contacts the rights service, possibly delayed by a cached offline license",
     ],
     answer: 3,
     explanation: "Rights-protected files remain encrypted wherever they travel, and opening one requires a use license issued by the rights service that specifies the permitted actions and its own validity period. Revocation updates the policy at the service, so the next time a client requests or revalidates a license the request is denied; if the recipient holds an unexpired cached license for offline work, access can persist until that cache expires. Organizations therefore set short offline validity for the most sensitive content, accepting the connectivity requirement in exchange for tighter revocation. Option 0 is wrong because revocation withholds future decryption authorization; it does not reach out and delete copies that already exist on endpoints, mail systems, or removable media. Option 1 is wrong because it describes ordinary static encryption or an unprotected file, and the persistent policy enforcement that survives distribution is the defining property of rights management. Option 2 is wrong because deleting a message from a mailbox does nothing about copies already saved elsewhere and is unrelated to how license issuance works.",
@@ -23678,7 +23678,7 @@ export const questions = [
     id: "d2_276", domain: 2, difficulty: 2, section: "DRM and Digital Rights Management",
     question: "A manufacturer wants to send rights-protected design specifications to engineers at a supplier so that the usage restrictions continue to apply at the supplier's site. What must be established for the supplier's engineers to open the protected files?",
     options: [
-    "A means for the external users to authenticate to the rights infrastructure, such as identity federation with the supplier or provisioned guest identities",
+    "A means for external users to authenticate to the rights service, e.g. identity federation or guest accounts",
     "A shared password distributed to the supplier's engineers through a separate channel",
     "A site-to-site virtual private network between the two companies so the files traverse an encrypted tunnel",
     "A visible watermark applied to each page identifying the supplier as the recipient",
@@ -23716,7 +23716,7 @@ export const questions = [
     options: [
     "Mark them not applicable, since the application team does not operate the facility",
     "Reimplement equivalent controls within the application's own boundary to avoid depending on another party",
-    "Designate them as common controls inherited from the hosting provider and document the inheritance and the provider's assessment evidence",
+    "Designate them as common controls inherited from the provider, with documented assessment evidence",
     "Replace them with compensating controls chosen by the application team",
     ],
     answer: 2,
@@ -23726,7 +23726,7 @@ export const questions = [
     id: "d2_280", domain: 2, difficulty: 2, section: "Scoping and Tailoring",
     question: "During tailoring, an assessor addresses two findings: an isolated system has no wireless interfaces of any kind, so the wireless access controls are marked as not applicable, and a legacy manufacturing controller cannot support the required multifactor authentication, so a locked enclosure with badge-controlled entry and continuous session logging is documented instead. How should these two decisions be characterized?",
     options: [
-    "The wireless decision is a scoping decision, and the legacy controller decision is the selection of compensating controls",
+    "The wireless decision is a scoping decision, and the legacy controller decision is selecting compensating controls",
     "Both are scoping decisions, since each removes a baseline control from the system",
     "Both are compensating control decisions, since each substitutes something for a baseline requirement",
     "The wireless decision is a compensating control, and the legacy controller decision is a supplementation of the baseline",
@@ -23751,7 +23751,7 @@ export const questions = [
     question: "A retailer replaces stored primary account numbers across its order management, analytics, and customer service systems with tokens issued by a segmented tokenization service, so that those systems no longer store, process, or transmit account numbers. What is the effect on the retailer's payment card compliance obligations?",
     options: [
     "All systems in the retailer's environment become out of scope once tokenization is deployed anywhere in the payment flow",
-    "Systems that no longer handle account numbers and are properly segmented may fall out of scope, while the tokenization service and the systems that handle account numbers remain fully in scope",
+    "Systems that no longer handle account numbers and are segmented may fall out of scope; the tokenization service stays fully in scope",
     "Compliance obligations are unaffected, because tokens are treated identically to account numbers under the standard",
     "The obligations transfer entirely to the tokenization service provider, since it now holds the account numbers",
     ],
@@ -23906,10 +23906,10 @@ export const questions = [
     id: "d3_255", domain: 3, difficulty: 2, section: "Common Criteria",
     question: "A procurement team reading a Common Criteria Security Target sees the product's requirements divided into two groups: one describing behaviors such as auditing, cryptographic operation, and identification, and another describing activities such as design documentation, development environment controls, and independent testing. What distinction does this reflect?",
     options: [
-    "Protection Profiles versus Security Targets",
+    "Protection Profiles versus Security Targets as CC document types",
     "Security functional requirements versus security assurance requirements",
-    "Evaluation assurance levels versus certification levels",
-    "Target of evaluation versus TOE security policy",
+    "Evaluation assurance levels versus product certification levels",
+    "Target of evaluation versus its TOE security policy",
     ],
     answer: 1,
     explanation: "Common Criteria separates what the product does from how much confidence there is that it does it correctly. Security functional requirements describe the security behaviors the product provides, such as audit generation, cryptographic support, and identification and authentication, while security assurance requirements describe the evidence and rigor demanded of the developer and evaluator, such as design documentation, configuration management, development environment controls, and independent testing. A Protection Profile is an implementation-independent statement of need for a product category and a Security Target is the vendor's specific claim for one product; both documents contain functional and assurance requirements, so that pairing does not describe the split shown. Evaluation assurance levels are predefined packages of assurance requirements, and there is no separate parallel scale called certification levels. The target of evaluation is the product being evaluated and its security policy is the set of rules it enforces; that pairing does not describe the division of requirements in the document.",
@@ -23955,7 +23955,7 @@ export const questions = [
     question: "A regulator tells a health insurer that claim data must remain encrypted along its entire path from the member's browser to the application server, including the segment inside the insurer's own data center. Today TLS is terminated at an internet-facing load balancer and traffic continues to the application servers unencrypted. Which change best satisfies the requirement?",
     options: [
     "Move TLS termination to a hardware security module attached to the load balancer",
-    "Re-establish TLS from the load balancer to the application servers, or pass the session through to them without decrypting",
+    "Re-establish TLS to the application servers, or pass sessions through undecrypted",
     "Enable full-disk encryption on the load balancer and application servers",
     "Place the load balancer and application servers on a dedicated VLAN with private addressing",
     ],
@@ -23978,9 +23978,9 @@ export const questions = [
     id: "d3_261", domain: 3, difficulty: 2, section: "Hardware Security",
     question: "A laptop is configured so that the volume encryption key is released by the TPM only when the measurements recorded during boot match the values recorded when the key was stored. An attacker who modifies the bootloader finds the key is not released. Which TPM capability produced this behavior?",
     options: [
-    "Remote attestation of the platform to a verifier",
-    "Sealing the key to a specified set of platform configuration register values",
-    "Binding the key to the TPM's endorsement key",
+    "Remote attestation of the platform's state to a remote verifier",
+    "Sealing the key to specified platform configuration register values",
+    "Binding the key to the TPM's unique endorsement key",
     "Generating the key inside the TPM using its random number generator",
     ],
     answer: 1,
@@ -23991,7 +23991,7 @@ export const questions = [
     question: "A hosting provider must be able to tell customers that even an administrator with hypervisor access cannot read the contents of a running virtual machine's memory. Which platform capability most directly supports that claim?",
     options: [
     "Assigning each virtual machine to a dedicated physical CPU core",
-    "Hardware-based encryption of each virtual machine's memory using a key the hypervisor cannot access",
+    "Hardware-based encryption of guest memory using a key the hypervisor cannot access",
     "Enabling secure boot inside each guest operating system",
     "Encrypting the virtual machine's virtual disk files with keys held by the customer",
     ],
@@ -24014,7 +24014,7 @@ export const questions = [
     id: "d3_264", domain: 3, difficulty: 2, section: "Hardware Security",
     question: "An organization deploys self-encrypting drives that perform AES in the drive controller and store the media encryption key inside the drive, releasing it only after a valid authentication key is supplied at power-on. Compared to software full-disk encryption, what is the principal advantage of this design?",
     options: [
-    "Encryption is performed by the drive at line rate, and the media key never leaves the drive to be exposed in host memory",
+    "Encryption is performed by the drive at line rate, and the media key never leaves it",
     "The data remains encrypted while it is being processed by applications on the host",
     "The drive can prove to a remote verifier that the host operating system has not been tampered with",
     "The drive prevents an authenticated user of the running system from reading files they are not authorized to access",
@@ -24026,8 +24026,8 @@ export const questions = [
     id: "d3_265", domain: 3, difficulty: 2, section: "Cloud Security",
     question: "An attacker finds a web application feature that fetches a URL supplied by the user and returns the response. Using it, the attacker causes the server to request the cloud provider's link-local instance metadata address and receives temporary credentials for the instance's assigned role. Which change most directly eliminates this exposure?",
     options: [
-    "Rotating the instance's role credentials on a shorter schedule",
-    "Requiring the session-oriented version of the metadata service, which demands a token obtained by a request type the vulnerable feature cannot issue, and limiting the response hop count",
+    "Rotating the instance's role credentials on a much shorter rotation schedule",
+    "Requiring the token-based metadata service and limiting the response hop count",
     "Encrypting the instance's attached storage volumes with customer-managed keys",
     "Placing the instance in a private subnet with no route to the internet gateway",
     ],
@@ -24039,7 +24039,7 @@ export const questions = [
     question: "A review of a container platform finds that an application container is started in privileged mode and has the host's container runtime socket mounted into it so a build script can create sibling containers. What is the most serious consequence of this configuration?",
     options: [
     "The container's image layers cannot be verified against the registry's signatures",
-    "A compromise of the application inside the container is effectively a compromise of the host and every container on it",
+    "A compromise of the application is effectively a compromise of the host and every container on it",
     "The container will be unable to enforce CPU and memory limits set by the orchestrator",
     "Network traffic between the container and other containers will bypass encryption",
     ],
@@ -24051,7 +24051,7 @@ export const questions = [
     question: "An assessor reviewing a container orchestration platform notes that application secrets are stored as native secret objects, which the cluster's key-value datastore holds without additional protection, and that the datastore's disk backups are copied to a general file share. What is the most appropriate remediation?",
     options: [
     "Base64-encode the secret values before creating the secret objects",
-    "Enable encryption at rest for secret objects using an external key management service, and restrict and protect the datastore backups",
+    "Enable encryption at rest for secrets via external key management, and protect backups",
     "Convert the secrets to environment variables defined in the workload specifications",
     "Reduce the number of service accounts permitted to schedule workloads on the cluster",
     ],
@@ -24063,7 +24063,7 @@ export const questions = [
     question: "A development team rewrites a batch job as a set of serverless functions. The provider fully manages the servers, the operating system, and the language runtime. Which security responsibility clearly remains with the customer in this model?",
     options: [
     "Applying kernel patches to the compute hosts that execute the functions",
-    "Securing the function code, the third-party libraries it packages, and the permissions granted to the function's execution role",
+    "Securing the function code, its third-party libraries, and the execution role's permissions",
     "Hardening the hypervisor that isolates one tenant's execution environment from another's",
     "Maintaining physical access controls for the availability zone hosting the functions",
     ],
@@ -24075,7 +24075,7 @@ export const questions = [
     question: "An audit of a build environment finds that the continuous integration system holds long-lived deployment credentials for production, and that any developer with commit access to a repository can modify the pipeline definition stored alongside the application code. What is the primary architectural risk?",
     options: [
     "Build artifacts may be produced more slowly than the release schedule requires",
-    "The pipeline becomes a path by which any code-committing developer can reach production without passing through the intended release controls",
+    "The pipeline lets committers reach production directly, bypassing release controls",
     "Developers may be unable to reproduce builds because dependency versions are not pinned",
     "The organization may be unable to prove which developer authored a given commit",
     ],
@@ -24086,7 +24086,7 @@ export const questions = [
     id: "d3_270", domain: 3, difficulty: 2, section: "Cloud Security",
     question: "A microservices platform encrypts traffic from clients at the ingress gateway, but the dozens of service-to-service calls inside the cluster travel in cleartext and each service accepts any request that reaches its port. Which architectural change addresses both the confidentiality of that internal traffic and the authentication of the calling service?",
     options: [
-    "Deploying mutual TLS between services, typically through a service mesh that issues and rotates per-service identities",
+    "Deploying mutual TLS between services, typically via a service mesh with per-service identities",
     "Placing an additional network firewall between the cluster and the ingress gateway",
     "Enabling encryption at rest on the persistent volumes attached to each service",
     "Moving all services into a single container so no traffic crosses the network",
@@ -24099,7 +24099,7 @@ export const questions = [
     question: "A security researcher opens the enclosure of a production building-automation controller and finds an unpopulated but electrically active serial console header and an accessible JTAG port. Neither is documented in the product literature. What is the most significant risk this creates?",
     options: [
     "The device may radiate electromagnetic emissions that violate regulatory limits",
-    "An attacker with brief physical access can read out firmware and keys, halt the processor, and modify the running system",
+    "An attacker with brief physical access can dump firmware and keys, halt the processor, and modify the system",
     "The device will draw more power than its specification allows, shortening component life",
     "The additional connectors increase the likelihood of accidental electrostatic damage during installation",
     ],
@@ -24122,7 +24122,7 @@ export const questions = [
     id: "d3_273", domain: 3, difficulty: 2, section: "Cryptography Key Management",
     question: "A cloud storage service encrypts each customer object with a unique data encryption key, then encrypts that key with a customer-controlled key encryption key held in a key management service and stores the wrapped result next to the object. What operational advantage does this envelope encryption design provide?",
     options: [
-    "Rotating the key encryption key requires only re-wrapping the data encryption keys, not re-encrypting the stored objects",
+    "Rotating the key encryption key requires only re-wrapping data encryption keys, not re-encrypting stored objects",
     "It removes the need to protect the data encryption keys, because they are used only once",
     "It allows the objects to be decrypted without any key material if the key management service is unavailable",
     "It guarantees that the same plaintext object always produces the same ciphertext for deduplication",
@@ -24135,7 +24135,7 @@ export const questions = [
     question: "A team is replacing its password hashing function and is told that attackers now crack candidate passwords on large arrays of GPUs and custom hardware. They select Argon2id and configure a substantial memory parameter. How does the memory parameter specifically improve resistance to those attackers?",
     options: [
     "It increases the length of the resulting digest, making collisions less likely",
-    "It forces each guess to occupy a large block of memory, which sharply reduces how many guesses specialized parallel hardware can compute at once",
+    "It forces each guess to occupy a large block of memory, sharply limiting parallel guesses",
     "It replaces the need for a per-user salt by making every hash unique",
     "It encrypts the stored digest so that database theft does not expose it",
     ],
@@ -24147,7 +24147,7 @@ export const questions = [
     question: "After installing a new certificate, an administrator finds that desktop browsers connect without complaint, but a partner's server-side integration and several mobile clients reject the connection as untrusted. The certificate itself is valid and issued by a well-known public CA. What is the most likely cause?",
     options: [
     "The certificate uses an elliptic curve key that the failing clients cannot process",
-    "The server is not sending the intermediate CA certificate, so clients that have not cached it cannot build a path to a trusted root",
+    "The server omits the intermediate CA certificate, so uncached clients can't build a trust path",
     "The certificate's validity period is longer than the failing clients will accept",
     "The failing clients are checking a certificate revocation list that has not yet been published",
     ],
@@ -24170,7 +24170,7 @@ export const questions = [
     id: "d3_277", domain: 3, difficulty: 2, section: "Cryptography Key Management",
     question: "A developer implements AES-GCM for a message queue and, to simplify the design, derives the 96-bit nonce from a counter that resets to zero every time the service restarts, while the key remains unchanged for months. Why is this an urgent finding?",
     options: [
-    "Reusing a nonce with the same key exposes the relationship between plaintexts and can allow an attacker to recover the authentication subkey and forge valid messages",
+    "Reusing a nonce with the same key lets an attacker recover the authentication subkey and forge valid messages",
     "GCM requires a random nonce of at least 128 bits, so the shorter value weakens the block cipher itself",
     "Resetting the counter causes the ciphertext to be longer than the plaintext, which reveals message boundaries",
     "GCM cannot be used with a long-lived key because the mode does not provide integrity protection",
@@ -24183,7 +24183,7 @@ export const questions = [
     question: "A design calls for a tamper-evident audit archive in which each new record's hash input includes the hash of the previous record, and the archive periodically publishes a single root value summarizing all records. What property does this construction give an auditor?",
     options: [
     "The archive cannot be read by anyone who does not hold the publishing key",
-    "Any alteration or deletion of a past record invalidates every subsequent value up to the published root",
+    "Any alteration or deletion of a past record invalidates every value up to the root",
     "The records are compressed so that the archive requires less storage",
     "Records can be reconstructed from the root value if the archive is lost",
     ],
@@ -24219,7 +24219,7 @@ export const questions = [
     question: "A tester submits many modified ciphertexts to an application that decrypts them using AES in CBC mode. The application returns a distinguishable response when the decrypted block has invalid padding versus when padding is valid but the message fails a later check. Using this difference, the tester recovers plaintext without the key. Which attack is this, and what is the most direct fix?",
     options: [
     "A birthday attack, fixed by increasing the block size",
-    "A padding oracle attack, fixed by authenticating the ciphertext before decrypting it and returning indistinguishable errors",
+    "A padding oracle attack, fixed by authenticating ciphertext before decryption",
     "A known-plaintext attack, fixed by rotating the encryption key more frequently",
     "A replay attack, fixed by adding a monotonically increasing sequence number",
     ],
@@ -24255,7 +24255,7 @@ export const questions = [
     question: "A laboratory attacking a smart card briefly drops the supply voltage at a precise moment during an RSA signature operation that uses the Chinese remainder theorem. The resulting faulty signature, compared with a correct one, lets the laboratory factor the modulus and recover the private key. What class of attack is this, and which countermeasure directly addresses it?",
     options: [
     "Differential power analysis, countered by adding random noise to the power trace",
-    "Fault injection, countered by verifying the signature inside the device before releasing it and detecting abnormal operating conditions",
+    "Fault injection, countered by verifying the signature and detecting abnormal conditions",
     "Timing analysis, countered by making all operations take constant time",
     "Cold boot attack, countered by clearing memory on reset",
     ],
@@ -24267,7 +24267,7 @@ export const questions = [
     question: "A researcher demonstrates that when a web application compresses a response that contains both an attacker-influenced string and a secret token, the attacker can observe the length of the encrypted response, vary the injected string, and gradually recover the token. What is the appropriate mitigation?",
     options: [
     "Increase the TLS key size so that the encrypted responses are harder to analyze",
-    "Disable compression of responses that mix attacker-controlled input with secret values, or separate the secret from the compressed context",
+    "Disable compression that mixes attacker input with secrets, or separate the two",
     "Switch the cipher suite from a stream-based construction to CBC mode",
     "Add a random delay before each response is transmitted",
     ],
@@ -24278,7 +24278,7 @@ export const questions = [
     id: "d3_286", domain: 3, difficulty: 2, section: "Site and Facility Design",
     question: "During construction review of a new server room, the security architect notes that the partition walls stop at the suspended ceiling grid, above which a continuous plenum runs to the adjacent general office space. What should the architect require, and why?",
     options: [
-    "Walls extended from the structural floor slab to the slab above, because otherwise an intruder can climb over the partition through the plenum",
+    "Walls extended from the floor slab to the slab above, so intruders can't climb through the plenum",
     "A second badge reader on the server room door, because a single reader cannot enforce two-person control",
     "Removal of the suspended ceiling, because ceiling tiles are combustible and increase fire load",
     "Relocation of the server room to an exterior wall, because interior rooms cannot be ventilated",
@@ -24291,7 +24291,7 @@ export const questions = [
     question: "A design review of a planned data hall finds that a domestic water riser and a chilled water return line are routed through the ceiling space directly above two rows of racks, with no alternative path available in the building. What is the most appropriate mitigation?",
     options: [
     "Accept the routing, since chilled water lines operate at low pressure and rarely fail",
-    "Install containment such as drip pans and gutters beneath the piping, together with leak detection tied to alarms and automatic isolation valves",
+    "Install containment such as drip pans and gutters, with leak detection tied to alarms and isolation valves",
     "Increase the height of the raised floor so that water accumulating on the slab does not reach equipment",
     "Apply waterproof coatings to the racks so equipment continues to operate if water reaches it",
     ],
@@ -24315,7 +24315,7 @@ export const questions = [
     question: "An architect is laying out the delivery area for a facility that houses sensitive computing space. Which design best reduces the risk that delivery drivers and courier staff become an access path into protected areas?",
     options: [
     "A dock that opens directly into the main corridor so that deliveries can be moved quickly to their destination",
-    "A dock separated from interior space by a controlled staging room, where deliveries are received, inspected, and then moved inward by facility staff",
+    "A dock separated from interior space by a staging room, where deliveries are inspected before moving inward",
     "A dock in the parking structure with an unattended door that badge holders can use for after-hours deliveries",
     "A dock adjacent to the data hall so that equipment can be unloaded near where it will be installed",
     ],
@@ -24327,7 +24327,7 @@ export const questions = [
     question: "A headquarters lobby must move roughly 900 employees through in a twenty-minute window each morning while still preventing an unauthorized person from following an employee inside. Which entry control best fits these requirements?",
     options: [
     "A single badge-controlled swing door monitored by a camera",
-    "Optical turnstiles that read a badge per person and use sensors to detect a second body passing on one credential",
+    "Optical turnstiles that read one badge per person and detect tailgating",
     "An interlocking two-door portal sized for one person, used by all employees",
     "A staffed reception desk where employees sign a paper register on arrival",
     ],
@@ -24339,7 +24339,7 @@ export const questions = [
     question: "An organization is preparing to acquire a commercial platform that will process regulated data. At which point, and through what mechanism, are security expectations for the supplier most effectively established?",
     options: [
     "During operations, by scanning the delivered product and reporting findings to the vendor",
-    "During acquisition, by writing security and supply chain requirements into the solicitation and the resulting contract",
+    "During acquisition, by writing security requirements into the solicitation and contract",
     "During disposal, by requiring the vendor to certify destruction of any residual data",
     "During implementation, by hardening the product against a configuration benchmark before go-live",
     ],
@@ -24364,7 +24364,7 @@ export const questions = [
     options: [
     "Degauss the storage volumes through the provider's management console",
     "Delete the storage objects and rely on the provider's contractual commitment to overwrite freed blocks",
-    "Ensure all data was encrypted with customer-managed keys, then destroy those keys so the remaining ciphertext is unrecoverable",
+    "Ensure data was encrypted with customer-managed keys, then destroy those keys",
     "Overwrite each object several times with random data before deleting it",
     ],
     answer: 2,
@@ -24410,7 +24410,7 @@ export const questions = [
     id: "d4_229", domain: 4, difficulty: 2, section: "TCP/IP Protocols",
     question: "A network analyst reviewing a packet capture sees a client send a segment with the FIN flag, the server acknowledge it, the server later send its own FIN, and the client acknowledge that. What does this exchange indicate about the connection, and how does it differ from a segment carrying the RST flag?",
     options: [
-    "It is a normal graceful close in which each direction is shut down independently, while RST forces an immediate abort without ordered teardown",
+    "It is a normal graceful close where each direction shuts down independently; RST forces an immediate abort",
     "It is a failed connection attempt, while RST indicates the connection was successfully established and then closed",
     "It is a keepalive exchange used to hold the session open, while RST is used to renegotiate the TCP window size",
     "It is a retransmission of lost segments, while RST acknowledges that all data has been received in order",
@@ -24435,7 +24435,7 @@ export const questions = [
     question: "A privacy review finds that corporate laptops generate IPv6 addresses whose interface identifiers are derived from the network adapter's hardware address, so the same identifier appears in server logs at every site and public network the laptop visits. Which IPv6 capability should be enabled to address this finding?",
     options: [
     "Unique local addressing so laptops use fd00::/8 addresses on every network",
-    "Privacy extensions that generate randomized, periodically rotating temporary addresses for outbound connections",
+    "Privacy extensions that generate randomized, rotating temporary addresses for outbound connections",
     "DHCPv6 stateless mode so routers assign DNS servers instead of addresses",
     "IPv6 header extension ordering to conceal the interface identifier from intermediate routers",
     ],
@@ -24496,7 +24496,7 @@ export const questions = [
     options: [
     "The router's clock has drifted; resynchronize NTP and reconnect",
     "The client's private key has expired; regenerate the user key pair and retry",
-    "A possible man-in-the-middle interception; stop and verify the fingerprint through an out-of-band channel before connecting",
+    "A possible man-in-the-middle; verify the fingerprint out-of-band before connecting",
     "The SSH session negotiated a weaker cipher suite; force a stronger cipher on the command line",
     ],
     answer: 2,
@@ -24518,7 +24518,7 @@ export const questions = [
     id: "d4_238", domain: 4, difficulty: 2, section: "TLS and SSL",
     question: "A security team wants clients to receive timely proof that the web server's certificate has not been revoked, without each client having to contact the certificate authority directly, which currently adds connection latency and reveals to the CA which sites users visit. Which mechanism meets this requirement?",
     options: [
-    "OCSP stapling, in which the server presents a recent CA-signed status response during the handshake",
+    "OCSP stapling, where the server presents a recent CA-signed status during the handshake",
     "Publishing a certificate revocation list on the web server for clients to download",
     "Shortening the certificate validity period to seven days and disabling revocation checking",
     "Pinning the server's public key in the client application",
@@ -24569,7 +24569,7 @@ export const questions = [
     "Link aggregation with a hashing policy based on source and destination MAC",
     "Spanning Tree Protocol with rapid convergence enabled on all fabric links",
     "Jumbo frame support raised to a 9000-byte MTU across the fabric",
-    "Priority-based flow control, which pauses individual traffic classes rather than the whole link",
+    "Priority-based flow control, pausing individual traffic classes instead of the link",
     ],
     answer: 3,
     explanation: "Fibre Channel was designed for a lossless fabric, so when its frames are carried over Ethernet the fabric must not drop them under congestion. Priority-based flow control, defined in IEEE 802.1Qbb as part of Data Center Bridging, extends the older link-level pause mechanism so that a switch can pause a specific priority class while other classes continue to flow, giving the storage class the lossless behavior it requires without stalling all traffic on the link. Spanning Tree is incorrect because it prevents Layer 2 loops by blocking redundant paths; it does not manage congestion, and in converged fabrics it is typically replaced by multipathing technologies. Jumbo frames are incorrect because a larger MTU improves efficiency for bulk transfer but does nothing to prevent buffer exhaustion and frame discard during congestion; oversized frames can even worsen the effect. Link aggregation is incorrect because bundling links raises aggregate bandwidth and adds resilience, but once the bundle is congested frames are still dropped, and per-flow hashing can leave individual flows on a saturated member link.",
@@ -24581,7 +24581,7 @@ export const questions = [
     "Increase the switch's CAM table size and enable storm control on access ports",
     "Enable port security with a maximum of one MAC address and enable DHCP snooping",
     "Move all conference room ports to VLAN 1 and enable BPDU guard",
-    "Disable dynamic trunking negotiation on access ports and assign the native VLAN to an unused, non-user VLAN",
+    "Disable dynamic trunking on access ports and assign native VLAN to an unused VLAN",
     ],
     answer: 3,
     explanation: "The attack described is switch spoofing, a form of VLAN hopping in which the attacker's host impersonates a switch and completes a dynamic trunking negotiation, converting an access port into a trunk that carries all permitted VLANs. The direct remedy is to hard-code user-facing ports as access ports with trunk negotiation turned off, so the switch will never form a trunk with an endpoint, and to move the native VLAN to an unused VLAN, which also removes the untagged path that double-tagging attacks depend on. Port security with DHCP snooping is incorrect as the primary control because limiting MAC addresses and validating DHCP offers mitigates CAM table flooding and rogue DHCP servers, but a single spoofed switch identity uses one MAC and does not require DHCP. Moving ports to VLAN 1 is incorrect and actively harmful, since VLAN 1 is the default native and control VLAN and consolidating untrusted ports there increases exposure; BPDU guard protects the spanning tree topology rather than trunk negotiation. Enlarging the CAM table and enabling storm control is incorrect because those measures address flooding and broadcast storms, neither of which is the mechanism used here.",
@@ -24604,7 +24604,7 @@ export const questions = [
     options: [
     "Placing every virtual machine in its own VLAN and routing between them",
     "A larger perimeter firewall cluster with 100 Gbps interfaces and additional uplinks",
-    "A distributed firewall enforcing policy at each virtual machine's virtual NIC within the hypervisor",
+    "A distributed firewall enforcing policy at each VM's virtual NIC within the hypervisor",
     "Enabling promiscuous mode on the virtual switch and adding a monitoring appliance",
     ],
     answer: 2,
@@ -24626,10 +24626,10 @@ export const questions = [
     id: "d4_247", domain: 4, difficulty: 2, section: "Network Segmentation",
     question: "A cloud provider must give each tenant its own isolated Layer 2 broadcast domains that can span racks and pods connected by a routed IP fabric, and it needs far more than the 4094 identifiers that traditional VLAN tagging allows. Which technology meets both requirements?",
     options: [
-    "VXLAN overlays, which encapsulate Layer 2 frames in UDP and use a 24-bit segment identifier",
-    "Q-in-Q double tagging on all inter-rack trunk links",
-    "Generic Routing Encapsulation tunnels between tenant gateways",
-    "Spanning Tree with per-VLAN instances across the fabric",
+    "VXLAN overlays, encapsulating Layer 2 frames in UDP with a 24-bit segment ID",
+    "Q-in-Q double tagging deployed on every inter-rack trunk link",
+    "Generic Routing Encapsulation tunnels built between the tenant gateways",
+    "Spanning Tree with a separate per-VLAN instance across the whole fabric",
     ],
     answer: 0,
     explanation: "VXLAN encapsulates Ethernet frames inside UDP packets so that a Layer 2 segment can be extended over any routed Layer 3 underlay, and its 24-bit VXLAN network identifier provides roughly sixteen million segments, far beyond the 12-bit VLAN identifier space. That combination is what allows a provider to give each tenant isolated broadcast domains that stretch across racks and pods. Q-in-Q is incorrect because stacking two 802.1Q tags expands the identifier space but still relies on a bridged Layer 2 path between endpoints, so it cannot span a routed fabric and it multiplies the spanning tree and flooding problems the design is trying to escape. GRE tunnels are incorrect because although GRE can carry traffic across a routed network, it lacks a tenant segment identifier field, offers no built-in multi-tenant scaling model, and would require manual point-to-point tunnel management. Per-VLAN spanning tree is incorrect because it is a loop prevention protocol whose instances consume switch resources and whose scale is bounded by the same VLAN identifier limit; it neither extends segments across Layer 3 nor increases the identifier space. Note that VXLAN itself provides isolation and reachability, not encryption, so confidentiality must be added separately.",
@@ -24639,7 +24639,7 @@ export const questions = [
     question: "Remote laptops can only reach domain controllers and patch servers after a user has logged in and manually started the VPN client, so machines that sit unused for weeks miss policy updates and patches, and password resets fail at the logon screen. Which VPN design change addresses this?",
     options: [
     "Enable split tunneling so management traffic reaches the corporate network directly",
-    "Deploy an always-on device tunnel that authenticates with a machine certificate and connects before user logon",
+    "Deploy an always-on device tunnel authenticating with a machine certificate before logon",
     "Shorten the VPN session idle timeout so clients reconnect more frequently",
     "Publish the domain controllers through a reverse proxy in the screened subnet",
     ],
@@ -24662,7 +24662,7 @@ export const questions = [
     id: "d4_250", domain: 4, difficulty: 2, section: "VPN Technologies",
     question: "After acquiring a competitor, an organization needs a site-to-site IPSec tunnel between the two networks, but both sites independently use 192.168.10.0/24 for their server subnets and neither can be readdressed in the near term. Which approach allows the tunnel to function?",
     options: [
-    "Apply NAT on each gateway to translate the local subnet to a unique range before encryption, and build the tunnel between those translated ranges",
+    "Apply NAT on each gateway to translate subnets to unique ranges before encryption",
     "Configure the tunnel in transport mode so the original IP headers are preserved",
     "Increase the tunnel MTU and enable path MTU discovery on both gateways",
     "Configure both gateways to advertise the subnet with BGP and let routing resolve the conflict",
@@ -24677,7 +24677,7 @@ export const questions = [
     "Rotate the group pre-shared key every 90 days and document the rotation",
     "Restrict VPN connections to a list of approved source IP address ranges",
     "Lengthen the minimum password requirement for VPN user accounts",
-    "Replace the shared group secret with per-user or per-device certificates issued by the corporate PKI",
+    "Replace the shared group secret with per-user or per-device PKI certificates",
     ],
     answer: 3,
     explanation: "The core defect is a secret shared by everyone: it cannot be attributed to an individual, it cannot be revoked for one person without disrupting all users, and every departing employee leaves with a usable copy. Issuing certificates from the corporate PKI to each user or device replaces that shared value with unique credentials that are bound to an identity, can be revoked individually through CRL or OCSP, and are stored in protected key stores rather than a distributed configuration file. Rotating the group key is incorrect because it shortens the exposure window but preserves the fundamental problem, and each rotation forces a disruptive redistribution to every client, which in practice encourages long intervals. Lengthening passwords is incorrect because the weakness is not password strength; the shared key is a separate factor that all users hold, and stronger passwords leave it untouched. Restricting source IP ranges is incorrect because remote-access users connect from arbitrary and changing home, hotel, and cellular addresses, making the control impractical, and a departing employee could still connect from any permitted network.",
@@ -24687,7 +24687,7 @@ export const questions = [
     question: "A team is finalizing the resilience design for an SDN deployment in which a single controller currently programs all forwarding devices. Which combination of measures best reduces the risk that the controller becomes both a single point of failure and a single point of compromise?",
     options: [
     "Configure each switch with a static backup route to the internet in case the controller is unreachable",
-    "Deploy a clustered set of controllers with quorum-based state replication and reach them over a dedicated out-of-band management network with strong administrator authentication",
+    "Deploy clustered controllers with quorum-based replication, reached over an out-of-band network with strong authentication",
     "Give every network engineer direct console access to each switch so flows can be added manually during an outage",
     "Increase the flow entry idle timeout so switches retain flows longer after the controller stops responding",
     ],
@@ -24698,7 +24698,7 @@ export const questions = [
     id: "d4_253", domain: 4, difficulty: 2, section: "Software-Defined Networking",
     question: "A security review of an SDN fabric finds that the OpenFlow control channel between the controller and the switches runs in cleartext over TCP with no peer verification, so an attacker with access to that path could observe or inject flow modification messages. Which configuration change addresses this?",
     options: [
-    "Enable TLS on the control channel with mutual certificate authentication between the controller and each switch",
+    "Enable TLS on the control channel with mutual certificate authentication",
     "Move the northbound REST API behind an API gateway that enforces OAuth tokens",
     "Apply an access control list on each switch permitting management traffic only from the controller's IP address",
     "Enable MD5 authentication on the routing protocol adjacencies within the fabric",
@@ -24724,7 +24724,7 @@ export const questions = [
     options: [
     "A security group rule, because security groups are evaluated before subnet-level controls",
     "A security group rule, because it is stateful and will automatically block the return traffic as well",
-    "A network access control list on the subnet, because it supports explicit deny rules and applies to all instances in the subnet",
+    "A network ACL on the subnet, since it supports explicit deny rules and applies to all instances",
     "An instance-level host firewall rule pushed by configuration management to each virtual machine",
     ],
     answer: 2,
@@ -24735,7 +24735,7 @@ export const questions = [
     question: "A company peers VPC A with VPC B and separately peers VPC B with VPC C. Engineers report that resources in VPC A cannot reach resources in VPC C even though routes and security groups appear correct. What explains this, and what design resolves it as the number of VPCs grows?",
     options: [
     "Peering requires matching CIDR ranges; renumber VPC A and VPC C to overlap",
-    "Peering connections are not transitive; use a transit gateway as a hub for inter-VPC routing",
+    "Peering connections aren't transitive; use a transit gateway as a routing hub",
     "Peering supports only two VPCs per account; request a quota increase",
     "Peering traffic must traverse an internet gateway; attach one to VPC B",
     ],
@@ -24749,7 +24749,7 @@ export const questions = [
     "Move the instances into a private subnet with no route to an internet gateway",
     "Enable server-side encryption with customer-managed keys on all buckets",
     "Enable flow logging on the VPC and alert on unusual data volumes to the endpoint",
-    "Apply an endpoint policy limiting the endpoint to the organization's own storage resources, and a resource policy allowing access only through that endpoint",
+    "Apply an endpoint policy limiting it to the org's own storage, plus a matching resource policy",
     ],
     answer: 3,
     explanation: "A private service endpoint controls the path traffic takes but not the destination account, so by default an instance can reach any bucket in the service, including one an attacker controls. Attaching an endpoint policy that permits only the organization's own storage resources closes the outbound half of the gap, and attaching a resource policy that permits access only when the request arrives through the approved endpoint closes the inbound half so the data cannot be reached by another path. Together they constrain both which resources the workload can reach and how those resources can be reached. Server-side encryption with customer-managed keys is incorrect because it protects stored objects and can restrict decryption, but the compromised instance is legitimately authorized to read plaintext and would simply copy plaintext out. Flow logging with volume alerting is incorrect because it is a detective control that may reveal exfiltration after the fact and cannot see which bucket was targeted inside the encrypted session. Moving instances to a private subnet is incorrect because that only removes internet routing, and the scenario already stipulates the traffic uses the private endpoint; the exfiltration path in question runs over that endpoint.",
@@ -24770,7 +24770,7 @@ export const questions = [
     id: "d4_259", domain: 4, difficulty: 2, section: "Infrastructure Hardening",
     question: "After an outage, investigators find that a firewall rule permitting broad inbound access had been added weeks earlier and never appeared in any change record. Management asks for a control that would surface such undocumented modifications quickly. Which practice best meets that need?",
     options: [
-    "Automatically collect device configurations on a schedule and alert on any difference from the approved baseline",
+    "Automatically collect device configs on a schedule and alert on any baseline deviation",
     "Require two administrators to approve every firewall change in the ticketing system",
     "Perform an annual firewall rule review to remove unused and overly permissive rules",
     "Increase the retention period for firewall traffic logs to one year",
@@ -24783,7 +24783,7 @@ export const questions = [
     question: "A network team must report on WAN latency, jitter, and reachability for a critical application at every branch, including overnight hours when no employees are working and no application traffic is present. Which monitoring approach provides this data?",
     options: [
     "Passive monitoring using a span of the WAN link into a packet capture appliance",
-    "Active monitoring that generates synthetic test transactions between branch probes and the application on a schedule",
+    "Active monitoring generating synthetic test transactions between branch probes and the app",
     "Flow record collection from the branch routers, aggregated centrally",
     "Interface counter polling from the routers at five-minute intervals",
     ],
@@ -24842,7 +24842,7 @@ export const questions = [
     id: "d4_265", domain: 4, difficulty: 2, section: "Wireless Network Design",
     question: "A war-driving assessment shows that the corporate wireless network is usable from the public parking garage two floors below the office and from the sidewalk across the street. Encryption and authentication are already WPA3-Enterprise. Which design change most directly reduces the attack surface identified by the assessment?",
     options: [
-    "Conduct an RF site survey and tune access point transmit power and antenna patterns to contain coverage within the building footprint",
+    "Conduct an RF survey and tune AP transmit power and antenna patterns to contain coverage",
     "Shorten the WPA3 group key rotation interval to five minutes",
     "Add a MAC address allow list containing every corporate laptop and phone",
     "Disable SSID broadcast so the network no longer appears in client scan lists",
@@ -24857,7 +24857,7 @@ export const questions = [
     "The portal prevents guests on the same SSID from reaching one another's devices",
     "The portal provides mutual authentication between the guest device and the access point",
     "The portal encrypts each guest session with a unique key derived from the room number",
-    "The portal controls who may reach the internet but leaves the wireless traffic itself unencrypted and open to interception",
+    "The portal controls internet access but leaves the wireless traffic itself unencrypted",
     ],
     answer: 3,
     explanation: "A captive portal is an authorization and accounting mechanism implemented at Layer 3 by a gateway that intercepts HTTP requests and redirects them until the guest submits the required information. It says nothing about link-layer protection, so on a typical open guest SSID every frame is still transmitted without 802.11 encryption and any nearby device in monitor mode can capture it. The portal derives no keys and performs no cryptographic operation on the guest's traffic, so it cannot be said to encrypt sessions from the room number. It also provides no mutual authentication; the guest has no way to verify the access point, which is precisely why evil-twin access points cloning hotel SSIDs and portals are effective. Client isolation, which blocks station-to-station traffic within the same basic service set, is a separate access point setting that must be enabled deliberately and is not a property of the portal. The consultant should recommend pairing the portal with Enhanced Open or requiring guests to use a VPN.",
@@ -24879,7 +24879,7 @@ export const questions = [
     question: "An investigation concludes that attackers compromised several executive accounts by abusing weaknesses in carrier signaling networks to reroute and read the one-time passcodes the company sent by SMS. Which change most directly removes the exposure?",
     options: [
     "Require that SMS passcodes be delivered only to company-owned handsets",
-    "Replace SMS one-time passcodes with phishing-resistant authenticators such as FIDO2 security keys",
+    "Replace SMS passcodes with phishing-resistant authenticators such as FIDO2 keys",
     "Shorten the validity window of each SMS passcode from five minutes to sixty seconds",
     "Increase the SMS passcode length from six digits to eight digits",
     ],
@@ -24890,7 +24890,7 @@ export const questions = [
     id: "d4_269", domain: 4, difficulty: 2, section: "CDN Security",
     question: "A retailer fronts its e-commerce site with a content delivery network that provides caching, TLS termination, and DDoS absorption. During an incident, attackers discover the origin web servers' public IP addresses through historical DNS records and direct a volumetric flood straight at them, bypassing the CDN entirely. Which control best prevents a repeat?",
     options: [
-    "Restrict the origin's firewall and web server to accept connections only from the CDN provider's published address ranges, using authenticated pull where supported",
+    "Restrict the origin to accept connections only from the CDN's published address ranges",
     "Increase the cache expiration time on static objects so fewer requests reach the origin",
     "Lower the DNS time-to-live on the origin records so stale addresses expire faster",
     "Enable HTTP Strict Transport Security on the origin so browsers refuse plaintext connections",
@@ -24904,7 +24904,7 @@ export const questions = [
     options: [
     "The CDN is compressing responses, which merges concurrent responses into a shared buffer",
     "The CDN is terminating TLS at the edge, which causes session cookies to be shared among clients",
-    "The CDN is caching authenticated, per-user responses because the application does not mark them as private and non-cacheable",
+    "The CDN is caching authenticated, per-user responses since the app doesn't mark them private",
     "The origin servers are load balanced without sticky sessions, so requests land on different back ends",
     ],
     answer: 2,
@@ -24914,7 +24914,7 @@ export const questions = [
     id: "d4_271", domain: 4, difficulty: 2, section: "Traffic Delivery Methods",
     question: "A DNS operator wants its authoritative name servers to answer from whichever of a dozen worldwide sites is closest to each querying resolver, and wants a volumetric flood to be absorbed by the nearest site rather than concentrated on one location. Which addressing and delivery approach achieves this?",
     options: [
-    "Advertise the same service IP address from every site and let routing deliver each query to the topologically nearest instance",
+    "Advertise the same service IP from every site and let routing pick the nearest instance",
     "Assign each site a distinct address and publish all of them in a round-robin record set",
     "Publish one address and use multicast so a single query reaches all sites simultaneously",
     "Publish one address at a primary site and rely on broadcast forwarding to reach the remaining sites",
@@ -24940,7 +24940,7 @@ export const questions = [
     options: [
     "Move the file-sync application's servers to a separate VLAN with its own subnet",
     "Increase the bandwidth reserved for the expedited forwarding queue on all WAN links",
-    "Establish a QoS trust boundary at the access switch so that markings from untrusted endpoints are rewritten to a default class",
+    "Establish a QoS trust boundary at the access switch, rewriting untrusted markings to a default class",
     "Disable strict-priority queuing and serve all classes with weighted fair queuing",
     ],
     answer: 2,
@@ -24953,7 +24953,7 @@ export const questions = [
     "ARP resolution, which relies on ICMP echo replies to populate the neighbor table",
     "TCP window scaling, which relies on ICMP source quench messages to negotiate buffer sizes",
     "DNS resolution, which relies on ICMP port unreachable messages to fail over to TCP",
-    "Path MTU Discovery, which relies on ICMP fragmentation-needed messages to signal the largest usable packet size",
+    "Path MTU Discovery, relying on ICMP fragmentation-needed messages to signal the largest usable packet",
     ],
     answer: 3,
     explanation: "Path MTU Discovery works by sending packets with the Don't Fragment bit set and depending on routers to return an ICMP Type 3 Code 4 message, fragmentation needed and DF set, when a packet is too large for the next link. Tunnel encapsulation reduces the effective MTU, so once those messages are filtered the sender never learns to reduce its segment size; small packets that fit continue to work while bulk transfers, which use full-size segments, are silently discarded and the connection appears to hang. This asymmetry between small and large flows is the signature of a PMTU black hole. TCP window scaling is negotiated with a TCP option during the handshake and does not use ICMP at all; source quench is deprecated and unrelated to buffer negotiation. ARP is a Layer 2 protocol that uses its own request and reply frames rather than ICMP. DNS falls back from UDP to TCP based on the truncated flag in a DNS response, not on ICMP port unreachable messages.",
@@ -24974,7 +24974,7 @@ export const questions = [
     id: "d4_276", domain: 4, difficulty: 2, section: "WAN Transport Architecture",
     question: "A compliance assessor reviews a company's WAN, which uses a carrier MPLS Layer 3 VPN to connect fifteen branches. The network team asserts that no additional protection is needed because the carrier calls the service a private network. What should the assessor conclude about data in transit?",
     options: [
-    "MPLS separates customer traffic through label-based forwarding but does not encrypt it, so an overlay such as IPSec is needed for confidentiality",
+    "MPLS separates traffic through label-based forwarding but doesn't encrypt it, so an IPSec overlay is needed",
     "MPLS labels function as a keyed message authentication code, providing both integrity and confidentiality",
     "MPLS encrypts each label-switched path end to end, so an additional overlay would be redundant",
     "MPLS provides confidentiality only for traffic that also carries a differentiated services marking",
@@ -24989,7 +24989,7 @@ export const questions = [
     "Rely on the SD-WAN edge device's IPSec tunnels to provide malware inspection of internet-bound traffic",
     "Apply endpoint antivirus at each store register and remove the network inspection requirement",
     "Disable direct internet breakout and continue backhauling all traffic to headquarters for inspection",
-    "Route breakout traffic through a cloud-delivered secure web gateway so inspection and logging follow the new egress paths",
+    "Route breakout traffic through a cloud-delivered secure web gateway so inspection follows the new paths",
     ],
     answer: 3,
     explanation: "Local internet breakout is the performance benefit of SD-WAN, but it also creates 300 new egress points that bypass the centralized inspection stack, leaving the organization without web filtering, malware scanning, or egress visibility at those sites. Steering breakout traffic to a cloud-delivered secure web gateway, the model commonly described as SASE, restores the controls at the new egress points without deploying and maintaining inspection hardware in every store. Disabling breakout and backhauling everything preserves inspection but discards the latency and bandwidth benefit that motivated the migration, so it is a rollback rather than a remediation. The IPSec tunnels between SD-WAN edges provide confidentiality and integrity for site-to-site traffic; they perform no content inspection and do not apply to traffic exiting directly to the internet. Endpoint antivirus is a valuable defense-in-depth layer but does not replace network-level URL filtering, TLS inspection, data loss controls, or the egress logging needed for investigations.",
@@ -25000,7 +25000,7 @@ export const questions = [
     options: [
     "Hardware addresses are cryptographically bound to the device, so no compensating control is needed once the address list is complete",
     "The fallback inherits the encryption of the 802.1X exchange, so cloning a hardware address does not grant access",
-    "Hardware addresses are transmitted in cleartext and easily cloned, so the fallback should be paired with device profiling and a restrictive authorization policy that limits what the port may reach",
+    "Hardware addresses are cleartext and easily cloned, so pair the fallback with device profiling and a restrictive authorization policy",
     "The fallback fails closed for any unknown device, so the only remaining risk is availability during printer replacement",
     ],
     answer: 2,
@@ -25072,7 +25072,7 @@ export const questions = [
     options: [
     "Dynamic ARP Inspection, which validates ARP messages against the DHCP binding table",
     "DHCP snooping, which discards server-sourced DHCP messages arriving on untrusted ports",
-    "BPDU Guard, which error-disables an access port that receives a spanning tree bridge protocol data unit",
+    "BPDU Guard, which error-disables a port that receives a spanning tree BPDU",
     "Storm control, which rate-limits broadcast traffic on the port",
     ],
     answer: 2,
@@ -25084,7 +25084,7 @@ export const questions = [
     options: [
     "Private VLANs, which restrict which ports within a VLAN may communicate",
     "Port security, which limits how many source MAC addresses a port may learn",
-    "IP Source Guard, which filters traffic whose source address does not match the port's DHCP snooping binding",
+    "IP Source Guard, filtering traffic whose source doesn't match the DHCP snooping binding",
     "Root Guard, which prevents a downstream device from becoming the spanning tree root",
     ],
     answer: 2,
@@ -25106,7 +25106,7 @@ export const questions = [
     id: "d4_287", domain: 4, difficulty: 2, section: "Network Monitoring",
     question: "A forensics team must capture every frame crossing a heavily used 10 Gbps data center uplink, with an assurance that no packets are silently omitted from the record even at peak utilization. The current capture uses a switch port configured to mirror the uplink to an analyzer. What should the team deploy instead, and why?",
     options: [
-    "A passive network tap, because a mirror port can drop frames when the switch is oversubscribed and prioritizes production forwarding",
+    "A passive network tap, since a mirror port can drop frames when the switch is oversubscribed",
     "A second mirror port on the same switch, because splitting the mirrored traffic across two sessions guarantees complete capture",
     "An inline intrusion prevention sensor, because inline placement guarantees that all frames are logged",
     "A NetFlow exporter on the uplink, because flow records preserve every frame in a more compact form",
@@ -25119,7 +25119,7 @@ export const questions = [
     question: "A load balancer terminates TLS in front of a farm of application servers so it can inspect HTTP headers and insert routing cookies. An auditor observes that traffic between the load balancer and the application servers crosses a shared data center VLAN in cleartext. What is the appropriate remediation while preserving the load balancer's header-based routing?",
     options: [
     "Move the application servers onto the same VLAN as the load balancer so the traffic is no longer routed",
-    "Re-encrypt the connection from the load balancer to each application server, so TLS terminates at the balancer and a new TLS session carries traffic to the back end",
+    "Re-encrypt the connection from the balancer to each server, so a new TLS session carries traffic onward",
     "Switch the load balancer to Layer 4 pass-through mode so encrypted traffic reaches the servers untouched",
     "Enable HTTP Strict Transport Security on the application servers so back-end connections are upgraded automatically",
     ],
@@ -25154,7 +25154,7 @@ export const questions = [
     id: "d4_291", domain: 4, difficulty: 2, section: "Remote Access Security",
     question: "A staffing agency's auditors need read access to two internal web applications for a six-week engagement, working from their own laptops, which the company cannot manage or install software on. Which remote access design best fits these constraints?",
     options: [
-    "A clientless SSL/TLS VPN portal that proxies only the two published web applications through a browser session",
+    "A clientless SSL/TLS VPN portal proxying only the two published web apps through a browser",
     "A published Remote Desktop gateway exposing each auditor a full internal desktop session",
     "A site-to-site IPSec tunnel between the agency's office firewall and the company's firewall",
     "A full-tunnel IPSec client VPN issuing each auditor a certificate and an internal address",
@@ -25203,7 +25203,7 @@ export const questions = [
     question: "A hospital currently gives each of its eleven equipment vendors a site-to-site IPSec tunnel into the internal network, controlled by firewall rules that have grown inconsistent over time. Leadership wants each vendor technician to reach only their own assigned devices, authenticated individually, with no vendor network ever routed into the hospital's address space. Which approach best meets these goals?",
     options: [
     "A jump host in the internal network that all vendors reach through their existing tunnels using shared credentials",
-    "A Zero Trust Network Access broker that authenticates each technician and brokers per-application sessions to only their authorized systems",
+    "A Zero Trust Network Access broker authenticating each technician and brokering sessions to only authorized systems",
     "A vendor extranet VLAN reachable through the existing tunnels, with all vendor systems placed in it",
     "Consolidating the eleven tunnels into a single shared tunnel with a common firewall rule set",
     ],
@@ -25217,7 +25217,7 @@ export const questions = [
     "A VPC peering connection between the two organizations' virtual private clouds",
     "A dedicated private circuit from the provider to the partner's data center",
     "An internet-facing load balancer restricted by a security group listing the partner's public addresses",
-    "A private endpoint service that publishes only the API behind a provider-managed link the partner consumes from their own VPC",
+    "A private endpoint service publishing only the API behind a provider-managed link the partner consumes",
     ],
     answer: 3,
     explanation: "A private endpoint service, marketed as PrivateLink or an equivalent private service connect capability, publishes one specific service behind a provider-managed interface that the consumer maps into their own VPC. Traffic never traverses the public internet, no routes are exchanged between the two networks, address ranges may even overlap without conflict, and the consumer's reachability is limited to the published endpoint alone, which matches every constraint stated. VPC peering joins two networks at the routing layer, exchanging routes and exposing everything the peer's route tables and security groups permit, which is precisely the network-to-network trust the company rejected. An internet-facing load balancer with an address allow list does place the service on the public internet, contradicting a stated requirement, and public source addresses can be spoofed or change without notice. A dedicated private circuit provides a high-bandwidth, predictable link into the company's network as a whole; it is an expensive transport decision that still requires separate segmentation work and does nothing by itself to confine the partner to a single service.",
@@ -25250,7 +25250,7 @@ export const questions = [
     id: "d5_236", domain: 5, difficulty: 2, section: "Physical Access Control",
     question: "A corporate lobby processes several hundred employees each morning through a single controlled boundary. The building's floor plan cannot accommodate an interlocking two-door vestibule, but management wants a technical control that physically enforces one authorization per person passing the boundary. Which option BEST meets the requirement?",
     options: [
-    "Optical turnstiles with beam sensors that alarm and close the barrier when a second body is detected on one credential read",
+    "Optical turnstiles with beam sensors that alarm and close on a second body detected",
     "Additional closed-circuit cameras covering the boundary with 90 days of recorded retention",
     "A staffed reception desk maintaining a written sign-in log for everyone entering",
     "An extended door-held-open alarm delay so employees are not disturbed during the morning rush",
