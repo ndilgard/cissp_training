@@ -1,28 +1,128 @@
-import { DOMAINS } from '../data/questions.js';
-import { getDomainBreakdown } from '../utils/cat.js';
+import { useState } from 'react';
+import { DOMAINS, SECTION_SUBDOMAIN } from '../data/questions.js';
+import {
+  getDomainBreakdown,
+  getDifficultyBreakdown,
+  getSubsectionWrongCounts,
+  PASSING_SCALED_SCORE,
+} from '../utils/cat.js';
 
-export default function Results({ answered, scaledScore, isPractice, onRestart, onHome, onWrongReview }) {
-  const passed = !isPractice && scaledScore >= 700;
+const OPTION_LABELS = ['A', 'B', 'C', 'D'];
+const DIFF_LABELS = { 1: 'Foundation', 2: 'Intermediate', 3: 'Advanced' };
+
+function ReviewAccordion({ questionHistory }) {
+  const [open, setOpen] = useState(null);
+
+  return (
+    <div className="exam-review-list">
+      {questionHistory.map((entry, i) => {
+        const q = entry.question;
+        const userAns = entry.selectedAnswer;
+        const correct = userAns === q.answer;
+        return (
+          <div
+            key={i}
+            className={`era-item ${correct ? 'era-item--correct' : 'era-item--wrong'}`}
+          >
+            <button
+              className="era-item__toggle"
+              onClick={() => setOpen(open === i ? null : i)}
+            >
+              <span className="era-item__num">Q{i + 1}</span>
+              <span className="era-item__domain">
+                <span className="era-item__domain-num">
+                  {SECTION_SUBDOMAIN[q.section] || q.domain}
+                </span>
+                {q.section || DOMAINS[q.domain]}
+              </span>
+              <span
+                className={`era-item__verdict era-item__verdict--${correct ? 'pass' : 'fail'}`}
+              >
+                {correct ? '✓' : '✗'}
+              </span>
+              <span className="era-item__chevron">
+                {open === i ? '▲' : '▼'}
+              </span>
+            </button>
+            {open === i && (
+              <div className="era-item__body">
+                <div className="era-item__ref">
+                  {(() => {
+                    const sub = SECTION_SUBDOMAIN[q.section];
+                    return sub
+                      ? `Domain ${sub}: ${DOMAINS[q.domain]} › ${q.section}`
+                      : `Domain ${q.domain}: ${DOMAINS[q.domain]}${q.section ? ` › ${q.section}` : ''}`;
+                  })()}
+                </div>
+                <p className="era-item__qtext">{q.question}</p>
+                <ol className="era-item__options">
+                  {q.options.map((opt, j) => {
+                    let cls = 'era-option';
+                    if (j === q.answer) cls += ' era-option--correct';
+                    else if (j === userAns) cls += ' era-option--wrong';
+                    return (
+                      <li key={j} className={cls}>
+                        <span className="era-option__label">
+                          {OPTION_LABELS[j]}.
+                        </span>
+                        <span>{opt}</span>
+                      </li>
+                    );
+                  })}
+                </ol>
+                <div className="era-item__explanation">
+                  <strong>Explanation:</strong> {q.explanation}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Results({
+  answered,
+  scaledScore,
+  isPractice,
+  onRestart,
+  onHome,
+  onWrongReview,
+  questionHistory = null,
+}) {
+  const [showReview, setShowReview] = useState(false);
+
+  const passed = !isPractice && scaledScore >= PASSING_SCALED_SCORE;
   const breakdown = getDomainBreakdown(answered);
-  const totalCorrect = answered.filter(a => a.correct).length;
+  const diffBreakdown = getDifficultyBreakdown(answered);
+  const missedTopics = getSubsectionWrongCounts(answered);
+  const totalCorrect = answered.filter((a) => a.correct).length;
   const pct = Math.round((totalCorrect / answered.length) * 100);
-  const wrongCount = answered.filter(a => !a.correct).length;
+  const wrongCount = answered.filter((a) => !a.correct).length;
 
   return (
     <div className="results">
-      <div className={`results__verdict ${isPractice ? 'results__verdict--practice' : passed ? 'results__verdict--pass' : 'results__verdict--fail'}`}>
+      <div
+        className={`results__verdict ${isPractice ? 'results__verdict--practice' : passed ? 'results__verdict--pass' : 'results__verdict--fail'}`}
+      >
         {isPractice ? (
           <>
             <div className="results__grade">{pct}%</div>
             <div className="results__label">Practice Score</div>
-            <div className="results__detail">{totalCorrect} / {answered.length} correct</div>
+            <div className="results__detail">
+              {totalCorrect} / {answered.length} correct
+            </div>
           </>
         ) : (
           <>
             <div className="results__grade">{scaledScore}</div>
-            <div className="results__label">{passed ? '✓ PASS' : '✗ DID NOT PASS'}</div>
+            <div className="results__label">
+              {passed ? '✓ PASS' : '✗ DID NOT PASS'}
+            </div>
             <div className="results__detail">
-              Scaled score · passing = 700 · {totalCorrect}/{answered.length} correct ({pct}%)
+              Scaled score · passing = {PASSING_SCALED_SCORE} · {totalCorrect}/
+              {answered.length} correct ({pct}%)
             </div>
           </>
         )}
@@ -33,20 +133,32 @@ export default function Results({ answered, scaledScore, isPractice, onRestart, 
         <div className="domain-grid">
           {Object.entries(DOMAINS).map(([domainNum, name]) => {
             const d = breakdown[domainNum] || { correct: 0, total: 0 };
-            const domainPct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
-            const barColor = domainPct === null ? '#555'
-              : domainPct >= 70 ? '#4caf50'
-              : domainPct >= 50 ? '#ff9800'
-              : '#f44336';
+            const domainPct =
+              d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
+            const barColor =
+              domainPct === null
+                ? '#555'
+                : domainPct >= 70
+                  ? '#4caf50'
+                  : domainPct >= 50
+                    ? '#ff9800'
+                    : '#f44336';
             return (
               <div key={domainNum} className="domain-row">
                 <div className="domain-row__name">{name}</div>
                 <div className="domain-row__bar-wrap">
-                  <div className="domain-row__bar"
-                    style={{ width: domainPct !== null ? `${domainPct}%` : '0%', background: barColor }} />
+                  <div
+                    className="domain-row__bar"
+                    style={{
+                      width: domainPct !== null ? `${domainPct}%` : '0%',
+                      background: barColor,
+                    }}
+                  />
                 </div>
                 <div className="domain-row__score">
-                  {d.total > 0 ? `${d.correct}/${d.total} (${domainPct}%)` : 'Not tested'}
+                  {d.total > 0
+                    ? `${d.correct}/${d.total} (${domainPct}%)`
+                    : 'Not tested'}
                 </div>
               </div>
             );
@@ -54,23 +166,73 @@ export default function Results({ answered, scaledScore, isPractice, onRestart, 
         </div>
       </div>
 
-      {wrongCount > 0 && (
+      <div className="results__breakdown">
+        <h3>Performance by Difficulty</h3>
+        <div className="diff-stats">
+          {[1, 2, 3].map((level) => {
+            const d = diffBreakdown[level] || { correct: 0, total: 0 };
+            const levelPct =
+              d.total > 0 ? Math.round((d.correct / d.total) * 100) : null;
+            return (
+              <div key={level} className={`diff-stat diff-stat--${level}`}>
+                <div className="diff-stat__label">{DIFF_LABELS[level]}</div>
+                <div className="diff-stat__score">
+                  {d.total > 0 ? `${d.correct}/${d.total}` : '—'}
+                </div>
+                <div className="diff-stat__pct">
+                  {levelPct !== null ? `${levelPct}%` : 'Not tested'}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {missedTopics.length > 0 && (
+        <div className="results__breakdown">
+          <h3>Missed Topics</h3>
+          <ul className="missed-topics-list">
+            {missedTopics.map(({ section, domain, wrong }) => (
+              <li key={section} className="missed-topics-list__item">
+                <span className="missed-topics-list__code">
+                  {SECTION_SUBDOMAIN[section] || domain}
+                </span>
+                <span className="missed-topics-list__name">{section}</span>
+                <span className="missed-topics-list__count">{wrong} wrong</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {wrongCount > 0 && !isPractice && !passed && (
         <div className="results__advice">
-          {!isPractice && !passed && (
-            <>
-              <h4>Weak Domains</h4>
-              <ul>
-                {Object.entries(breakdown)
-                  .filter(([, d]) => d.total > 0 && d.correct / d.total < 0.6)
-                  .sort(([, a], [, b]) => (a.correct / a.total) - (b.correct / b.total))
-                  .map(([dom, d]) => (
-                    <li key={dom}>
-                      <strong>{DOMAINS[dom]}</strong> — {Math.round((d.correct / d.total) * 100)}% correct
-                    </li>
-                  ))}
-              </ul>
-            </>
-          )}
+          <h4>Weak Domains</h4>
+          <ul>
+            {Object.entries(breakdown)
+              .filter(([, d]) => d.total > 0 && d.correct / d.total < 0.6)
+              .sort(([, a], [, b]) => a.correct / a.total - b.correct / b.total)
+              .map(([dom, d]) => (
+                <li key={dom}>
+                  <strong>{DOMAINS[dom]}</strong> —{' '}
+                  {Math.round((d.correct / d.total) * 100)}% correct
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
+
+      {questionHistory && questionHistory.length > 0 && (
+        <div className="results__breakdown">
+          <button
+            className="btn btn--secondary results__review-toggle"
+            onClick={() => setShowReview((v) => !v)}
+          >
+            {showReview
+              ? `Hide Question Review ▲`
+              : `Review All ${questionHistory.length} Questions ▼`}
+          </button>
+          {showReview && <ReviewAccordion questionHistory={questionHistory} />}
         </div>
       )}
 
