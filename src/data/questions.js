@@ -25263,7 +25263,7 @@ export const questions = [
     question: "During a physical assessment, a tester walked through a cafeteria carrying a concealed reader in a backpack, captured the data transmitted by employees' low-frequency proximity badges, wrote that data to blank cards, and used the copies to open controlled doors. Which remediation MOST directly addresses the underlying weakness?",
     options: [
     "Lengthen the facility code and card number format used when badges are encoded",
-    "Migrate to contactless smart cards that perform mutual cryptographic authentication with the reader, so no static value can be replayed",
+    "Migrate to contactless smart cards that perform mutual cryptographic authentication with the reader",
     "Install additional cameras at the affected doors and increase guard patrol frequency",
     "Publish a policy requiring badges to be worn face-in and stored in a pocket when not in use",
     ],
@@ -25298,7 +25298,7 @@ export const questions = [
     id: "d5_240", domain: 5, difficulty: 2, section: "Logical Access Control",
     question: "A contractor's laptop authenticates successfully with valid 802.1X credentials, but because its endpoint protection signatures are 40 days out of date, the switch places the port into a VLAN that reaches only the patch and antivirus update servers. Which statement BEST characterizes this control?",
     options: [
-    "Network access control, where device posture is evaluated as a condition of the authorization decision rather than of the identity check",
+    "Network access control, where device posture is a condition of the authorization decision, not the identity check",
     "Role-based access control, where the VLAN assignment is derived from the contractor's job function",
     "Discretionary access control, where the laptop's owner determines which network segments it may reach",
     "Port security, where the switch permits only a pre-registered hardware address on the physical port",
@@ -25311,7 +25311,7 @@ export const questions = [
     question: "Employees must submit scanned expense receipts to a shared network folder. Policy states that any employee may deposit a file, but no employee should be able to read, alter, or remove files in that folder, including files they deposited themselves. Only the finance team should be able to retrieve the contents. Which permission assignment BEST implements the policy?",
     options: [
     "Grant employees read and write, and restrict delete to folder owners",
-    "Grant employees create/write access without read access, and grant read and manage rights only to the finance group",
+    "Grant employees create/write without read, and grant read and manage rights only to finance",
     "Grant employees modify permission on the folder with object auditing enabled on all events",
     "Grant the employee group full control and rely on version history to recover altered files",
     ],
@@ -25323,7 +25323,7 @@ export const questions = [
     question: "A wiring closet is secured by a mechanical cipher lock. The four-digit combination is known to roughly thirty employees and contractors, has not been changed in two years, and is written on a label inside a nearby supply cabinet. Auditors cite the arrangement. What is the MOST significant deficiency?",
     options: [
     "The four-digit combination space is small enough to be exhausted by manual guessing",
-    "Entry cannot be attributed to any individual, and access cannot be withdrawn from one person without re-keying everyone",
+    "Entry can't be attributed to an individual, and one person's access can't be revoked alone",
     "The lock has no fail-safe release and would trap occupants during a power failure",
     "The lock cannot be integrated with the building fire alarm and door-held-open monitoring systems",
     ],
@@ -25371,7 +25371,7 @@ export const questions = [
     question: "A company requires that its VPN accept connections only from corporate-managed laptops. A connection from a personally owned machine must be refused even when the user supplies a correct username, a correct password, and a valid one-time passcode. Which addition to the VPN authentication design satisfies the requirement?",
     options: [
     "Increase the minimum password length and complexity for all VPN users",
-    "Issue a machine certificate to each managed laptop and require the client to prove possession of its private key during the tunnel negotiation",
+    "Issue a machine certificate to each laptop and require proof of private key possession",
     "Restrict VPN connections to source IP address ranges the company recognizes as residential broadband",
     "Replace software one-time passcode applications with hardware one-time passcode tokens",
     ],
@@ -25383,7 +25383,7 @@ export const questions = [
     question: "An industrial operator issues one-time passcode tokens for use in areas with no network connectivity, using inexpensive devices that contain no real-time clock. Which one-time passcode scheme fits this hardware, and what operational issue should the identity team plan for?",
     options: [
     "Time-based passcodes; the tokens will require periodic clock resynchronization against the authentication server",
-    "Counter-based passcodes; the token and server counters can drift apart when a user generates codes that are never submitted, requiring a resynchronization procedure",
+    "Counter-based passcodes; the counters can drift when codes are generated but never submitted, requiring resync",
     "Time-based passcodes; each code expires after a fixed interval, so users in poor coverage areas may need a longer validity window",
     "Counter-based passcodes; each code expires thirty seconds after generation regardless of whether it is used",
     ],
@@ -25395,7 +25395,7 @@ export const questions = [
     question: "A company has placed forty business applications behind a single identity provider for SSO. The risk committee asks the architect to describe the most significant AVAILABILITY consequence of the design and how it should be addressed. Which response is correct?",
     options: [
     "Any user's stolen password now unlocks forty applications; the answer is a stricter password complexity standard",
-    "An identity provider outage blocks authentication to all forty applications at once; the answer is redundant, geographically separated identity provider infrastructure with regularly tested failover",
+    "An IdP outage blocks authentication to all forty apps at once; the fix is redundant, geo-separated IdP infrastructure with tested failover",
     "Each application must now maintain its own credential store; the answer is to synchronize password hashes to every application nightly",
     "Assertion signing consumes measurable processing time; the answer is to disable signature validation on low-risk applications",
     ],
@@ -25419,7 +25419,7 @@ export const questions = [
     question: "A telecommunications call center verifies callers with questions generated at the moment of the call from third-party public and credit-bureau records, such as asking which of four listed street addresses the caller has previously lived at. A reviewer asks how this differs in security value from the security questions customers selected when they registered. Which explanation is correct?",
     options: [
     "It converts the challenge from a knowledge factor to a possession factor, since the data resides with an external provider",
-    "The answers come from records the customer never supplied to the company and the question set changes on each call, so answers cannot be harvested from the customer's account profile or replayed after a single interception",
+    "Answers come from records the customer never supplied, and the question set changes each call, so answers can't be harvested or replayed",
     "It provides non-repudiation, because the credit bureau signs the response and can attest to it later",
     "It removes the need for any additional verification, because bureau records are authoritative and cannot be obtained by an attacker",
     ],
@@ -25442,8 +25442,8 @@ export const questions = [
     id: "d5_252", domain: 5, difficulty: 2, section: "Credential Management",
     question: "An application stores user passwords as salted SHA-256 digests. Salting has eliminated the usefulness of precomputed tables, but a red team demonstrates that commodity GPU hardware still recovers a large share of the weaker passwords from a stolen copy of the table. Which change addresses the remaining weakness MOST directly?",
     options: [
-    "Increase the per-user salt from 8 bytes to 32 bytes",
-    "Replace the fast hash with a deliberately slow, memory-hard password hashing function such as Argon2id or bcrypt, with the work factor tuned to the server's capacity",
+    "Increase the per-user salt length from 8 bytes to 32 bytes each",
+    "Replace the fast hash with a slow, memory-hard function such as Argon2id, tuned to capacity",
     "Encrypt the password table at rest with AES so the digests cannot be read if the file is copied",
     "Append a secret pepper value that is stored in the same table alongside each digest",
     ],
@@ -25455,7 +25455,7 @@ export const questions = [
     question: "A company federates to a marketing analytics SaaS provider. The provider needs only to know that the user is an active employee and which business unit they belong to. The current assertion configuration releases full legal name, home address, personal mobile number, employee identifier, and date of birth. Which action BEST corrects the configuration?",
     options: [
     "Continue releasing the full attribute set so the provider can support features the company may adopt later",
-    "Configure the identity provider's attribute release policy so the assertion carries only the employment status and business unit attributes the provider requires",
+    "Configure the IdP's attribute release policy to carry only the employment status and business unit attributes",
     "Keep the attribute set unchanged but shorten the assertion validity window to two minutes",
     "Keep the attribute set unchanged and require the provider to sign a confidentiality agreement covering the data",
     ],
@@ -25466,7 +25466,7 @@ export const questions = [
     id: "d5_254", domain: 5, difficulty: 2, section: "Identity Federation",
     question: "A university consortium wants each participating service provider to receive a different, opaque identifier for the same student, so that two service providers comparing notes cannot determine that they are serving the same person. Each service provider must still recognize a returning student across sessions in order to maintain preferences and saved work. Which subject identifier format meets both requirements?",
     options: [
-    "A persistent pairwise pseudonymous identifier, unique to the combination of subject and relying party",
+    "A persistent pairwise pseudonymous identifier, unique to the subject-relying party pair",
     "A transient identifier regenerated on every authentication event",
     "The student's institutional email address released as the subject identifier",
     "The student's registrar-assigned enrollment number released as the subject identifier",
@@ -25478,7 +25478,7 @@ export const questions = [
     id: "d5_255", domain: 5, difficulty: 2, section: "Federation and Trust",
     question: "Twelve agencies want their staff to reach one another's web applications using their home credentials. Building direct trust between every pair would require sixty-six separately negotiated and separately maintained relationships, each with its own metadata, certificates, and renewal schedule. Which architectural approach BEST reduces this burden?",
     options: [
-    "Deploy a federation hub or identity broker that every participant trusts, so each agency maintains one relationship instead of eleven",
+    "Deploy a federation hub or identity broker every participant trusts, replacing eleven relationships",
     "Have each agency issue local accounts to every user from the other eleven agencies",
     "Standardize on identity-provider-initiated SSO so that no service provider configuration is needed",
     "Distribute one shared signing certificate and private key to all twelve agencies",
@@ -25491,7 +25491,7 @@ export const questions = [
     question: "An employee is terminated and the administrator disables the account at the corporate identity provider. The company federates to thirty SaaS applications, none of which were contacted during the termination. Which explanation BEST describes the effect on the employee's access to those applications?",
     options: [
     "Each service provider polls the identity provider hourly for account status and will disable the local record on the next cycle",
-    "The service providers hold no independently usable credential for the employee, so any new sign-on requires a fresh assertion the identity provider will no longer issue, although sessions and tokens already issued remain valid until they expire or are revoked",
+    "The service providers hold no usable credential, so a new sign-on needs a fresh assertion the IdP won't issue; existing sessions stay valid",
     "The previously issued assertions are revoked through a certificate revocation list published by the identity provider",
     "Disabling the account at the identity provider has no effect, because each service provider maintains its own password for the user",
     ],
@@ -25514,9 +25514,9 @@ export const questions = [
     id: "d5_258", domain: 5, difficulty: 2, section: "Federation & Single Sign-On",
     question: "A company is federating to a project management SaaS platform where most employees already have long-standing accounts holding assigned tasks, comments, and history. On the first federated sign-in, the platform must associate the incoming assertion with the user's existing record rather than creating a second, empty account. Which capability is required?",
     options: [
-    "Just-in-time provisioning",
-    "Account linking, which maps the federated subject identifier onto a pre-existing local account",
-    "Single logout",
+    "Just-in-time provisioning of a new account at first login",
+    "Account linking, mapping the federated ID onto an existing local account",
+    "Single logout across every connected service provider",
     "Role mining against the platform's existing permission data",
     ],
     answer: 1,
@@ -25527,7 +25527,7 @@ export const questions = [
     question: "An identity provider's private signing key is exfiltrated from a poorly protected application server. Assuming the corresponding certificate is still registered as trusted by the organization's forty federated service providers, what is the MOST significant consequence?",
     options: [
     "The attacker can decrypt previously captured TLS sessions between users and the service providers",
-    "The attacker can mint assertions claiming to be any user, including administrators, and every service provider trusting that key will accept them without any authentication having occurred",
+    "The attacker can mint assertions claiming to be any user, which every trusting SP accepts without authentication",
     "The attacker can read attribute statements from assertions but cannot influence whether access is granted",
     "The impact is limited to service providers configured to use the HTTP Redirect binding",
     ],
@@ -25539,7 +25539,7 @@ export const questions = [
     question: "A hospital federates to an external care-coordination service. The assertion must convey the clinician's national provider identifier and a patient-care role code, and it travels through the clinician's browser using the HTTP POST binding. The assertion is already digitally signed by the identity provider. Compliance requires that these attribute values not be readable by anyone in possession of the browser. What must be added?",
     options: [
     "Nothing further, because the XML digital signature already protects the confidentiality of the assertion contents",
-    "Encryption of the assertion, or of the specific attributes, to the service provider's public key, applied in addition to the signature",
+    "Encryption of the assertion or its attributes to the SP's public key, added to the signature",
     "A switch from the HTTP POST binding to the HTTP Redirect binding",
     "A reduction of the assertion validity window to sixty seconds",
     ],
@@ -25551,7 +25551,7 @@ export const questions = [
     question: "A newly federated service provider intermittently rejects assertions with a condition-not-satisfied error during the morning sign-in peak. Investigation shows the identity provider stamps the NotBefore condition at the moment of issuance and the service provider's host clock runs roughly ninety seconds ahead of the identity provider's. What is the correct remediation?",
     options: [
     "Extend the assertion's NotOnOrAfter condition to eight hours so the window comfortably covers the discrepancy",
-    "Synchronize both hosts to a common authoritative time source and configure a small permitted clock skew tolerance at the service provider",
+    "Synchronize both hosts to a common time source and configure a small clock skew tolerance at the SP",
     "Disable condition validation at the service provider for this identity provider",
     "Switch the deployment from service-provider-initiated to identity-provider-initiated SSO",
     ],
@@ -25562,9 +25562,9 @@ export const questions = [
     id: "d5_262", domain: 5, difficulty: 2, section: "Access Control Models (MAC)",
     question: "An analyst holding a TOP SECRET clearance requests a document classified TOP SECRET and additionally marked with a compartment the analyst has not been briefed into. The system refuses the request. Which characteristic of the mandatory model produces this outcome?",
     options: [
-    "Labels combine a hierarchical sensitivity level with non-hierarchical categories, and the subject's label must dominate the object's on both dimensions, so a missing category denies access despite a sufficient level",
+    "Labels combine a hierarchical level with categories; the subject must dominate on both dimensions",
     "The document's owner set a discretionary access control list that omits the analyst",
-    "A rule-based filter denies requests that arrive outside approved working hours",
+    "A rule-based filter denies requests arriving outside the approved working hours window",
     "A role hierarchy grants the analyst only the permissions inherited from a junior role",
     ],
     answer: 0,
@@ -25575,7 +25575,7 @@ export const questions = [
     question: "A trading platform allows an employee to be assigned both the Trade Entry role and the Trade Settlement role, but the application will not permit both roles to be active within the same session; to use the second role, the user must end the current session and start a new one, and the switch is logged. What is this constraint called?",
     options: [
     "Static separation of duties, which makes the two role assignments mutually exclusive",
-    "Dynamic separation of duties, which permits both assignments but restricts simultaneous activation",
+    "Dynamic separation of duties: both allowed, simultaneous activation restricted",
     "Least privilege applied to session establishment",
     "A role hierarchy constraint preventing inheritance between peer roles",
     ],
@@ -25586,7 +25586,7 @@ export const questions = [
     id: "d5_264", domain: 5, difficulty: 2, section: "Access Control Models",
     question: "In a hospital's role model, the Charge Nurse role is defined to include every permission held by the Nurse role plus two additional permissions for medication override and shift assignment. Administrators assign only the Charge Nurse role to eligible staff and never assign the Nurse role alongside it. Which RBAC feature is being used?",
     options: [
-    "A role hierarchy, in which a senior role inherits the permission set of a junior role",
+    "A role hierarchy, where a senior role inherits a junior role's permissions",
     "Role mining performed against historical entitlement data",
     "Static separation of duties between the two nursing roles",
     "Rule-based access control keyed to the nurse's shift",
@@ -25611,7 +25611,7 @@ export const questions = [
     question: "An electronic health record system normally restricts clinicians to patients on their own assigned unit. An emergency physician may invoke an override to open any patient's record immediately, but must select a reason code when doing so, and every override is written to a queue that the privacy office reviews the following business day. Which characterization of this design is MOST accurate?",
     options: [
     "The emergency role has had least privilege permanently removed, which is a documented policy exception",
-    "An emergency access, or break-glass, mechanism that deliberately relaxes a preventive restriction and compensates with mandatory justification and detective review",
+    "An emergency access, or break-glass, mechanism that relaxes prevention with mandatory justification and review",
     "A mandatory access control implementation in which the physician's clearance dominates every patient record label",
     "A discretionary delegation in which each patient's assigned clinician grants access to colleagues",
     ],
@@ -25623,7 +25623,7 @@ export const questions = [
     question: "A labeled operating system enforces mandatory access control. A user holding a TOP SECRET clearance attempts to open a file classified SECRET and is denied, because the file's discretionary access control list does not include that user or any group they belong to. How do the two mechanisms interact in this system?",
     options: [
     "The mandatory label check is authoritative and the discretionary list is advisory, so the denial indicates a misconfiguration",
-    "Both checks must permit the access; the mandatory label comparison and the discretionary list are each evaluated, and a denial from either one is final",
+    "Both checks must permit access; mandatory and discretionary are each evaluated, and a denial from either is final",
     "Discretionary permissions override mandatory labels for any subject whose clearance dominates the object's classification",
     "Clearance dominance alone determines access, and discretionary lists apply only to objects with no assigned label",
     ],
@@ -25635,7 +25635,7 @@ export const questions = [
     question: "A department head will be on leave for three weeks, and purchase approvals in the workflow system must continue during that period. Which approach BEST maintains both operational continuity and accountability?",
     options: [
     "Share the department head's credentials with the deputy for the duration of the leave and change the password on return",
-    "Grant the deputy a time-bounded delegation of the approval entitlement in the workflow system, recorded under the deputy's own identity and expiring automatically at the end of the leave",
+    "Grant the deputy a time-bounded delegation of the approval entitlement, expiring at leave's end",
     "Suspend the approval requirement for that department during the leave so purchases are not blocked",
     "Add the deputy permanently to the department head's role and rely on the next access review to remove it",
     ],
@@ -25647,7 +25647,7 @@ export const questions = [
     question: "An authorization engine is configured with a deny-overrides combining algorithm. A request matches one policy that permits access based on the requester's department and a second policy that denies access from devices not enrolled in management. What is the outcome, and why?",
     options: [
     "Access is permitted, because an explicit permit that matches on a subject attribute is more specific than a device condition",
-    "Access is denied, because under deny-overrides any applicable policy returning deny takes precedence over any number of permits",
+    "Access is denied; under deny-overrides, any applicable deny takes precedence over any number of permits",
     "The result is indeterminate and the request is queued for administrator adjudication",
     "Access is permitted, because the most recently authored policy takes precedence when policies conflict",
     ],
@@ -25659,7 +25659,7 @@ export const questions = [
     question: "An organization's ABAC policies evaluate employment status and cost center attributes fed nightly from the HR system. An employee transferred departments six weeks ago, but the HR feed has been failing silently since then, and the employee continues to reach the former department's data. Which conclusion should the security team draw?",
     options: [
     "Attribute-based access control is inherently less trustworthy than role-based access control and should be replaced",
-    "ABAC decisions are only as accurate as the attributes they consume, so authoritative attribute feeds require monitoring, freshness checks, and periodic reconciliation as first-class controls",
+    "ABAC decisions are only as accurate as the attributes they consume, so feeds need monitoring and reconciliation",
     "The policy was written incorrectly and should have referenced roles rather than attributes",
     "The policy enforcement point failed to enforce the decision it received from the policy decision point",
     ],
@@ -25670,7 +25670,7 @@ export const questions = [
     id: "d5_271", domain: 5, difficulty: 2, section: "Access Control Models",
     question: "A support manager asks that the permission to delete customer records be added to the Customer Service Representative role so that a handful of senior agents can correct duplicate entries. Four hundred employees currently hold that role. What is the MOST important consideration for the identity team?",
     options: [
-    "Adding a permission to a role grants it to every current and future holder of the role, so either the permission must be justified for all four hundred or a separate role should be created for the senior subset",
+    "Adding a permission grants it to every current and future holder, needing role-wide justification",
     "Only the requesting manager's direct reports will receive the new permission, so the change is low risk",
     "Role definitions cannot be modified once assigned, so the request must be fulfilled with individual permission grants",
     "The permission can be added now and its use constrained afterward through log review and monitoring",
@@ -25683,7 +25683,7 @@ export const questions = [
     question: "An identity governance platform compares the account list pulled from a target application against the records the provisioning system believes it created. Several accounts in the application have no corresponding authoritative record; investigation shows administrators created them directly in the application console. What is this comparison process called, and why does it matter?",
     options: [
     "Recertification, which confirms that each existing entitlement is still appropriate for its holder",
-    "Reconciliation, which detects accounts created outside the provisioning workflow so they can be brought under governance or removed",
+    "Reconciliation, detecting accounts created outside the provisioning workflow",
     "Role mining, which derives candidate role definitions from observed entitlement patterns",
     "Just-in-time provisioning, which creates accounts at first use from federated attributes",
     ],
@@ -25695,7 +25695,7 @@ export const questions = [
     question: "An organization drives all account provisioning from its HR system, which contains only employees. Contractors, vendor engineers, and interns are created ad hoc by whichever manager needs them, have no defined end date, and are never picked up by any termination process. Which approach BEST closes this gap?",
     options: [
     "Enter every contractor and vendor into the HR system as a full employee record",
-    "Establish a non-employee identity register requiring a named internal sponsor, a mandatory end date, and periodic sponsor re-attestation before any extension is granted",
+    "Establish a non-employee register requiring a sponsor, an end date, and periodic re-attestation",
     "Issue shared generic accounts to each vendor firm so the number of unmanaged identities stays small",
     "Require all contractors to access systems using email accounts issued by their own employer",
     ],
@@ -25707,7 +25707,7 @@ export const questions = [
     question: "A legacy SaaS application central to the finance department offers neither SCIM nor any provisioning API, and the vendor has no roadmap to add one. The organization cannot replace the application this year. Which compensating control BEST manages the deprovisioning risk?",
     options: [
     "Formally accept the risk and document it in the risk register with no further action",
-    "Add an explicit manual deprovisioning step to the offboarding checklist and schedule a recurring reconciliation of the application's user list against the authoritative identity source, with exceptions remediated and evidence retained",
+    "Add a manual deprovisioning step and schedule recurring reconciliation against the identity source",
     "Grant access to the application broadly so that individual removals are no longer necessary",
     "Rotate the application's shared administrator password every quarter",
     ],
@@ -25719,7 +25719,7 @@ export const questions = [
     question: "An employee's identity provider account was disabled at 5:00 p.m. on their final day, yet mailbox synchronization from their personal phone continued for two more days before stopping. What is the MOST likely explanation, and what should be added to the offboarding process?",
     options: [
     "The mailbox contents were cached locally on the phone, and no process change is needed because no new data was retrieved",
-    "Long-lived refresh tokens and application-specific credentials issued before the account was disabled remained valid, so offboarding must also revoke active sessions, refresh tokens, and application passwords",
+    "Long-lived refresh tokens and app-specific credentials issued before disablement stayed valid, so offboarding must also revoke sessions and tokens",
     "Single logout failed at the identity provider, and enabling it would have terminated the phone's synchronization immediately",
     "Disabling rather than deleting the account leaves previously issued tokens valid indefinitely, so accounts must be deleted at termination",
     ],
@@ -25731,7 +25731,7 @@ export const questions = [
     question: "New hires at a company are given the initial password Welcome2026! and the credential is emailed to the hiring manager along with the new username, sometimes several days before the start date. Which change BEST improves this practice?",
     options: [
     "Lengthen the standard initial password to sixteen characters while keeping the rest of the process unchanged",
-    "Generate a unique random one-time credential per hire, deliver it through a channel separate from the one carrying the username, force a change at first sign-in, and expire it if unused within a short window",
+    "Generate a unique one-time credential per hire, deliver it separately, and force a change at first sign-in",
     "Have the help desk read a password of the user's choosing over the telephone during a call on the first day",
     "Use the employee identifier as the initial password so it is easy for the manager to communicate",
     ],
@@ -25743,7 +25743,7 @@ export const questions = [
     question: "An organization recertifies all user access annually on a single enterprise-wide campaign. Auditors observe that domain administrator and financial approval entitlements are reviewed on the same twelve-month cycle as read access to the cafeteria menu portal. Which adjustment BEST addresses the finding?",
     options: [
     "Move every entitlement in the organization to a monthly recertification cycle",
-    "Adopt a risk-based cadence in which privileged and other high-risk entitlements are recertified quarterly or monthly while lower-risk access remains on the annual cycle",
+    "Adopt a risk-based cadence: high-risk entitlements recertify quarterly, lower-risk stays annual",
     "Stop recertifying low-risk access so reviewer attention concentrates where it matters",
     "Have the IT team certify all entitlements instead of the business owners, so reviews complete faster",
     ],
@@ -25755,7 +25755,7 @@ export const questions = [
     question: "A newly hired John Smith is issued the username jsmith, which had belonged to a John Smith who left the company two years earlier. On his first day he discovers he can open the former employee's team folders and appears on several distribution lists and application access lists. Which practice would have prevented this?",
     options: [
     "Enforce a longer minimum username length so collisions between common names are less likely",
-    "Assign each identity a permanent unique identifier that is never reused, and fully remove entitlements, group memberships, and resource permissions before any account object is retired",
+    "Assign each identity a permanent unique ID never reused, and remove entitlements before retiring it",
     "Delete every account immediately upon termination so nothing remains to be inherited",
     "Use the employee's email address as the sign-in name instead of a constructed username",
     ],
@@ -25767,7 +25767,7 @@ export const questions = [
     question: "An organization deprovisions accounts through a nightly batch job that reads termination records from the HR system. Management plans to terminate a senior systems administrator for cause tomorrow afternoon. What is the appropriate handling?",
     options: [
     "Allow the standard nightly batch to process the termination, since consistent use of the automated process reduces the chance of error",
-    "Coordinate with HR and security so that privileged and standard access are revoked at, or immediately before, the notification meeting rather than waiting for the batch cycle",
+    "Coordinate with HR and security so privileged and standard access are revoked at or before the notification meeting",
     "Leave the accounts enabled for one week after the meeting so that knowledge transfer to the replacement can be completed",
     "Change the administrator's passwords but leave the accounts enabled so their subsequent activity can be monitored",
     ],
@@ -25779,7 +25779,7 @@ export const questions = [
     question: "An engineer transfers from the platform team to the data team. Her new manager agrees she must retain access to the platform team's ticketing queue for thirty days to hand off open work. Which handling BEST balances the operational need with sound lifecycle practice?",
     options: [
     "Leave all prior access in place until the next annual access review, when the situation can be assessed with full context",
-    "Remove all prior-role access at transfer except the ticketing queue entitlement, which is granted as a documented, approved exception with a thirty-day automatic expiry",
+    "Remove all prior-role access at transfer except the ticketing queue, granted as an approved exception with 30-day expiry",
     "Retain both the platform team and data team role memberships so the engineer is not blocked during the transition",
     "Create a second account for the engineer under the platform team so the original account can be fully transitioned",
     ],
@@ -25802,7 +25802,7 @@ export const questions = [
     id: "d5_282", domain: 5, difficulty: 2, section: "Kerberos",
     question: "After an acquisition, two organizations each operate their own Kerberos realm with its own key distribution center. Users in the first realm must access services in the second realm without being issued new accounts there. What must be established?",
     options: [
-    "An inter-realm trust in which the two key distribution centers share a key, allowing the home realm to issue a cross-realm ticket-granting ticket that refers the client to the remote realm's KDC",
+    "An inter-realm trust where the KDCs share a key, letting the home realm refer clients to the remote KDC",
     "Password synchronization so that each user's credentials are identical in both realms",
     "Replication of all user objects from the first realm's directory into the second realm's directory",
     "A RADIUS proxy positioned between the two realms to forward authentication requests",
@@ -25814,7 +25814,7 @@ export const questions = [
     id: "d5_283", domain: 5, difficulty: 2, section: "Kerberos",
     question: "Administrators connect to a file server by typing its IP address rather than its hostname. Monitoring shows these sessions authenticate with the legacy challenge-response protocol instead of Kerberos. What explains this, and why does it matter?",
     options: [
-    "Kerberos ticket requests are keyed to a service principal name derived from the hostname; addressing the server by IP prevents that lookup, so the client falls back to the legacy protocol and the session loses Kerberos mutual authentication",
+    "Kerberos keys tickets to a service principal name from the hostname; IP addressing breaks the lookup, losing mutual auth",
     "Kerberos does not support file sharing protocols and always defers to the legacy protocol for file server access",
     "The legacy protocol is preferred by clients whenever the connection is not protected by TLS",
     "The key distribution center must have been unreachable, since Kerberos never falls back for any other reason",
@@ -25827,7 +25827,7 @@ export const questions = [
     question: "A research consortium wants visiting scientists to connect to any member institution's wireless network using credentials issued by their own home institution. Each member operates its own RADIUS infrastructure, and no member is willing to hold another's credentials. Which mechanism supports this?",
     options: [
     "Each member imports a copy of the consortium's combined credential database and authenticates visitors locally",
-    "RADIUS proxying, in which the visited institution's server routes the request based on the realm portion of the supplied identity to the home institution's RADIUS server, which authenticates the user and returns the result",
+    "RADIUS proxying: the visited institution routes by realm to the home RADIUS server, which authenticates",
     "A single WPA2 pre-shared key distributed to every consortium member and to all visiting scientists",
     "TACACS+ command authorization configured on each member's wireless controllers",
     ],
@@ -25839,7 +25839,7 @@ export const questions = [
     question: "An internal application currently authenticates users by performing an LDAP simple bind, submitting the user's distinguished name and password to the directory server. A new standard requires that no reusable user password ever be transmitted to the directory, even over an encrypted channel. Which change satisfies the standard?",
     options: [
     "Continue using simple bind but require that the connection be protected with LDAPS or StartTLS",
-    "Use a SASL bind with a GSSAPI/Kerberos mechanism, so the client authenticates with a Kerberos ticket and never sends a reusable password to the directory",
+    "Use a SASL bind with GSSAPI/Kerberos, so the client authenticates with a ticket, never a password",
     "Perform an anonymous bind and compare the submitted password against the userPassword attribute retrieved from the entry",
     "Retain simple bind but increase the enforced minimum password length and complexity",
     ],
@@ -25851,7 +25851,7 @@ export const questions = [
     question: "During an internal assessment, a tester with no credentials issues LDAP queries to the corporate directory and receives a complete list of user accounts along with job titles, telephone numbers, manager relationships, and group memberships. Which misconfiguration is responsible, and what is the correct remediation?",
     options: [
     "LDAP injection through unsanitized search filters; the fix is server-side input validation and parameterized filter construction",
-    "Anonymous bind is permitted and unprivileged read access to the directory is unrestricted; the fix is to require authenticated binds and restrict which subtrees and attributes ordinary accounts may read",
+    "Anonymous bind and unrestricted read are permitted; require authenticated binds and restrict readable subtrees",
     "The directory accepts cleartext connections; the fix is to require LDAPS or StartTLS on all connections",
     "Password policy is too permissive; the fix is to enforce complexity and lockout thresholds",
     ],
@@ -25874,7 +25874,7 @@ export const questions = [
     id: "d5_288", domain: 5, difficulty: 2, section: "OAuth & API Token Security",
     question: "A misconfigured client presents an access token that the authorization server issued for the billing API to a separate human resources API. The human resources API verifies the token's signature and expiration, finds both valid, and serves the request. Which validation was missing?",
     options: [
-    "The resource server must verify that the audience claim identifies itself as the intended recipient, and must confirm that the granted scopes cover the requested operation",
+    "The resource server must verify the audience claim identifies itself, and confirm the granted scopes cover the operation",
     "The resource server must verify the issued-at claim to confirm the token was minted recently",
     "The resource server must reject all JSON Web Token access tokens and accept only opaque tokens validated through introspection",
     "The resource server must validate the TLS client certificate presented by the calling application",
@@ -25887,7 +25887,7 @@ export const questions = [
     question: "After an OpenID Connect authentication, a relying party receives an ID token containing the issuer, subject identifier, audience, expiry, and authentication time, but it also needs the user's display name, email address, and profile picture to populate the application header. What is the standard way to obtain these additional claims?",
     options: [
     "Decode the access token and read the profile claims embedded within it",
-    "Request the appropriate scopes and call the provider's UserInfo endpoint with the access token to retrieve the additional claims for the authenticated subject",
+    "Request the right scopes and call the UserInfo endpoint with the token for the claims",
     "Query the identity provider's LDAP directory directly using a service account",
     "Prompt the user to enter the missing profile details during first sign-in",
     ],
@@ -25912,7 +25912,7 @@ export const questions = [
     options: [
     "Examine only the signed training policy, since policy establishes the requirement",
     "Interview the training vendor about course content and completion rates",
-    "Examine the training policy and completion records, and interview administrators and their managers",
+    "Examine the training policy and completion records, and interview administrators and managers",
     "Test the privileged access management system by attempting to escalate privileges",
     ],
     answer: 2,
@@ -25925,7 +25925,7 @@ export const questions = [
     "Require a security manager to manually approve each of the forty weekly deployments",
     "Replace application assessment with more frequent network vulnerability scanning of the hosting infrastructure",
     "Increase the full quarterly assessment to a monthly cadence performed by the same external firm",
-    "Embed automated security testing into the deployment pipeline and reserve in-depth manual assessment for significant architectural changes",
+    "Embed automated security testing into the pipeline and reserve manual assessment for major architecture changes",
     ],
     answer: 3,
     explanation: "When deployment frequency far exceeds assessment frequency, most code reaches production untested, so the strategy must move testing into the pipeline itself; automated static analysis, dependency scanning, and security regression tests run on every build, while expensive human-driven assessment is reserved for changes that alter architecture, trust boundaries, or data flows. Moving to a monthly external assessment still leaves roughly 160 deployments between tests and multiplies cost without closing the coverage gap. Manual security approval of every deployment inserts a human bottleneck into a pipeline designed for speed, produces rubber-stamp approvals under time pressure, and provides no actual technical evidence. Substituting network scanning of the hosting infrastructure changes the subject: infrastructure scanning does not evaluate the application logic, input handling, or authorization code being changed forty times a week.",
@@ -25935,7 +25935,7 @@ export const questions = [
     question: "A security team must decide whether to conduct an upcoming application penetration test against the production environment or against a staging environment that is built from the same code and configuration but contains synthetic data. The application supports real-time order processing for external customers. Which consideration MOST strongly favors testing in staging?",
     options: [
     "Findings from staging carry the same evidentiary weight as production findings for compliance purposes",
-    "Exploitation attempts and destructive test cases can be executed without risking customer transactions or exposing live data",
+    "Exploitation attempts and destructive tests can run without risking customer transactions or live data",
     "Staging environments are less likely to contain vulnerabilities, producing a cleaner report",
     "Testing in staging removes the need for written authorization from system owners",
     ],
@@ -25949,7 +25949,7 @@ export const questions = [
     "Firewall rule review, endpoint agent coverage reporting, and encryption validation",
     "Vulnerability scanning, configuration compliance scanning, and patch verification",
     "Penetration testing, red team exercises, and breach and attack simulation",
-    "Social engineering assessment, process control testing and audit, and technical vulnerability and penetration testing",
+    "Social engineering, process control testing and audit, and technical penetration testing",
     ],
     answer: 3,
     explanation: "A holistic strategy pairs a technical testing track with assessments aimed at the human element and at the organization's procedures: social engineering assessments evaluate people, control testing and audit evaluate whether documented processes such as change management and access recertification actually operate, and vulnerability assessment and penetration testing evaluate technology. Vulnerability scanning, configuration scanning, and patch verification are all technology-layer activities that overlap heavily with one another and say nothing about staff behavior or process discipline. Penetration testing, red teaming, and breach and attack simulation are all adversarial technical exercises; red team work touches people incidentally, but the set as a whole does not systematically evaluate process controls. Firewall review, agent coverage, and encryption validation are narrow technical control checks that leave both people and process entirely unexamined.",
@@ -25958,7 +25958,7 @@ export const questions = [
     id: "d6_240", domain: 6, difficulty: 2, section: "Assessment Planning and Scoping",
     question: "A hospital is scoping an assessment of its electronic health record system. The EHR application servers are dedicated to the hospital, but they authenticate against a shared enterprise directory and store data on a shared storage array that also serves unrelated business systems. How should the assessment scope treat the shared components?",
     options: [
-    "Include the shared components, because a compromise of a shared dependency would affect the EHR system's security",
+    "Include the shared components, since a compromise there would affect the EHR system's security",
     "Include only the shared storage array, since data at rest is the primary regulated concern",
     "Assess the shared components separately at a later date and mark the EHR assessment complete",
     "Exclude the shared components, because they support systems outside the assessment boundary",
@@ -25984,7 +25984,7 @@ export const questions = [
     options: [
     "Ad hoc validation retesting of remediated findings",
     "Weekly authenticated vulnerability scanning of internal workstations",
-    "The annual attestation examination whose report will be given to customers as assurance",
+    "The annual attestation exam whose report goes to customers as assurance",
     "Daily configuration drift checks against the organization's hardening baseline",
     ],
     answer: 2,
@@ -25996,7 +25996,7 @@ export const questions = [
     options: [
     "Perform the restricted testing from outside that country so local law does not apply",
     "Standardize on the least restrictive jurisdiction's rules so that testing is consistent everywhere",
-    "Document jurisdiction-specific testing constraints in the plan and adjust techniques and authorizations per region",
+    "Document jurisdiction constraints in the plan and adjust techniques and authorizations per region",
     "Exclude that country from the assessment program entirely",
     ],
     answer: 2,
@@ -26018,7 +26018,7 @@ export const questions = [
     id: "d6_245", domain: 6, difficulty: 2, section: "Assessment Strategy Design",
     question: "An organization wants its testing program to prioritize systems whose failure would most damage the business. Which input is MOST directly useful for building this risk-based testing schedule?",
     options: [
-    "The results of the business impact analysis and the asset classification inventory",
+    "The business impact analysis results and the asset classification inventory",
     "The number of open tickets in the IT service management system",
     "The vendor's recommended scanning frequency for the scanning product",
     "The headcount of each business unit that owns a system",
@@ -26033,7 +26033,7 @@ export const questions = [
     "Domain accounts cannot be used for authenticated scanning of Windows servers",
     "Authenticated scanning will overwrite server configurations during the scan",
     "Authenticated scanning produces less accurate results than unauthenticated scanning",
-    "A single highly privileged account stored in the scanner becomes an attractive target whose compromise yields enterprise-wide administrative access",
+    "A privileged account stored in the scanner is an attractive target for enterprise-wide access",
     ],
     answer: 3,
     explanation: "Concentrating enterprise-wide administrative privilege in one credential stored inside a scanning appliance creates a single point of catastrophic failure: an attacker who compromises the scanner, its credential store, or the traffic it generates inherits administrative access to every server, which is why scanning credentials should be scoped, rotated, vaulted, and where possible limited to read-only or per-zone accounts. Authenticated scanning is more accurate than unauthenticated scanning, not less, because it inspects installed packages and local settings directly rather than inferring them from banners. Domain accounts are routinely and properly used for authenticated Windows scanning, so that objection is factually wrong. Vulnerability scanners read configuration state and do not rewrite server configurations; that behavior would describe a configuration management tool, not a scanner.",
@@ -26042,7 +26042,7 @@ export const questions = [
     id: "d6_247", domain: 6, difficulty: 2, section: "Vulnerability Scanning Techniques",
     question: "After each monthly scan, an analyst produces a report showing only the vulnerabilities that are new since the previous scan and those that have been resolved, rather than the full list of every open finding. What is the PRIMARY value of this differential reporting approach?",
     options: [
-    "It highlights changes in the environment's exposure so that newly introduced risk is noticed promptly",
+    "It highlights changes in exposure so newly introduced risk is noticed promptly",
     "It reduces the total number of vulnerabilities present in the environment",
     "It replaces the need for a risk-based prioritization of findings",
     "It eliminates the need to track findings that remain open across multiple scans",
@@ -26056,7 +26056,7 @@ export const questions = [
     options: [
     "Increase the scan's concurrency and thread count",
     "Switch the scan from authenticated to unauthenticated mode",
-    "Verify that the scanner's plugin and vulnerability signature feed is current",
+    "Verify the scanner's plugin and signature feed is current",
     "Rebuild the affected servers from a clean image",
     ],
     answer: 2,
@@ -26069,7 +26069,7 @@ export const questions = [
     "A social engineering assessment of retail store employees",
     "A source code review of the point-of-sale application",
     "An authenticated vulnerability scan of all systems inside the cardholder data environment",
-    "Segmentation testing that attempts to reach cardholder data environment systems from out-of-scope network segments",
+    "Segmentation testing attempting to reach the CDE from out-of-scope segments",
     ],
     answer: 3,
     explanation: "Segmentation testing validates the isolation control itself by originating traffic from out-of-scope networks and attempting to reach in-scope systems, thereby proving that the controls asserted to reduce scope actually block the paths they claim to block. An authenticated vulnerability scan inside the cardholder data environment enumerates weaknesses on those hosts but says nothing about whether an out-of-scope segment can reach them, which is the specific assertion under test. A social engineering assessment measures human susceptibility and is a separate control domain; convincing a cashier to click a link does not demonstrate whether network isolation holds. Source code review examines the application's implementation for coding defects and cannot evaluate network-layer reachability between segments, which is a function of firewalls, access control lists, and routing rather than of application code.",
@@ -26093,7 +26093,7 @@ export const questions = [
     "Delete the exploit artifacts so the crash cannot be attributed to the test",
     "Continue testing other targets and document the crash in the final report",
     "Attempt to restart the affected service personally to restore availability",
-    "Stop activity against that system and notify the client contact named in the rules of engagement",
+    "Stop activity against the system and notify the client contact in the rules of engagement",
     ],
     answer: 3,
     explanation: "The rules of engagement exist precisely to govern this situation: they designate emergency contacts and escalation procedures, and a tester who causes an outage must halt activity against the affected system and notify that contact at once so the client can begin recovery and distinguish the test from a genuine incident. Continuing to test and disclosing the crash only in the final report leaves the client responding blindly to an outage of unknown cause, potentially triggering an unnecessary incident response mobilization. Restarting the service personally exceeds the tester's authorization, risks compounding the damage, and interferes with the client's own change and recovery processes. Deleting artifacts to obscure attribution is a serious ethical and contractual violation, destroys evidence the client needs to understand the failure, and can leave the client incorrectly believing it suffered a real attack.",
@@ -26102,7 +26102,7 @@ export const questions = [
     id: "d6_252", domain: 6, difficulty: 2, section: "Penetration Testing Methods",
     question: "A client asks that the penetration testing team perform reconnaissance and vulnerability identification, document every exploitable weakness with proof of the exploitation path, but stop short of accessing, copying, or viewing any production customer records. How should this constraint be handled?",
     options: [
-    "Record the constraint in the rules of engagement and demonstrate access through non-destructive proof such as retrieving a benign record count or a planted marker record",
+    "Record the constraint in the ROE and demonstrate access via non-destructive proof, like a marker record",
     "Accept the constraint verbally and access records anyway if needed to prove the finding",
     "Reclassify the engagement as a vulnerability assessment, since exploitation is prohibited",
     "Refuse the engagement, because a test that does not access data cannot demonstrate real impact",
@@ -26128,7 +26128,7 @@ export const questions = [
     options: [
     "Run the tool only on files changed in the current release",
     "Disable all rule categories that produced more than 50 findings",
-    "Tune the ruleset to the language and framework in use and triage findings to mark verified false positives so they are suppressed with justification",
+    "Tune the ruleset to the language, and suppress verified false positives",
     "Lower the tool's severity threshold so fewer findings are displayed",
     ],
     answer: 2,
@@ -26140,7 +26140,7 @@ export const questions = [
     options: [
     "Recommend rewriting the three calling modules in a memory-safe language",
     "Approve the code, since the library function's own validation is correct",
-    "Recommend consolidating validation into the shared library and removing the divergent module-level checks",
+    "Recommend consolidating validation into the shared library, removing the divergent checks",
     "Recommend adding a fourth validation layer at the application entry point",
     ],
     answer: 2,
@@ -26151,7 +26151,7 @@ export const questions = [
     question: "A product team is writing requirements for a new customer self-service password reset feature. A security engineer asks them to also document, alongside each use case, the ways a hostile actor would attempt to abuse the feature. What is the PRIMARY benefit of producing these abuse cases during the requirements phase rather than during testing?",
     options: [
     "It ensures the feature will pass automated static analysis with no findings",
-    "It allows security requirements and countermeasures to be designed into the feature before code is written",
+    "It lets security requirements and countermeasures be designed in before code is written",
     "It removes the need for security testing later in the development lifecycle",
     "It shifts responsibility for security defects from developers to the security team",
     ],
@@ -26162,7 +26162,7 @@ export const questions = [
     id: "d6_257", domain: 6, difficulty: 2, section: "Misuse Case Testing",
     question: "A tester is designing misuse cases for a hotel booking application. Which of the following is a properly formed misuse case rather than a standard functional test?",
     options: [
-    "Verify that submitting a modified request with another guest's reservation number does not return that guest's booking details",
+    "Verify a modified request with another guest's number doesn't return their booking",
     "Verify that the reservation confirmation email is delivered within two minutes",
     "Verify that the booking page renders correctly on mobile browsers",
     "Verify that a confirmed reservation appears in the guest's booking history",
@@ -26186,7 +26186,7 @@ export const questions = [
     id: "d6_259", domain: 6, difficulty: 2, section: "Fuzzing and Mutation Testing",
     question: "A fuzzing campaign against a file parser produces 6,000 crashes over a weekend. What should the team do FIRST with these results?",
     options: [
-    "Deduplicate and triage the crashes by root cause and exploitability to identify the distinct underlying defects",
+    "Deduplicate and triage the crashes by root cause and exploitability",
     "Discard all crashes that do not immediately produce a shell",
     "Rerun the campaign with a different seed corpus to confirm reproducibility",
     "File 6,000 defect tickets so every crash is tracked individually",
@@ -26200,7 +26200,7 @@ export const questions = [
     options: [
     "An acceptable outcome, because the technique was prevented",
     "A prevention failure that requires replacing the endpoint agent",
-    "A detection and visibility gap, since the control blocked the technique but did not report it",
+    "A detection gap, since the control blocked the technique but didn't report it",
     "A false positive produced by the simulation platform",
     ],
     answer: 2,
@@ -26213,7 +26213,7 @@ export const questions = [
     "Disable endpoint protection during simulations so results are not skewed",
     "Run simulations only outside business hours to prevent any user impact",
     "Configure the platform to use live malware samples for maximum realism",
-    "Confirm that simulated techniques are non-destructive and that security operations and system owners are informed of the testing window and simulation indicators",
+    "Confirm techniques are non-destructive and operations is informed of the window",
     ],
     answer: 3,
     explanation: "Running adversary emulation against production requires confidence that the techniques will not damage systems or data, plus coordination so that the security operations team can distinguish simulation traffic from a genuine intrusion and system owners are not blindsided by unexpected behavior; documented simulation indicators also let the team validate whether detections fired for the right reasons. Disabling endpoint protection during simulation destroys the entire purpose of the exercise, which is to measure whether deployed controls prevent and detect the techniques. Restricting runs to off-hours can be prudent for some tests but is not the primary safeguard, and it can actually distort results by testing detection coverage at a time when staffing and normal activity baselines differ. Using live malware in production is reckless: breach and attack simulation deliberately emulates technique behavior with safe payloads rather than detonating real malicious code on production assets.",
@@ -26237,7 +26237,7 @@ export const questions = [
     "Reset the passwords on all 40 accounts and leave them enabled",
     "Convert the accounts to interactive user accounts so they appear in the standard user recertification",
     "Delete all 40 accounts immediately to eliminate the exposure",
-    "Identify an accountable owner for each account and disable those that cannot be attributed to a current business need, retaining them for a defined period before deletion",
+    "Identify an owner for each account and disable those with no current business need",
     ],
     answer: 3,
     explanation: "Orphaned service accounts are a genuine risk, but service accounts frequently support batch jobs, disaster recovery processes, or seasonal workloads, so the correct sequence is attribution first, then disablement with a retention window that allows rapid reversal if a dependency surfaces, followed by deletion once the window closes without incident. Immediate deletion risks breaking an unnoticed dependency and destroys the ability to restore quickly, since recreating an account with the same security identifier and permissions is not always possible. Resetting passwords while leaving the accounts enabled preserves the unattributed accounts and their standing privileges, addressing credential staleness but not the underlying ownership and least-privilege problem. Converting service accounts to interactive user accounts is worse than the status quo, because it grants interactive logon capability to non-human identities and misrepresents their nature in the identity inventory.",
@@ -26259,7 +26259,7 @@ export const questions = [
     question: "A security governance team wants to distinguish key performance indicators from key risk indicators in its quarterly reporting. Which pairing correctly classifies the two measures below? Measure A: percentage of critical patches deployed within the 15-day standard. Measure B: number of internet-facing systems running unsupported operating systems.",
     options: [
     "Measure A is a key risk indicator; Measure B is a key performance indicator",
-    "Measure A is a key performance indicator; Measure B is a key risk indicator",
+    "Measure A is a KPI; Measure B is a KRI",
     "Both are key performance indicators",
     "Both are key risk indicators",
     ],
@@ -26272,7 +26272,7 @@ export const questions = [
     options: [
     "A monetary value assigned to each expired certificate",
     "A commitment to report the indicator only when the threshold is not breached",
-    "A defined response action and escalation path that is invoked when the threshold is breached",
+    "A defined response action and escalation path invoked when the threshold is breached",
     "A comparison against the average certificate expiry rate of industry peers",
     ],
     answer: 2,
@@ -26284,7 +26284,7 @@ export const questions = [
     options: [
     "The highest CVSS base score present in the environment",
     "The total number of open vulnerabilities in the environment",
-    "The percentage of findings remediated within their severity-based service level, and the age distribution of those still open",
+    "Percentage remediated within SLA, and the age of open findings",
     "The number of hosts discovered by the most recent scan",
     ],
     answer: 2,
@@ -26295,7 +26295,7 @@ export const questions = [
     question: "An organization's recovery time objective for its customer database is two hours. During a verification exercise, the team successfully restores the database from backup, but the process takes six hours because the backup media had to be recalled from an offsite vault and the restore ran over a saturated link. How should this result be reported?",
     options: [
     "As a successful restoration test, since the data was fully recovered",
-    "As a failure to meet the recovery time objective, requiring changes to the recovery architecture",
+    "As a failure to meet the recovery time objective, requiring architecture changes",
     "As a failure of the backup integrity control, since the media was unreliable",
     "As an inconclusive result requiring the test to be repeated with the same procedure",
     ],
@@ -26306,7 +26306,7 @@ export const questions = [
     id: "d6_269", domain: 6, difficulty: 2, section: "Security Training and Awareness Metrics",
     question: "A company runs monthly simulated phishing exercises. Over six months, the overall click rate fell from 22 percent to 9 percent, but the number of employees who clicked in three or more separate exercises stayed constant at 61 people. What does this data MOST directly indicate?",
     options: [
-    "General awareness is improving, but a persistent repeat-clicker population requires targeted intervention",
+    "Awareness is improving, but repeat-clickers need targeted help",
     "The simulation difficulty was increased partway through the program",
     "The reporting rate for suspicious messages must also have declined",
     "The awareness program is failing and should be discontinued",
@@ -26330,7 +26330,7 @@ export const questions = [
     id: "d6_271", domain: 6, difficulty: 2, section: "Collect Security Process Data",
     question: "A compliance team spends three weeks each quarter manually collecting screenshots and exports to evidence recurring control operation. Which improvement BEST addresses both the effort and the reliability of this evidence?",
     options: [
-    "Automate evidence collection directly from authoritative systems on a defined schedule, with timestamped, tamper-evident storage",
+    "Automate evidence collection on a schedule, with tamper-evident storage",
     "Ask control owners to supply their own screenshots of the controls they operate",
     "Collect evidence annually instead of quarterly",
     "Reduce the sample size so fewer screenshots are needed each quarter",
@@ -26344,7 +26344,7 @@ export const questions = [
     options: [
     "Reduce the meeting frequency to twice yearly so more data accumulates between reviews",
     "Add more detailed technical appendices so the committee has complete information",
-    "Present each item with its business impact, the decision or approval required, and the options with their trade-offs",
+    "Present each item with its business impact, the decision needed, and the trade-offs",
     "Distribute the package earlier so members have more time to read it",
     ],
     answer: 2,
@@ -26357,7 +26357,7 @@ export const questions = [
     "Elevate it to critical severity, since static analysis confirmed the vulnerable pattern",
     "Suppress the rule in the static analysis tool to prevent future alerts of this type",
     "Close the finding as a false positive, since it cannot be exploited through the application",
-    "Report it as a valid weakness with reduced exploitability, noting that the protection depends on an external caller rather than the method itself",
+    "Report it as a valid weakness with reduced exploitability, since protection depends on an external caller",
     ],
     answer: 3,
     explanation: "The vulnerable code genuinely exists and the only thing preventing exploitation is validation performed by one particular caller, so the correct treatment is to record it as a real weakness with lowered current exploitability while noting the fragile dependency: a future caller, refactor, or new API surface can reach the method directly and the vulnerability becomes immediately exploitable. Closing it as a false positive is wrong because the code is truly defective; the finding is mitigated by context, not erroneous. Elevating to critical overstates present risk, since no reachable exploitation path currently exists and inflating severity damages the credibility of the report's prioritization. Suppressing the rule blinds the team to an entire vulnerability class across the codebase in order to silence one contextual finding, which trades broad coverage for a small reduction in noise.",
@@ -26367,7 +26367,7 @@ export const questions = [
     question: "A security analyst must prioritize 45 vulnerabilities that all carry a CVSS base score between 7.0 and 8.9. Which additional input MOST improves the prioritization?",
     options: [
     "The publication date of each vulnerability's CVE record",
-    "Whether each vulnerability appears in a catalog of vulnerabilities known to be actively exploited, and the criticality and exposure of the affected assets",
+    "Whether it's in a known-exploited catalog, plus asset criticality",
     "The alphabetical order of the affected vendor names",
     "The number of scanner plugins that reported each vulnerability",
     ],
@@ -26381,7 +26381,7 @@ export const questions = [
     "Code review is inherently more accurate than dynamic testing for all vulnerability classes",
     "The application must have changed between the two tests",
     "The dynamic scan produced a false positive that the code review corrected",
-    "Dynamic testing is limited to the attack surface it can discover and exercise, so it can miss defects that source review reveals",
+    "Dynamic testing is limited to the surface it can discover; code review finds more",
     ],
     answer: 3,
     explanation: "Dynamic testing examines only the functionality it can reach through the running application's exposed interfaces, so an obscure maintenance endpoint that the scanner never crawled or authenticated to remains untested, whereas source review inspects the code regardless of reachability and exposes embedded secrets directly. This is a false negative in the dynamic scan, not a false positive; the scan reported an absence of findings rather than a finding that proved untrue. Code review is not universally more accurate, because it cannot observe runtime configuration, deployment weaknesses, server hardening, or the behavior of integrated third-party services, which is exactly why the two techniques are complementary. Assuming the application changed between tests invents an explanation that the scenario does not support and overlooks the well-understood coverage difference between the two methods.",
@@ -26390,7 +26390,7 @@ export const questions = [
     id: "d6_276", domain: 6, difficulty: 2, section: "Test Output Analysis and Reporting",
     question: "An assessment report lists 78 individual findings. Analysis shows that 52 of them are missing patches on servers whose owners never enrolled them in the patch management platform. How should the report present this?",
     options: [
-    "Group the 52 related findings under a single systemic root cause finding about incomplete patch management enrollment, with the individual items as supporting detail",
+    "Group the 52 findings under one root-cause about patch enrollment, with items as detail",
     "Omit the 52 findings, since they share a single cause and would inflate the count",
     "Report only the 26 findings that are unrelated to patching, since those require unique remediation",
     "List all 78 findings individually with equal weight so nothing is lost",
