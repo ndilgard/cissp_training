@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // Dev-only middleware that persists progress to a file on disk, independent
 // of the browser's localStorage. Protects against localStorage being wiped
@@ -55,7 +56,37 @@ function progressBackupPlugin() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), progressBackupPlugin()],
+  base: '/cissp_training/',
+  plugins: [
+    react(),
+    progressBackupPlugin(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'icons.svg'],
+      manifest: {
+        name: 'CISSPrep',
+        short_name: 'CISSPrep',
+        description: 'CISSP practice exam and flashcard study app',
+        theme_color: '#7e14ff',
+        background_color: '#7e14ff',
+        display: 'standalone',
+        icons: [
+          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+          {
+            src: 'pwa-maskable-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      },
+      workbox: {
+        // Default cap is 2 MiB; the question bank bundle alone is ~4.6MB.
+        maximumFileSizeToCacheInBytes: 8000000,
+      },
+    }),
+  ],
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.js'],
