@@ -26403,7 +26403,7 @@ export const questions = [
     question: "During an engagement, a tester observes behavior strongly suggesting a deserialization vulnerability but cannot achieve reliable exploitation before the testing window closes. How should this be represented in the report?",
     options: [
     "Report it as a confirmed critical remote code execution finding",
-    "Report it as a suspected weakness with the observed evidence, the limits of what was validated, and a recommendation for further investigation",
+    "Report it as a suspected weakness with the evidence and validation limits",
     "Report it only verbally to the technical contact and leave it out of the written deliverable",
     "Omit it, since unexploited observations are speculation",
     ],
@@ -26416,7 +26416,7 @@ export const questions = [
     options: [
     "Reassign the finding to the compensating control's owner and close the original item",
     "Accept the owner's assertion and close the finding, since the owner knows the environment best",
-    "Require the owner to document the compensating control, then independently validate that it prevents exploitation before adjusting the finding's rating or status",
+    "Require the owner to document it, then independently validate before adjusting the finding",
     "Leave the finding open at its original severity and refuse further discussion",
     ],
     answer: 2,
@@ -26428,7 +26428,7 @@ export const questions = [
     options: [
     "The coverage decline is acceptable because remediation speed is the more important measure",
     "Overall vulnerability risk has clearly decreased, since remediation is faster",
-    "The remediation improvement may be an artifact of reduced scanning coverage, and the coverage decline must be investigated first",
+    "The remediation improvement may reflect reduced scanning coverage, which must be investigated first",
     "The two metrics are unrelated and should be reported to different audiences",
     ],
     answer: 2,
@@ -26439,7 +26439,7 @@ export const questions = [
     question: "An application team states that a cross-site scripting finding has been remediated. What constitutes the STRONGEST verification that the finding can be closed?",
     options: [
     "A code commit referencing the finding identifier",
-    "Retesting the original attack against the deployed environment and confirming the payload no longer executes, plus testing related input vectors",
+    "Retesting the attack against production, confirming the payload no longer runs",
     "A statement from the development lead confirming the fix was merged",
     "A subsequent automated scan that reports no findings for that URL",
     ],
@@ -26450,7 +26450,7 @@ export const questions = [
     id: "d6_281", domain: 6, difficulty: 2, section: "Test Output Analysis and Reporting",
     question: "A penetration test report must serve two audiences: executives who fund remediation and engineers who implement it. Which report structure BEST serves both without duplicating effort?",
     options: [
-    "An executive summary describing business risk and overall posture, followed by detailed technical findings with reproduction steps and remediation guidance",
+    "An executive summary of risk and posture, followed by technical findings and remediation",
     "Two entirely separate reports produced independently by different authors",
     "A slide deck of screenshots ordered by the time each finding was discovered",
     "A single narrative written at a technical level, with a glossary for executives",
@@ -26465,7 +26465,7 @@ export const questions = [
     "Downgrade the finding's severity so it falls outside the required remediation window",
     "Remove the affected system from the scanning scope until the patch is released",
     "Close the finding and reopen it when the vendor release becomes available",
-    "Record a formal, time-bound exception with documented compensating controls, a named risk acceptor, and a scheduled review date",
+    "Record a formal, time-bound exception with compensating controls and a named risk acceptor",
     ],
     answer: 3,
     explanation: "When remediation is genuinely blocked, the correct governance response is a formal exception that states the business justification, the compensating controls reducing exposure in the meantime, the individual with authority accepting the residual risk, and an expiry date tied to the expected vendor release, so the item stays visible and is revisited on schedule. Closing the finding erases a live exposure from the register and relies on someone remembering to reopen it months later. Downgrading severity to evade the service level falsifies the risk rating and corrupts every metric and prioritization decision that depends on it. Removing the system from scanning scope hides the finding rather than managing it, and it also suppresses detection of any additional vulnerabilities that appear on that system during the four-month gap.",
@@ -26474,7 +26474,7 @@ export const questions = [
     id: "d6_283", domain: 6, difficulty: 2, section: "Audit Process and Evidence",
     question: "An auditor requests the complete population of privileged access grants for the audit period so a sample can be drawn. IT provides an export, but the auditor notices the export was filtered to a single directory domain while the organization operates three. What is the PRIMARY concern with proceeding?",
     options: [
-    "Conclusions drawn from an incomplete population cannot be extended to the full population under audit",
+    "Conclusions from an incomplete population can't extend to the full population",
     "The auditor will need to use judgmental rather than statistical sampling",
     "The export cannot be relied upon because it was produced by the auditee",
     "The sample will be too small to support a conclusion",
@@ -26488,7 +26488,7 @@ export const questions = [
     options: [
     "The report covers a point in time rather than a period",
     "The hosting provider's controls were tested and their results are included in the report",
-    "The hosting provider's controls are excluded from the description and were not tested, so the reader must obtain separate assurance about them",
+    "The provider's controls are excluded and untested, so the reader needs separate assurance",
     "The hosting provider has been removed from the vendor's supply chain",
     ],
     answer: 2,
@@ -26525,7 +26525,7 @@ export const questions = [
     "Accept, provided a different auditor performs the follow-up audit",
     "Accept and document the arrangement in the audit charter",
     "Accept, because internal audit understands the control requirements best",
-    "Decline to design the control, offering advisory input on requirements while management retains ownership of design and implementation",
+    "Decline to design it; offer advisory input while management retains ownership",
     ],
     answer: 3,
     explanation: "Designing and implementing a control creates a self-review threat, because the audit function would later be evaluating its own work and could not render an objective opinion on it; the appropriate posture is to advise on requirements and good practice while management retains ownership of designing, implementing, and operating the control. Accepting the assignment because internal audit understands the requirements confuses subject matter expertise with the ability to remain independent of the thing being examined. Assigning a different auditor to the follow-up does not cure the impairment, because the department as a whole would be auditing a control that department authored, and independence is assessed at the function level as well as the individual level. Documenting the arrangement in the audit charter records the impairment rather than resolving it; a charter cannot authorize a function to objectively audit its own design work.",
@@ -26534,7 +26534,7 @@ export const questions = [
     id: "d6_288", domain: 6, difficulty: 2, section: "Audit Process and Evidence",
     question: "An auditor tests a monthly reconciliation control by selecting three of the twelve monthly reconciliations from the audit period and finds all three properly performed and reviewed. The audit manager questions the sample. What is the MOST appropriate concern?",
     options: [
-    "The sample size may be insufficient to support a conclusion about the control's operation across the full twelve-month period",
+    "The sample may be insufficient to conclude the control operated across the full twelve months",
     "Monthly controls cannot be tested using sampling and require examination of the full population",
     "The auditor should have tested the control's design instead of its operation",
     "The sample should have been drawn using systematic rather than random selection",
@@ -26547,7 +26547,7 @@ export const questions = [
     question: "An audit report issued eight months ago identified four high-risk findings, and management committed to remediation dates that have now passed. What activity should the audit function perform next?",
     options: [
     "Close the findings based on management's written confirmation that remediation is complete",
-    "A follow-up audit to verify that the agreed corrective actions were implemented and are operating",
+    "A follow-up audit verifying the corrective actions were implemented and are operating",
     "A new full-scope audit of the same area using a different methodology",
     "Reissue the original report with the same findings and updated dates",
     ],
@@ -26572,7 +26572,7 @@ export const questions = [
     options: [
     "Compliance testing examines technical configurations; substantive testing examines written policies",
     "Compliance testing is performed before fieldwork; substantive testing is performed after the report is issued",
-    "Compliance testing confirms that access requests carried documented approval; substantive testing confirms that the resulting access rights on the system match what was approved",
+    "Compliance testing confirms access requests had documented approval; substantive testing confirms rights match approval",
     "Compliance testing is performed by external auditors; substantive testing is performed by internal auditors",
     ],
     answer: 2,
@@ -26583,7 +26583,7 @@ export const questions = [
     question: "During fieldwork, an auditor identifies a control failure that appears to expose customer data immediately and materially. The final report is not scheduled for issuance for another six weeks. What should the auditor do?",
     options: [
     "Wait and include the finding in the final report, preserving the integrity of the reporting process",
-    "Communicate the finding to management and the appropriate governance body promptly, then include it in the final report",
+    "Communicate the finding to management and the governance body promptly, then include it in the report",
     "Remediate the control personally to eliminate the exposure before it can be exploited",
     "Remove the finding from the audit and refer the matter entirely to the security operations team",
     ],
@@ -26595,7 +26595,7 @@ export const questions = [
     question: "A state financial regulator opens a formal inquiry into a bank's transaction monitoring practices and directs the bank to produce records and interview transcripts. The bank's security team must support the effort. Which statement BEST characterizes how this regulatory investigation differs from a criminal investigation of the same conduct?",
     options: [
     "It requires the regulator to meet the beyond-a-reasonable-doubt standard before taking any action against the bank.",
-    "It is conducted under administrative authority and typically results in fines, consent orders, or licensing action rather than incarceration.",
+    "It's conducted under administrative authority, typically resulting in fines or licensing action, not incarceration.",
     "It suspends the organization's obligation to preserve records until the regulator issues a final finding.",
     "It may only be initiated after a criminal prosecution arising from the same conduct has concluded.",
     ],
@@ -26618,7 +26618,7 @@ export const questions = [
     id: "d7_226", domain: 7, difficulty: 2, section: "Evidence Types and Admissibility",
     question: "A corporate investigator is examining an employee's company-issued laptop under the acceptable use policy. A police detective, who has not obtained a warrant, asks the investigator to also search the employee's personal cloud storage account and report back anything incriminating. What is the MOST significant legal risk if the investigator complies?",
     options: [
-    "The investigator would be acting as an agent of law enforcement, so evidence obtained without a warrant or other legal authority could be suppressed.",
+    "The investigator would act as a law enforcement agent, so evidence gathered without a warrant could be suppressed.",
     "The investigator would violate the chain of custody because the detective did not personally seal the evidence.",
     "The evidence would be inadmissible hearsay because it was gathered by a private party rather than a sworn officer.",
     "The investigator would forfeit the company's ability to conduct any further internal review of the laptop.",
@@ -26645,7 +26645,7 @@ export const questions = [
     "Increase the verbosity of local logging so that more detail is captured on each system.",
     "Encrypt the local log files at rest on each server using keys held by the administrators.",
     "Require each administrator to sign an annual attestation that they have not altered any log.",
-    "Forward events in real time to a centralized log repository where administrators of the source systems have no modify or delete rights.",
+    "Forward events in real time to a central repository where source-system admins can't modify or delete them.",
     ],
     answer: 3,
     explanation: "The exposure is that the population with the ability to perform sensitive actions is the same population that controls the record of those actions. Forwarding events off the originating host in near real time to a centralized collector administered by a separate group removes that conflict: even if an attacker or a rogue administrator wipes the local file, the forwarded copy already exists outside their control, and write-once or append-only storage on the collector strengthens it further. Raising log verbosity produces more detail but leaves every record in the same place under the same administrators' control, so it does not reduce the ability to tamper. Encrypting the logs with keys the administrators themselves hold protects confidentiality only, and an administrator who can decrypt and rewrite the file can still alter or delete it. A signed attestation is an administrative gesture with no preventive or detective effect, and it provides no evidence of what actually happened to the logs.",
@@ -26654,7 +26654,7 @@ export const questions = [
     id: "d7_229", domain: 7, difficulty: 2, section: "Security Monitoring",
     question: "An organization plans to deploy software that records user session activity, including keystrokes, on corporate workstations in order to investigate suspected policy violations. Which prerequisite is MOST important before the monitoring is enabled?",
     options: [
-    "A documented monitoring policy, reviewed by legal counsel, together with notice such as logon banners and signed acknowledgments that eliminate the expectation of privacy.",
+    "A documented monitoring policy, reviewed by counsel, plus notice eliminating any privacy expectation.",
     "A court-issued warrant authorizing the collection of employee keystrokes.",
     "Encryption of the collected session data so that only the security team can read it.",
     "Notification to local law enforcement that the organization intends to monitor its employees.",
@@ -26691,7 +26691,7 @@ export const questions = [
     question: "A vendor-supplied medical imaging appliance cannot meet two settings in the enterprise server baseline because the vendor's support agreement prohibits the required changes. The appliance is essential to patient care and cannot be replaced this year. What is the MOST appropriate configuration management response?",
     options: [
     "Relax the enterprise baseline for all servers so that the appliance is compliant by definition.",
-    "Record a formal, time-limited exception approved by the system's risk owner, with documented compensating controls and a scheduled review date.",
+    "Record a formal, time-limited exception approved by the risk owner, with compensating controls.",
     "Remove the appliance from the scope of configuration scanning so that it stops generating findings.",
     "Apply the baseline settings anyway and accept the loss of vendor support.",
     ],
@@ -26714,7 +26714,7 @@ export const questions = [
     id: "d7_234", domain: 7, difficulty: 2, section: "Privileged Account Management",
     question: "A review finds that the service account used by the enterprise backup application is a member of Domain Admins, because that was the simplest way to guarantee it could read every file. What is the MOST appropriate remediation?",
     options: [
-    "Reduce the account to the specific delegated rights the backup software requires, restrict where it may log on, and manage its credential through an automated rotation mechanism.",
+    "Reduce the account to the delegated rights needed, restrict logon, and rotate its credential automatically.",
     "Leave the membership in place but shorten the password rotation interval to thirty days.",
     "Enable multifactor authentication prompts on the service account so a human must approve each backup job.",
     "Leave the membership in place and increase logging of the account's activity for later review.",
@@ -26728,7 +26728,7 @@ export const questions = [
     options: [
     "Require administrators to change their privileged passwords every thirty days.",
     "Require administrators to connect through the corporate VPN before performing administrative tasks.",
-    "Provide hardened, dedicated privileged access workstations that are used only for administrative tasks and are blocked from general email and web browsing.",
+    "Provide hardened privileged workstations used only for admin tasks, blocked from email.",
     "Enable full disk encryption on all administrator laptops.",
     ],
     answer: 2,
@@ -26752,7 +26752,7 @@ export const questions = [
     options: [
     "Degauss each drive with a certified degausser",
     "Perform a seven-pass overwrite of the full logical address space of each drive",
-    "Perform a cryptographic erase that destroys and replaces the drive's internal media encryption key",
+    "Perform a cryptographic erase that destroys the drive's media encryption key",
     "Reformat each drive and rewrite a fresh operating system image",
     ],
     answer: 2,
@@ -26788,7 +26788,7 @@ export const questions = [
     options: [
     "Detection followed by eradication",
     "Eradication followed by recovery",
-    "Short-term containment followed by long-term containment",
+    "Short-term then long-term containment",
     "Recovery followed by lessons learned",
     ],
     answer: 2,
@@ -26801,7 +26801,7 @@ export const questions = [
     "Referral to law enforcement generally satisfies any statutory or contractual breach notification obligations the organization has.",
     "Law enforcement will assume responsibility for eradicating the intrusion and restoring the affected systems.",
     "Referral guarantees that details of the incident will remain confidential and outside the reach of public disclosure.",
-    "Once law enforcement is engaged, the organization may lose control over investigative timing and over systems that are seized as evidence, so the referral should follow the criteria and approvals defined in the incident response policy.",
+    "Engaging law enforcement can mean losing control over timing and over seized systems, so referral should follow the IR policy.",
     ],
     answer: 3,
     explanation: "Engaging law enforcement brings real benefits, including investigative reach and access to intelligence, but it also transfers a measure of control: investigators may direct that a compromised system remain untouched, may seize hardware as evidence, and will run to their own timetable rather than the organization's recovery schedule. Because that can conflict directly with restoring service, the decision belongs to the pre-defined escalation criteria in the incident response policy and is made with legal counsel and executive management. Law enforcement referral does not discharge regulatory or contractual notification duties; those obligations run to regulators, customers, and partners on their own statutory clocks and must be met independently. Law enforcement investigates crimes and does not perform eradication or system restoration for the victim organization, which remains the organization's responsibility. Confidentiality cannot be guaranteed either, since court filings, indictments, and public records requests can expose incident details.",
@@ -26811,7 +26811,7 @@ export const questions = [
     question: "A public-facing web application is receiving a steady stream of SQL injection and cross-site scripting attempts embedded in ordinary HTTPS requests. The perimeter firewall passes the traffic because it is well-formed TLS to port 443 from permitted sources. Which control BEST addresses this attack traffic?",
     options: [
     "Tighten the stateful packet filtering rule set on the perimeter firewall",
-    "Deploy a web application firewall that terminates or decrypts the session and inspects the HTTP request content",
+    "Deploy a web application firewall that decrypts the session and inspects the HTTP content",
     "Apply network address translation to hide the web server's real address",
     "Add an egress filtering rule limiting outbound traffic from the web server",
     ],
@@ -26823,7 +26823,7 @@ export const questions = [
     question: "An inline intrusion prevention system is being deployed in front of a revenue-critical e-commerce platform. The business states that an outage of the platform is unacceptable, while a brief window in which traffic passes uninspected is tolerable. How should the device's failure behavior be configured, and what is the resulting tradeoff?",
     options: [
     "Fail-closed, so traffic is blocked during a device failure, accepting an outage in exchange for continuous inspection",
-    "Fail-open, so traffic continues to flow during a device failure, accepting a period of uninspected traffic in exchange for availability",
+    "Fail-open, so traffic continues to flow during a failure, accepting uninspected traffic for availability",
     "Deploy the device out of band on a span port, which eliminates the need for any failure behavior decision",
     "Fail-closed, so traffic continues to flow during a device failure, accepting a period of uninspected traffic",
     ],
@@ -26834,7 +26834,7 @@ export const questions = [
     id: "d7_244", domain: 7, difficulty: 2, section: "Malware & C2 Detection",
     question: "Threat intelligence identifies a set of command and control domains associated with a malware family believed to be present on the corporate network. The security team wants to break the malware's ability to reach its controllers and, at the same time, produce a reliable list of which internal hosts are infected. Which technique BEST accomplishes both goals?",
     options: [
-    "Configure the internal DNS resolvers to sinkhole the malicious domains to a controlled internal address that logs every requesting client",
+    "Configure DNS resolvers to sinkhole the malicious domains, logging every requesting client",
     "Block outbound UDP and TCP port 53 at the perimeter firewall for all internal hosts",
     "Add the current command and control IP addresses to the perimeter firewall deny list",
     "Deploy a high-interaction honeypot on the internal network to attract the malware",
@@ -26847,7 +26847,7 @@ export const questions = [
     question: "In an organization's vulnerability management workflow, system owners close remediation tickets by asserting in the ticket that the patch was applied. Findings from prior quarters keep reappearing in later scans. Which process change BEST addresses this?",
     options: [
     "Extend the remediation service level from thirty days to sixty days so owners have more time",
-    "Require an authenticated verification scan confirming the finding is resolved before the ticket may be closed",
+    "Require an authenticated verification scan confirming the finding is resolved before closing",
     "Increase the frequency of the full network scan from quarterly to monthly",
     "Escalate repeat findings to executive management at the end of each year",
     ],
@@ -26859,7 +26859,7 @@ export const questions = [
     question: "Most of an organization's workforce is fully remote, and employee laptops connect to the corporate VPN only occasionally and briefly. Scheduled network-based vulnerability scans consistently cover fewer than a third of these endpoints. Which approach BEST restores visibility?",
     options: [
     "Increase the frequency and duration of the network scan windows against the VPN address pool",
-    "Deploy vulnerability assessment agents on the endpoints that scan locally and report results to a cloud-hosted console whenever the device has internet connectivity",
+    "Deploy vulnerability assessment agents on endpoints that scan locally and report to a cloud console when online",
     "Require every employee to remain connected to the VPN for a fixed four-hour scanning window each week",
     "Rely on the results from the subset of laptops that are reachable and extrapolate the findings to the rest",
     ],
@@ -26872,7 +26872,7 @@ export const questions = [
     options: [
     "Immediately install the upstream release of the package that carries the higher version number",
     "Disable the affected service on all systems until the version string changes",
-    "Verify the installed package revision against the vendor's security advisory and, if the backported fix is present, document the finding as a false positive and tune the scan check",
+    "Verify the installed revision against the advisory; if backported, mark it a false positive",
     "Accept the risk formally and leave the finding open until the next major operating system upgrade",
     ],
     answer: 2,
@@ -26884,7 +26884,7 @@ export const questions = [
     options: [
     "Create a retroactive change record so that the modification is documented and the alert can be closed",
     "Tune the file integrity monitoring policy to exclude that file, since configuration files change routinely",
-    "Treat the modification as an unauthorized change and initiate the incident response process to determine who or what made it",
+    "Treat the modification as unauthorized and start incident response to determine who made it",
     "Restore the file from the last known-good backup and close the alert as resolved",
     ],
     answer: 2,
@@ -26906,7 +26906,7 @@ export const questions = [
     id: "d7_250", domain: 7, difficulty: 2, section: "Change Management",
     question: "A change advisory board returns a request to upgrade a shared authentication service, stating that the submission cannot be evaluated as written. The request already includes an implementation procedure, a test plan, a back-out plan, and a proposed window. Which missing element is the board MOST likely demanding?",
     options: [
-    "An impact and risk assessment identifying the affected configuration items, dependent services, and the users who would be affected if the change fails",
+    "An impact assessment of affected configuration items and dependencies",
     "Written acknowledgment from every end user of the affected service",
     "A copy of the vendor's release notes for the new version",
     "A projected return on investment for the upgrade",
@@ -26932,7 +26932,7 @@ export const questions = [
     options: [
     "A cold site leased in the nearest metropolitan area",
     "A reciprocal agreement with a neighboring utility",
-    "A mobile recovery site delivered to the affected area as a self-contained trailer with power, connectivity, and workstations",
+    "A mobile recovery trailer with power, connectivity, and workstations",
     "A cloud-hosted virtual desktop environment for the field crews",
     ],
     answer: 2,
@@ -26954,7 +26954,7 @@ export const questions = [
     id: "d7_254", domain: 7, difficulty: 2, section: "Disaster Recovery",
     question: "Flooding has affected part of a company's primary data center. Operations staff want to invoke the disaster recovery plan and cut over to the alternate site immediately. Under a well-structured plan, which activity should occur before the disaster declaration decision is made?",
     options: [
-    "The damage assessment team evaluates the extent of the damage and estimates the expected outage duration for comparison against the plan's declaration criteria",
+    "The damage assessment team evaluates damage extent and outage duration against declaration criteria",
     "The salvage team begins removing and drying affected equipment to limit further loss",
     "The insurance carrier is notified so that a claim number can be issued",
     "Restoration of the least critical systems begins so that staff can validate the recovery procedures",
@@ -26968,7 +26968,7 @@ export const questions = [
     options: [
     "Ship all damaged equipment to the original vendors for warranty evaluation",
     "Wait for the external auditors to complete an on-site inspection of the loss",
-    "Photograph and inventory the damaged assets and document the extent of the loss to support the insurance claim and the after-action record",
+    "Photograph and inventory damaged assets and document the loss for the insurance claim",
     "Attempt to power on each damaged system to determine which ones still function",
     ],
     answer: 2,
@@ -26981,7 +26981,7 @@ export const questions = [
     "Increase the frequency of the manufacturer's own data backups so orders can be reconstructed",
     "Add the supplier's account manager to the internal call tree so they are notified during an event",
     "Purchase additional business interruption insurance to cover losses from a supplier outage",
-    "Obtain and review the supplier's documented recovery commitments and test evidence, negotiate them into the contract, and qualify at least one alternate source",
+    "Obtain and review the supplier's recovery commitments and test evidence, and qualify an alternate source",
     ],
     answer: 3,
     explanation: "Continuity planning must extend to the third parties that critical business functions depend on, because an organization's own recovery capability is irrelevant if a sole-source supplier cannot deliver. The mature response is to verify the supplier's continuity posture through its documented recovery objectives and test results, bind those commitments contractually with defined recovery timeframes and reporting obligations, and reduce the dependency itself by qualifying an alternate source or holding buffer inventory. Increasing internal backup frequency protects the manufacturer's own data but does nothing about the physical absence of a component. Adding the supplier to the call tree improves notification but provides no assurance that the supplier can actually recover, and notification is not a recovery capability. Business interruption insurance transfers some financial loss but does not restore production, does not satisfy customers waiting on shipments, and is a complement to, not a substitute for, supply chain continuity.",
@@ -26990,7 +26990,7 @@ export const questions = [
     id: "d7_257", domain: 7, difficulty: 2, section: "BC/DR Testing",
     question: "After a disaster recovery exercise concludes, participants disagree about whether the test was a success: some point to systems that came up, others to steps that took far longer than expected. Which planning omission MOST directly caused this disagreement?",
     options: [
-    "Measurable objectives and pass or fail criteria, such as the recovery time and data currency to be achieved, were not defined before the exercise began",
+    "Measurable pass/fail criteria, like recovery time, weren't defined beforehand",
     "An independent observer was not assigned to watch the exercise",
     "The exercise did not include enough participants from the business units",
     "The exercise was not run for a long enough period to exercise every procedure",
@@ -27003,7 +27003,7 @@ export const questions = [
     question: "An organization that has completed read-through and walk-through exercises and one successful parallel test now wants to perform its first full interruption test. How should the test be planned to keep business risk acceptable?",
     options: [
     "Run it unannounced during a peak business period so that the results reflect worst-case conditions",
-    "Schedule it during an approved low-volume window, with executive authorization, a documented rollback procedure, and staff on hand to abort the test if defined thresholds are exceeded",
+    "Schedule it in an approved low-volume window, with executive authorization and a rollback procedure",
     "Run it at any convenient time, since a test cannot cause an actual outage",
     "Defer it indefinitely and rely on the parallel test results as equivalent evidence",
     ],
@@ -27015,7 +27015,7 @@ export const questions = [
     question: "An organization tests its disaster recovery plan every October. In March it completes a migration of its core enterprise resource planning system to a new platform at a different hosting provider, with new recovery procedures. What should the recovery program do?",
     options: [
     "Continue with the October schedule, since annual testing satisfies the policy",
-    "Test the new platform's recovery procedures after the migration rather than waiting for the annual cycle, because a significant environmental change invalidates prior test results",
+    "Test the new platform's recovery procedures after migration rather than waiting for the annual cycle",
     "Rely on the hosting provider's own recovery testing in place of an organizational test",
     "Update the written procedures for the new platform and defer testing until the platform has been in production for a full year",
     ],
@@ -27027,7 +27027,7 @@ export const questions = [
     question: "A burst water main renders a company's twelve-story office building unusable for at least three weeks. The data center is in a separate leased facility and is unaffected, and all applications remain available. Three hundred claims processors, however, have nowhere to work. Which continuity provision addresses this gap?",
     options: [
     "A hot site contracted for server processing capacity",
-    "A work area recovery arrangement providing furnished, connected seating for displaced staff",
+    "A work area recovery arrangement with furnished seating for displaced staff",
     "A reduction of the recovery point objective for the claims application",
     "A reciprocal agreement for data processing with a peer organization",
     ],
@@ -27040,7 +27040,7 @@ export const questions = [
     options: [
     "A call tree listing the recovery team's contact information",
     "Cross-training of technical staff on the failover procedure",
-    "A documented succession and delegation of authority naming alternates empowered to make the decision when the primary is unavailable",
+    "A documented succession naming alternates if the primary is unavailable",
     "A memorandum of understanding with the alternate site provider",
     ],
     answer: 2,
@@ -27050,7 +27050,7 @@ export const questions = [
     id: "d7_262", domain: 7, difficulty: 2, section: "Business Continuity Planning",
     question: "A regional public health emergency causes roughly forty percent of a company's workforce to be unavailable for several weeks. All facilities, systems, and data are fully intact and operating normally. Which continuity strategy is MOST appropriate?",
     options: [
-    "Prioritize the critical business functions identified in the plan, activate remote work capability, and reassign cross-trained staff to cover the highest-priority processes",
+    "Prioritize critical functions in the plan, activate remote work, and reassign staff to priorities",
     "Declare a disaster and fail over production to the alternate processing site",
     "Increase backup frequency and replication so that no data is lost during the period of reduced staffing",
     "Suspend all business operations until normal staffing levels return",
@@ -27064,7 +27064,7 @@ export const questions = [
     options: [
     "A fault, addressed by installing surge suppressors on each rack circuit",
     "A blackout, addressed by installing a standby diesel generator",
-    "A brownout, addressed by an uninterruptible power supply with automatic voltage regulation or a line conditioner",
+    "A brownout, addressed by a UPS with automatic voltage regulation",
     "A sag, addressed by adding additional power distribution units",
     ],
     answer: 2,
@@ -27077,7 +27077,7 @@ export const questions = [
     "Aspirating smoke detection installed above the ceiling tiles",
     "A tighter humidity control setpoint on the air handling units",
     "Quarterly visual inspection of the piping by facilities staff",
-    "Moisture and leak detection sensors installed in the subfloor void, cabled along the piping runs and alarmed to the operations center",
+    "Moisture and leak sensors in the subfloor, cabled along the piping and alarmed",
     ],
     answer: 3,
     explanation: "Water below a raised floor is invisible from the room, spreads along the void, and reaches power distribution before anyone notices, so the control is dedicated water detection: point sensors at low spots and sensing cable run alongside the piping, wired to alarm in the continuously staffed operations center and often interlocked to close supply valves. That provides the early warning management asked for. Aspirating smoke detection above the ceiling addresses combustion products in the return air path and cannot sense liquid water on the floor below. Adjusting the humidity setpoint controls the moisture content of the air to protect against condensation and electrostatic discharge but has no ability to detect free-standing water from a pipe failure. Quarterly visual inspection may eventually find a leak, but a failure occurring the day after an inspection would go undetected for months, which is far too slow for a hazard measured in minutes.",
@@ -27086,7 +27086,7 @@ export const questions = [
     id: "d7_265", domain: 7, difficulty: 2, section: "Personnel Safety",
     question: "A secure facility uses electromagnetic locks on the stairwell doors that form the designated emergency egress route. During a fire drill the security manager asks whether these doors should remain locked on power loss to protect the controlled areas beyond them. What is the correct configuration and rationale?",
     options: [
-    "The doors should fail-safe and unlock on power loss, because human life takes precedence over asset protection, with alarms, cameras, and guard response used to manage the resulting exposure",
+    "Doors should fail-safe and unlock on power loss, since human life outweighs asset protection; alarms and guards manage exposure",
     "The doors should fail-secure and remain locked on power loss, because unrestricted egress would defeat the facility's access control",
     "The doors should remain locked but be equipped with a key box so that a guard can unlock them if evacuation becomes necessary",
     "The doors should fail-secure, with evacuation routed instead through the monitored main lobby turnstiles",
@@ -27101,7 +27101,7 @@ export const questions = [
     "Evacuate immediately to the designated outdoor assembly area and account for personnel there",
     "Continue normal operations, since the release originated outside the property boundary",
     "Release all employees to drive home individually so that the site is emptied quickly",
-    "Shelter in place by moving occupants to designated interior areas, shutting down outside air intakes, and accounting for personnel indoors",
+    "Shelter in place: move occupants indoors, shut down outside air intakes, and account for personnel",
     ],
     answer: 3,
     explanation: "Evacuation is the default response to most facility emergencies, but it is the wrong response when the hazard is outside and the interior is the safer environment. Shelter in place moves occupants to pre-identified interior rooms away from windows, shuts down or seals outside air intakes so the building's ventilation does not draw contaminated air in, and still requires personnel accountability so responders know everyone is present and safe. Evacuating to the outdoor assembly area would move every occupant directly into the contaminated plume, which is why plans must define both response modes and the conditions that select between them. Continuing normal operations ignores an active hazard that the ventilation system can pull indoors and leaves occupants unprepared. Releasing employees to drive home individually puts hundreds of people into the plume and onto roads that emergency responders need, and it eliminates any ability to account for personnel.",
@@ -27123,7 +27123,7 @@ export const questions = [
     question: "A marketing department demands a customer-facing portal in 90 days. The team adopts a Rapid Application Development approach with short timeboxes, heavy prototyping, and minimal up-front documentation. The security manager is concerned that the compressed cycle will squeeze out security work. Which approach best preserves security assurance without abandoning the chosen model?",
     options: [
     "Schedule a single comprehensive security assessment after the final timebox and before go-live",
-    "Define a small set of non-negotiable security requirements and acceptance criteria that every timebox must satisfy before its output is accepted",
+    "Define a small set of non-negotiable security requirements every timebox must satisfy",
     "Deploy a web application firewall in front of the portal so that coding shortcuts are compensated for at runtime",
     "Extend the project deadline so the team can switch to a sequential model with formal phase reviews",
     ],
@@ -27182,7 +27182,7 @@ export const questions = [
     id: "d8_236", domain: 8, difficulty: 2, section: "Secure SDLC & DevSecOps",
     question: "A Scrum team consistently marks user stories complete while their associated security tasks, such as adding authorization checks and input validation tests, remain open and roll into future sprints. Which change most directly stops security work from being deferred?",
     options: [
-    "Add explicit security acceptance criteria to the team's Definition of Done so a story cannot be accepted until they are met",
+    "Add explicit security acceptance criteria to the Definition of Done before a story is accepted",
     "Reserve the final sprint of each release as a dedicated hardening sprint for accumulated security work",
     "Move security tasks to a separate backlog maintained and prioritized by the central security team",
     "Commission an annual third-party penetration test to catch anything the team missed",
@@ -27196,7 +27196,7 @@ export const questions = [
     options: [
     "Allow the promotion but restrict it to a small pilot group, since limited exposure reduces the risk to an acceptable level",
     "Allow the promotion and open remediation items in the backlog to add authentication, logging, and validation after go-live",
-    "Require that the prototype pass the organization's normal design, implementation, and verification gates before it can process live data or reach users",
+    "Require the prototype to pass the organization's normal design, implementation, and verification gates before going live",
     "Place the prototype behind a network access control list so that only corporate addresses can reach it, and leave the code as built",
     ],
     answer: 2,
@@ -27220,7 +27220,7 @@ export const questions = [
     options: [
     "Security testing can be performed once against the final build, since earlier builds are supersets of it",
     "Only the newly added functionality in each build requires security testing, since the earlier code was already tested",
-    "Each build requires its own security testing, including regression testing of previously delivered functionality, because every build is a production release",
+    "Each build requires its own security testing, including regression of prior functionality, since every build ships",
     "Security testing should be deferred until the customer reports issues from production use of each build",
     ],
     answer: 2,
@@ -27232,7 +27232,7 @@ export const questions = [
     options: [
     "Nothing further, because the emergency procedure authorized the deployment",
     "The change must be reversed at the next maintenance window and resubmitted as a standard change",
-    "The change must be documented and submitted for retroactive review and approval, with the code and configuration brought under normal version and baseline control",
+    "The change must be documented and submitted for retroactive review, brought under normal version control",
     "The engineer's production access must be revoked and the incident handled as an unauthorized change",
     ],
     answer: 2,
