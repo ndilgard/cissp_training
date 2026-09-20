@@ -41,7 +41,21 @@ describe('updateTheta', () => {
     const correct = updateTheta(0, true, 2);
     const wrong = updateTheta(0, false, 2);
     expect(correct).toBeCloseTo(0.3, 5);
-    expect(wrong).toBeCloseTo(-0.3, 5);
+    expect(wrong).toBeCloseTo(-0.5, 5);
+  });
+
+  it('does not ratchet to the ceiling at a realistic ~70% accuracy (regression)', () => {
+    // Bug: at 71% accuracy on Advanced, theta used to climb (net +0.265/question)
+    // and never release, pinning the exam at Advanced almost the whole time.
+    // Simulate a 70/30 correct/wrong stream at difficulty 3 starting from theta=0.9
+    // (just past the Advanced threshold) and confirm it settles rather than maxing out.
+    let theta = 0.9;
+    for (let i = 0; i < 100; i++) {
+      const correct = i % 10 < 7; // 70% accuracy
+      theta = updateTheta(theta, correct, 3);
+    }
+    expect(theta).toBeLessThan(3);
+    expect(theta).toBeGreaterThan(0.8); // still holds Advanced-level ability
   });
 });
 
@@ -61,7 +75,6 @@ describe('calculateScaledScore', () => {
   });
 
   it('maps a theta near the pass line to roughly 700', () => {
-    // theta ~1.2 is the "clearly passing" threshold used in shouldTerminate
     const score = calculateScaledScore({ theta: 1.2 });
     expect(score).toBeGreaterThan(650);
     expect(score).toBeLessThan(750);
@@ -73,38 +86,14 @@ describe('shouldTerminate', () => {
     return { theta: 0, answered: [], ...overrides };
   }
 
-  it('never terminates before the minimum question count', () => {
-    const answered = Array(50).fill({ correct: true });
+  it('does not terminate before the fixed question count is reached', () => {
+    const answered = Array(99).fill({ correct: true });
     expect(shouldTerminate(state({ answered, theta: 3 }))).toBe(false);
   });
 
-  it('always terminates at the maximum question count', () => {
-    const answered = Array(150).fill({ correct: false });
+  it('terminates once the fixed question count (100) is reached, regardless of theta', () => {
+    const answered = Array(100).fill({ correct: false });
     expect(shouldTerminate(state({ answered, theta: 0 }))).toBe(true);
-  });
-
-  it('terminates early once clearly passing (high theta + strong recent performance)', () => {
-    const answered = [
-      ...Array(85).fill({ correct: true }),
-      ...Array(15).fill({ correct: true }), // last 15 all correct
-    ];
-    expect(shouldTerminate(state({ answered, theta: 1.5 }))).toBe(true);
-  });
-
-  it('terminates early once clearly failing (low theta + weak recent performance)', () => {
-    const answered = [
-      ...Array(85).fill({ correct: false }),
-      ...Array(15).fill({ correct: false }), // last 15 all wrong
-    ];
-    expect(shouldTerminate(state({ answered, theta: -1.5 }))).toBe(true);
-  });
-
-  it('does not terminate early when theta is high but recent performance dipped', () => {
-    const answered = [
-      ...Array(85).fill({ correct: true }),
-      ...Array(15).fill({ correct: false }), // recent slump
-    ];
-    expect(shouldTerminate(state({ answered, theta: 1.5 }))).toBe(false);
   });
 });
 

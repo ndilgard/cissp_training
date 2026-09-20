@@ -89,6 +89,8 @@ export default function Results({
   onRestart,
   onHome,
   onWrongReview,
+  onResume,
+  interim = false,
   questionHistory = null,
 }) {
   const [showReview, setShowReview] = useState(false);
@@ -118,11 +120,18 @@ export default function Results({
           <>
             <div className="results__grade">{scaledScore}</div>
             <div className="results__label">
-              {passed ? '✓ PASS' : '✗ DID NOT PASS'}
+              {interim
+                ? passed
+                  ? 'On pace to pass'
+                  : 'Below passing pace'
+                : passed
+                  ? '✓ PASS'
+                  : '✗ DID NOT PASS'}
             </div>
             <div className="results__detail">
-              Scaled score · passing = {PASSING_SCALED_SCORE} · {totalCorrect}/
-              {answered.length} correct ({pct}%)
+              {interim ? 'Interim scaled score' : 'Scaled score'} · passing ={' '}
+              {PASSING_SCALED_SCORE} · {totalCorrect}/{answered.length} correct
+              so far ({pct}%)
             </div>
           </>
         )}
@@ -242,12 +251,19 @@ export default function Results({
             Review {wrongCount} Wrong Answer{wrongCount > 1 ? 's' : ''} →
           </button>
         )}
-        <button className="btn btn--secondary" onClick={onRestart}>
-          {isPractice ? 'New Session' : 'Retake Exam'}
+        {onRestart && (
+          <button className="btn btn--secondary" onClick={onRestart}>
+            {isPractice ? 'New Session' : 'Retake Exam'}
+          </button>
+        )}
+        <button className="btn btn--primary" onClick={onResume || onHome}>
+          {onResume ? 'Resume Exam →' : 'Home'}
         </button>
-        <button className="btn btn--primary" onClick={onHome}>
-          Home
-        </button>
+        {onResume && (
+          <button className="btn btn--ghost" onClick={onHome}>
+            Home
+          </button>
+        )}
       </div>
     </div>
   );

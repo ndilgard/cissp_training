@@ -40,8 +40,8 @@ export default function HomeScreen({
           Start passing.
         </h1>
         <p>
-          {questionCount} adaptive practice questions across all 8 CISSP
-          domains — built for how the real exam tests you.
+          {questionCount} adaptive practice questions across all 8 CISSP domains
+          — built for how the real exam tests you.
         </p>
       </div>
 
@@ -76,7 +76,7 @@ export default function HomeScreen({
           </div>
           <h2>Exam Mode</h2>
           <p>
-            Full CAT simulation · 100–150 adaptive questions · 3-hour timer ·
+            Full CAT simulation · 100 adaptive questions · 3-hour timer ·
             Pass/Fail verdict
           </p>
           <ul className="mode-card__features">

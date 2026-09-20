@@ -288,6 +288,11 @@ body {
   justify-content: space-between;
   gap: 16px;
 }
+.exam-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .exam-header__title {
   font-size: 15px;
   font-weight: 700;
@@ -895,13 +900,6 @@ body {
 .q-timer-label--urgent {
   color: var(--fail);
   font-weight: 700;
-}
-
-/* ── Finish early button ── */
-.finish-early {
-  display: flex;
-  justify-content: center;
-  margin-top: 16px;
 }
 
 /* ── Review screen ── */
