@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Flag } from 'lucide-react';
+import { Flag, Pause } from 'lucide-react';
 import Question from './Question.jsx';
 import Timer from './Timer.jsx';
 import Results from './Results.jsx';
@@ -15,6 +15,7 @@ import {
   getDomainBreakdown,
   getDifficultyBreakdown,
   shuffleOptions,
+  EXAM_QUESTION_COUNT,
 } from '../utils/cat.js';
 import {
   getSeenIds,
@@ -58,7 +59,7 @@ export default function ExamMode({ onHome }) {
     ];
   });
   const [selected, setSelected] = useState(null);
-  // 'resume' | 'exam' | 'review' | 'results'
+  // 'resume' | 'exam' | 'paused' | 'review' | 'results'
   const [phase, setPhase] = useState(() => (savedProgress ? 'resume' : 'exam'));
   const [scaledScore, setScaledScore] = useState(0);
   const [timedOut, setTimedOut] = useState(false);
@@ -75,7 +76,7 @@ export default function ExamMode({ onHome }) {
   // lose it — mirrors PracticeMode's approach. usedIds is a Set, so it's
   // converted to an array for JSON storage.
   useEffect(() => {
-    if (phase !== 'exam' && phase !== 'review') return;
+    if (phase !== 'exam' && phase !== 'review' && phase !== 'paused') return;
     saveExamProgress({
       phase,
       catState: { ...catState, usedIds: [...catState.usedIds] },
@@ -236,16 +237,18 @@ export default function ExamMode({ onHome }) {
     );
   }
 
-  function handleFinishEarly() {
-    // Save current selection if any
-    const updatedHistory =
-      selected !== null
-        ? questionHistory.map((e, i) =>
-            i === currentIdx ? { ...e, selectedAnswer: selected } : e,
-          )
-        : questionHistory;
-    setQHistory(updatedHistory);
-    setPhase('review');
+  function handlePause() {
+    setPhase('paused');
+  }
+
+  function handleResumeFromPause() {
+    // Pausing unmounts <Timer> (the 'paused' phase renders a different screen
+    // entirely), so resuming mounts a fresh Timer instance that reads its
+    // starting point from examTotalSeconds. Without this sync, that state was
+    // never updated from the tick-tracking ref, so every pause/resume silently
+    // reset the clock back to the full exam duration.
+    setExamTotalSeconds(remainingSecondsRef.current);
+    setPhase('exam');
   }
 
   // Review screen callbacks
@@ -309,6 +312,37 @@ export default function ExamMode({ onHome }) {
     );
   }
 
+  if (phase === 'paused') {
+    const answeredSoFar = catState.answered;
+    if (answeredSoFar.length === 0) {
+      return (
+        <div className="setup-card">
+          <h2>Exam Paused</h2>
+          <p className="setup-card__sub">
+            Answer at least one question to see an interim score.
+          </p>
+          <button
+            className="btn btn--primary btn--full"
+            onClick={handleResumeFromPause}
+          >
+            Resume Exam →
+          </button>
+        </div>
+      );
+    }
+    return (
+      <Results
+        answered={answeredSoFar}
+        scaledScore={calculateScaledScore(catState)}
+        isPractice={false}
+        interim
+        onResume={handleResumeFromPause}
+        onHome={onHome}
+        questionHistory={questionHistory.slice(0, answeredSoFar.length)}
+      />
+    );
+  }
+
   if (phase === 'review') {
     return (
       <ExamReview
@@ -334,15 +368,19 @@ export default function ExamMode({ onHome }) {
   }
 
   const questionNumber = currentIdx + 1;
-  const canFinishEarly = catState.answered.length >= 100;
   const flagCount = questionHistory.filter((e) => e.flagged).length;
 
   return (
     <div className="exam-layout">
       <header className="exam-header">
-        <button className="btn btn--ghost" onClick={onHome}>
-          ← Menu
-        </button>
+        <div className="exam-header__nav">
+          <button className="btn btn--ghost" onClick={onHome}>
+            ← Menu
+          </button>
+          <button className="btn btn--ghost" onClick={handlePause}>
+            <Pause size={13} strokeWidth={2} /> Pause
+          </button>
+        </div>
         <div className="exam-header__title">CISSP Exam Simulation</div>
         <Timer
           totalSeconds={examTotalSeconds}
@@ -369,7 +407,7 @@ export default function ExamMode({ onHome }) {
         <Question
           question={currentEntry?.question}
           questionNumber={questionNumber}
-          totalQuestions={150}
+          totalQuestions={EXAM_QUESTION_COUNT}
           selected={selected}
           onSelect={setSelected}
           showResult={false}
@@ -378,14 +416,6 @@ export default function ExamMode({ onHome }) {
           isFlagged={currentEntry?.flagged || false}
           onFlag={handleToggleFlag}
         />
-
-        {canFinishEarly && (
-          <div className="finish-early">
-            <button className="btn btn--secondary" onClick={handleFinishEarly}>
-              Finish &amp; Review Answers →
-            </button>
-          </div>
-        )}
       </main>
     </div>
   );

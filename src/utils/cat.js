@@ -1,5 +1,5 @@
 // Simplified Computerized Adaptive Testing (CAT) engine
-// Mimics ISC2's adaptive format: 100–150 questions, difficulty adjusts on performance
+// Fixed-length 100-question exam; difficulty adjusts on performance
 
 import { DOMAIN_WEIGHTS } from '../data/questions.js';
 
@@ -18,8 +18,7 @@ export function shuffleOptions(q) {
   };
 }
 
-const MIN_QUESTIONS = 100;
-const MAX_QUESTIONS = 150;
+export const EXAM_QUESTION_COUNT = 100;
 export const PASSING_SCALED_SCORE = 700;
 
 // Item Response Theory-inspired ability estimation (simplified)
@@ -37,13 +36,20 @@ export function initialState() {
 // Update ability estimate after each answer
 export function updateTheta(theta, correct, difficulty) {
   const difficultyOffset = (difficulty - 2) * 0.8; // map 1/2/3 → -0.8/0/0.8
-  const delta = correct ? 0.3 : -0.3;
+  // Wrong answers cost more than right answers earn. Without this asymmetry,
+  // >32% accuracy at max difficulty was enough to ratchet theta to the ceiling
+  // and never release — pinning users at Advanced for the whole exam even at a
+  // realistic ~70% accuracy (the bug: 56/59 questions landing at Advanced despite
+  // only 71% accuracy there). This calibration targets ~55-65% accuracy as the
+  // equilibrium needed to hold a difficulty level, so a real ~70% scorer settles
+  // near Advanced without getting permanently stuck there after a few lucky answers.
+  const delta = correct ? 0.3 : -0.5;
   // Correct: harder questions reward more (difficultyOffset scales up with delta).
   // Incorrect: easier questions should PENALIZE MORE (missing an easy question is the
   // stronger signal you're overestimated) — same-signed scaling as the correct branch,
   // not inverted.
   const adjusted =
-    theta + delta + (correct ? difficultyOffset * 0.2 : difficultyOffset * 0.1);
+    theta + delta + (correct ? difficultyOffset * 0.1 : difficultyOffset * 0.05);
   return Math.max(-3, Math.min(3, adjusted));
 }
 
@@ -108,21 +114,9 @@ function theta2difficulty(theta) {
   return 2;
 }
 
-// After each answer, check if we can confidently terminate early
+// Exam ends once the fixed question count is reached
 export function shouldTerminate(state) {
-  const n = state.answered.length;
-  if (n < MIN_QUESTIONS) return false;
-  if (n >= MAX_QUESTIONS) return true;
-
-  // Terminate early if ability estimate is very stable (consistently above or below pass threshold)
-  const recent = state.answered.slice(-15);
-  const recentCorrect = recent.filter((a) => a.correct).length;
-
-  if (n >= 100) {
-    if (state.theta > 1.2 && recentCorrect >= 11) return true; // clearly passing
-    if (state.theta < -1.2 && recentCorrect <= 4) return true; // clearly failing
-  }
-  return false;
+  return state.answered.length >= EXAM_QUESTION_COUNT;
 }
 
 // Calculate final scaled score (200–1000 scale, passing = 700)
