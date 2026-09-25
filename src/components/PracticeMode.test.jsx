@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import PracticeMode from './PracticeMode.jsx';
@@ -7,6 +7,7 @@ import {
   getPracticeProgress,
 } from '../utils/progress.js';
 import { getSessions } from '../utils/sessions.js';
+import { markSeen, getSeenCount } from '../utils/history.js';
 
 const FAKE_POOL = [
   {
@@ -95,5 +96,42 @@ describe('PracticeMode resume flow', () => {
       correct: 1,
       total: 1,
     });
+  });
+});
+
+describe('Reset history confirmation', () => {
+  it('does NOT wipe seen-question history if the confirm dialog is declined', async () => {
+    markSeen(['fake_1', 'fake_2']);
+    expect(getSeenCount()).toBe(2);
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    render(<PracticeMode onHome={() => {}} onWrongReview={() => {}} />);
+    await userEvent.click(
+      screen.getByRole('button', { name: /Reset history/ }),
+    );
+
+    expect(confirmSpy).toHaveBeenCalled();
+    expect(getSeenCount()).toBe(2);
+    expect(
+      screen.getByRole('button', { name: /Reset history/ }),
+    ).toBeInTheDocument();
+    confirmSpy.mockRestore();
+  });
+
+  it('wipes seen-question history once the confirm dialog is accepted', async () => {
+    markSeen(['fake_1', 'fake_2']);
+    expect(getSeenCount()).toBe(2);
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    render(<PracticeMode onHome={() => {}} onWrongReview={() => {}} />);
+    await userEvent.click(
+      screen.getByRole('button', { name: /Reset history/ }),
+    );
+
+    expect(getSeenCount()).toBe(0);
+    expect(
+      screen.queryByRole('button', { name: /Reset history/ }),
+    ).not.toBeInTheDocument();
+    confirmSpy.mockRestore();
   });
 });
