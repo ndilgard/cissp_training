@@ -198,9 +198,22 @@ describe('selectNextQuestion', () => {
     expect(next.id).toBe('q3');
   });
 
-  it('prioritizes a question with unresolved wrong-answer weight', () => {
+  it('never resurfaces a wrong-weighted question while unseen questions remain (regression: was overriding seen-avoidance)', () => {
     const state = initialState();
-    const next = selectNextQuestion(pool, state, new Set(), { q2: 3 });
+    // q2 has been seen before AND has unresolved wrong-answer weight; q1/q3
+    // are unseen. The unseen ones must win every time — wrong-weight
+    // resurfacing must not jump the line while fresh questions exist.
+    for (let i = 0; i < 20; i++) {
+      const next = selectNextQuestion(pool, state, new Set(['q2']), { q2: 3 });
+      expect(next.id).not.toBe('q2');
+    }
+  });
+
+  it('prioritizes a question with unresolved wrong-answer weight once the bank is exhausted (all seen)', () => {
+    const state = initialState();
+    const next = selectNextQuestion(pool, state, new Set(['q1', 'q2', 'q3']), {
+      q2: 3,
+    });
     expect(next.id).toBe('q2');
   });
 });

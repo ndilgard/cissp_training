@@ -49,12 +49,17 @@ export function updateTheta(theta, correct, difficulty) {
   // stronger signal you're overestimated) — same-signed scaling as the correct branch,
   // not inverted.
   const adjusted =
-    theta + delta + (correct ? difficultyOffset * 0.1 : difficultyOffset * 0.05);
+    theta +
+    delta +
+    (correct ? difficultyOffset * 0.1 : difficultyOffset * 0.05);
   return Math.max(-3, Math.min(3, adjusted));
 }
 
-// Pick the best next question: closest difficulty to current ability, domain-balanced,
-// unseen preferred, previously-wrong questions get a boost.
+// Pick the best next question: closest difficulty to current ability, domain-balanced.
+// HARD CONSTRAINT: never resurface an already-seen question while unseen ones remain
+// in the bank — an exam should not repeat questions until you've genuinely exhausted
+// all 3000+. Previously-wrong-answer resurfacing is a secondary preference that only
+// applies once you fall back to the seen pool (i.e. the bank really is exhausted).
 // seenIds: cross-session history from localStorage (optional)
 // wrongWeights: { questionId: wrongCount } from spaced repetition
 export function selectNextQuestion(
@@ -66,20 +71,23 @@ export function selectNextQuestion(
   const available = questions.filter((q) => !state.usedIds.has(q.id));
   if (available.length === 0) return null;
 
-  // Questions answered incorrectly in a past session must resurface until
-  // answered correctly enough to clear their weight (see history.js) — this
-  // takes priority over domain/difficulty balancing, not just a scoring boost.
-  const unresolvedWrong = available.filter(
-    (q) => (wrongWeights[q.id] || 0) > 0,
-  );
-  if (unresolvedWrong.length > 0) {
-    const topN = Math.min(3, unresolvedWrong.length);
-    return unresolvedWrong[Math.floor(Math.random() * topN)];
-  }
-
-  // Prefer questions not yet seen across sessions; fall back to seen if pool exhausted
+  // Prefer questions not yet seen across sessions — hard gate, not a soft boost.
+  // A question can only carry wrong-answer weight if it's already been seen, so
+  // this naturally excludes all wrong-weighted questions until the unseen pool
+  // itself is empty.
   const unseen = available.filter((q) => !seenIds.has(q.id));
   const pool = unseen.length > 0 ? unseen : available;
+
+  if (unseen.length === 0) {
+    // Bank exhausted for this user (every available question has been seen
+    // before) — now it's fair to prioritize resurfacing previously-wrong
+    // questions over other seen ones, same as before.
+    const unresolvedWrong = pool.filter((q) => (wrongWeights[q.id] || 0) > 0);
+    if (unresolvedWrong.length > 0) {
+      const topN = Math.min(3, unresolvedWrong.length);
+      return unresolvedWrong[Math.floor(Math.random() * topN)];
+    }
+  }
 
   // Target difficulty based on theta
   const targetDiff = theta2difficulty(state.theta);
