@@ -237,6 +237,15 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   }
 
   function handleResetHistory() {
+    if (
+      !confirm(
+        'Reset seen/wrong-answer history? This wipes which questions you\'ve ' +
+          'already seen across Practice and Exam mode — future sim exams will ' +
+          'start drawing from the full question bank again as if you were new. ' +
+          'This cannot be undone.',
+      )
+    )
+      return;
     resetHistory();
     setSeenCount(0);
     setWrongOnly(false);
