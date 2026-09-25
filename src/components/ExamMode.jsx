@@ -147,8 +147,17 @@ export default function ExamMode({ onHome }) {
       correct: entry.selectedAnswer === entry.question.answer,
     }));
 
-    markSeen(answered.map((a) => a.questionId));
-    updateWrongAnswers(answered);
+    // seen/wrong tracking is now persisted per-question in handleNext() as
+    // each answer is recorded — not repeated here to avoid double-counting
+    // wrong-answer weights (updateWrongAnswers increments/decays by 1 per call).
+    // Exception: a timed-out exam's LAST (unanswered) question never went
+    // through handleNext, so it's still unrecorded — mark it seen (but not as
+    // a wrong-answer weight bump, since the user never actually saw/attempted
+    // it before time ran out).
+    const lastEntry = history[history.length - 1];
+    if (lastEntry && lastEntry.selectedAnswer === null) {
+      markSeen([lastEntry.question.id]);
+    }
 
     const score = calculateScaledScore(state);
     setScaledScore(score);
@@ -184,15 +193,18 @@ export default function ExamMode({ onHome }) {
       correct,
       currentEntry.question.difficulty,
     );
-    const newAnswered = [
-      ...catState.answered,
-      {
-        questionId: currentEntry.question.id,
-        domain: currentEntry.question.domain,
-        difficulty: currentEntry.question.difficulty,
-        correct,
-      },
-    ];
+    const answeredEntry = {
+      questionId: currentEntry.question.id,
+      domain: currentEntry.question.domain,
+      difficulty: currentEntry.question.difficulty,
+      correct,
+    };
+    // Persist seen/wrong tracking per-question (not just at submitExam) so a
+    // paused-then-discarded exam doesn't silently lose credit for everything
+    // already answered — mirrors PracticeMode's per-question persistence.
+    markSeen([answeredEntry.questionId]);
+    updateWrongAnswers([answeredEntry]);
+    const newAnswered = [...catState.answered, answeredEntry];
     const newUsed = new Set(catState.usedIds);
     newUsed.add(currentEntry.question.id);
     const newState = {

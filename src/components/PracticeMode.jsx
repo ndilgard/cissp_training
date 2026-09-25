@@ -60,6 +60,7 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   const [questionCount, setCount] = useState(20);
   const [timeLimit, setTimeLimit] = useState(0);
   const [wrongOnly, setWrongOnly] = useState(false);
+  const [managerOnly, setManagerOnly] = useState(false);
   const [pool, setPool] = useState([]);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -109,6 +110,9 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     if (wrongOnly) {
       const wrongIds = getWrongIds();
       filtered = filtered.filter((q) => wrongIds.has(q.id));
+    }
+    if (managerOnly) {
+      filtered = filtered.filter((q) => q.isManagerJudgment);
     }
 
     // Spaced repetition ordering: wrong first (sorted by count), then unseen, then seen-correct
@@ -236,9 +240,16 @@ export default function PracticeMode({ onHome, onWrongReview }) {
     resetHistory();
     setSeenCount(0);
     setWrongOnly(false);
+    setManagerOnly(false);
   }
 
-  const { availableCount, unseenCount, wrongCount } = useMemo(() => {
+  const {
+    availableCount,
+    unseenCount,
+    wrongCount,
+    managerCount,
+    toggledCount,
+  } = useMemo(() => {
     const allQ = buildAllQuestions();
     let filtered = allQ;
     if (selectedDomain > 0)
@@ -247,16 +258,27 @@ export default function PracticeMode({ onHome, onWrongReview }) {
       filtered = filtered.filter((q) => q.difficulty === selectedDiff);
     const seenIds = getSeenIds();
     const wrongIds = getWrongIds();
+
+    // toggledCount applies the active wrongOnly/managerOnly checkboxes on
+    // top of the domain/difficulty filter, so the question-count slider and
+    // Start button reflect the real pool size when either or both are on —
+    // mirrors the AND-filter logic in startPractice().
+    let toggled = filtered;
+    if (wrongOnly) toggled = toggled.filter((q) => wrongIds.has(q.id));
+    if (managerOnly) toggled = toggled.filter((q) => q.isManagerJudgment);
+
     return {
       availableCount: filtered.length,
       unseenCount: filtered.filter((q) => !seenIds.has(q.id)).length,
       wrongCount: filtered.filter((q) => wrongIds.has(q.id)).length,
+      managerCount: filtered.filter((q) => q.isManagerJudgment).length,
+      toggledCount: toggled.length,
     };
     // seenCount isn't read directly above, but getSeenIds()/getWrongIds() read
     // from localStorage, not React state — seenCount is the recompute trigger
     // for when handleResetHistory() clears that history.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDomain, selectedDiff, seenCount]);
+  }, [selectedDomain, selectedDiff, seenCount, wrongOnly, managerOnly]);
 
   if (phase === 'resume') {
     const answeredCount = savedProgress?.answered?.length || 0;
@@ -284,7 +306,8 @@ export default function PracticeMode({ onHome, onWrongReview }) {
   }
 
   if (phase === 'setup') {
-    const effectiveAvailable = wrongOnly ? wrongCount : availableCount;
+    const effectiveAvailable =
+      wrongOnly || managerOnly ? toggledCount : availableCount;
     return (
       <div className="setup-card">
         <h2>Practice Mode</h2>
@@ -350,6 +373,20 @@ export default function PracticeMode({ onHome, onWrongReview }) {
           </label>
         )}
 
+        {managerCount > 0 && (
+          <label className="toggle-row">
+            <input
+              type="checkbox"
+              checked={managerOnly}
+              onChange={(e) => setManagerOnly(e.target.checked)}
+            />
+            <span>
+              "Think like a manager" scenarios only{' '}
+              <span className="badge-new">{managerCount} questions</span>
+            </span>
+          </label>
+        )}
+
         <div className="form-group">
           <label>Number of Questions</label>
           <input
@@ -374,6 +411,12 @@ export default function PracticeMode({ onHome, onWrongReview }) {
           {wrongCount > 0 && (
             <span className="stat stat--wrong">
               <span className="stat__num">{wrongCount}</span> need review
+            </span>
+          )}
+          {managerCount > 0 && (
+            <span className="stat">
+              <span className="stat__num">{managerCount}</span> manager
+              scenarios
             </span>
           )}
           {seenCount > 0 && (
